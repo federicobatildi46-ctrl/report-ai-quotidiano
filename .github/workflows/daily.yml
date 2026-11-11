@@ -52,6 +52,15 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: uv run digest daily ${{ inputs.no_send && '--no-send' || '' }}
 
+      - name: Conserva i dati grezzi (7 giorni, per capire eventuali problemi)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: raccolta-${{ github.run_id }}
+          path: data/raw/
+          retention-days: 7
+          if-no-files-found: ignore
+
       - name: Salva report e memoria nel repo
         run: |
           git config user.name "report-ai-bot"

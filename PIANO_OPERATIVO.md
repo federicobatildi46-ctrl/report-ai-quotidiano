@@ -9,7 +9,8 @@
 per imprenditori e professionisti (siti e SEO, social e personal brand, video e caroselli, ads,
 agenti AI anche vocali, automazioni). Il report serve a **formarmi** e a **produrre contenuti**.
 
-Stato: **Fasi 0–3 completate** · decisioni prese l'11/11/2026 (§8) · prossimo passo: Fase 4 (cloud).
+Stato: **Fasi 0–4 completate: il report arriva da solo ogni mattina** · decisioni prese
+l'11/11/2026 (§8) · prossimo passo: Fase 5 (app locale).
 
 ---
 
@@ -149,7 +150,7 @@ viene scartata o segnalata.
 | **1. Raccolta** ✅ | Collector RSS/Atom, sitemap, pagine a sezioni, YouTube (+ Shorts, trascrizioni), GitHub (con filtro antispam), Hacker News, LinkedIn via Apify; memoria anti-doppioni | `uv run digest collect` → 23 fonti, 85 elementi su 72 h di prova, 0 errori |
 | **2. Cervello** ✅ | Selezione + scrittura con `claude -p` (Sonnet, JSON validato, senza connettori), link testati, badge corretti dal codice, anteprima Markdown | `uv run digest build` → 25 notizie da 84 elementi, ~12 min di lettura, ~1,5 min di esecuzione |
 | **3. Report + email** ✅ | HTML adatto a Gmail (stili inline, 45 KB, provato su desktop e telefono) · invio SMTP porta 587 da me a me | Email di prova inviata e accettata da Gmail l'11/11/2026 |
-| **4. Cloud** | Workflow GitHub Actions alle 7:30, segreti nel repo, commit automatico dei report | Report nell'email ogni mattina con il PC spento |
+| **4. Cloud** ✅ | Workflow GitHub Actions alle 06:00 UTC (7:00 inverno / 8:00 estate), segreti nel repo, commit automatico di report e memoria, dati grezzi conservati 7 giorni | Esecuzione cloud dell'11/11/2026: 49 elementi, 14 notizie, email inviata, trascrizioni YouTube ok, ~4 minuti |
 | **5. App locale** | Server locale, report, archivio, `git pull` all'avvio | Apro `localhost:8787` e leggo |
 | **6. Generatori** | Lezione (in app + file) · Post LinkedIn · Script Shorts (italiano, max 60 s) | Click → contenuto salvato e pushato |
 | **7. Voce e immagine** | Guida di stile dai miei post (Apify) + immagini col mio Soul (Higgsfield) | Post che suonano come me + immagine con me |
@@ -162,9 +163,12 @@ Ogni fase si chiude solo quando il suo risultato è stato provato davvero.
 
 ## 7. Rischi noti
 
-- **YouTube può bloccare i server di GitHub** quando si scaricano i sottotitoli ("conferma di non
-  essere un bot"). Piano B: un attore Apify per le trascrizioni (pochi centesimi) oppure riassunto
-  da titolo + descrizione, marcato come tale.
+- **YouTube potrebbe bloccare i server di GitHub** sui sottotitoli. Verificato l'11/11/2026: per
+  ora funziona. Il log stampa "video con trascrizione: X/Y": se scende a 0, piano B = attore
+  Apify per le trascrizioni (pochi centesimi). Intanto il codice ripiega sulla descrizione.
+- **Il token Claude del cloud** (da `claude setup-token`) dura a lungo ma non per sempre: se
+  l'esecuzione fallisce con "Not logged in", rigenerarlo e aggiornarlo con
+  `gh secret set CLAUDE_CODE_OAUTH_TOKEN`.
 - **LinkedIn non ha API di lettura gratuite** → Apify, a basso volume e solo post pubblici
   (lo scraping è contro i termini di LinkedIn: rischio basso ma esiste).
 - **Pubblicare su LinkedIn via API** richiede un'app su LinkedIn Developers, che va associata a una

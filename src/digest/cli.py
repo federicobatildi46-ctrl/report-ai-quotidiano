@@ -107,8 +107,10 @@ def _daily(args) -> int:
     state = SeenState.load()
     raw_path, payload = asyncio.run(collect(state=state))
     errors = [s["source"] for s in payload["stats"] if s["error"]]
+    videos = [i for i in payload["items"] if i["kind"] in ("video", "short")]
     print(f"Raccolta: {len(payload['items'])} elementi"
-          + (f" · fonti in errore: {', '.join(errors)}" if errors else ""))
+          + (f" · fonti in errore: {', '.join(errors)}" if errors else "")
+          + f" · video con trascrizione: {sum(bool(v['meta'].get('transcript')) for v in videos)}/{len(videos)}")
 
     report_path, report = build(raw_path)
     print(f"Report: {report['stats']['stories']} notizie · ~{report['reading_minutes']} min")
