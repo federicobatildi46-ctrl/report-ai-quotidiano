@@ -8,13 +8,14 @@ import json
 import os
 import smtplib
 import ssl
+from datetime import date
 from email.message import EmailMessage
 from email.utils import formataddr
 from pathlib import Path
 
 from digest import REPORTS_DIR
 from digest.build import to_markdown, write_html
-from digest.render import data_italiana
+from digest.render import MESI
 
 # Porta 587 + STARTTLS: sulla 465 Avast (Mail Shield) intercetta la connessione con un certificato
 # "Untrusted Root" che giustamente viene rifiutato; la 587 passa con verifica completa.
@@ -37,11 +38,9 @@ def build_message(report_path: Path, sender: str, to: str) -> EmailMessage:
     report = json.loads(report_path.read_text(encoding="utf-8"))
     html = write_html(report_path).read_text(encoding="utf-8")   # sempre con l'ultimo layout
 
-    s = report["stats"]
-    first = report["in_breve"][0] if report["in_breve"] else ""
+    d = date.fromisoformat(report["date"])
     msg = EmailMessage()
-    msg["Subject"] = (f"Report AI · {data_italiana(report['date'])} · {s['stories']} notizie"
-                      + (f" — {first[:70]}…" if len(first) > 70 else f" — {first}" if first else ""))
+    msg["Subject"] = f"Report AI {d.day} {MESI[d.month - 1]} {d.year}"   # es. "Report AI 11 novembre 2026"
     msg["From"] = formataddr(("Report AI", sender))
     msg["To"] = to
     msg.set_content(to_markdown(report))          # versione testo, per client senza HTML

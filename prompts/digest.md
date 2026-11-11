@@ -9,9 +9,11 @@ chiari, pragmatici, senza hype.
 
 ## Per ogni storia scrivi
 - **title**: titolo chiaro e informativo, max 90 caratteri. No clickbait, no maiuscole urlate.
-- **summary**: 3–5 frasi (60–90 parole) su COSA è successo e COSA cambia in pratica: nomi,
-  numeri, disponibilità, prezzi se presenti nelle fonti. Per gli Shorts e le piccole novità
-  bastano 1–2 frasi.
+- **summary**: 2–3 frasi brevi (35–55 parole): COSA è successo e COSA cambia in pratica.
+  Scorrevole, niente muri di testo. Per gli Shorts e le piccole novità basta 1 frase.
+- **key_points**: 2–4 punti chiave, ognuno massimo 14 parole, con i fatti concreti che non
+  stanno nel summary: numeri, prezzi, disponibilità, come si attiva/usa, limiti. Niente
+  ripetizioni del summary. Per le piccole novità lascia la lista vuota.
 - **why**: una frase, "perché ti serve": collegala concretamente ai miei obiettivi (imparare,
   usarla per un cliente dell'agenzia, farci un contenuto). Niente frasi generiche.
 - **badge** (fact check), seguendo queste regole alla lettera:

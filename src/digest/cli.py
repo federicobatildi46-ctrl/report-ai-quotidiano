@@ -97,6 +97,37 @@ def _send(args) -> int:
     return 0
 
 
+def _daily(args) -> int:
+    """Il giro completo del mattino: raccolta → report → email → memoria aggiornata."""
+    from digest.build import build
+    from digest.collect import collect
+    from digest.send import SendError, send
+    from digest.state import SeenState
+
+    state = SeenState.load()
+    raw_path, payload = asyncio.run(collect(state=state))
+    errors = [s["source"] for s in payload["stats"] if s["error"]]
+    print(f"Raccolta: {len(payload['items'])} elementi"
+          + (f" · fonti in errore: {', '.join(errors)}" if errors else ""))
+
+    report_path, report = build(raw_path)
+    print(f"Report: {report['stats']['stories']} notizie · ~{report['reading_minutes']} min")
+
+    if args.no_send:
+        print("Invio saltato (--no-send)")
+    else:
+        try:
+            _, to = send(report_path)
+            print(f"Email inviata a {to}")
+        except SendError as e:
+            print(f"Invio non riuscito: {e}")
+            return 1
+
+    state.save()   # solo ora: se qualcosa fallisce prima, domani le notizie non vanno perse
+    print("Memoria aggiornata (data/seen.json)")
+    return 0
+
+
 def main() -> None:
     sys.stdout.reconfigure(encoding="utf-8")
     load_dotenv(ROOT / ".env")
@@ -115,8 +146,9 @@ def main() -> None:
     p = sub.add_parser("send", help="invia il report via Gmail")
     p.add_argument("--report", help="file JSON del report (default: l'ultimo in reports/)")
     p.add_argument("--to", help="destinatario (default: REPORT_TO o GMAIL_ADDRESS)")
-    for name, phase in [("daily", 4), ("serve", 5)]:
-        sub.add_parser(name, help=f"(Fase {phase}, non ancora implementato)")
+    p = sub.add_parser("daily", help="giro completo: collect + build + send (quello del cloud)")
+    p.add_argument("--no-send", action="store_true", help="non inviare l'email")
+    sub.add_parser("serve", help="(Fase 5, non ancora implementato)")
     args = parser.parse_args()
 
     if args.cmd == "check-sources":
@@ -129,5 +161,7 @@ def main() -> None:
         sys.exit(_render(args))
     if args.cmd == "send":
         sys.exit(_send(args))
+    if args.cmd == "daily":
+        sys.exit(_daily(args))
     print(f"'{args.cmd}' non è ancora implementato: vedi PIANO_OPERATIVO.md, §6.")
     sys.exit(2)

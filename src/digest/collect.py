@@ -35,11 +35,15 @@ async def _run_source(ctx: Ctx) -> dict:
 
 
 async def collect(hours: int | None = None, dry_run: bool = False,
-                  only: list[str] | None = None) -> tuple[Path, dict]:
+                  only: list[str] | None = None,
+                  state: SeenState | None = None) -> tuple[Path, dict]:
+    """Con `state` passato dal chiamante la memoria NON viene salvata qui: la salva lui
+    (es. `daily` la salva solo dopo che report e invio sono riusciti)."""
+    caller_saves = state is not None
     hours = hours or default_lookback()
     now = datetime.now(UTC)
     since = now - timedelta(hours=hours)
-    state = SeenState.load()
+    state = state or SeenState.load()
 
     async with make_client() as client:
         ctxs = [Ctx(client=client, src=src, section=section, since=since, state=state)
@@ -68,6 +72,6 @@ async def collect(hours: int | None = None, dry_run: bool = False,
     RAW_DIR.mkdir(parents=True, exist_ok=True)
     out = RAW_DIR / f"items-{now.date().isoformat()}.json"
     out.write_text(to_json(payload), encoding="utf-8")
-    if not dry_run:
+    if not dry_run and not caller_saves:
         state.save()
     return out, payload

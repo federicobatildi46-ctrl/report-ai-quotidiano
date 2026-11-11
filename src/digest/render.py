@@ -52,6 +52,9 @@ def _item(it: dict) -> str:
         f'<div style="margin:0 0 8px">{_badge(it["badge"])}'
         f'<span style="color:{MUTED};font-size:12px"> {escape(it["badge_note"])}</span></div>'
         f'<div style="font-size:15px;line-height:1.55;color:{INK};margin:0 0 8px">{escape(it["summary"])}</div>'
+        + (f'<ul style="margin:0 0 10px;padding:0 0 0 20px;font-size:14px;line-height:1.5;color:{INK}">'
+           + "".join(f'<li style="margin:0 0 3px">{escape(p)}</li>' for p in it.get("key_points", []))
+           + '</ul>' if it.get("key_points") else "") +
         f'<div style="font-size:14px;line-height:1.5;color:{INK};background:{BG};border-radius:6px;'
         f'padding:8px 10px;margin:0 0 8px"><b>Perché ti serve:</b> {escape(it["why"])}</div>'
         f'<div style="font-size:12px;color:{MUTED}">Fonti: {sources}</div>'

@@ -167,13 +167,14 @@ def write_schema(n: int) -> dict:
                     "story": {"type": "integer"},
                     "title": {"type": "string"},
                     "summary": {"type": "string"},
+                    "key_points": {"type": "array", "items": {"type": "string"}},
                     "why": {"type": "string"},
                     "badge": {"type": "string", "enum": BADGES},
                     "badge_note": {"type": "string"},
                     "subsection": {"type": "string"},
                     "importance": {"type": "integer", "minimum": 1, "maximum": 3},
                 },
-                "required": ["story", "title", "summary", "why", "badge", "badge_note",
+                "required": ["story", "title", "summary", "key_points", "why", "badge", "badge_note",
                              "subsection", "importance"],
             }},
         },
@@ -296,7 +297,9 @@ def build(input_path: Path | None = None, model: str | None = None) -> tuple[Pat
             "id": f"{date}-{n:02d}",
             "subsection": sub,
             "subsection_label": sub_labels.get(sub, sub),
-            "title": w["title"], "summary": w["summary"], "why": w["why"],
+            "title": w["title"], "summary": w["summary"],
+            "key_points": [p for p in w.get("key_points", []) if p.strip()][:4],
+            "why": w["why"],
             "badge": fix_badge(w["badge"], usable), "badge_note": w["badge_note"],
             "importance": w["importance"],
             "primary_url": usable[0]["url"],
@@ -305,7 +308,7 @@ def build(input_path: Path | None = None, model: str | None = None) -> tuple[Pat
     for sec in sections.values():
         sec["items"].sort(key=lambda i: i["importance"])
 
-    words = sum(len((i["title"] + " " + i["summary"] + " " + i["why"]).split())
+    words = sum(len(" ".join([i["title"], i["summary"], i["why"], *i["key_points"]]).split())
                 for sec in sections.values() for i in sec["items"])
     report = {
         "title": topics["report"]["title"],
@@ -362,6 +365,7 @@ def to_markdown(r: dict) -> str:
             tag = f"{it['subsection_label']} · " if it["subsection_label"] else ""
             out += [f"### {it['title']}",
                     f"*{tag}{BADGE_LABEL[it['badge']]}* — {it['badge_note']}", "",
-                    it["summary"], "", f"**Perché ti serve:** {it['why']}", "",
+                    it["summary"], "", *[f"- {p}" for p in it.get("key_points", [])],
+                    "", f"**Perché ti serve:** {it['why']}", "",
                     "Fonti: " + " · ".join(f"[{s['name']}]({s['url']})" for s in it["sources"]), ""]
     return "\n".join(out)
