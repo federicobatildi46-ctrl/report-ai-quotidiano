@@ -72,6 +72,31 @@ def _build(args) -> int:
     return 0
 
 
+def _render(args) -> int:
+    from pathlib import Path
+
+    from digest.build import write_html
+    from digest.send import latest_report
+
+    out = write_html(Path(args.report) if args.report else latest_report())
+    print(f"HTML: {out.relative_to(ROOT)} ({out.stat().st_size // 1024} KB)")
+    return 0
+
+
+def _send(args) -> int:
+    from pathlib import Path
+
+    from digest.send import SendError, send
+
+    try:
+        path, to = send(Path(args.report) if args.report else None, to=args.to)
+    except SendError as e:
+        print(f"Invio non riuscito: {e}")
+        return 1
+    print(f"Inviato {path.name} a {to}")
+    return 0
+
+
 def main() -> None:
     sys.stdout.reconfigure(encoding="utf-8")
     load_dotenv(ROOT / ".env")
@@ -85,7 +110,12 @@ def main() -> None:
     p = sub.add_parser("build", help="Claude seleziona, scrive e verifica → reports/AAAA-MM-GG.json")
     p.add_argument("--input", help="file di raccolta (default: l'ultimo in data/raw)")
     p.add_argument("--model", help="modello Claude (default: report.model di topics.yaml)")
-    for name, phase in [("send", 3), ("daily", 4), ("serve", 5)]:
+    p = sub.add_parser("render", help="rigenera l'HTML di un report")
+    p.add_argument("--report", help="file JSON del report (default: l'ultimo in reports/)")
+    p = sub.add_parser("send", help="invia il report via Gmail")
+    p.add_argument("--report", help="file JSON del report (default: l'ultimo in reports/)")
+    p.add_argument("--to", help="destinatario (default: REPORT_TO o GMAIL_ADDRESS)")
+    for name, phase in [("daily", 4), ("serve", 5)]:
         sub.add_parser(name, help=f"(Fase {phase}, non ancora implementato)")
     args = parser.parse_args()
 
@@ -95,5 +125,9 @@ def main() -> None:
         sys.exit(_collect(args))
     if args.cmd == "build":
         sys.exit(_build(args))
+    if args.cmd == "render":
+        sys.exit(_render(args))
+    if args.cmd == "send":
+        sys.exit(_send(args))
     print(f"'{args.cmd}' non è ancora implementato: vedi PIANO_OPERATIVO.md, §6.")
     sys.exit(2)

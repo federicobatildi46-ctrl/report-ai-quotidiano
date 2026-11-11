@@ -329,7 +329,17 @@ def build(input_path: Path | None = None, model: str | None = None) -> tuple[Pat
     out = REPORTS_DIR / f"{date}.json"
     out.write_text(to_json(report), encoding="utf-8")
     (REPORTS_DIR / f"{date}.md").write_text(to_markdown(report), encoding="utf-8")
+    write_html(out)
     return out, report
+
+
+def write_html(json_path: Path) -> Path:
+    from digest.render import to_html
+
+    report = json.loads(json_path.read_text(encoding="utf-8"))
+    html_path = json_path.with_suffix(".html")
+    html_path.write_text(to_html(report), encoding="utf-8")
+    return html_path
 
 
 BADGE_LABEL = {"ufficiale": "✅ Ufficiale", "confermata": "🔁 Confermata",

@@ -148,7 +148,7 @@ viene scartata o segnalata.
 | **0. Setup** ✅ | Struttura, config, ambiente `uv`, fonti verificate, repo GitHub | `uv run digest check-sources` → 24/24 |
 | **1. Raccolta** ✅ | Collector RSS/Atom, sitemap, pagine a sezioni, YouTube (+ Shorts, trascrizioni), GitHub (con filtro antispam), Hacker News, LinkedIn via Apify; memoria anti-doppioni | `uv run digest collect` → 23 fonti, 85 elementi su 72 h di prova, 0 errori |
 | **2. Cervello** ✅ | Selezione + scrittura con `claude -p` (Sonnet, JSON validato, senza connettori), link testati, badge corretti dal codice, anteprima Markdown | `uv run digest build` → 25 notizie da 84 elementi, ~12 min di lettura, ~1,5 min di esecuzione |
-| **3. Report + email** | Rendering HTML del report + invio a Gmail | Ricevo l'email con il report di prova |
+| **3. Report + email** 🟡 | HTML adatto a Gmail (stili inline, 45 KB, provato su desktop e telefono) ✅ · invio SMTP porta 587 ✅ · **prova di invio reale: attende la password per le app** | Ricevo l'email con il report di prova |
 | **4. Cloud** | Workflow GitHub Actions alle 7:30, segreti nel repo, commit automatico dei report | Report nell'email ogni mattina con il PC spento |
 | **5. App locale** | Server locale, report, archivio, `git pull` all'avvio | Apro `localhost:8787` e leggo |
 | **6. Generatori** | Lezione (in app + file) · Post LinkedIn · Script Shorts (italiano, max 60 s) | Click → contenuto salvato e pushato |

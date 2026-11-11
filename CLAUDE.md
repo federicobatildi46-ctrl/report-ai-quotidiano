@@ -41,5 +41,7 @@ registrata in `collectors/__init__.py`. Usa sempre `ctx.is_new(key)` prima di ar
 - Il report quotidiano gira su GitHub Actions; i generatori (lezione/post/Shorts) girano in locale
 
 ## Rete
-Su questo PC l'antivirus ispeziona l'HTTPS: Python usa `truststore` (iniettato in
+Su questo PC Avast ispeziona l'HTTPS: Python usa `truststore` (iniettato in
 `src/digest/__init__.py`), `uv` usa `system-certs = true` in pyproject.toml.
+Per l'email: Avast Mail Shield intercetta smtp.gmail.com:465 con un root "Untrusted" → si usa la
+porta 587 + STARTTLS (verifica completa). Non disattivare mai la verifica dei certificati.

@@ -78,11 +78,21 @@ Poi il codice testa ogni link e corregge i badge incoerenti. Risultato: `reports
 più un'anteprima leggibile `reports/AAAA-MM-GG.md`. Durata ~1,5 minuti.
 Opzioni: `--input file.json` (un'altra raccolta), `--model opus` (un altro modello).
 
+`build` crea anche `reports/AAAA-MM-GG.html`: lo apri con doppio click, ed è la stessa pagina
+che arriva per email.
+
+```bash
+uv run digest send
+```
+
+Invia l'ultimo report a Gmail, da te a te. Servono `GMAIL_ADDRESS` e `GMAIL_APP_PASSWORD` in
+`.env`. Opzioni: `--report reports/AAAA-MM-GG.json`, `--to altro@indirizzo`.
+`uv run digest render` rigenera solo l'HTML, utile se cambi la grafica in `src/digest/render.py`.
+
 Comandi delle fasi successive (non ancora implementati):
 
 | Comando | Fase | Cosa fa |
 |---------|------|---------|
-| `uv run digest send` | 3 | crea l'HTML del report e lo invia a Gmail |
 | `uv run digest daily` | 4 | collect + build + send: è quello che gira nel cloud ogni mattina |
 | `uv run digest serve` | 5 | app locale su http://localhost:8787 |
 
