@@ -118,11 +118,25 @@ gh secret set CLAUDE_CODE_OAUTH_TOKEN
 
 - **Sul PC:** prima di lavorare in locale fai `git pull` per avere gli ultimi report.
 
-Comandi delle fasi successive (non ancora implementati):
+## App locale
 
-| Comando | Fase | Cosa fa |
-|---------|------|---------|
-| `uv run digest serve` | 5 | app locale su http://localhost:8787 |
+Doppio click su **`scripts\avvia-app.bat`** (oppure `uv run digest serve`): scarica da GitHub i
+report del cloud e apre http://localhost:8787. Per chiuderla chiudi la finestra nera.
+
+- **A sinistra** l'archivio di tutti i report, **al centro** il report del giorno.
+- Sotto ogni notizia tre pulsanti:
+  - **🎓 Genera lezione**: guida pratica passo passo, con applicazione a un cliente e
+    mini-verifica;
+  - **💼 Post LinkedIn**: post pronto da incollare, 2 hook alternativi, prompt per l'immagine;
+  - **🎬 Script Short**: script da massimo 60 secondi in tabella (tempo, parlato, a schermo).
+- Ogni contenuto impiega 1-3 minuti, si apre nel pannello a destra (**Copia** / **Rigenera**), viene
+  salvato in `outputs/` e caricato su GitHub in automatico. Una volta creato, il pulsante diventa
+  "Apri".
+- Per il testo usa Claude Code col tuo abbonamento (modello in `config/topics.yaml` →
+  `generators.model`).
+
+Consiglio: crea un collegamento a `scripts\avvia-app.bat` sul desktop o sulla barra delle
+applicazioni.
 
 ## Struttura
 

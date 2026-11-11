@@ -130,6 +130,22 @@ def _daily(args) -> int:
     return 0
 
 
+def _serve(args) -> int:
+    import os
+    import threading
+    import webbrowser
+
+    import uvicorn
+
+    port = args.port or int(os.getenv("DIGEST_PORT", "8787"))
+    url = f"http://localhost:{port}"
+    if not args.no_browser:
+        threading.Timer(1.5, lambda: webbrowser.open(url)).start()
+    print(f"App su {url}  (chiudi questa finestra o Ctrl+C per fermarla)")
+    uvicorn.run("digest.app:app", host="127.0.0.1", port=port, log_level="warning")
+    return 0
+
+
 def main() -> None:
     sys.stdout.reconfigure(encoding="utf-8")
     load_dotenv(ROOT / ".env")
@@ -150,7 +166,9 @@ def main() -> None:
     p.add_argument("--to", help="destinatario (default: REPORT_TO o GMAIL_ADDRESS)")
     p = sub.add_parser("daily", help="giro completo: collect + build + send (quello del cloud)")
     p.add_argument("--no-send", action="store_true", help="non inviare l'email")
-    sub.add_parser("serve", help="(Fase 5, non ancora implementato)")
+    p = sub.add_parser("serve", help="app locale con report, archivio e generatori")
+    p.add_argument("--port", type=int, help="porta (default: DIGEST_PORT o 8787)")
+    p.add_argument("--no-browser", action="store_true", help="non aprire il browser")
     args = parser.parse_args()
 
     if args.cmd == "check-sources":
@@ -165,5 +183,5 @@ def main() -> None:
         sys.exit(_send(args))
     if args.cmd == "daily":
         sys.exit(_daily(args))
-    print(f"'{args.cmd}' non è ancora implementato: vedi PIANO_OPERATIVO.md, §6.")
-    sys.exit(2)
+    if args.cmd == "serve":
+        sys.exit(_serve(args))

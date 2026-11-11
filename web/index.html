@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Report AI</title>
+<link rel="stylesheet" href="/static/app.css">
+<script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js"></script>
+</head>
+<body>
+<aside class="sidebar">
+  <div class="brand">Report AI</div>
+  <nav id="archive" aria-label="Archivio dei report"></nav>
+  <div class="sync">
+    <span id="sync-status">Sincronizzazione…</span>
+    <button id="sync-btn" class="link">Aggiorna</button>
+  </div>
+</aside>
+
+<main id="report" aria-live="polite"><p class="muted">Caricamento…</p></main>
+
+<aside id="drawer" class="drawer" hidden>
+  <header class="drawer-head">
+    <div>
+      <div id="drawer-kind" class="eyebrow"></div>
+      <div id="drawer-title" class="drawer-title"></div>
+    </div>
+    <button id="drawer-close" class="icon" aria-label="Chiudi">✕</button>
+  </header>
+  <div class="drawer-actions">
+    <button id="drawer-copy">Copia</button>
+    <button id="drawer-regen" class="secondary">Rigenera</button>
+    <span id="drawer-info" class="muted small"></span>
+  </div>
+  <article id="drawer-body" class="prose"></article>
+</aside>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

@@ -36,6 +36,15 @@ Progetto: report AI quotidiano locale (vedi PIANO_OPERATIVO.md per obiettivi, ar
 - `data/seen.json` è la memoria ufficiale: vive nel repo e la aggiorna il cloud. In locale usa
   `--dry-run` per non creare divergenze.
 
+## App locale (Fasi 5-6)
+- `src/digest/app.py` (FastAPI, solo 127.0.0.1:8787) + `web/` (HTML/CSS/JS, marked + DOMPurify da CDN).
+- `src/digest/generate.py`: riscarica le fonti (pagina / trascrizione YouTube / README GitHub;
+  LinkedIn non scaricabile), compila `prompts/{lesson,linkedin_post,youtube_short}.md`, salva in
+  `outputs/{lezioni,linkedin,shorts}/<item_id>.md` con frontmatter YAML.
+- `src/digest/gitsync.py`: pull all'avvio, commit+push di ogni contenuto creato.
+- Prova nel browser integrato: `.claude/launch.json` → configurazione `report-app`.
+- Nel JS le chiamate usano `cache: "no-store"`: senza, il browser mostrava stati vecchi.
+
 ## Aggiungere una fonte
 Nuovo tipo → funzione `async def collect_x(ctx: Ctx) -> list[Item]` in `src/digest/collectors/`,
 registrata in `collectors/__init__.py`. Usa sempre `ctx.is_new(key)` prima di arricchire

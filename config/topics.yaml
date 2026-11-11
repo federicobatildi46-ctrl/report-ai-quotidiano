@@ -8,6 +8,10 @@ report:
   lookback_hours: 26             # finestra di raccolta (24h + margine)
   model: sonnet                  # modello per il report quotidiano (risparmia quota del Pro)
 
+generators:                      # pulsanti dell'app locale (Lezione, Post, Short)
+  model: sonnet                  # "opus" per testi migliori, a costo di più quota
+  max_sources: 4                 # fonti scaricate per ogni generazione
+
 # Chi sono: serve a Claude per scrivere il "Perché ti serve" di ogni notizia.
 profile: >
   Sto studiando l'AI per diventare creator e poi aprire un'agenzia AI per imprenditori e
