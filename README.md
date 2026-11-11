@@ -89,11 +89,39 @@ Invia l'ultimo report a Gmail, da te a te. Servono `GMAIL_ADDRESS` e `GMAIL_APP_
 `.env`. Opzioni: `--report reports/AAAA-MM-GG.json`, `--to altro@indirizzo`.
 `uv run digest render` rigenera solo l'HTML, utile se cambi la grafica in `src/digest/render.py`.
 
+```bash
+uv run digest daily
+```
+
+Il giro completo: raccolta → report → email. La memoria `data/seen.json` si aggiorna solo se
+tutto riesce. `--no-send` salta l'email.
+
+## Nel cloud (GitHub Actions)
+
+Il workflow [.github/workflows/daily.yml](.github/workflows/daily.yml) esegue `digest daily` ogni
+giorno alle **06:00 UTC** (7:00 in inverno, 8:00 in estate) sui server di GitHub, gratis, e
+salva report e memoria nel repo. Se fallisce, GitHub ti manda un'email.
+
+- **Lanciarlo a mano:** su GitHub → Actions → "Report AI quotidiano" → Run workflow, oppure:
+
+```bash
+gh workflow run daily.yml
+```
+
+- **Segreti** (GitHub → Settings → Secrets → Actions): `CLAUDE_CODE_OAUTH_TOKEN` (da
+  `claude setup-token`), `APIFY_TOKEN`, `GMAIL_ADDRESS`, `GMAIL_APP_PASSWORD`, `REPORT_TO`.
+  Per aggiornarne uno:
+
+```bash
+gh secret set CLAUDE_CODE_OAUTH_TOKEN
+```
+
+- **Sul PC:** prima di lavorare in locale fai `git pull` per avere gli ultimi report.
+
 Comandi delle fasi successive (non ancora implementati):
 
 | Comando | Fase | Cosa fa |
 |---------|------|---------|
-| `uv run digest daily` | 4 | collect + build + send: è quello che gira nel cloud ogni mattina |
 | `uv run digest serve` | 5 | app locale su http://localhost:8787 |
 
 ## Struttura

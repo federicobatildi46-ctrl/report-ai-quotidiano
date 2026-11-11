@@ -29,6 +29,13 @@ Progetto: report AI quotidiano locale (vedi PIANO_OPERATIVO.md per obiettivi, ar
 - I badge vengono corretti da `fix_badge`; i domini ufficiali e le etichette brevi delle fonti
   sono in `config/sources.yaml` (`official_domains`, `labels`).
 
+## Cloud (Fase 4)
+- `.github/workflows/daily.yml` → `uv run digest daily` alle 06:00 UTC, poi commit di `reports/`
+  e `data/seen.json`. Prima di modificare in locale: `git pull` (il bot committa ogni giorno).
+- Segreti nel repo, non in chiaro: per aggiornarli `gh secret set NOME` (valore da stdin).
+- `data/seen.json` è la memoria ufficiale: vive nel repo e la aggiorna il cloud. In locale usa
+  `--dry-run` per non creare divergenze.
+
 ## Aggiungere una fonte
 Nuovo tipo → funzione `async def collect_x(ctx: Ctx) -> list[Item]` in `src/digest/collectors/`,
 registrata in `collectors/__init__.py`. Usa sempre `ctx.is_new(key)` prima di arricchire

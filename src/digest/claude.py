@@ -45,6 +45,9 @@ def run_claude(prompt: str, schema: dict, *, system: str, model: str = "sonnet",
         "--no-session-persistence",
     ]
     env = {k: v for k, v in os.environ.items() if k not in ("CLAUDECODE", "CLAUDE_CODE_ENTRYPOINT")}
+    if env.get("CLAUDE_CODE_OAUTH_TOKEN"):
+        # copiando il token da un terminale stretto può entrarci uno spazio/a capo: lo togliamo
+        env["CLAUDE_CODE_OAUTH_TOKEN"] = "".join(env["CLAUDE_CODE_OAUTH_TOKEN"].split())
     t0 = time.perf_counter()
     proc = subprocess.run(cmd, input=prompt, capture_output=True, text=True, encoding="utf-8",
                           timeout=timeout, env=env)
