@@ -1,12 +1,12 @@
 {
  "title": "Report automatico notizie e aggiornamenti AI",
  "date": "2026-11-11",
- "generated_at": "2026-11-11T23:32:45.096071+00:00",
- "reading_minutes": 10,
+ "generated_at": "2026-11-11T23:37:54.747330+00:00",
+ "reading_minutes": 7,
  "in_breve": [
-  "Anthropic lancia Claude Fable 5.2 e Mythos 5.2: più veloci, a $8/$40 per milione di token invece di $10/$50, e in Claude Code come Fable predefinito.",
-  "Claude introduce Whiteboards e Sheets in beta e rende Claude Data (ex Dashboards) disponibile a tutti i piani a pagamento.",
-  "ElevenLabs al Summit NYC presenta Marketplace, Partner Program e fine-tuning; Scribe v3 riduce del 27% gli errori di trascrizione."
+  "Anthropic lancia Claude Fable 5.2 e Mythos 5.2: più veloci, meno cari ($8/$40 per milione di token) e con una fast mode opzionale.",
+  "ElevenLabs al Summit di New York presenta Marketplace per agenti AI enterprise, nuovo Partner Program e fine-tuning di modelli per le aziende.",
+  "Su GitHub salgono skill e strumenti per agenti: agent-skills di Addy Osmani, shadcn/improve, Astryx di Meta e agent-browser di Vercel Labs."
  ],
  "sections": [
   {
@@ -17,17 +17,17 @@
      "id": "2026-11-11-01",
      "subsection": "ecosistema",
      "subsection_label": "Ecosistema a 360° — modelli, API, SDK, azienda",
-     "title": "Claude Fable 5.2 e Mythos 5.2: più veloci e più economici",
-     "summary": "Anthropic ha rilasciato Fable 5.2 e Mythos 5.2, lo stesso modello con accesso diverso: Fable è per tutti, Mythos solo per organizzazioni verificate. Generano fino al 30% più veloci di 5.1 e costano meno: $8 per milione di token in input e $40 in output.",
+     "title": "Anthropic lancia Claude Fable 5.2 e Mythos 5.2, più veloci e meno cari",
+     "summary": "Anthropic ha aggiornato Fable e Mythos, che sono lo stesso modello: Fable è disponibile a tutti con salvaguardie su cyber e biologia, Mythos solo su richiesta. Generano fino al 30% più veloce rispetto alla 5.1 e costano meno. Per la maggior parte dei lavori Anthropic consiglia di partire da Opus 5.5.",
      "key_points": [
-      "Fast mode: fino a 2,5 volte più veloce, a $16 input e $80 output per milione.",
-      "Per Anthropic, per la maggior parte dei lavori conviene partire da Opus 5.5.",
-      "Nick Saraev stima un miglioramento di circa il 10% su Opus 5.5; è una sua opinione.",
-      "Prompting: dire che il codice è 'suo' porta a consolidare il codice duplicato in circa 75% dei test, contro meno del 10%."
+      "Prezzo: $8 per milione di token in input, $40 in output.",
+      "Fast mode opzionale: fino a 2,5 volte più veloce, $16 input e $80 output.",
+      "Mythos richiede accesso tramite i programmi Life Sciences e Cyber Verification.",
+      "Può fare da Advisor o Orchestrator per modelli più piccoli."
      ],
-     "why": "Puoi usarlo per lavori di coding complessi con Claude Code e per capire quando vale il costo extra rispetto a Opus 5.5 nei progetti dei clienti.",
+     "why": "Ti aiuta a scegliere il modello giusto per ogni lavoro cliente e a capire quanto costa usarlo negli agenti e nelle automazioni.",
      "badge": "ufficiale",
-     "badge_note": "Annuncio sul sito Anthropic e nelle release notes della piattaforma; Simon Willison e Nick Saraev confermano prezzi e uscita.",
+     "badge_note": "Annuncio sul sito Anthropic; Nick Saraev lo commenta ma è opinione, non conferma ufficiale.",
      "importance": 1,
      "primary_url": "https://www.anthropic.com/claude-fable-and-mythos-5-2",
      "sources": [
@@ -42,48 +42,15 @@
        "link": "ok"
       },
       {
-       "name": "Release notes Claude Platform",
-       "title": "Claude Platform — release notes — November 9, 2026",
-       "url": "https://platform.claude.com/docs/en/release-notes/overview#november-9-2026",
-       "official": true,
-       "kind": "changelog",
-       "item_id": "30f69f8b7825",
-       "meta": {},
-       "link": "ok"
-      },
-      {
-       "name": "Simon Willison",
-       "title": "llm-anthropic 0.31",
-       "url": "https://simonwillison.net/2026/Nov/9/llm-anthropic/",
-       "official": false,
-       "kind": "article",
-       "item_id": "c93c64172e07",
-       "meta": {},
-       "link": "ok"
-      },
-      {
-       "name": "Hacker News",
-       "title": "Claude Fable 5.2 scores 65 on Artificial Analysis, highest so far",
-       "url": "https://artificialanalysis.ai/models/claude-fable-5-2",
-       "official": false,
-       "kind": "article",
-       "item_id": "d7df05c289da",
-       "meta": {
-        "points": 379,
-        "comments": "https://news.ycombinator.com/item?id=50431144"
-       },
-       "link": "ok"
-      },
-      {
        "name": "YouTube · Nick Saraev",
-       "title": "Anthropic has just DROPPED A NUKE! (Fable 5.2)",
-       "url": "https://www.youtube.com/watch?v=foCBPrpbO68",
+       "title": "FABLE 5.2 is WILD for Building Video Games (Fully Tested)",
+       "url": "https://www.youtube.com/watch?v=wpFw66kKixU",
        "official": false,
        "kind": "video",
-       "item_id": "8ef24f3a3cf2",
+       "item_id": "74df7d6ed563",
        "meta": {
         "creator": "Nick Saraev",
-        "duration": 509
+        "duration": null
        },
        "link": "ok"
       },
@@ -96,7 +63,7 @@
        "item_id": "a77043899fb5",
        "meta": {
         "creator": "Nick Saraev",
-        "duration": 553
+        "duration": null
        },
        "link": "ok"
       },
@@ -111,177 +78,26 @@
         "creator": "Nick Saraev"
        },
        "link": "non_verificabile"
-      },
-      {
-       "name": "Simon Willison",
-       "title": "Quoting Prompting Claude Fable 5.2",
-       "url": "https://simonwillison.net/2026/Nov/10/prompting-claude-fable-52/",
-       "official": false,
-       "kind": "article",
-       "item_id": "c8bf0b8e918f",
-       "meta": {},
-       "link": "ok"
-      }
-     ]
-    },
-    {
-     "id": "2026-11-11-02",
-     "subsection": "code",
-     "subsection_label": "Claude Code",
-     "title": "Claude Code 2.1.321 aggiunge Fable 5.2 e correzioni di sicurezza",
-     "summary": "La versione 2.1.321 di Claude Code aggiunge Fable 5.2 come modello Fable predefinito. Include anche molte correzioni su permessi, sandbox e OAuth MCP. La 2.1.322 aggiunge la fast mode su Vertex.",
-     "key_points": [
-      "Fable 5.2: contesto 1M, $8/$40 per Mtok, cache reads a $0,20 per Mtok.",
-      "Nuova opzione --settings <file> per claude remote-control.",
-      "Corretto l'invio di segreti OAuth MCP a un altro host dopo un redirect.",
-      "Corretti casi in cui comandi Bash giravano fuori dalla sandbox senza richiesta di permesso."
-     ],
-     "why": "Usi Claude Code ogni giorno: aggiornarlo ti dà il nuovo modello e correzioni di sicurezza che contano quando lavori su progetti dei clienti.",
-     "badge": "ufficiale",
-     "badge_note": "Note di rilascio ufficiali di Claude Code (v2.1.321 e v2.1.322).",
-     "importance": 1,
-     "primary_url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.321",
-     "sources": [
-      {
-       "name": "Claude Code (release)",
-       "title": "v2.1.321",
-       "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.321",
-       "official": true,
-       "kind": "release",
-       "item_id": "c35a8e452813",
-       "meta": {},
-       "link": "ok"
-      },
-      {
-       "name": "Claude Code (release)",
-       "title": "v2.1.322",
-       "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.322",
-       "official": true,
-       "kind": "release",
-       "item_id": "11411f2875ee",
-       "meta": {},
-       "link": "ok"
       }
      ]
     },
     {
      "id": "2026-11-11-03",
-     "subsection": "chat",
-     "subsection_label": "Chat (app claude.ai)",
-     "title": "Claude lancia Whiteboards e Sheets in beta; Dashboards diventa Claude Data",
-     "summary": "Claude introduce Whiteboards, lavagne condivise dove si ragiona con l'AI, e Sheets, fogli di calcolo creati e modificati con Claude, entrambi in beta. Dashboards diventa Claude Data ed è disponibile in generale. Tutto è su tutti i piani a pagamento.",
-     "key_points": [
-      "Whiteboards: Claude trasforma la lavagna in documento o presentazione, o la esporta verso Lucid e Miro.",
-      "Sheets: tab, formule e menu a tendina da un prompt; esportazione in .xlsx o CSV.",
-      "Claude Data: query certificate e condivisione live sono in beta.",
-      "Sheets per ora ha funzioni di base."
-     ],
-     "why": "Puoi mostrare ai clienti come generare tracker e fogli budget da un prompt, e farne contenuti o demo per i tuoi canali.",
-     "badge": "ufficiale",
-     "badge_note": "Annuncio sul sito claude.com.",
-     "importance": 1,
-     "primary_url": "https://claude.com/resources/articles/sheets-whiteboards-data",
-     "sources": [
-      {
-       "name": "claude.com (via Hacker News)",
-       "title": "Claude Whiteboards, Claude Sheets, and Claude Data",
-       "url": "https://claude.com/resources/articles/sheets-whiteboards-data",
-       "official": true,
-       "kind": "article",
-       "item_id": "dcf2b0699b4b",
-       "meta": {
-        "points": 280,
-        "comments": "https://news.ycombinator.com/item?id=50443716"
-       },
-       "link": "ok"
-      }
-     ]
-    },
-    {
-     "id": "2026-11-11-08",
      "subsection": "ecosistema",
      "subsection_label": "Ecosistema a 360° — modelli, API, SDK, azienda",
-     "title": "1.000 agenti con Fable 5.2 riformalizzano il teorema di Fermat",
-     "summary": "Anthropic racconta un esperimento: 1.000 agenti con una versione preliminare di Fable 5.2 hanno riprodotto la dimostrazione formale dell'Ultimo Teorema di Fermat. Hanno impiegato 28,7 ore, senza la piattaforma Prove2Me né la guida di un ricercatore.",
+     "title": "Dal video della roadshow IPO: Mythos ha portato Claude su GPU AMD in tre giorni",
+     "summary": "Simon Willison riporta dal video della roadshow IPO di Anthropic che Claude gira su chip AWS Trainium, Google TPU, NVIDIA e AMD. Secondo Tom Brown, Mythos ha fatto funzionare Claude su AMD in tre giorni con quasi nessun intervento umano. Sono dichiarazioni di Anthropic riportate dal blogger, con trascrizione fatta da lui.",
      "key_points": [
-      "Un terzo dei token di output della prova di settembre; dimostrazione lunga un settimo.",
-      "Ogni agente lavorava in una sandbox senza internet.",
-      "Un classificatore controllava ogni comando shell e modifica di file."
+      "Claude ha scritto o portato quasi il 100% dei kernel per AMD.",
+      "In passato un nuovo chip richiedeva mesi di lavoro di decine di ingegneri.",
+      "Anthropic parla di «compute multipliers» che si sommano e crescono nel tempo."
      ],
-     "why": "Mostra un modello concreto di team di agenti con controlli di sicurezza, utile come spunto per le automazioni dei clienti.",
-     "badge": "ufficiale",
-     "badge_note": "Articolo sul blog ufficiale Claude; l'esperimento è definito 'toy' da Anthropic.",
+     "why": "Ti dà un esempio concreto di agente che esegue un lavoro tecnico complesso, utile come caso da raccontare in un contenuto.",
+     "badge": "da_verificare",
+     "badge_note": "Una sola fonte non ufficiale (Simon Willison), che cita però il video ufficiale di Anthropic.",
      "importance": 2,
-     "primary_url": "https://claude.dev/blog/safely-scaling-multi-agent-teams-with-fable-5-2/",
+     "primary_url": "https://simonwillison.net/2026/Nov/11/anthropic-ipo-roadshow/",
      "sources": [
-      {
-       "name": "Blog Claude",
-       "title": "Safely scaling multi-agent teams with Claude Fable 5.2 / claude.dev Blog",
-       "url": "https://claude.dev/blog/safely-scaling-multi-agent-teams-with-fable-5-2/",
-       "official": true,
-       "kind": "article",
-       "item_id": "f7c768a948cd",
-       "meta": {},
-       "link": "ok"
-      }
-     ]
-    },
-    {
-     "id": "2026-11-11-09",
-     "subsection": "ecosistema",
-     "subsection_label": "Ecosistema a 360° — modelli, API, SDK, azienda",
-     "title": "Quale modello Claude scegliere: guida di Addy Osmani",
-     "summary": "Guida ufficiale su come scegliere tra Haiku 5.5, Sonnet 5.5, Opus 5.5 e Fable 5.2. Si parte da Opus 5.5 a effort medium, poi si scende o si sale in base al compito.",
-     "key_points": [
-      "Opus 5.5 costa la metà di Fable 5.2 per token.",
-      "Haiku 5.5 per classificazione, routing, estrazione e subagenti.",
-      "Prima di cambiare modello, prova a regolare il livello di effort."
-     ],
-     "why": "Ti aiuta a contenere i costi di Claude Code e delle automazioni per i clienti scegliendo il modello giusto per ogni compito.",
-     "badge": "ufficiale",
-     "badge_note": "Articolo sul blog ufficiale Claude.",
-     "importance": 2,
-     "primary_url": "https://claude.dev/blog/which-claude-model-should-you-build-with/",
-     "sources": [
-      {
-       "name": "Blog Claude",
-       "title": "Which Claude model should you build with? Fable, Opus, Sonnet, or Haiku / claude.dev Blog",
-       "url": "https://claude.dev/blog/which-claude-model-should-you-build-with/",
-       "official": true,
-       "kind": "article",
-       "item_id": "99295a6a0d71",
-       "meta": {},
-       "link": "ok"
-      }
-     ]
-    },
-    {
-     "id": "2026-11-11-10",
-     "subsection": "ecosistema",
-     "subsection_label": "Ecosistema a 360° — modelli, API, SDK, azienda",
-     "title": "Anthropic avvia il roadshow per la quotazione in borsa",
-     "summary": "Anthropic ha avviato il roadshow per l'IPO di azioni di Classe A, con simbolo ANT sul Nasdaq. Il prezzo atteso è tra $70 e $78 per azione. Simon Willison segnala dal video del roadshow che Claude gira su quattro famiglie di chip.",
-     "key_points": [
-      "825 milioni di azioni offerte, di cui 801.351.354 da Anthropic.",
-      "Opzione per ulteriori 123.750.000 azioni.",
-      "Secondo il video, Mythos ha portato Claude su AMD in tre giorni."
-     ],
-     "why": "È un contesto utile sulla solidità del fornitore su cui basi i tuoi servizi, e uno spunto per un post.",
-     "badge": "ufficiale",
-     "badge_note": "Comunicato ufficiale Anthropic; il dettaglio sui chip viene dal video del roadshow citato da Simon Willison.",
-     "importance": 2,
-     "primary_url": "https://www.anthropic.com/news/roadshow-launch",
-     "sources": [
-      {
-       "name": "Anthropic",
-       "title": "Anthropic launches roadshow for proposed initial public offering",
-       "url": "https://www.anthropic.com/news/roadshow-launch",
-       "official": true,
-       "kind": "article",
-       "item_id": "85a32fe1244f",
-       "meta": {},
-       "link": "ok"
-      },
       {
        "name": "Simon Willison",
        "title": "Anthropic's IPO roadshow video",
@@ -295,13 +111,13 @@
      ]
     },
     {
-     "id": "2026-11-11-19",
+     "id": "2026-11-11-11",
      "subsection": "ecosistema",
      "subsection_label": "Ecosistema a 360° — modelli, API, SDK, azienda",
-     "title": "Breve incidente su Fable 5.2 e Mythos 5.2",
-     "summary": "Il 10 novembre Anthropic ha segnalato errori di sovraccarico su Fable 5.2 e Mythos 5.2 per quattro minuti. L'incidente è già risolto.",
+     "title": "Breve incidente su Fable 5.2 e Mythos 5.2: errori di sovraccarico",
+     "summary": "Il 10 novembre alle 21:47 UTC la pagina di stato Claude ha segnalato errori di sovraccarico su Fable 5.2 e Mythos 5.2 per quattro minuti, poi risolti.",
      "key_points": [],
-     "why": "Curiosità sulla stabilità del nuovo modello nei primi giorni.",
+     "why": "Segnala che i nuovi modelli sono sotto forte carico al lancio: prevedi un fallback negli automatismi.",
      "badge": "ufficiale",
      "badge_note": "Pagina di stato ufficiale di Claude.",
      "importance": 3,
@@ -329,90 +145,26 @@
      "id": "2026-11-11-04",
      "subsection": "",
      "subsection_label": "",
-     "title": "Higgsfield: Ads Studio ora crea video ad con un agente",
-     "summary": "Ads Studio di Higgsfield ora genera video ads, anche lunghi, tramite un agente in chat. Descrivi l'idea o incolli uno script, poi scegli stile, prodotto e attore.",
+     "title": "Higgsfield: come una regista ha sostituito gli ambienti di uno spot bancario con l'AI",
+     "summary": "Il blog Higgsfield racconta il lavoro di Munira Alkharraz, che ha sostituito gli ambienti attorno ad attori reali in uno spot girato a Riyadh, mantenendo recitazione e movimenti di camera. Ha usato Nano Banana e Seedance su Higgsfield.",
      "key_points": [
-      "Stili video: Micro drama, Cartoon story, Cinematic story, Claymation story e altri.",
-      "Brand kit creabile da un link al sito: colori, punti di forza e prodotti.",
-      "Un avatar per ogni ad: dalla libreria, AI Influencer o nuovo."
+      "Circa cinque giorni di lavoro AI, con giornate fino a 16 ore.",
+      "Circa 30.000 crediti usati.",
+      "Dati riferiti dalla regista: budget e risultati della campagna non forniti."
      ],
-     "why": "È utile per il servizio ads dell'agenzia: puoi produrre video pubblicitari per un cliente partendo dal suo sito.",
+     "why": "Mostra un flusso reale di VFX con AI, pianificato già prima delle riprese, da cui trarre idee per video per clienti e per un tuo caso studio.",
      "badge": "ufficiale",
-     "badge_note": "Changelog ufficiale di Higgsfield.",
-     "importance": 1,
-     "primary_url": "https://higgsfield.ai/creator-hub/changelog#ads-studio-video-ads-title",
-     "sources": [
-      {
-       "name": "Higgsfield What's new",
-       "title": "Ads Studio now creates video ads",
-       "url": "https://higgsfield.ai/creator-hub/changelog#ads-studio-video-ads-title",
-       "official": true,
-       "kind": "changelog",
-       "item_id": "835684ae0c8c",
-       "meta": {},
-       "link": "ok"
-      }
-     ]
-    },
-    {
-     "id": "2026-11-11-11",
-     "subsection": "",
-     "subsection_label": "",
-     "title": "Seedream 5.5 su Higgsfield: sfondo trasparente in generazione",
-     "summary": "Higgsfield ha aggiunto Seedream 5.5 di ByteDance. La novità principale è lo sfondo trasparente già in fase di generazione, con PNG senza sfondo.",
-     "key_points": [
-      "Costa 2,5 crediti a immagine a 1K e 1,5K (circa $0,12), 3,5 a 2K.",
-      "Fino a 100 round di modifica mantenendo intatte le parti non toccate, secondo ByteDance.",
-      "Non disponibile negli Stati Uniti."
-     ],
-     "why": "Per i social dei clienti puoi creare loghi, mockup e grafiche con sfondo trasparente senza passare da un tool di rimozione sfondo.",
-     "badge": "ufficiale",
-     "badge_note": "Changelog e blog ufficiali di Higgsfield; i dati sulla qualità sono dichiarati da ByteDance.",
+     "badge_note": "Articolo sul blog ufficiale Higgsfield; i numeri sono dichiarati dalla protagonista.",
      "importance": 2,
-     "primary_url": "https://higgsfield.ai/creator-hub/changelog#seedream-5-5-title",
+     "primary_url": "https://higgsfield.ai/blog/munira-alkharraz-higgsfield",
      "sources": [
-      {
-       "name": "Higgsfield What's new",
-       "title": "Seedream 5.5",
-       "url": "https://higgsfield.ai/creator-hub/changelog#seedream-5-5-title",
-       "official": true,
-       "kind": "changelog",
-       "item_id": "0306de32239d",
-       "meta": {},
-       "link": "ok"
-      },
       {
        "name": "Blog Higgsfield",
-       "title": "Seedream 5.5 on Higgsfield AI: Features, Settings, and Pricing",
-       "url": "https://higgsfield.ai/blog/seedream-5-5-higgsfield",
+       "title": "Inside Munira Alkharraz’s Filmmaking Process With Higgsfield",
+       "url": "https://higgsfield.ai/blog/munira-alkharraz-higgsfield",
        "official": true,
        "kind": "article",
-       "item_id": "93a0f01d63c0",
-       "meta": {},
-       "link": "ok"
-      }
-     ]
-    },
-    {
-     "id": "2026-11-11-20",
-     "subsection": "",
-     "subsection_label": "",
-     "title": "Fable 5.2 disponibile in Supercomputer su Higgsfield",
-     "summary": "Higgsfield ha aggiunto Fable 5.2 a Supercomputer, per grandi progetti come siti, giochi, scene 3D e analisi di molti documenti.",
-     "key_points": [],
-     "why": "Puoi provare Fable 5.2 per costruire siti e demo direttamente dentro Higgsfield.",
-     "badge": "ufficiale",
-     "badge_note": "Changelog ufficiale di Higgsfield, che cita Anthropic.",
-     "importance": 3,
-     "primary_url": "https://higgsfield.ai/creator-hub/changelog#fable-5-2-title",
-     "sources": [
-      {
-       "name": "Higgsfield What's new",
-       "title": "Fable 5.2",
-       "url": "https://higgsfield.ai/creator-hub/changelog#fable-5-2-title",
-       "official": true,
-       "kind": "changelog",
-       "item_id": "7aac50d6f452",
+       "item_id": "a04b9f86cfac",
        "meta": {},
        "link": "ok"
       }
@@ -425,20 +177,20 @@
    "title": "ElevenLabs",
    "items": [
     {
-     "id": "2026-11-11-05",
+     "id": "2026-11-11-02",
      "subsection": "",
      "subsection_label": "",
-     "title": "ElevenLabs Summit NYC: Marketplace, Partner Program e fine-tuning di modelli",
-     "summary": "Al Summit di New York ElevenLabs ha presentato nuovi modelli, agenti e opzioni di distribuzione per le aziende. Ha lanciato un Marketplace di agenti AI settoriali e un Partner Program per integratori.",
+     "title": "ElevenLabs Summit NYC: Marketplace, Partner Program e fine-tuning per aziende",
+     "summary": "Al Summit di New York ElevenLabs ha presentato nuovi modelli, un Marketplace di agenti AI settoriali con partner come Salesforce, IBM, Twilio e Zendesk, e un Partner Program con oltre 550 partner. Annunciato anche il fine-tuning di modelli open-source e vocali per le aziende nei prossimi mesi.",
      "key_points": [
-      "Marketplace con partner come Salesforce, IBM, NiCE, Twilio e Zendesk; acquisti dal prossimo anno.",
-      "Partner Program: oltre 550 partner in 44 paesi e 1.100 ingegneri certificati.",
-      "Fine-tuning di modelli open-source e vocali ElevenLabs nei prossimi mesi.",
-      "Scribe v3 Medical per la trascrizione sanitaria; modello per la finanza in lavorazione."
+      "Scribe v3 Medical: trascrizione per la sanità; in arrivo un modello per la finanza.",
+      "Dal prossimo anno si potrà acquistare nel Marketplace con il proprio impegno ElevenLabs.",
+      "Partner Program: 550+ partner in 44 paesi, 1.100 ingegneri certificati.",
+      "Obiettivo del programma: $3 di servizi partner per ogni $1 di ricavi ElevenLabs."
      ],
-     "why": "Se vuoi vendere agenti vocali, il Partner Program e il Marketplace sono canali concreti per posizionare l'agenzia.",
+     "why": "Se in futuro offri agenti vocali ai clienti, il Partner Program e il Marketplace sono un possibile canale per posizionarti e trovare soluzioni verticali già pronte.",
      "badge": "ufficiale",
-     "badge_note": "Tre articoli del blog ufficiale ElevenLabs.",
+     "badge_note": "Tre articoli pubblicati sul blog ufficiale ElevenLabs.",
      "importance": 1,
      "primary_url": "https://elevenlabs.io/blog/nyc-summit",
      "sources": [
@@ -475,88 +227,29 @@
      ]
     },
     {
-     "id": "2026-11-11-06",
-     "subsection": "",
-     "subsection_label": "",
-     "title": "ElevenLabs lancia Scribe v3 e v3 Live per la trascrizione",
-     "summary": "ElevenLabs presenta Scribe v3 per audio registrato, con il 27% di errori in meno rispetto a Scribe v2 in 102 lingue. Scribe v3 Live, per il tempo reale, ha il 43% di errori in meno e aggiunge per la prima volta la diarizzazione.",
-     "key_points": [
-      "Scribe v3 Live è disponibile oggi in ElevenAgents.",
-      "Passare da Scribe v2 in ElevenAPI richiede di cambiare solo l'ID del modello.",
-      "Keyterm prompting accetta fino a 1.000 termini.",
-      "Rilevamento del turno basato sul contesto, non solo sul silenzio."
-     ],
-     "why": "Migliora gli agenti vocali che costruirai per i clienti: meno interruzioni quando chi chiama fa una pausa, e trascrizioni più precise.",
-     "badge": "ufficiale",
-     "badge_note": "Annuncio sul blog ufficiale ElevenLabs; le percentuali sono dati dichiarati dall'azienda.",
-     "importance": 1,
-     "primary_url": "https://elevenlabs.io/blog/scribe-v3",
-     "sources": [
-      {
-       "name": "Blog ElevenLabs",
-       "title": "Introducing Scribe v3 and v3 Live, our most accurate speech to text models",
-       "url": "https://elevenlabs.io/blog/scribe-v3",
-       "official": true,
-       "kind": "article",
-       "item_id": "9fcb62f6e3d7",
-       "meta": {},
-       "link": "ok"
-      }
-     ]
-    },
-    {
      "id": "2026-11-11-12",
      "subsection": "",
      "subsection_label": "",
-     "title": "ElevenAgents Campaign Manager gestisce campagne outbound fino al risultato",
-     "summary": "ElevenLabs lancia Campaign Manager: dai contatti e un obiettivo, come un lead qualificato, e l'agente vocale richiama nel tempo portando il contesto da una chiamata all'altra. Era in beta con clienti di assicurazioni e banche.",
+     "title": "ElevenLabs e NVIDIA: Nemotron negli agenti vocali e 15 MW di nuova capacità",
+     "summary": "ElevenLabs e NVIDIA ampliano la collaborazione: Nemotron 3.5 Super VL arriva in ElevenAgents e ElevenLabs aggiunge 15 MW di capacità NVIDIA. Include un deployment sovrano per la piattaforma e-Health polacca.",
      "key_points": [
-      "Finestre di chiamata, limiti di tentativi e liste do-not-call per campagna.",
-      "Coda 'needs attention' per i casi non decisi dall'agente; esportazione in CSV.",
-      "AA Ireland dichiara di passare dal 50-60% al 100% dei lead giornalieri."
+      "Su un benchmark ElevenAgents, costi del 70% inferiori rispetto ad altri modelli open leader.",
+      "Il ragionamento si può disattivare per compiti semplici.",
+      "Esplora anche voce on-device per robotica."
      ],
-     "why": "È un servizio vendibile: campagne di chiamate per appuntamenti o rinnovi per clienti con liste di contatti.",
+     "why": "Un'opzione di modello più economica per gli agenti vocali che potresti proporre ai clienti.",
      "badge": "ufficiale",
-     "badge_note": "Blog ufficiale ElevenLabs; il dato di AA Ireland è una testimonianza del cliente.",
-     "importance": 2,
-     "primary_url": "https://elevenlabs.io/blog/elevenagents-campaign-manager",
-     "sources": [
-      {
-       "name": "Blog ElevenLabs",
-       "title": "ElevenAgents Campaign Manager works every contact to an outcome",
-       "url": "https://elevenlabs.io/blog/elevenagents-campaign-manager",
-       "official": true,
-       "kind": "article",
-       "item_id": "278448d5d206",
-       "meta": {},
-       "link": "ok"
-      }
-     ]
-    },
-    {
-     "id": "2026-11-11-21",
-     "subsection": "",
-     "subsection_label": "",
-     "title": "Come le aziende usano ElevenLabs: Yahoo Scout e Westgate",
-     "summary": "ElevenLabs racconta casi clienti. Yahoo ha aggiunto la voce a Scout con ElevenAgents, mentre Westgate Resorts usa l'agente vocale 'Sarah' per il front desk.",
-     "key_points": [
-      "Yahoo Scout è uscito dalla beta dopo oltre 3 miliardi di risposte.",
-      "Sarah è addestrata su 8.000 trascrizioni; avviata a Orlando, in espansione a due resort.",
-      "Le aziende generano oltre il 55% dei ricavi ElevenLabs."
-     ],
-     "why": "Casi concreti da citare nei tuoi pitch per agenti vocali.",
-     "badge": "ufficiale",
-     "badge_note": "Blog ufficiale ElevenLabs; i dati sono dichiarati dall'azienda.",
+     "badge_note": "Comunicato sul blog ufficiale ElevenLabs; i dati di benchmark sono dichiarati dall'azienda.",
      "importance": 3,
-     "primary_url": "https://elevenlabs.io/blog/enterprise-nyc-summit",
+     "primary_url": "https://elevenlabs.io/blog/nvidia",
      "sources": [
       {
        "name": "Blog ElevenLabs",
-       "title": "How enterprise clients are putting ElevenLabs AI to work",
-       "url": "https://elevenlabs.io/blog/enterprise-nyc-summit",
+       "title": "ElevenLabs and NVIDIA expand collaboration to bring voice agents to enterprises and governments globally",
+       "url": "https://elevenlabs.io/blog/nvidia",
        "official": true,
        "kind": "article",
-       "item_id": "342e94320731",
+       "item_id": "cfb2bce945d5",
        "meta": {},
        "link": "ok"
       }
@@ -569,18 +262,18 @@
    "title": "Dai creator che seguo",
    "items": [
     {
-     "id": "2026-11-11-13",
+     "id": "2026-11-11-05",
      "subsection": "Coco",
      "subsection_label": "Coco",
-     "title": "Coco: una skill che fa ricordare a Claude le decisioni passate",
-     "summary": "Coco mostra una skill personale: dopo ogni lavoro chiede a Claude un 'wrap up' che salva il riassunto in una memoria vettoriale. Poi può recuperare, ad esempio, il prezzo di un vecchio preventivo.",
+     "title": "Una skill per Claude Code che salva e richiama le decisioni passate",
+     "summary": "Coco mostra una skill locale: dici «fai un wrap up» a fine lavoro e Claude salva un riassunto in una memoria vettoriale leggera, richiamabile in seguito.",
      "key_points": [
-      "Trigger automatico di salvataggio dopo sei messaggi o più.",
-      "Il link alla community viene dato solo su richiesta."
+      "Esempio d'uso: recuperare il prezzo di un preventivo fatto mesi prima.",
+      "Un trigger salva in automatico quando la chat arriva a sei messaggi."
      ],
-     "why": "Idea replicabile per tenere la memoria dei progetti dei clienti, anche come contenuto.",
+     "why": "Puoi provarla in Claude Code per non perdere il contesto dei clienti, e farne un contenuto.",
      "badge": "da_verificare",
-     "badge_note": "Una sola fonte non ufficiale: uno Short del creator.",
+     "badge_note": "Una sola fonte non ufficiale (short del creator Coco).",
      "importance": 2,
      "primary_url": "https://www.youtube.com/shorts/zNp5WXMSaqc",
      "sources": [
@@ -593,58 +286,27 @@
        "item_id": "c8fbee4102e2",
        "meta": {
         "creator": "Coco",
-        "duration": 73
+        "duration": null
        },
        "link": "ok"
       }
      ]
     },
     {
-     "id": "2026-11-11-14",
-     "subsection": "Riccardo Belli Contarini",
-     "subsection_label": "Riccardo Belli Contarini",
-     "title": "Artemis: Google rende open source un tool per far usare un telefono a Claude Code",
-     "summary": "Secondo un Short, Google ha reso open source Artemis, che permette a Claude Code di usare un telefono Android aprendo app e cambiando impostazioni. Ha un server MCP.",
-     "key_points": [
-      "Oltre il 99% di successo nei test Google per agenti Android, secondo il creator.",
-      "Più di 16.000 stelle su GitHub.",
-      "Funziona anche con Codex e altri agenti."
-     ],
-     "why": "Puoi sfruttarlo per test di app o automazioni su telefono, e farne un contenuto.",
-     "badge": "da_verificare",
-     "badge_note": "Una sola fonte non ufficiale: Short di Riccardo Belli Contarini; dati non verificati.",
-     "importance": 2,
-     "primary_url": "https://www.youtube.com/shorts/YgzGx48nsiE",
-     "sources": [
-      {
-       "name": "YouTube · Riccardo Belli Contarini",
-       "title": "ARTEMIS: Google fa usare un telefono a Claude Code #Shorts",
-       "url": "https://www.youtube.com/shorts/YgzGx48nsiE",
-       "official": false,
-       "kind": "short",
-       "item_id": "2b61471ee944",
-       "meta": {
-        "creator": "Riccardo Belli Contarini",
-        "duration": 34
-       },
-       "link": "ok"
-      }
-     ]
-    },
-    {
-     "id": "2026-11-11-22",
+     "id": "2026-11-11-06",
      "subsection": "Giovanni Beggiato",
      "subsection_label": "Giovanni Beggiato",
-     "title": "Giovanni Beggiato: come creare un team di agenti AI condiviso",
-     "summary": "Video di 46 minuti che spiega come costruire uno spazio condiviso dove agenti con modelli diversi, come Claude Code e Codex, lavorano con le persone del team. Usa l'app open source Buzz.",
+     "title": "Buzz: team di agenti AI (Claude Code, Codex, Grok) in un workspace condiviso",
+     "summary": "Giovanni Beggiato presenta Buzz, piattaforma open source che riunisce Claude Code, Codex, Grok e Hermes in un workspace condiviso, sempre acceso, installato su una VPS. Il video mostra la creazione di un team di agenti con ruoli diversi e un CRM costruito in un canale stile Slack.",
      "key_points": [
-      "Secondo l'autore, Codex è più adatto allo sviluppo e Claude Code alla pianificazione.",
-      "Usa gli abbonamenti già attivi."
+      "Confronta pagamento a token via API e uso degli abbonamenti già attivi.",
+      "Sostiene che una VPS Hostinger sia meglio di un Mac Mini; il video ha link affiliato.",
+      "Ruoli: project manager, costruttore, reviewer, revisore avversariale, researcher."
      ],
-     "why": "Spunto per organizzare agenti diversi in un unico workspace per l'agenzia.",
+     "why": "È un modello di setup per agenti sempre attivi da proporre a clienti, ma il creator promuove link affiliati, quindi valuta con cautela.",
      "badge": "da_verificare",
-     "badge_note": "Una sola fonte non ufficiale: video del creator; le valutazioni sono sue opinioni.",
-     "importance": 3,
+     "badge_note": "Una sola fonte non ufficiale (video del creator, con link affiliati).",
+     "importance": 2,
      "primary_url": "https://www.youtube.com/watch?v=EXQnBoNjmdg",
      "sources": [
       {
@@ -656,7 +318,7 @@
        "item_id": "9c28486efc89",
        "meta": {
         "creator": "Giovanni Beggiato",
-        "duration": 2784
+        "duration": null
        },
        "link": "ok"
       }
@@ -670,60 +332,19 @@
    "items": [
     {
      "id": "2026-11-11-07",
-     "subsection": "curatori",
-     "subsection_label": "Dai curatori (Hacker News, Simon Willison)",
-     "title": "Modern Web Guidance: skill per far scrivere agli agenti web moderno",
-     "summary": "Modern Web Guidance è un insieme di skill, curate dai team di Chrome, Edge, Firefox e MDN, che spingono gli agenti di coding verso API web moderne invece di pattern vecchi. Si installa con un comando npx.",
-     "key_points": [
-      "Installazione: npx modern-web-guidance@latest install.",
-      "Comando legacy-scan per cercare pattern obsoleti in un codebase.",
-      "Copre circa 250 funzioni web moderne, di cui 140 CSS e layout."
-     ],
-     "why": "Puoi installarlo in Claude Code per ottenere siti più leggeri e accessibili per i clienti, e farne un contenuto.",
-     "badge": "confermata",
-     "badge_note": "Il progetto compare su Hacker News e su GitHub Trending (repo GoogleChrome); nessuna fonte ufficiale tra quelle raccolte.",
-     "importance": 1,
-     "primary_url": "https://github.com/GoogleChrome/modern-web-guidance",
-     "sources": [
-      {
-       "name": "Hacker News",
-       "title": "Show HN: Get your coding agent off ~2019 JavaScript, onto modern web primitives",
-       "url": "https://github.com/GoogleChrome/modern-web-guidance",
-       "official": false,
-       "kind": "article",
-       "item_id": "efcd0568ec37",
-       "meta": {
-        "points": 423,
-        "comments": "https://news.ycombinator.com/item?id=50443812"
-       },
-       "link": "ok"
-      },
-      {
-       "name": "GitHub Trending",
-       "title": "GoogleChrome/modern-web-guidance-src",
-       "url": "https://github.com/GoogleChrome/modern-web-guidance-src",
-       "official": false,
-       "kind": "repo",
-       "item_id": "77d7b3f41977",
-       "meta": {},
-       "link": "ok"
-      }
-     ]
-    },
-    {
-     "id": "2026-11-11-15",
      "subsection": "claude",
      "subsection_label": "Skill e tool per Claude",
-     "title": "addyosmani/agent-skills: skill di ingegneria per agenti di coding",
-     "summary": "Raccolta di 25 skill che codificano flussi di lavoro e criteri di qualità per gli agenti: dalla specifica alla messa in produzione. Include 9 comandi slash legati al ciclo di sviluppo.",
+     "title": "agent-skills: competenze di ingegneria per agenti di coding, di Addy Osmani",
+     "summary": "Il repository raccoglie skill che codificano i flussi di sviluppo e i controlli di qualità, in 9 comandi slash che coprono il ciclo di sviluppo, da /spec a /ship. Si installa con un solo comando su oltre 70 agenti, tra cui Claude Code.",
      "key_points": [
-      "Installazione: npx skills add addyosmani/agent-skills.",
-      "Comandi come /spec, /plan, /build, /test, /review e /ship.",
-      "/build auto implementa tutti i task con una sola approvazione del piano."
+      "25 skill installabili con npx skills add addyosmani/agent-skills.",
+      "In Claude Code i comandi si usano come /agent-skills:review.",
+      "/build auto esegue tutte le attività dopo un'unica approvazione del piano.",
+      "788 stelle oggi su GitHub Trending."
      ],
-     "why": "Puoi usarlo in Claude Code per dare metodo ai progetti dei clienti.",
+     "why": "Puoi installarle in Claude Code per dare struttura ai tuoi progetti e studiarne i flussi da riusare nelle automazioni per i clienti.",
      "badge": "dal_repo",
-     "badge_note": "Solo GitHub Trending (788 stelle oggi), nessuna fonte ufficiale o seconda fonte.",
+     "badge_note": "Una sola fonte non ufficiale: il README del repository su GitHub Trending.",
      "importance": 2,
      "primary_url": "https://github.com/addyosmani/agent-skills",
      "sources": [
@@ -740,19 +361,19 @@
      ]
     },
     {
-     "id": "2026-11-11-16",
+     "id": "2026-11-11-08",
      "subsection": "claude",
      "subsection_label": "Skill e tool per Claude",
-     "title": "shadcn/improve: un modello potente fa il piano, uno economico lo esegue",
-     "summary": "Skill che audita un codebase e scrive piani di implementazione che altri agenti, più economici, eseguono. La skill non implementa nulla.",
+     "title": "shadcn/improve: un modello potente scrive i piani, uno economico li esegue",
+     "summary": "È una skill per agenti che analizza un codebase e scrive piani di implementazione che altri agenti più economici eseguono. Non implementa nulla da sola: il prodotto è il piano.",
      "key_points": [
-      "Installazione: npx skills add shadcn/improve.",
-      "Comandi /improve quick, deep, security e branch.",
-      "I piani finiscono in plans/ come file markdown."
+      "Si installa con npx skills add shadcn/improve.",
+      "Modalità: quick, deep, security, branch, next.",
+      "/improve execute lancia un modello più economico in un worktree isolato."
      ],
-     "why": "Ti serve per contenere i costi: usi il modello migliore per pianificare e quelli economici per eseguire.",
+     "why": "Il modello usa un'IA potente per pianificare e una economica per eseguire, utile per ridurre i costi sulle automazioni dei clienti.",
      "badge": "dal_repo",
-     "badge_note": "Solo GitHub Trending (333 stelle oggi).",
+     "badge_note": "Una sola fonte non ufficiale: il README del repository su GitHub Trending.",
      "importance": 2,
      "primary_url": "https://github.com/shadcn/improve",
      "sources": [
@@ -769,48 +390,20 @@
      ]
     },
     {
-     "id": "2026-11-11-17",
-     "subsection": "automazioni",
-     "subsection_label": "Automazioni e routine cloud",
-     "title": "vercel-labs/agent-browser: browser automation da shell per agenti AI",
-     "summary": "CLI nativa in Rust che dà a un agente un browser da pilotare comando per comando. La pagina è letta come albero di accessibilità con riferimenti agli elementi.",
-     "key_points": [
-      "Installazione: npm install -g agent-browser, poi agent-browser install.",
-      "I click falliscono se l'elemento è nascosto o coperto, invece di segnalare successo.",
-      "Il demone chiude il browser dopo un'ora di inattività."
-     ],
-     "why": "Utile per automazioni web da proporre ai clienti, come compilare form o raccogliere dati.",
-     "badge": "dal_repo",
-     "badge_note": "Solo GitHub Trending (712 stelle oggi).",
-     "importance": 2,
-     "primary_url": "https://github.com/vercel-labs/agent-browser",
-     "sources": [
-      {
-       "name": "GitHub Trending",
-       "title": "vercel-labs/agent-browser",
-       "url": "https://github.com/vercel-labs/agent-browser",
-       "official": false,
-       "kind": "repo",
-       "item_id": "dbaf6cfbe890",
-       "meta": {},
-       "link": "ok"
-      }
-     ]
-    },
-    {
-     "id": "2026-11-11-18",
+     "id": "2026-11-11-09",
      "subsection": "design_web",
      "subsection_label": "Design per siti e social",
-     "title": "Meta apre Astryx, il design system per persone e agenti",
-     "summary": "Meta rende open source Astryx, il design system usato in azienda, in beta. Offre oltre 150 componenti accessibili, temi e dark mode, basato su React 19 e StyleX.",
+     "title": "Meta pubblica Astryx, design system open source pensato per persone e agenti",
+     "summary": "Meta ha reso open source Astryx, design system nato in azienda in otto anni, ora in beta. Offre oltre 150 componenti React accessibili, temi e dark mode, con API e CLI pensate anche per assistenti AI.",
      "key_points": [
-      "Installazione con npm: @astryxdesign/core e un tema.",
-      "I temi sono override di variabili CSS.",
-      "Si può usare Tailwind o CSS modules per le modifiche."
+      "Richiede React 19 o successivo, basato su StyleX.",
+      "Compatibile con Tailwind, CSS modules o CSS semplice.",
+      "Include template pronti e un CLI; licenza MIT.",
+      "2.842 stelle oggi su GitHub Trending."
      ],
-     "why": "Puoi usarlo come base per siti e interfacce dei clienti.",
+     "why": "Può essere una base per costruire siti per i clienti con Claude Code e componenti coerenti.",
      "badge": "dal_repo",
-     "badge_note": "Solo GitHub Trending (2.842 stelle oggi); i dati vengono dal README.",
+     "badge_note": "Una sola fonte: il README del repository su GitHub Trending.",
      "importance": 2,
      "primary_url": "https://github.com/meta/astryx",
      "sources": [
@@ -827,49 +420,75 @@
      ]
     },
     {
-     "id": "2026-11-11-23",
+     "id": "2026-11-11-10",
      "subsection": "agenti",
      "subsection_label": "Agenti AI e agenti vocali",
-     "title": "Poki: agenti AI che usano un vero iPhone",
-     "summary": "Poki è un server MCP locale e un agente che permettono ad agenti AI di usare un iPhone reale, senza jailbreak né hardware aggiuntivo.",
+     "title": "agent-browser: CLI in Rust per far usare un browser agli agenti AI",
+     "summary": "Vercel Labs propone una CLI che permette a un agente di aprire pagine, leggerle come albero di accessibilità e agire sugli elementi da shell, un comando alla volta.",
      "key_points": [
-      "Richiede macOS 14+, Node.js 24+, iOS 18+ e cavo USB.",
-      "Con un account Apple gratuito la firma dura 7 giorni.",
-      "Licenza AGPL-3.0."
+      "Installazione: npm install -g agent-browser, poi agent-browser install.",
+      "Ogni elemento ha un ref (es. @e1) da usare nei comandi.",
+      "Un clic fallisce se l'elemento è nascosto o coperto, invece di segnalare successo."
      ],
-     "why": "Curiosità per test di app mobili con agenti, in alternativa ad Artemis su Android.",
+     "why": "È uno strumento pratico per automazioni web con Claude Code, ad esempio test o compilazione di form per i clienti.",
      "badge": "dal_repo",
-     "badge_note": "Solo il repository GitHub (971 stelle); non testato.",
-     "importance": 3,
-     "primary_url": "https://github.com/JosssphZhou/poki",
+     "badge_note": "Una sola fonte: il README del repository su GitHub Trending.",
+     "importance": 2,
+     "primary_url": "https://github.com/vercel-labs/agent-browser",
      "sources": [
       {
-       "name": "GitHub",
-       "title": "JosssphZhou/poki",
-       "url": "https://github.com/JosssphZhou/poki",
+       "name": "GitHub Trending",
+       "title": "vercel-labs/agent-browser",
+       "url": "https://github.com/vercel-labs/agent-browser",
        "official": false,
        "kind": "repo",
-       "item_id": "542ee3f43fb9",
-       "meta": {
-        "stars": 971
-       },
+       "item_id": "dbaf6cfbe890",
+       "meta": {},
        "link": "ok"
       }
      ]
     },
     {
-     "id": "2026-11-11-24",
+     "id": "2026-11-11-13",
+     "subsection": "siti_seo",
+     "subsection_label": "Siti web e SEO",
+     "title": "Modern Web Guidance: skill di Chrome per far scrivere agli agenti codice web moderno",
+     "summary": "Un progetto di Chrome, Edge, Firefox e MDN che inserisce nelle istruzioni degli agenti di coding le buone pratiche del web moderno, per evitare pattern obsoleti.",
+     "key_points": [
+      "Installazione: npx modern-web-guidance@latest install.",
+      "Il comando legacy-scan cerca pattern obsoleti in un codebase."
+     ],
+     "why": "Può migliorare la qualità e le prestazioni dei siti costruiti con agenti per i clienti.",
+     "badge": "dal_repo",
+     "badge_note": "Una sola fonte: il README del repository su GitHub Trending.",
+     "importance": 3,
+     "primary_url": "https://github.com/GoogleChrome/modern-web-guidance-src",
+     "sources": [
+      {
+       "name": "GitHub Trending",
+       "title": "GoogleChrome/modern-web-guidance-src",
+       "url": "https://github.com/GoogleChrome/modern-web-guidance-src",
+       "official": false,
+       "kind": "repo",
+       "item_id": "77d7b3f41977",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-11-14",
      "subsection": "curatori",
      "subsection_label": "Dai curatori (Hacker News, Simon Willison)",
-     "title": "AWS pubblica un emulatore ufficiale dei suoi servizi",
-     "summary": "Secondo Simon Willison, AWS ha rilasciato un emulatore per testare in locale servizi AWS senza chiavi a pagamento. È scritto in Rust da uno sciame di agenti.",
+     "title": "AWS pubblica un emulatore ufficiale dei suoi servizi, scritto da agenti",
+     "summary": "Secondo Simon Willison, AWS ha rilasciato un emulatore ufficiale per testare in locale i suoi servizi senza chiavi API a pagamento. È scritto in Rust da uno sciame di agenti.",
      "key_points": [
       "29.684 commit nelle prime tre settimane.",
       "Su macOS e Windows richiede Docker."
      ],
-     "why": "Curiosità utile per testare automazioni cloud senza costi.",
+     "why": "Curiosità utile: mostra la scala del lavoro agentico e può servire per test locali.",
      "badge": "da_verificare",
-     "badge_note": "Una sola fonte non ufficiale: il blog di Simon Willison.",
+     "badge_note": "Una sola fonte non ufficiale (Simon Willison), che rimanda a un post sul blog di Werner Vogels.",
      "importance": 3,
      "primary_url": "https://simonwillison.net/2026/Nov/11/aws-emulator/",
      "sources": [
@@ -889,29 +508,29 @@
   }
  ],
  "stats": {
-  "collected": 84,
-  "stories": 24,
-  "discarded": 45,
+  "collected": 49,
+  "stories": 14,
+  "discarded": 30,
   "dropped_broken_links": [],
   "source_errors": [],
-  "window_hours": 72,
+  "window_hours": 26,
   "model": "sonnet",
   "claude": {
    "selezione": {
-    "secs": 16.2,
+    "secs": 8.0,
     "turns": 2,
-    "input_tokens": 15746,
+    "input_tokens": 10117,
     "cache_read_tokens": 699,
-    "output_tokens": 1954,
-    "equivalent_api_usd": 0.08258990000000001
+    "output_tokens": 1062,
+    "equivalent_api_usd": 0.0511539
    },
    "scrittura": {
-    "secs": 55.4,
+    "secs": 34.2,
     "turns": 2,
-    "input_tokens": 48265,
-    "cache_read_tokens": 0,
-    "output_tokens": 7966,
-    "equivalent_api_usd": 0.272716
+    "input_tokens": 24232,
+    "cache_read_tokens": 789,
+    "output_tokens": 5039,
+    "equivalent_api_usd": 0.1473929
    }
   }
  }
