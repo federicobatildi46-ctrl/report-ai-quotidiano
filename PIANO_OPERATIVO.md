@@ -17,8 +17,8 @@ Stato: **Fase 0 completata** · decisioni prese l'11/11/2026 (§8) · prossimo p
 
 1. **Costo zero come default.** Il report gira gratis su GitHub Actions; l'"intelligenza" è
    Claude Code (`claude -p`) con il mio abbonamento Pro, non l'API a consumo.
-   Costi possibili, opzionali e sotto controllo: Apify (solo LinkedIn, dentro i 5 $/mese
-   gratuiti) e crediti Higgsfield per le immagini.
+   Costi possibili, opzionali e sotto controllo: Apify (solo LinkedIn: una piccola parte dei
+   19 $/mese del piano Starter che ho già) e crediti Higgsfield per le immagini.
 2. **Fonti ufficiali prima di tutto.** Feed RSS/Atom e API pubbliche; scraping HTML solo dove non
    esiste un feed; Apify solo dove non c'è alternativa (LinkedIn).
 3. **Meno ma meglio.** Massimo **15 minuti di lettura**. Se un giorno non succede niente di
@@ -157,7 +157,7 @@ Ogni fase si chiude solo quando il suo risultato è stato provato davvero.
 - **LinkedIn non ha API di lettura gratuite** → Apify, a basso volume e solo post pubblici
   (lo scraping è contro i termini di LinkedIn: rischio basso ma esiste).
 - **Pubblicare su LinkedIn via API** richiede un'app su LinkedIn Developers, che va associata a una
-  **Pagina aziendale**: posso crearne una gratis (es. la pagina della futura agenzia). L'API
+  **Pagina aziendale**: uso quella che ho già (creata per un progetto precedente). L'API
   pubblica sul mio profilo personale. La programmazione la gestiamo noi: coda nel repo + GitHub
   Actions che pubblica all'ora scelta.
 - **Limiti del piano Pro:** il report usa Sonnet e un tetto di item per contenere il consumo;
@@ -173,15 +173,15 @@ Ogni fase si chiude solo quando il suo risultato è stato provato davvero.
 | Uso | Solo personale |
 | Obiettivo | Formazione da creator → agenzia AI per imprenditori e professionisti |
 | Esecuzione | Cloud, GitHub Actions (il PC alle 9 è spento) |
-| Consegna | Email Gmail + app locale |
+| Consegna | Email Gmail inviata a me stesso (stesso indirizzo mittente e destinatario) + app locale |
 | Piano Claude | Pro |
 | Lunghezza | Massimo 15 minuti di lettura |
 | Creator | Video lunghi e Shorts |
 | Fonti GitHub | GitHub API + Trending + Hacker News + Simon Willison |
-| Apify | Token già disponibile → `.env` |
+| Apify | Token in `.env`, verificato (piano Starter, 19 $/mese) |
 | Lezione | Dentro l'app **e** salvata come file |
-| Immagini | Higgsfield con il mio Soul già creato |
-| LinkedIn | Profilo personale. Si parte con "Copia", poi "Pubblica" e "Programma" |
+| Immagini | Higgsfield con il mio Soul già creato. Stile visivo definito in Fase 7 partendo dalle reference che mando io |
+| LinkedIn | Pubblicazione sul profilo personale; app developer associata alla Pagina aziendale che ho già. Si parte con "Copia", poi "Pubblica" e "Programma" |
 | Shorts | Italiano, massimo 60 secondi |
 | Portabilità | Tutto su GitHub, repo privato |
 
