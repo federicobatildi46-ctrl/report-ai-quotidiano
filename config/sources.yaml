@@ -9,6 +9,32 @@
 #   max_items  tetto di elementi nuovi per giorno (default 12)
 # Verificate l'11/11/2026.
 
+# Etichetta breve mostrata nel report accanto ai link (YouTube e LinkedIn usano il nome del creator).
+labels:
+  claude-code-releases: Claude Code (release)
+  anthropic-site: Anthropic
+  claude-com-site: Claude.com
+  claude-blog: Blog Claude
+  claude-apps-release-notes: Release notes app Claude
+  claude-platform-release-notes: Release notes Claude Platform
+  anthropic-skills-repo: anthropics/skills
+  agent-sdk-python: Claude Agent SDK
+  claude-status: Status Claude
+  higgsfield-changelog: Higgsfield What's new
+  higgsfield-blog: Blog Higgsfield
+  higgsfield-apps: Higgsfield
+  elevenlabs-blog: Blog ElevenLabs
+  elevenlabs-changelog: Changelog ElevenLabs
+  gh-search: GitHub
+  gh-trending: GitHub Trending
+  hn-claude: Hacker News
+  simonwillison: Simon Willison
+
+# Un link che punta a questi domini conta come fonte ufficiale anche se arriva da un curatore
+# (es. un post di Hacker News che rimanda a claude.com).
+official_domains: [anthropic.com, claude.com, claude.dev, claude.ai, github.com/anthropics,
+                   higgsfield.ai, elevenlabs.io]
+
 claude:
   - id: claude-code-releases
     name: Claude Code — release

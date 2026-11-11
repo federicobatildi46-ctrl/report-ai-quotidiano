@@ -19,6 +19,16 @@ Progetto: report AI quotidiano locale (vedi PIANO_OPERATIVO.md per obiettivi, ar
 - Per sviluppare senza toccare la memoria usa sempre `--dry-run`; `data/raw/sample-72h.json` è
   un campione completo per la Fase 2
 
+- `uv run digest build [--input file] [--model m]` — report in `reports/` (JSON + anteprima .md)
+
+## Report (Fase 2)
+- Due chiamate `claude -p` in `src/digest/build.py`: selezione (prompts/triage.md) e scrittura
+  (prompts/digest.md). Claude non scrive mai URL: i link vengono dalle fonti raccolte.
+- `src/digest/claude.py` chiama claude.exe direttamente (non il .cmd), senza MCP né strumenti,
+  con `--json-schema`. Evita vincoli rigidi (minItems/maxItems) nello schema: causano rigenerazioni.
+- I badge vengono corretti da `fix_badge`; i domini ufficiali e le etichette brevi delle fonti
+  sono in `config/sources.yaml` (`official_domains`, `labels`).
+
 ## Aggiungere una fonte
 Nuovo tipo → funzione `async def collect_x(ctx: Ctx) -> list[Item]` in `src/digest/collectors/`,
 registrata in `collectors/__init__.py`. Usa sempre `ctx.is_new(key)` prima di arricchire

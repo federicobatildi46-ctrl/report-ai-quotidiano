@@ -60,6 +60,10 @@ async def collect_sitemap(ctx: Ctx) -> list[Item]:
         # Pagina con una data di pubblicazione vecchia ma "ritoccata" di recente: non è una novità.
         if art["published"] and not is_fresh(art["published"], ctx.since - timedelta(days=GRACE_DAYS)):
             return None
+        # Prima esecuzione: senza una data dichiarata dalla pagina non sappiamo se è nuova
+        # (la lastmod cambia anche per ritocchi). Dal giorno dopo vale "URL nuovo = novità".
+        if not ctx.initialized and art["published"] is None:
+            return None
         pub = art["published"] or lastmod
         return ctx.item(kind=ctx.src.get("kind", "article"), title=art["title"] or loc, url=loc,
                         published=iso(pub), summary=art["description"][:400], content=art["text"],

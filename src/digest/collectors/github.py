@@ -123,4 +123,18 @@ async def collect_github_trending(ctx: Ctx) -> list[Item]:
             kind="repo", subsection="trending", title=name, url=f"https://github.com/{name}",
             published=datetime.now(UTC).isoformat(), summary=desc, content=desc, key=name,
             meta={"language": clean(lang.get_text()) if lang else None, "stars_today": today}))
-    return items[: ctx.src.get("max_items", 15)]
+    items = items[: ctx.src.get("max_items", 15)]
+
+    # README: senza, Claude ha solo una riga di descrizione e non può dire a cosa serve
+    token = github_token()
+    headers = {"Accept": "application/vnd.github.raw"}
+    if token:
+        headers["Authorization"] = f"Bearer {token}"
+
+    async def add_readme(it: Item):
+        rr = await ctx.client.get(f"{API}/repos/{it.title}/readme", headers=headers)
+        if rr.status_code == 200:
+            it.content = f"{it.summary}\n\nREADME:\n{rr.text[:4000]}"
+
+    await asyncio.gather(*(add_readme(i) for i in items), return_exceptions=True)
+    return items

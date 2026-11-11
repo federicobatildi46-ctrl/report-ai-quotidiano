@@ -66,11 +66,22 @@ Opzioni utili:
 Alla prima esecuzione ogni fonte viene "fotografata": entra solo ciò che ha una data recente, e
 dal giorno dopo ogni elemento nuovo è una novità.
 
+```bash
+uv run digest build
+```
+
+Claude (col tuo abbonamento, via `claude -p`) prende l'ultima raccolta e in due passaggi:
+1. **seleziona** cosa conta e raggruppa le fonti che parlano della stessa cosa;
+2. **scrive** titolo, riassunto, "perché ti serve" e badge di fact check.
+
+Poi il codice testa ogni link e corregge i badge incoerenti. Risultato: `reports/AAAA-MM-GG.json`
+più un'anteprima leggibile `reports/AAAA-MM-GG.md`. Durata ~1,5 minuti.
+Opzioni: `--input file.json` (un'altra raccolta), `--model opus` (un altro modello).
+
 Comandi delle fasi successive (non ancora implementati):
 
 | Comando | Fase | Cosa fa |
 |---------|------|---------|
-| `uv run digest build` | 2 | Claude filtra, riassume e verifica → `reports/AAAA-MM-GG.json` |
 | `uv run digest send` | 3 | crea l'HTML del report e lo invia a Gmail |
 | `uv run digest daily` | 4 | collect + build + send: è quello che gira nel cloud ogni mattina |
 | `uv run digest serve` | 5 | app locale su http://localhost:8787 |

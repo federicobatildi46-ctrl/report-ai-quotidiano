@@ -9,7 +9,7 @@
 per imprenditori e professionisti (siti e SEO, social e personal brand, video e caroselli, ads,
 agenti AI anche vocali, automazioni). Il report serve a **formarmi** e a **produrre contenuti**.
 
-Stato: **Fasi 0 e 1 completate** · decisioni prese l'11/11/2026 (§8) · prossimo passo: Fase 2.
+Stato: **Fasi 0, 1 e 2 completate** · decisioni prese l'11/11/2026 (§8) · prossimo passo: Fase 3.
 
 ---
 
@@ -129,6 +129,12 @@ spinge a scaricare eseguibili, README vuoto), una fonte rotta non blocca le altr
 | 🔁 **Confermata** | Riportata da ≥2 fonti indipendenti |
 | ⚠️ **Da verificare** | Una sola fonte non ufficiale (es. un creator) — il report lo dice chiaro |
 | ❌ **Smentita** | Contraddetta da una fonte ufficiale (mostrata solo se utile a capire) |
+| 📦 **Dal README** | Repo GitHub: cosa fa lo dice il progetto stesso, ma non è ancora stata provata |
+
+Il badge lo propone Claude, ma il sistema lo **corregge in automatico** se non è coerente con
+le fonti reali (es. "Ufficiale" senza nessuna fonte ufficiale → declassato). Un link che punta a
+un dominio ufficiale (anthropic.com, claude.com, higgsfield.ai, elevenlabs.io…) conta come
+fonte ufficiale anche se arriva da Hacker News.
 
 In più tutti i link vengono testati prima di entrare nel report: con un link rotto la notizia
 viene scartata o segnalata.
@@ -141,7 +147,7 @@ viene scartata o segnalata.
 |------|-----------|------------------------|
 | **0. Setup** ✅ | Struttura, config, ambiente `uv`, fonti verificate, repo GitHub | `uv run digest check-sources` → 24/24 |
 | **1. Raccolta** ✅ | Collector RSS/Atom, sitemap, pagine a sezioni, YouTube (+ Shorts, trascrizioni), GitHub (con filtro antispam), Hacker News, LinkedIn via Apify; memoria anti-doppioni | `uv run digest collect` → 23 fonti, 85 elementi su 72 h di prova, 0 errori |
-| **2. Cervello** | Prompt di filtro/riassunto/fact check, output JSON strutturato | `uv run digest build` → `reports/AAAA-MM-GG.json` |
+| **2. Cervello** ✅ | Selezione + scrittura con `claude -p` (Sonnet, JSON validato, senza connettori), link testati, badge corretti dal codice, anteprima Markdown | `uv run digest build` → 25 notizie da 84 elementi, ~12 min di lettura, ~1,5 min di esecuzione |
 | **3. Report + email** | Rendering HTML del report + invio a Gmail | Ricevo l'email con il report di prova |
 | **4. Cloud** | Workflow GitHub Actions alle 7:30, segreti nel repo, commit automatico dei report | Report nell'email ogni mattina con il PC spento |
 | **5. App locale** | Server locale, report, archivio, `git pull` all'avvio | Apro `localhost:8787` e leggo |

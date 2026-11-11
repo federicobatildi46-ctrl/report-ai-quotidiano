@@ -3,9 +3,10 @@
 report:
   title: "Report automatico notizie e aggiornamenti AI"
   language: it
-  max_reading_minutes: 15        # tetto totale di lettura
-  max_items_per_section: 6       # meglio 2 notizie vere che 10 riempitivi
+  max_reading_minutes: 15        # tetto totale di lettura (~28 notizie)
+  max_stories: 28                # tetto totale di notizie nel report
   lookback_hours: 26             # finestra di raccolta (24h + margine)
+  model: sonnet                  # modello per il report quotidiano (risparmia quota del Pro)
 
 # Chi sono: serve a Claude per scrivere il "Perché ti serve" di ogni notizia.
 profile: >
@@ -15,9 +16,11 @@ profile: >
   (anche vocali) e automazioni con routine nel cloud. Uso Claude Code ogni giorno.
   Mi servono notizie che posso imparare, applicare a un cliente o trasformare in contenuto.
 
+# max_items: tetto di notizie per sezione (meglio 2 notizie vere che 10 riempitivi)
 sections:
   - id: claude
     title: "Universo Claude"
+    max_items: 8
     subsections:
       code:       "Claude Code"
       cowork:     "Cowork"
@@ -26,24 +29,30 @@ sections:
       ecosistema: "Ecosistema a 360° — modelli, API, SDK, azienda"
   - id: higgsfield
     title: "Higgsfield"
+    max_items: 4
     focus: "nuove funzioni e modelli, e come applicarli in pratica"
   - id: elevenlabs
     title: "ElevenLabs"
-    focus: "prodotto, API, nuove voci/modelli, casi d'uso"
+    max_items: 4
+    focus: "prodotto, API, nuove voci/modelli, agenti vocali, casi d'uso"
   - id: creators
     title: "Dai creator che seguo"
+    max_items: 6
     focus: "il contenuto e l'idea utile del video/post, non il titolo clickbait"
     include_shorts: true          # gli Shorts: 1–2 righe, salvo idee davvero nuove
   - id: github
     title: "GitHub: repo e skill per la mia agenzia"
+    max_items: 8
     focus: "skill, MCP server, plugin e tool da dare a Claude, applicabili ai servizi dell'agenzia"
     subsections:
+      claude:       "Skill e tool per Claude"
       siti_seo:     "Siti web e SEO"
       design_web:   "Design per siti e social"
       social:       "Social e contenuti (IG, TikTok, FB, YouTube, LinkedIn)"
       video:        "Video editing e caroselli"
       agenti:       "Agenti AI e agenti vocali"
       automazioni:  "Automazioni e routine cloud"
+      curatori:     "Dai curatori (Hacker News, Simon Willison)"
 
 # Cosa SEMPRE tenere
 signal:
@@ -59,5 +68,7 @@ noise:
   - articoli SEO, listicle, "top 10 tool", contenuti promozionali
   - bugfix minori e release solo di manutenzione (raggruppare in 1 riga se servono)
   - repo con poche stelle, senza README chiaro, o duplicati di altre
+  - repo fuori tema per l'agenzia (giochi, emulatori, progetti personali senza riuso)
   - video/post che ripetono una notizia già coperta da fonte ufficiale (citarli solo come conferma)
   - hype senza contenuto ("questo cambia TUTTO")
+  - notizie societarie minori (round, accordi commerciali); quelle grandi (es. IPO di Anthropic) sì, ma brevi
