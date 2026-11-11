@@ -9,7 +9,7 @@
 per imprenditori e professionisti (siti e SEO, social e personal brand, video e caroselli, ads,
 agenti AI anche vocali, automazioni). Il report serve a **formarmi** e a **produrre contenuti**.
 
-Stato: **Fase 0 completata** · decisioni prese l'11/11/2026 (§8) · prossimo passo: Fase 1.
+Stato: **Fasi 0 e 1 completate** · decisioni prese l'11/11/2026 (§8) · prossimo passo: Fase 2.
 
 ---
 
@@ -98,21 +98,26 @@ report quotidiano, per non consumare i limiti del Pro) · `yt-dlp` per i sottoti
 
 ---
 
-## 4. Fonti (verificate l'11/11/2026: 24/24 raggiungibili)
+## 4. Fonti (23, verificate l'11/11/2026)
 
 Dettaglio completo e modificabile in [config/sources.yaml](config/sources.yaml).
 
 | Area | Fonte | Metodo |
 |------|-------|--------|
-| Claude Code | release GitHub + CHANGELOG.md | Atom / raw |
-| Claude (tutto) | anthropic.com/news, anthropic.com/engineering, claude.com/blog | HTML (non c'è un RSS ufficiale) |
-| Claude app/API | release notes (support.claude.com, docs.claude.com) | HTML |
+| Claude Code | release GitHub + dettaglio dal CHANGELOG.md | Atom + raw |
+| Claude (tutto) | anthropic.com (tutto il sito: i lanci dei modelli stanno nella radice), blog su claude.dev, articoli e pagine prodotto di claude.com | sitemap + pagina dell'articolo |
+| Claude app/API | release notes app (support.claude.com) e piattaforma (platform.claude.com) | pagine a sezioni datate |
 | Claude ecosistema | anthropics/skills, Agent SDK, status.claude.com | Atom / RSS |
-| Higgsfield | higgsfield.ai/blog + sitemap | HTML / sitemap |
-| ElevenLabs | blog RSS + changelog API | RSS / HTML |
-| YouTube | 4 canali, feed RSS ufficiale + sottotitoli | RSS + yt-dlp |
-| LinkedIn | Belli Contarini, Saraev (+ i miei post per lo stile) | Apify |
-| GitHub | API search per area agenzia + Trending + Hacker News + Simon Willison | API / HTML / RSS |
+| Higgsfield | changelog "What's new", blog (senza articoli SEO), nuove app | pagina a sezioni + sitemap |
+| ElevenLabs | blog (articolo completo) + changelog | RSS |
+| YouTube | 4 canali: video lunghi e Shorts, con trascrizione dai sottotitoli | RSS + yt-dlp |
+| LinkedIn | Belli Contarini, Saraev | Apify (~0,002 $ a post) |
+| GitHub | ricerca per area dell'agenzia (filtro antispam su stelle finte e crack), Trending | API / HTML |
+| Curatori | Hacker News (≥100 punti, API Algolia), Simon Willison | API / Atom |
+
+**Come si evita il rumore già in raccolta:** memoria anti-doppioni (`data/seen.json`), titoli SEO
+scartati per regola (`exclude_title`), repo spam scartate (stelle identiche in serie, README che
+spinge a scaricare eseguibili, README vuoto), una fonte rotta non blocca le altre.
 
 ---
 
@@ -135,7 +140,7 @@ viene scartata o segnalata.
 | Fase | Contenuto | Risultato verificabile |
 |------|-----------|------------------------|
 | **0. Setup** ✅ | Struttura, config, ambiente `uv`, fonti verificate, repo GitHub | `uv run digest check-sources` → 24/24 |
-| **1. Raccolta** | Collector RSS/Atom, HTML, YouTube (+ Shorts, sottotitoli), GitHub, LinkedIn via Apify | `uv run digest collect` salva gli item delle ultime 26 h |
+| **1. Raccolta** ✅ | Collector RSS/Atom, sitemap, pagine a sezioni, YouTube (+ Shorts, trascrizioni), GitHub (con filtro antispam), Hacker News, LinkedIn via Apify; memoria anti-doppioni | `uv run digest collect` → 23 fonti, 85 elementi su 72 h di prova, 0 errori |
 | **2. Cervello** | Prompt di filtro/riassunto/fact check, output JSON strutturato | `uv run digest build` → `reports/AAAA-MM-GG.json` |
 | **3. Report + email** | Rendering HTML del report + invio a Gmail | Ricevo l'email con il report di prova |
 | **4. Cloud** | Workflow GitHub Actions alle 7:30, segreti nel repo, commit automatico dei report | Report nell'email ogni mattina con il PC spento |

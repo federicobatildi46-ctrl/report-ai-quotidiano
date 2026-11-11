@@ -1,21 +1,13 @@
-"""Caricamento di config/sources.yaml in una lista piatta di endpoint da interrogare."""
+"""Lettura di config/sources.yaml."""
 
-from dataclasses import dataclass
+from collections.abc import Iterator
 
 import yaml
 
 from digest import CONFIG_DIR
 
+SECTIONS = ("claude", "higgsfield", "elevenlabs", "creators", "github")
 YOUTUBE_FEED = "https://www.youtube.com/feeds/videos.xml?channel_id={}"
-
-
-@dataclass
-class Endpoint:
-    id: str
-    name: str
-    section: str
-    type: str
-    url: str
 
 
 def load_config() -> dict:
@@ -23,23 +15,21 @@ def load_config() -> dict:
         return yaml.safe_load(f)
 
 
-def endpoints() -> list[Endpoint]:
-    cfg = load_config()
-    out: list[Endpoint] = []
+def iter_sources(cfg: dict | None = None) -> Iterator[tuple[str, dict]]:
+    cfg = cfg or load_config()
+    for section in SECTIONS:
+        for src in cfg.get(section) or []:
+            yield section, src
 
-    for section in ("claude", "higgsfield", "elevenlabs", "github"):
-        for s in cfg.get(section, []):
-            if s["type"] == "github_api":
-                url = "https://api.github.com/search/repositories?q=topic:claude-code&sort=updated"
-            else:
-                url = s["url"]
-            out.append(Endpoint(s["id"], s["name"], section, s["type"], url))
 
-    creators = cfg.get("creators", {})
-    for c in creators.get("youtube", []):
-        out.append(Endpoint(c["id"], f"YouTube — {c['name']}", "creators", "youtube",
-                            YOUTUBE_FEED.format(c["channel_id"])))
-    for c in creators.get("linkedin", []):
-        out.append(Endpoint(c["id"], f"LinkedIn — {c['name']}", "creators", "apify", c["url"]))
-
-    return out
+def check_url(src: dict) -> str | None:
+    """URL da interrogare per `check-sources` (None = non verificabile con un GET)."""
+    match src["type"]:
+        case "youtube":
+            return YOUTUBE_FEED.format(src["channel_id"])
+        case "github_search":
+            return "https://api.github.com/search/repositories?q=topic:claude-code&per_page=1"
+        case "linkedin":
+            return None
+        case _:
+            return src["url"]

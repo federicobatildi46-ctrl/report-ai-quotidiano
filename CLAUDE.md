@@ -15,6 +15,14 @@ Progetto: report AI quotidiano locale (vedi PIANO_OPERATIVO.md per obiettivi, ar
 ## Comandi
 - `uv sync` — installa dipendenze
 - `uv run digest check-sources` — verifica le fonti
+- `uv run digest collect [--dry-run] [--hours N] [--only ID ...]` — raccolta in `data/raw/`
+- Per sviluppare senza toccare la memoria usa sempre `--dry-run`; `data/raw/sample-72h.json` è
+  un campione completo per la Fase 2
+
+## Aggiungere una fonte
+Nuovo tipo → funzione `async def collect_x(ctx: Ctx) -> list[Item]` in `src/digest/collectors/`,
+registrata in `collectors/__init__.py`. Usa sempre `ctx.is_new(key)` prima di arricchire
+(scaricare pagine) e `is_fresh(data, ctx.since)` per la finestra.
 
 ## Layout
 - `config/sources.yaml` fonti · `config/topics.yaml` interessi e filtro rumore

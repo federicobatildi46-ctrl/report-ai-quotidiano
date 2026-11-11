@@ -52,11 +52,24 @@ uv run digest check-sources
 
 Verifica che tutte le fonti in `config/sources.yaml` rispondano.
 
+```bash
+uv run digest collect
+```
+
+Raccoglie le novità delle ultime 26 ore da tutte le fonti in `data/raw/items-AAAA-MM-GG.json`
+e aggiorna la memoria `data/seen.json`, così domani non torna niente di già visto.
+Opzioni utili:
+- `--dry-run`: prova senza aggiornare la memoria
+- `--hours 72`: allarga la finestra
+- `--only yt-nicksaraev gh-search`: solo alcune fonti (id da `sources.yaml`)
+
+Alla prima esecuzione ogni fonte viene "fotografata": entra solo ciò che ha una data recente, e
+dal giorno dopo ogni elemento nuovo è una novità.
+
 Comandi delle fasi successive (non ancora implementati):
 
 | Comando | Fase | Cosa fa |
 |---------|------|---------|
-| `uv run digest collect` | 1 | scarica le novità delle ultime 26 ore da tutte le fonti |
 | `uv run digest build` | 2 | Claude filtra, riassume e verifica → `reports/AAAA-MM-GG.json` |
 | `uv run digest send` | 3 | crea l'HTML del report e lo invia a Gmail |
 | `uv run digest daily` | 4 | collect + build + send: è quello che gira nel cloud ogni mattina |

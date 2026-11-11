@@ -1,166 +1,194 @@
-# Fonti del report. Ogni fonte ha:
-#   id        identificativo unico
-#   section   claude | higgsfield | elevenlabs | creators | github
-#   type      rss | atom | html | raw | youtube | github_api | apify
-#   official  true = fonte primaria dell'azienda (badge "Ufficiale")
-# Verificate l'11/11/2026 (stato HTTP 200).
+# Fonti del report, raggruppate per sezione. Campi comuni:
+#   id         identificativo unico (non cambiarlo: è la chiave della memoria in data/seen.json)
+#   name       nome leggibile
+#   type       rss | atom | github_releases | sitemap | sections | youtube | linkedin
+#              | github_search | github_trending | hackernews
+#   exclude_title  regex: titoli scartati subito (articoli SEO, promo…)
+#   subsection sottosezione nel report ("auto" = la decide Claude)
+#   official   true = fonte primaria dell'azienda (badge "Ufficiale")
+#   max_items  tetto di elementi nuovi per giorno (default 12)
+# Verificate l'11/11/2026.
 
 claude:
   - id: claude-code-releases
-    name: Claude Code — release GitHub
-    type: atom
+    name: Claude Code — release
+    type: github_releases
     url: https://github.com/anthropics/claude-code/releases.atom
+    changelog_url: https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md
     subsection: code
     official: true
-  - id: claude-code-changelog
-    name: Claude Code — CHANGELOG
-    type: raw
-    url: https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md
-    subsection: code
+  - id: anthropic-site
+    name: Anthropic — news, research, engineering
+    type: sitemap          # anthropic.com non ha RSS: la sitemap ha le date
+    url: https://www.anthropic.com/sitemap.xml
+    # tutto il sito: i lanci dei modelli stanno nella radice (es. /claude-fable-and-mythos-5-2)
+    include: ["anthropic.com/"]
+    exclude: ["/legal", "/careers", "/events", "/news/announcements", "/research/team/",
+              "/company", "/jobs"]
+    subsection: auto
     official: true
-  - id: anthropic-news
-    name: Anthropic — News
-    type: html
-    url: https://www.anthropic.com/news
-    link_pattern: "/news/"
-    subsection: ecosistema
-    official: true
-  - id: anthropic-engineering
-    name: Anthropic — Engineering blog
-    type: html
-    url: https://www.anthropic.com/engineering
-    link_pattern: "/engineering/"
-    subsection: ecosistema
+  - id: claude-com-site
+    name: Claude.com — articoli e pagine prodotto
+    type: sitemap          # nessuna data nella sitemap: le novità sono gli URL nuovi
+    url: https://claude.com/sitemap.xml
+    include: ["https://claude.com/resources/articles/", "https://claude.com/product/",
+              "https://claude.com/solutions/"]
+    subsection: auto
     official: true
   - id: claude-blog
-    name: Claude — Blog
-    type: html
-    url: https://claude.com/blog
-    link_pattern: "/blog/"
-    subsection: auto   # Claude decide: code / cowork / chat / design / ecosistema
+    name: Claude — blog
+    type: sitemap          # claude.com/blog ora vive su claude.dev
+    url: https://claude.dev/sitemap.xml
+    include: ["/blog/"]
+    subsection: auto
     official: true
   - id: claude-apps-release-notes
     name: Claude app — release notes
-    type: html
+    type: sections
     url: https://support.claude.com/en/articles/12138966-release-notes
-    subsection: chat
+    heading: h3
+    subsection: auto       # chat / cowork / design / code: decide Claude
     official: true
-  - id: claude-api-release-notes
-    name: Claude API — release notes
-    type: html
-    url: https://docs.claude.com/en/release-notes/api
+  - id: claude-platform-release-notes
+    name: Claude Platform — release notes
+    type: sections
+    url: https://platform.claude.com/docs/en/release-notes/overview
+    heading: h3
     subsection: ecosistema
     official: true
   - id: anthropic-skills-repo
     name: anthropics/skills — commit
     type: atom
+    kind: commit
     url: https://github.com/anthropics/skills/commits/main.atom
     subsection: ecosistema
     official: true
+    max_items: 8
   - id: agent-sdk-python
     name: Claude Agent SDK (Python) — release
-    type: atom
+    type: github_releases
     url: https://github.com/anthropics/claude-agent-sdk-python/releases.atom
+    changelog_url: https://raw.githubusercontent.com/anthropics/claude-agent-sdk-python/main/CHANGELOG.md
     subsection: ecosistema
     official: true
   - id: claude-status
     name: Claude status — incidenti
     type: rss
+    kind: incident
     url: https://status.claude.com/history.rss
     subsection: ecosistema
     official: true
-    only_major: true   # solo incidenti rilevanti, non ogni blip
 
 higgsfield:
-  - id: higgsfield-blog
-    name: Higgsfield — Blog
-    type: html
-    url: https://higgsfield.ai/blog
-    link_pattern: "/blog/"
+  - id: higgsfield-changelog
+    name: Higgsfield — What's new
+    type: sections
+    url: https://higgsfield.ai/creator-hub/changelog
+    heading: h2
     official: true
-  - id: higgsfield-sitemap
-    name: Higgsfield — Sitemap (nuove pagine prodotto)
+  - id: higgsfield-blog
+    name: Higgsfield — blog
     type: sitemap
-    url: https://higgsfield.ai/sitemap.xml
+    url: https://higgsfield.ai/blog/sitemap.xml
+    include: ["/blog/"]
+    # articoli SEO/promo scartati subito: "9 Best…", "X vs Y", "Alternatives", saldi
+    exclude_title: '^\d+\s+(best|top)\b|\bbest\b.*\b20\d\d\b|\bvs\.?\b|alternatives|deals?\b|% off'
+    official: true
+  - id: higgsfield-apps
+    name: Higgsfield — nuove app
+    type: sitemap
+    url: https://higgsfield.ai/apps/sitemap.xml
+    include: ["/apps/"]
     official: true
 
 elevenlabs:
   - id: elevenlabs-blog
-    name: ElevenLabs — Blog
+    name: ElevenLabs — blog
     type: rss
     url: https://elevenlabs.io/blog/rss.xml
+    exclude_title: '^what is\b|\bvs\.?\b|how to choose'   # glossario SEO
     official: true
   - id: elevenlabs-changelog
-    name: ElevenLabs — Changelog API
-    type: html
-    url: https://elevenlabs.io/docs/changelog
+    name: ElevenLabs — changelog
+    type: rss
+    kind: changelog
+    url: https://elevenlabs.io/docs/changelog.rss
     official: true
 
 creators:
-  youtube:
-    # Feed RSS ufficiale: https://www.youtube.com/feeds/videos.xml?channel_id=<id>
-    - id: yt-giovannibeggiato
-      name: Giovanni Beggiato
-      handle: "@giovannibeggiato"
-      channel_id: UCQbrJm-05Er6plcuNoVhuOw
-      focus: impresa e AI
-    - id: yt-coco-satoru
-      name: Coco
-      handle: "@coco.satoru"
-      channel_id: UCcT3YpOH8BaU_LaFbmipGWg
-      focus: vendere soluzioni AI, skill e repo
-    - id: yt-riccardobellicontarini
-      name: Riccardo Belli Contarini
-      handle: "@riccardobellicontarini"
-      channel_id: UC1e1Xt2nsUy9lqP_R7ES5yA
-      focus: AI in azienda, spiegazioni
-    - id: yt-nicksaraev
-      name: Nick Saraev
-      handle: "@nicksaraev"
-      channel_id: UCbo-KbSjJDG6JWQ_MTZ_rNA
-      focus: attualità AI a 360°
-  linkedin:
-    # Lettura via Apify (nessuna API gratuita ufficiale). Basso volume, solo post pubblici.
-    - id: li-riccardobellicontarini
-      name: Riccardo Belli Contarini
-      url: https://www.linkedin.com/in/riccardobellicontarini/
-    - id: li-nick-saraev
-      name: Nick Saraev
-      url: https://www.linkedin.com/in/nick-saraev/
+  - id: yt-giovannibeggiato
+    name: YouTube — Giovanni Beggiato
+    type: youtube
+    creator: Giovanni Beggiato
+    channel_id: UCQbrJm-05Er6plcuNoVhuOw
+    focus: impresa e AI
+  - id: yt-coco-satoru
+    name: YouTube — Coco
+    type: youtube
+    creator: Coco
+    channel_id: UCcT3YpOH8BaU_LaFbmipGWg
+    focus: vendere soluzioni AI, skill e repo
+  - id: yt-riccardobellicontarini
+    name: YouTube — Riccardo Belli Contarini
+    type: youtube
+    creator: Riccardo Belli Contarini
+    channel_id: UC1e1Xt2nsUy9lqP_R7ES5yA
+    focus: AI in azienda, spiegazioni
+  - id: yt-nicksaraev
+    name: YouTube — Nick Saraev
+    type: youtube
+    creator: Nick Saraev
+    channel_id: UCbo-KbSjJDG6JWQ_MTZ_rNA
+    focus: attualità AI a 360°
+  - id: linkedin-creators
+    name: LinkedIn — creator
+    type: linkedin         # Apify, ~0,002 $ a post
+    max_posts: 5
+    profiles:
+      - name: Riccardo Belli Contarini
+        url: https://www.linkedin.com/in/riccardobellicontarini/
+      - name: Nick Saraev
+        url: https://www.linkedin.com/in/nick-saraev/
 
 github:
-  - id: gh-search-skills
+  - id: gh-search
     name: GitHub — nuove repo per le aree dell'agenzia
-    type: github_api
-    # {since} = data di 7 giorni fa: repo nuove che stanno prendendo stelle in fretta.
+    type: github_search
+    created_within_days: 7   # repo nate negli ultimi 7 giorni che stanno prendendo stelle
     min_stars: 25
+    max_per_area: 4
     queries:
       claude:      ["topic:claude-code created:>{since}", "topic:claude-skills created:>{since}",
                     "topic:mcp-server created:>{since}", "claude skill in:name,description created:>{since}"]
-      siti_seo:    ["seo claude in:name,description created:>{since}", "topic:seo topic:ai created:>{since}",
+      siti_seo:    ["seo ai in:name,description created:>{since}",
                     "website builder ai agent in:name,description created:>{since}"]
-      design_web:  ["design system claude in:name,description created:>{since}", "topic:figma-mcp created:>{since}"]
+      design_web:  ["design system claude in:name,description created:>{since}",
+                    "figma mcp in:name,description created:>{since}"]
       social:      ["social media ai agent in:name,description created:>{since}",
-                    "instagram OR tiktok OR linkedin automation ai in:name,description created:>{since}"]
+                    "content creator ai in:name,description created:>{since}",
+                    "linkedin ai in:name,description created:>{since}"]
       video:       ["video editing ai in:name,description created:>{since}", "topic:remotion created:>{since}",
                     "carousel generator in:name,description created:>{since}"]
       agenti:      ["voice agent in:name,description created:>{since}", "topic:ai-agents created:>{since}",
                     "elevenlabs in:name,description created:>{since}"]
       automazioni: ["topic:n8n created:>{since}", "workflow automation ai agent in:name,description created:>{since}",
-                    "claude code routine OR github actions claude in:name,description created:>{since}"]
+                    "claude code github actions in:name,description created:>{since}"]
   - id: gh-trending
     name: GitHub Trending (giornaliero)
-    type: html
+    type: github_trending
     url: https://github.com/trending?since=daily
+    max_items: 15
   - id: hn-claude
-    name: Hacker News — front page su Claude/AI tools
-    type: rss
-    url: https://hnrss.org/frontpage?q=claude
+    name: Hacker News — storie su Claude (≥100 punti)
+    type: hackernews       # API Algolia ufficiale (hnrss.org era instabile)
+    url: https://hn.algolia.com/api/v1/search_by_date?query=claude&tags=story&hitsPerPage=1
+    query: claude
+    min_points: 100
   - id: simonwillison
     name: Simon Willison (curatore affidabile su LLM e tool)
     type: atom
     url: https://simonwillison.net/atom/everything/
 
-# Profilo personale: usato SOLO per imparare lo stile di scrittura (Fase 6), non nel report.
+# Profilo personale: usato SOLO per imparare lo stile di scrittura (Fase 7), non nel report.
 me:
   linkedin: https://www.linkedin.com/in/federico-batildi-ai/
