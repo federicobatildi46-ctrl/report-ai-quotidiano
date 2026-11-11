@@ -1,0 +1,166 @@
+# Fonti del report. Ogni fonte ha:
+#   id        identificativo unico
+#   section   claude | higgsfield | elevenlabs | creators | github
+#   type      rss | atom | html | raw | youtube | github_api | apify
+#   official  true = fonte primaria dell'azienda (badge "Ufficiale")
+# Verificate l'11/11/2026 (stato HTTP 200).
+
+claude:
+  - id: claude-code-releases
+    name: Claude Code — release GitHub
+    type: atom
+    url: https://github.com/anthropics/claude-code/releases.atom
+    subsection: code
+    official: true
+  - id: claude-code-changelog
+    name: Claude Code — CHANGELOG
+    type: raw
+    url: https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md
+    subsection: code
+    official: true
+  - id: anthropic-news
+    name: Anthropic — News
+    type: html
+    url: https://www.anthropic.com/news
+    link_pattern: "/news/"
+    subsection: ecosistema
+    official: true
+  - id: anthropic-engineering
+    name: Anthropic — Engineering blog
+    type: html
+    url: https://www.anthropic.com/engineering
+    link_pattern: "/engineering/"
+    subsection: ecosistema
+    official: true
+  - id: claude-blog
+    name: Claude — Blog
+    type: html
+    url: https://claude.com/blog
+    link_pattern: "/blog/"
+    subsection: auto   # Claude decide: code / cowork / chat / design / ecosistema
+    official: true
+  - id: claude-apps-release-notes
+    name: Claude app — release notes
+    type: html
+    url: https://support.claude.com/en/articles/12138966-release-notes
+    subsection: chat
+    official: true
+  - id: claude-api-release-notes
+    name: Claude API — release notes
+    type: html
+    url: https://docs.claude.com/en/release-notes/api
+    subsection: ecosistema
+    official: true
+  - id: anthropic-skills-repo
+    name: anthropics/skills — commit
+    type: atom
+    url: https://github.com/anthropics/skills/commits/main.atom
+    subsection: ecosistema
+    official: true
+  - id: agent-sdk-python
+    name: Claude Agent SDK (Python) — release
+    type: atom
+    url: https://github.com/anthropics/claude-agent-sdk-python/releases.atom
+    subsection: ecosistema
+    official: true
+  - id: claude-status
+    name: Claude status — incidenti
+    type: rss
+    url: https://status.claude.com/history.rss
+    subsection: ecosistema
+    official: true
+    only_major: true   # solo incidenti rilevanti, non ogni blip
+
+higgsfield:
+  - id: higgsfield-blog
+    name: Higgsfield — Blog
+    type: html
+    url: https://higgsfield.ai/blog
+    link_pattern: "/blog/"
+    official: true
+  - id: higgsfield-sitemap
+    name: Higgsfield — Sitemap (nuove pagine prodotto)
+    type: sitemap
+    url: https://higgsfield.ai/sitemap.xml
+    official: true
+
+elevenlabs:
+  - id: elevenlabs-blog
+    name: ElevenLabs — Blog
+    type: rss
+    url: https://elevenlabs.io/blog/rss.xml
+    official: true
+  - id: elevenlabs-changelog
+    name: ElevenLabs — Changelog API
+    type: html
+    url: https://elevenlabs.io/docs/changelog
+    official: true
+
+creators:
+  youtube:
+    # Feed RSS ufficiale: https://www.youtube.com/feeds/videos.xml?channel_id=<id>
+    - id: yt-giovannibeggiato
+      name: Giovanni Beggiato
+      handle: "@giovannibeggiato"
+      channel_id: UCQbrJm-05Er6plcuNoVhuOw
+      focus: impresa e AI
+    - id: yt-coco-satoru
+      name: Coco
+      handle: "@coco.satoru"
+      channel_id: UCcT3YpOH8BaU_LaFbmipGWg
+      focus: vendere soluzioni AI, skill e repo
+    - id: yt-riccardobellicontarini
+      name: Riccardo Belli Contarini
+      handle: "@riccardobellicontarini"
+      channel_id: UC1e1Xt2nsUy9lqP_R7ES5yA
+      focus: AI in azienda, spiegazioni
+    - id: yt-nicksaraev
+      name: Nick Saraev
+      handle: "@nicksaraev"
+      channel_id: UCbo-KbSjJDG6JWQ_MTZ_rNA
+      focus: attualità AI a 360°
+  linkedin:
+    # Lettura via Apify (nessuna API gratuita ufficiale). Basso volume, solo post pubblici.
+    - id: li-riccardobellicontarini
+      name: Riccardo Belli Contarini
+      url: https://www.linkedin.com/in/riccardobellicontarini/
+    - id: li-nick-saraev
+      name: Nick Saraev
+      url: https://www.linkedin.com/in/nick-saraev/
+
+github:
+  - id: gh-search-skills
+    name: GitHub — nuove repo per le aree dell'agenzia
+    type: github_api
+    # {since} = data di 7 giorni fa: repo nuove che stanno prendendo stelle in fretta.
+    min_stars: 25
+    queries:
+      claude:      ["topic:claude-code created:>{since}", "topic:claude-skills created:>{since}",
+                    "topic:mcp-server created:>{since}", "claude skill in:name,description created:>{since}"]
+      siti_seo:    ["seo claude in:name,description created:>{since}", "topic:seo topic:ai created:>{since}",
+                    "website builder ai agent in:name,description created:>{since}"]
+      design_web:  ["design system claude in:name,description created:>{since}", "topic:figma-mcp created:>{since}"]
+      social:      ["social media ai agent in:name,description created:>{since}",
+                    "instagram OR tiktok OR linkedin automation ai in:name,description created:>{since}"]
+      video:       ["video editing ai in:name,description created:>{since}", "topic:remotion created:>{since}",
+                    "carousel generator in:name,description created:>{since}"]
+      agenti:      ["voice agent in:name,description created:>{since}", "topic:ai-agents created:>{since}",
+                    "elevenlabs in:name,description created:>{since}"]
+      automazioni: ["topic:n8n created:>{since}", "workflow automation ai agent in:name,description created:>{since}",
+                    "claude code routine OR github actions claude in:name,description created:>{since}"]
+  - id: gh-trending
+    name: GitHub Trending (giornaliero)
+    type: html
+    url: https://github.com/trending?since=daily
+  - id: hn-claude
+    name: Hacker News — front page su Claude/AI tools
+    type: rss
+    url: https://hnrss.org/frontpage?q=claude
+  - id: simonwillison
+    name: Simon Willison (curatore affidabile su LLM e tool)
+    type: atom
+    url: https://simonwillison.net/atom/everything/
+
+# Profilo personale: usato SOLO per imparare lo stile di scrittura (Fase 6), non nel report.
+me:
+  linkedin: https://www.linkedin.com/in/federico-batildi-ai/

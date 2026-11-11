@@ -1,0 +1,13 @@
+# Segreti: mai su GitHub
+.env
+
+# Ambiente Python
+.venv/
+__pycache__/
+*.pyc
+
+# Dati grezzi e temporanei (rigenerabili). Restano versionati: data/seen.json,
+# reports/ e outputs/, così cambiando PC si ritrova tutto.
+data/raw/
+data/tmp/
+config/voice/samples/

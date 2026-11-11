@@ -1,0 +1,63 @@
+# Interessi, sezioni e regole anti-rumore. Questo file guida il filtro di Claude.
+
+report:
+  title: "Report automatico notizie e aggiornamenti AI"
+  language: it
+  max_reading_minutes: 15        # tetto totale di lettura
+  max_items_per_section: 6       # meglio 2 notizie vere che 10 riempitivi
+  lookback_hours: 26             # finestra di raccolta (24h + margine)
+
+# Chi sono: serve a Claude per scrivere il "Perché ti serve" di ogni notizia.
+profile: >
+  Sto studiando l'AI per diventare creator e poi aprire un'agenzia AI per imprenditori e
+  professionisti. Servizi futuri: siti web e SEO, social e personal brand (video, caroselli,
+  post per Instagram, TikTok, Facebook, YouTube, LinkedIn), ads a pagamento, agenti AI
+  (anche vocali) e automazioni con routine nel cloud. Uso Claude Code ogni giorno.
+  Mi servono notizie che posso imparare, applicare a un cliente o trasformare in contenuto.
+
+sections:
+  - id: claude
+    title: "Universo Claude"
+    subsections:
+      code:       "Claude Code"
+      cowork:     "Cowork"
+      chat:       "Chat (app claude.ai)"
+      design:     "Claude Design"
+      ecosistema: "Ecosistema a 360° — modelli, API, SDK, azienda"
+  - id: higgsfield
+    title: "Higgsfield"
+    focus: "nuove funzioni e modelli, e come applicarli in pratica"
+  - id: elevenlabs
+    title: "ElevenLabs"
+    focus: "prodotto, API, nuove voci/modelli, casi d'uso"
+  - id: creators
+    title: "Dai creator che seguo"
+    focus: "il contenuto e l'idea utile del video/post, non il titolo clickbait"
+    include_shorts: true          # gli Shorts: 1–2 righe, salvo idee davvero nuove
+  - id: github
+    title: "GitHub: repo e skill per la mia agenzia"
+    focus: "skill, MCP server, plugin e tool da dare a Claude, applicabili ai servizi dell'agenzia"
+    subsections:
+      siti_seo:     "Siti web e SEO"
+      design_web:   "Design per siti e social"
+      social:       "Social e contenuti (IG, TikTok, FB, YouTube, LinkedIn)"
+      video:        "Video editing e caroselli"
+      agenti:       "Agenti AI e agenti vocali"
+      automazioni:  "Automazioni e routine cloud"
+
+# Cosa SEMPRE tenere
+signal:
+  - nuovi modelli, nuove funzioni, cambi di prezzo o di limiti
+  - breaking change e deprecazioni
+  - nuove skill / plugin / MCP / integrazioni utilizzabili subito
+  - casi d'uso concreti con risultati misurabili
+  - incidenti o problemi che impattano il mio lavoro
+
+# Cosa SEMPRE scartare
+noise:
+  - annunci di partnership/clienti senza novità di prodotto per me
+  - articoli SEO, listicle, "top 10 tool", contenuti promozionali
+  - bugfix minori e release solo di manutenzione (raggruppare in 1 riga se servono)
+  - repo con poche stelle, senza README chiaro, o duplicati di altre
+  - video/post che ripetono una notizia già coperta da fonte ufficiale (citarli solo come conferma)
+  - hype senza contenuto ("questo cambia TUTTO")
