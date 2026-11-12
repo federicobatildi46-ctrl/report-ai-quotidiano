@@ -1,0 +1,12 @@
+[
+ {
+  "role": "user",
+  "text": "Fammi un esempio pratico passo passo",
+  "at": "2026-11-12T21:21:09+00:00"
+ },
+ {
+  "role": "assistant",
+  "text": "**Esempio: lancio di un ristorante (pizzeria \"Da Marco\") con una serie di video social.**\n\nLo schema delle 9 fasi viene dalla lezione. Ore, tempi e scelte pratiche sono miei suggerimenti illustrativi, non dati delle fonti.\n\n**1. Brief (tu, come producer)**\nScrivi su una scheda: deliverable (1 video principale da 30 s + 3 versioni adattate), formati (9:16 e 1:1), scadenza, **2 giri di revisione inclusi**, cosa non deve cambiare (logo, insegna, volto di Marco).\n\n**2. Riferimenti e asset setup**\nRaccogli foto del locale, del titolare e dei piatti. Salva Marco come **Soul ID**, oppure come Element (Personaggio), il locale come Luogo e la pizza signature come Oggetto di scena. Questo serve a mantenerli coerenti tra le inquadrature. I passaggi esatti dell'interfaccia non sono nelle fonti.\n\n**3. Storyboard e previz**\nPrepari 6-8 inquadrature fisse. Le mandi al cliente e chiedi note frame per frame (come fa Alterworld). **Non generi nulla finché non approva.**\n\n**4. Generazione**\nPiù take per ogni inquadratura, partendo dai frame approvati.\n\n**5. Selezione**\nScegli un take per inquadratura, coerente con brief e previz.\n\n**6. Montaggio**\nTaglio, audio, titoli. Se puoi, monta a gruppi le inquadrature già approvate mentre generi le altre (fasi sovrapponibili).\n\n**7. Revisioni**\nMarco scrive: \"Il colore del forno è sbagliato\" → **correzione** (inclusa). \"Aggiungiamo una versione in inglese per i turisti\" → **cambio di ambito** (extra, preventivo a parte).\n\n**8. Adattamenti**\nVersione corta, formato quadrato, eventuale altra lingua.\n\n**9. QA e consegna**\nControlli file, logo, consenso di Marco all'uso della sua immagine, licenze. Se lavori da solo, rileggi con calma o a distanza di qualche ora, perché non hai un secondo revisore.\n\n**Calcolo capacità (lavorando da solo)**\nSomma le ore di tutte le fasi per questo cliente, poi confrontale con le ore libere in settimana, già al netto di vendita e altri clienti. Tieni separati i tempi di attesa del cliente: possono farti saltare la data anche se le ore bastano.\n\nVuoi che lo adatti a uno studio professionale (avvocato, commercialista), dove la fase 9 sui diritti e sul brand pesa di più?",
+  "at": "2026-11-12T21:21:09+00:00"
+ }
+]
