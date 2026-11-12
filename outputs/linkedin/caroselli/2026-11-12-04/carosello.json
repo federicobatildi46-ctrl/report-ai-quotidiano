@@ -1,0 +1,65 @@
+{
+ "cover": {
+  "kicker": "J.CREW + ANTHROPIC",
+  "title_big": "OUTFIT",
+  "title_rest": "completo, non un capo solo",
+  "script_accent": "stilista AI",
+  "search_bar": "Chi veste l'AI?",
+  "subject_en": "a classical white marble bust of a Greek statue wearing a tailored knitted sweater, its open head revealing glowing circuit boards and braided cables, editorial collage style, framed with empty space at the top"
+ },
+ "slides": [
+  {
+   "title": "Basta ricominciare da zero",
+   "lines": [
+    "Cerchi un maglione, lo trovi.",
+    "Poi riparti da capo per pantaloni e scarpe.",
+    "J.Crew lancia Style Advisor su JCrew.com."
+   ],
+   "highlight": "Look completo, non il singolo capo",
+   "tags": [
+    "Style Advisor",
+    "J.Crew",
+    "Outfit"
+   ]
+  },
+  {
+   "title": "Come funziona",
+   "lines": [
+    "Scrivi cosa ti serve: matrimonio in spiaggia, primo colloquio.",
+    "Risponde con look completi dai veri shooting di J.Crew.",
+    "Poi raffini in conversazione visiva."
+   ],
+   "highlight": "Look veri, non improvvisati dall'AI",
+   "tags": [
+    "Conversazione",
+    "Shooting reali"
+   ]
+  },
+  {
+   "title": "L'architettura",
+   "lines": [
+    "Pianificazione: Fable 5.1 ragiona come uno stilista.",
+    "Prototipo: Opus 5.5 dentro Claude Code.",
+    "Produzione: Sonnet 5.5 guida, Haiku 5.5 fa i compiti veloci."
+   ],
+   "highlight": "Modello grosso per costruire, leggeri per girare",
+   "tags": [
+    "Opus 5.5",
+    "Sonnet 5.5",
+    "Haiku 5.5"
+   ]
+  }
+ ],
+ "cta": {
+  "title": "Hai un e-commerce?",
+  "text": "Scrivi OUTFIT nei commenti e ti racconto come lo impostrei per il tuo negozio, amico.",
+  "keyword": "OUTFIT"
+ },
+ "direction": "antique sculpture or museum artifact mixed with circuits, cables or screens",
+ "subject_job": {
+  "job_id": "f96f6353-4d48-40b4-b64e-40cb6e76b4f0",
+  "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3DOc5jLidAoXBBZq382X62VFg2o/hf_20261112_205818_f96f6353-4d48-40b4-b64e-40cb6e76b4f0.png",
+  "model": "gpt_image_2_6",
+  "prompt": "a classical white marble bust of a Greek statue wearing a tailored knitted sweater, its open head revealing glowing circuit boards and braided cables, editorial collage style, framed with empty space at the top. Black and white editorial photograph, isolated subject cut out on a fully transparent background, studio lighting, high contrast, fine film grain, sharp details, vintage magazine collage aesthetic. No text, no letters, no numbers, no logos, no watermark, no background, no frame."
+ }
+}
