@@ -1,4 +1,4 @@
-﻿# CLAUDE.md â€” istruzioni per Claude in questo progetto
+# CLAUDE.md â€” istruzioni per Claude in questo progetto
 
 Progetto: report AI quotidiano locale (vedi PIANO_OPERATIVO.md per obiettivi, architettura e fasi).
 
