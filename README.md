@@ -131,8 +131,10 @@ gh secret set CLAUDE_CODE_OAUTH_TOKEN
 
 Indirizzo fisso: **http://localhost:8787** (mettilo nei segnalibri).
 
-- **Avvio automatico** all'accesso a Windows, in silenzio, così il segnalibro funziona sempre.
-  Si attiva una volta sola con:
+- **Sempre accesa:** all'accesso a Windows parte in silenzio un "guardiano"
+  (`scripts\avvio-nascosto.vbs`): ogni 30 secondi controlla l'app e, se è spenta o bloccata, la
+  riaccende da solo (in ~10-20 secondi). Ne gira uno solo alla volta. Diario in
+  `data\tmp\guardiano.log`. Il collegamento in Esecuzione automatica si attiva una volta sola con:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts\avvio-automatico.ps1
@@ -140,7 +142,8 @@ powershell -ExecutionPolicy Bypass -File scripts\avvio-automatico.ps1
 
   (per toglierlo: stesso comando con `-Rimuovi`). Log in `data\tmp\app.log`.
 - In alternativa doppio click su **`scripts\avvia-app.bat`**: se l'app è già accesa apre solo il
-  browser, altrimenti la avvia.
+  browser, altrimenti accende il guardiano e apre il browser appena l'app è pronta.
+- Per fermare tutto: chiudi `wscript.exe` e `python.exe` (Report AI) da Gestione attività.
 
 - **A sinistra** l'archivio di tutti i report, **al centro** il report del giorno.
 - Sotto ogni notizia tre pulsanti:
