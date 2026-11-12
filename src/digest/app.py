@@ -37,6 +37,9 @@ def _pull():
     # voti rimasti sul PC (es. app chiusa prima del salvataggio automatico): caricali ora
     if feedback.FEEDBACK_PATH.exists():
         gitsync.commit_and_push([str(feedback.FEEDBACK_PATH.relative_to(ROOT))], "Voti 👍/👎 sulle notizie")
+    # se GitHub non ha ancora fatto partire il report di oggi, lo chiediamo noi
+    if ok:
+        sync_state["report_today"] = gitsync.ensure_today_report()
 
 
 @asynccontextmanager

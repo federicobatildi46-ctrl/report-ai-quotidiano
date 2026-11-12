@@ -23,6 +23,26 @@ def default_lookback() -> int:
         return yaml.safe_load(f)["report"]["lookback_hours"]
 
 
+MAX_CATCHUP_HOURS = 72
+
+
+def lookback_since_last_report() -> int:
+    """Ore da coprire: dall'ultimo report riuscito (+2 di margine), mai meno del default e mai
+    più di 72. Così se un giorno il report salta o parte tardi, il successivo recupera tutto."""
+    import json
+    import math
+
+    from digest import REPORTS_DIR
+
+    base = default_lookback()
+    reports = sorted(REPORTS_DIR.glob("????-??-??.json"))
+    if not reports:
+        return base
+    last = datetime.fromisoformat(json.loads(reports[-1].read_text(encoding="utf-8"))["generated_at"])
+    gap = math.ceil((datetime.now(UTC) - last).total_seconds() / 3600) + 2
+    return max(base, min(gap, MAX_CATCHUP_HOURS))
+
+
 async def _run_source(ctx: Ctx) -> dict:
     t0 = time.perf_counter()
     try:

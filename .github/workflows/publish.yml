@@ -17,6 +17,7 @@ on:
 
 permissions:
   contents: write
+  actions: write       # per il guardiano: rilanciare il report quotidiano se manca
 
 concurrency:
   group: linkedin-publish
@@ -30,6 +31,27 @@ jobs:
       SOLO_VERIFICA: ${{ inputs.verifica == true }}
     steps:
       - uses: actions/checkout@v4
+
+      - name: Guardiano del report quotidiano
+        # Se dopo le 08:00 UTC (09:00 italiane d'inverno) il report di oggi non c'è e nessun
+        # tentativo è in corso, lo rilancia. Massimo 2 rilanci al giorno (niente raffiche di errori).
+        if: env.SOLO_VERIFICA != 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          today=$(date -u +%Y-%m-%d)
+          git fetch -q origin "${GITHUB_REF_NAME}"
+          if [ "$(date -u +%H)" -lt 8 ] || git cat-file -e "origin/${GITHUB_REF_NAME}:reports/$today.json" 2>/dev/null; then
+            echo "Report di oggi presente (o è ancora presto): niente da fare."; exit 0
+          fi
+          active=$(gh run list --workflow daily.yml --created ">=$today" --json status -q '[.[] | select(.status != "completed")] | length')
+          relaunched=$(gh run list --workflow daily.yml --event workflow_dispatch --created ">=$today" --json databaseId -q 'length')
+          if [ "$active" = "0" ] && [ "$relaunched" -lt 2 ]; then
+            gh workflow run daily.yml --ref "${GITHUB_REF_NAME}"
+            echo "Report di oggi mancante: rilanciato."
+          else
+            echo "Report in corso o già rilanciato 2 volte oggi: non rilancio."
+          fi
 
       - name: Ci sono post da pubblicare?
         id: due

@@ -100,12 +100,14 @@ def _send(args) -> int:
 def _daily(args) -> int:
     """Il giro completo del mattino: raccolta → report → email → memoria aggiornata."""
     from digest.build import build
-    from digest.collect import collect
+    from digest.collect import collect, lookback_since_last_report
     from digest.send import SendError, send
     from digest.state import SeenState
 
     state = SeenState.load()
-    raw_path, payload = asyncio.run(collect(state=state))
+    hours = lookback_since_last_report()
+    print(f"Finestra di raccolta: ultime {hours} ore")
+    raw_path, payload = asyncio.run(collect(hours=hours, state=state))
     errors = [s["source"] for s in payload["stats"] if s["error"]]
     videos = [i for i in payload["items"] if i["kind"] in ("video", "short")]
     print(f"Raccolta: {len(payload['items'])} elementi"

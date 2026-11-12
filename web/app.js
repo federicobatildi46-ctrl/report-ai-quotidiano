@@ -312,7 +312,8 @@ $("#pub-now").onclick = async () => {
 async function refreshSync() {
   const s = await api("/api/sync");
   $("#sync-status").textContent = s.status === "in corso" ? "Sincronizzazione…"
-    : s.status === "ok" ? "Aggiornato da GitHub" : "GitHub non raggiungibile";
+    : s.status === "ok" ? (s.report_today && s.report_today !== "presente"
+      ? `Report di oggi: ${s.report_today}` : "Aggiornato da GitHub") : "GitHub non raggiungibile";
   $("#sync-status").title = s.detail || "";
   return s.status;
 }

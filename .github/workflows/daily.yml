@@ -1,18 +1,29 @@
 # Report AI quotidiano: gira ogni mattina sui server di GitHub (gratis), anche col PC spento.
 # Raccoglie le fonti, Claude (abbonamento Pro) scrive il report, lo invia su Gmail e salva
 # report + memoria nel repo. Se qualcosa va storto GitHub ti manda un'email di errore.
+#
+# Affidabilità: lo "sveglia" di GitHub è best-effort (il 12/11/2026 è partito con 8 ore e mezza
+# di ritardo). Per questo:
+#  - 3 tentativi, a minuti "dispari" (GitHub sconsiglia l'ora esatta, la più congestionata);
+#  - se il report di oggi è già su GitHub, i tentativi successivi si fermano subito;
+#  - il workflow "Pubblica post programmati" e l'app sul PC lo rilanciano se dopo le 9 manca.
 
 name: Report AI quotidiano
 
 on:
   schedule:
-    # 06:00 UTC = 07:00 in inverno, 08:00 in estate (ora italiana). GitHub può ritardare di
-    # qualche minuto nelle ore di punta: il report è comunque pronto prima delle 9.
-    - cron: "0 6 * * *"
+    # UTC. In inverno: 05:23, 06:53, 08:23 italiane (in estate un'ora dopo).
+    - cron: "23 4 * * *"
+    - cron: "53 5 * * *"
+    - cron: "23 7 * * *"
   workflow_dispatch:   # pulsante "Run workflow" per lanciarlo a mano
     inputs:
       no_send:
         description: "Non inviare l'email (solo prova)"
+        type: boolean
+        default: false
+      forza:
+        description: "Rifai il report anche se quello di oggi esiste già"
         type: boolean
         default: false
 
@@ -30,19 +41,39 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Il report di oggi c'è già?
+        id: today
+        env:
+          FORZA: ${{ inputs.forza == true }}
+        run: |
+          # controlla l'ultima versione su GitHub (un tentativo precedente può averlo appena salvato)
+          git fetch -q origin "${GITHUB_REF_NAME}"
+          if [ "$FORZA" != "true" ] && git cat-file -e "origin/${GITHUB_REF_NAME}:reports/$(date -u +%Y-%m-%d).json" 2>/dev/null; then
+            echo "Il report di oggi è già stato fatto: mi fermo."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            git merge -q --ff-only "origin/${GITHUB_REF_NAME}" || true
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - uses: astral-sh/setup-uv@v6
+        if: steps.today.outputs.skip == 'false'
 
       - uses: actions/setup-node@v4
+        if: steps.today.outputs.skip == 'false'
         with:
           node-version: "22"
 
       - name: Installa Claude Code
+        if: steps.today.outputs.skip == 'false'
         run: npm install -g @anthropic-ai/claude-code
 
       - name: Installa dipendenze Python
+        if: steps.today.outputs.skip == 'false'
         run: uv sync --frozen
 
       - name: Raccolta, report e invio
+        if: steps.today.outputs.skip == 'false'
         env:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           APIFY_TOKEN: ${{ secrets.APIFY_TOKEN }}
@@ -53,7 +84,7 @@ jobs:
         run: uv run digest daily ${{ inputs.no_send && '--no-send' || '' }}
 
       - name: Conserva i dati grezzi (7 giorni, per capire eventuali problemi)
-        if: always()
+        if: always() && steps.today.outputs.skip == 'false'
         uses: actions/upload-artifact@v4
         with:
           name: raccolta-${{ github.run_id }}
@@ -62,6 +93,7 @@ jobs:
           if-no-files-found: ignore
 
       - name: Salva report e memoria nel repo
+        if: steps.today.outputs.skip == 'false'
         run: |
           git config user.name "report-ai-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
