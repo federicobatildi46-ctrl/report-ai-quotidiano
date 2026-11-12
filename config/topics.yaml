@@ -11,6 +11,13 @@ report:
 generators:                      # pulsanti dell'app locale (Lezione, Post, Short)
   model: sonnet                  # "opus" per testi migliori, a costo di più quota
   max_sources: 4                 # fonti scaricate per ogni generazione
+  images:                        # immagini dei post (CLI Higgsfield, ~0,12 crediti l'una)
+    model: text2image_soul_v2    # Higgsfield Soul 2.0
+    soul_name: Federico Finale   # i tuoi Soul: `higgsfield soul-id list`
+    soul_id: bad6d27f-f6d0-478c-82e3-b8ccd53ebef7
+    aspect_ratio: "3:4"          # il più vicino al 4:5 verticale di LinkedIn
+    quality: 2k
+    variants: 2                  # varianti per click
 
 # Chi sono: serve a Claude per scrivere il "Perché ti serve" di ogni notizia.
 profile: >

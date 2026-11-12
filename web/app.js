@@ -1,4 +1,5 @@
 // App locale del Report AI: archivio, report e generatori (lezione, post, short).
+marked.setOptions({ breaks: true });   // un "a capo" nel testo = a capo nella pagina (post LinkedIn)
 const KINDS = {
   lezione: { icon: "🎓", gen: "Genera lezione", open: "Apri lezione", label: "Lezione" },
   post: { icon: "💼", gen: "Post LinkedIn", open: "Apri post", label: "Post LinkedIn" },
@@ -120,9 +121,40 @@ async function openOutput(kind, item, gitNote) {
   $("#drawer-info").textContent = `${out.path}${gitNote ? " · " + gitNote : ""}`;
   $("#drawer-copy").textContent = kind === "post" ? "Copia il post" : "Copia tutto";
   $("#drawer-body").innerHTML = DOMPurify.sanitize(marked.parse(out.markdown));
+  $("#drawer-images").hidden = kind !== "post";
+  if (kind === "post") renderImages((await api(`/api/images/${item}`)).images);
   $("#drawer").hidden = false;
-  $("#drawer-body").scrollTop = 0;
+  document.querySelector(".drawer-scroll").scrollTop = 0;
 }
+
+function renderImages(list, note = "") {
+  $("#images-grid").innerHTML = list.map((src) =>
+    `<a href="${src}" target="_blank" rel="noopener" download title="Apri / scarica"><img src="${src}" alt="Immagine del post" loading="lazy"></a>`).join("");
+  $("#images-btn").textContent = list.length ? "🖼️ Altre 2 varianti" : "🖼️ Genera 2 immagini";
+  $("#images-info").textContent = note || (list.length
+    ? "Clicca un'immagine per aprirla a piena risoluzione e scaricarla."
+    : "Usa il \"Prompt immagine\" del post e il tuo Soul su Higgsfield · ~0,24 crediti · 1-2 minuti.");
+}
+
+$("#images-btn").onclick = async () => {
+  const d = state.drawer; if (!d) return;
+  const btn = $("#images-btn");
+  btn.disabled = true; btn.textContent = "⏳ Higgsfield al lavoro… (1-2 min)";
+  try {
+    let res = await api(`/api/images/${d.item}`, { method: "POST" });
+    const jobId = res.job_id;
+    while (res.status === "in corso") {
+      await new Promise((r) => setTimeout(r, 3000));
+      res = await api(`/api/jobs/${jobId}`);
+    }
+    if (res.status === "errore") throw new Error(res.error);
+    renderImages(res.images, res.git ? `Fatto · ${res.git}` : "");
+  } catch (e) {
+    renderImages((await api(`/api/images/${d.item}`)).images, `Non riuscito: ${e.message}`);
+  } finally {
+    btn.disabled = false;
+  }
+};
 
 function postText(md) {
   // solo la sezione "## Post": è il testo da incollare su LinkedIn

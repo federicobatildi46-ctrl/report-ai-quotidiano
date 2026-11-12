@@ -146,6 +146,21 @@ def _serve(args) -> int:
     return 0
 
 
+def _voice(args) -> int:
+    import json
+
+    from digest.voice import GUIDE, SAMPLES, build_guide, fetch_posts
+
+    if args.reuse and SAMPLES.exists():
+        posts = json.loads(SAMPLES.read_text(encoding="utf-8"))
+    else:
+        posts = fetch_posts()
+    print(f"Post analizzati: {len(posts)}")
+    _, stats = build_guide(posts, model=args.model)
+    print(f"Guida scritta in {GUIDE.relative_to(ROOT)} ({stats['secs']}s)")
+    return 0
+
+
 def main() -> None:
     sys.stdout.reconfigure(encoding="utf-8")
     load_dotenv(ROOT / ".env")
@@ -166,6 +181,9 @@ def main() -> None:
     p.add_argument("--to", help="destinatario (default: REPORT_TO o GMAIL_ADDRESS)")
     p = sub.add_parser("daily", help="giro completo: collect + build + send (quello del cloud)")
     p.add_argument("--no-send", action="store_true", help="non inviare l'email")
+    p = sub.add_parser("voice", help="scarica i tuoi post LinkedIn e rigenera la guida della tua voce")
+    p.add_argument("--reuse", action="store_true", help="usa i post già scaricati (niente Apify)")
+    p.add_argument("--model", default="sonnet", help="modello Claude (default: sonnet)")
     p = sub.add_parser("serve", help="app locale con report, archivio e generatori")
     p.add_argument("--port", type=int, help="porta (default: DIGEST_PORT o 8787)")
     p.add_argument("--no-browser", action="store_true", help="non aprire il browser")
@@ -185,3 +203,5 @@ def main() -> None:
         sys.exit(_daily(args))
     if args.cmd == "serve":
         sys.exit(_serve(args))
+    if args.cmd == "voice":
+        sys.exit(_voice(args))

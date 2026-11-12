@@ -16,6 +16,7 @@ Scrivi lo script di uno Short in **italiano** che registro io, **massimo 60 seco
 Perché mi interessa: {{WHY}}
 
 ## Regole
+- **La guida "La mia voce" comanda**, in particolare la sezione "Per gli Shorts".
 - Hook nei primi 3 secondi: una frase che fa restare (domanda, dato sorprendente, promessa).
 - Un solo concetto, un esempio concreto, frasi brevi che suonano naturali dette ad alta voce.
 - Chiusura con call to action breve (seguimi / commenta / salva).

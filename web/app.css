@@ -73,7 +73,14 @@ section.sec { background: var(--card); border-radius: 12px; padding: 20px 24px; 
 .drawer-title { font-weight: 800; font-size: 18px; line-height: 1.3; }
 .drawer-actions { display: flex; gap: 8px; align-items: center; padding: 0 22px 12px; border-bottom: 1px solid var(--line); }
 #drawer-copy { background: var(--btn); color: var(--btn-ink); border-color: var(--btn); }
-.prose { overflow-y: auto; padding: 18px 22px 60px; line-height: 1.65; font-size: 15.5px; }
+.drawer-scroll { overflow-y: auto; flex: 1; }
+.prose { padding: 18px 22px 60px; line-height: 1.65; font-size: 15.5px; }
+.images { padding: 16px 22px; border-bottom: 1px solid var(--line); }
+.images[hidden] { display: none; }
+.images-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 10px; }
+.images-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; }
+.images-grid a { display: block; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); }
+.images-grid img { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
 .prose h1 { font-size: 22px; } .prose h2 { font-size: 18px; margin-top: 26px; } .prose h3 { font-size: 16px; }
 .prose table { border-collapse: collapse; width: 100%; font-size: 14px; }
 .prose th, .prose td { border: 1px solid var(--line); padding: 6px 8px; text-align: left; vertical-align: top; }

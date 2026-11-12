@@ -45,6 +45,13 @@ Progetto: report AI quotidiano locale (vedi PIANO_OPERATIVO.md per obiettivi, ar
 - Prova nel browser integrato: `.claude/launch.json` → configurazione `report-app`.
 - Nel JS le chiamate usano `cache: "no-store"`: senza, il browser mostrava stati vecchi.
 
+## Voce e immagini (Fase 7)
+- `src/digest/voice.py` + `prompts/voice_guide.md` → `config/voice/federico_voice.md` (versionata;
+  i post grezzi in `config/voice/samples/` no). I prompt di post e Short dicono: la guida comanda.
+- `src/digest/images.py`: CLI Higgsfield `hf.exe` nativo (non il .cmd), `text2image_soul_v2`
+  con `custom_reference_id` = soul_id da `topics.yaml`; PNG → JPEG q90 con Pillow.
+- Il prompt immagine vieta testo/numeri/scritte leggibili (l'AI li sbaglia) e vuole il volto visibile.
+
 ## Aggiungere una fonte
 Nuovo tipo → funzione `async def collect_x(ctx: Ctx) -> list[Item]` in `src/digest/collectors/`,
 registrata in `collectors/__init__.py`. Usa sempre `ctx.is_new(key)` prima di arricchire

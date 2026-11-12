@@ -135,8 +135,26 @@ report del cloud e apre http://localhost:8787. Per chiuderla chiudi la finestra 
 - Per il testo usa Claude Code col tuo abbonamento (modello in `config/topics.yaml` →
   `generators.model`).
 
+- **Immagini del post:** nel pannello del post, "🖼️ Genera 2 immagini" crea 2 varianti con il
+  tuo Soul su Higgsfield (~0,24 crediti, 1-2 minuti), dal "Prompt immagine" del post. Le trovi
+  in `outputs/linkedin/immagini/` (JPEG) e sono caricate anche su GitHub. Soul, modello e
+  formato si cambiano in `config/topics.yaml` → `generators.images`.
+
 Consiglio: crea un collegamento a `scripts\avvia-app.bat` sul desktop o sulla barra delle
 applicazioni.
+
+## La tua voce
+
+Post e Short seguono [config/voice/federico_voice.md](config/voice/federico_voice.md): una guida di
+stile ricavata dai tuoi post LinkedIn (hook, ritmo, frecce, emoji, CTA, cosa non fai mai). Quando
+pubblichi nuovi post, aggiornala:
+
+```bash
+uv run digest voice
+```
+
+Riscarica i tuoi post con Apify (~0,02 $) e riscrive la guida. Con `--reuse` la rigenera senza
+riscaricare.
 
 ## Struttura
 

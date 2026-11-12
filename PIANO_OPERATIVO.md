@@ -9,8 +9,8 @@
 per imprenditori e professionisti (siti e SEO, social e personal brand, video e caroselli, ads,
 agenti AI anche vocali, automazioni). Il report serve a **formarmi** e a **produrre contenuti**.
 
-Stato: **Fasi 0–6 completate: report ogni mattina + app locale con lezione, post e short** ·
-decisioni prese l'11/11/2026 (§8) · prossimo passo: Fase 7 (la mia voce + immagini col mio Soul).
+Stato: **Fasi 0–7 completate: report ogni mattina + app con lezione, post nella mia voce,
+short e immagini col mio Soul** · prossimo passo: Fase 8 (Pubblica e Programma su LinkedIn).
 
 ---
 
@@ -177,7 +177,8 @@ Ogni fase si chiude solo quando il suo risultato è stato provato davvero.
   Actions che pubblica all'ora scelta.
 - **Limiti del piano Pro:** il report usa Sonnet e un tetto di item per contenere il consumo;
   i generatori on-demand consumano di più (soprattutto la lezione).
-- **Higgsfield è a crediti** e il connettore va autorizzato in Claude Code (`/mcp`).
+- **Higgsfield è a crediti** (~0,12 a immagine con Soul 2.0). L'app usa il CLI `higgsfield`, già
+  autenticato sul PC; se scade l'accesso: `higgsfield auth login`.
 
 ---
 

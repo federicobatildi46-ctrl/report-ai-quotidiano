@@ -19,7 +19,7 @@ from pydantic import BaseModel
 
 from digest import REPORTS_DIR, ROOT
 from digest import generate as gen
-from digest import gitsync
+from digest import gitsync, images
 
 WEB_DIR = ROOT / "web"
 DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
@@ -43,6 +43,8 @@ async def lifespan(_app):
 
 app = FastAPI(title="Report AI", lifespan=lifespan)
 app.mount("/static", StaticFiles(directory=WEB_DIR), name="static")
+images.IMAGES_DIR.mkdir(parents=True, exist_ok=True)
+app.mount("/immagini", StaticFiles(directory=images.IMAGES_DIR), name="immagini")
 
 
 @app.get("/")
@@ -92,11 +94,12 @@ def _run_job(job_id: str, req: GenerateRequest):
     job = jobs[job_id]
     try:
         path = gen.generate(req.date, req.item_id, req.kind)
-        job.update(status="fatto", path=str(path.relative_to(ROOT)))
         ok, detail = gitsync.commit_and_push(
             [str(path.relative_to(ROOT))],
             f"{gen.KINDS[req.kind]['label']}: {gen.read_output(path)['meta'].get('notizia', req.item_id)[:60]}")
-        job["git"] = "salvato su GitHub" if ok else f"non salvato su GitHub: {detail[-200:]}"
+        # "fatto" solo alla fine, così l'app mostra anche l'esito del salvataggio su GitHub
+        job.update(status="fatto", path=str(path.relative_to(ROOT)),
+                   git="salvato su GitHub" if ok else f"non salvato su GitHub: {detail[-200:]}")
     except Exception as e:
         job.update(status="errore", error=f"{type(e).__name__}: {e}"[:500])
 
@@ -125,9 +128,51 @@ def job_status(job_id: str):
     return jobs[job_id]
 
 
+ITEM_RE = re.compile(r"^\d{4}-\d{2}-\d{2}-\d{2}$")
+
+
+def _image_list(item_id: str) -> list[str]:
+    return [f"/immagini/{p.name}" for p in images.existing_images(item_id)]
+
+
+def _run_images(job_id: str, item_id: str):
+    job = jobs[job_id]
+    try:
+        paths = images.generate_images(item_id)
+        rel = [str(p.relative_to(ROOT)) for p in paths] + [str((images.IMAGES_DIR / f"{item_id}.json").relative_to(ROOT))]
+        ok, detail = gitsync.commit_and_push(rel, f"Immagini post: {item_id}")
+        job.update(status="fatto", images=_image_list(item_id),
+                   git="salvate su GitHub" if ok else f"non salvate su GitHub: {detail[-200:]}")
+    except Exception as e:
+        job.update(status="errore", error=f"{type(e).__name__}: {e}"[:500])
+
+
+@app.get("/api/images/{item_id}")
+def list_images(item_id: str):
+    if not ITEM_RE.match(item_id):
+        raise HTTPException(400, "richiesta non valida")
+    return {"images": _image_list(item_id)}
+
+
+@app.post("/api/images/{item_id}")
+def start_images(item_id: str):
+    if not ITEM_RE.match(item_id):
+        raise HTTPException(400, "richiesta non valida")
+    if not gen.output_path("post", item_id).exists():
+        raise HTTPException(409, "prima genera il post")
+    for jid, j in jobs.items():
+        if j["status"] == "in corso" and (j["item_id"], j["kind"]) == (item_id, "immagini"):
+            return {"job_id": jid, "status": "in corso"}
+    job_id = uuid.uuid4().hex[:10]
+    jobs[job_id] = {"status": "in corso", "item_id": item_id, "kind": "immagini",
+                    "started": datetime.now(UTC).isoformat(timespec="seconds")}
+    executor.submit(_run_images, job_id, item_id)
+    return {"job_id": job_id, "status": "in corso"}
+
+
 @app.get("/api/outputs/{kind}/{item_id}")
 def get_output(kind: str, item_id: str):
-    if kind not in gen.KINDS or not re.match(r"^\d{4}-\d{2}-\d{2}-\d{2}$", item_id):
+    if kind not in gen.KINDS or not ITEM_RE.match(item_id):
         raise HTTPException(400, "richiesta non valida")
     path = gen.output_path(kind, item_id)
     if not path.exists():

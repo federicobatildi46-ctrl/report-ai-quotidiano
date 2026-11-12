@@ -33,7 +33,17 @@
     <button id="drawer-regen" class="secondary">Rigenera</button>
     <span id="drawer-info" class="muted small"></span>
   </div>
-  <article id="drawer-body" class="prose"></article>
+  <div class="drawer-scroll">
+    <section id="drawer-images" class="images" hidden>
+      <div class="images-head">
+        <span class="eyebrow">Immagini con il tuo Soul</span>
+        <button id="images-btn">🖼️ Genera 2 immagini</button>
+      </div>
+      <div id="images-grid" class="images-grid"></div>
+      <div id="images-info" class="muted small"></div>
+    </section>
+    <article id="drawer-body" class="prose"></article>
+  </div>
 </aside>
 
 <script src="/static/app.js"></script>
