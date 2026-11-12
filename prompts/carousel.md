@@ -18,9 +18,12 @@ Ogni slide si legge in 3 secondi: poche parole, grandi, concrete.
    - `search_bar`: una domanda breve (max 6 parole) come in una barra di ricerca.
    - `subject_en`: in INGLESE, il soggetto visivo che rappresenta il tema (NON me, nessuna persona
      reale riconoscibile): una metafora visiva forte e un po' surreale, stile collage editoriale.
-     Esempi di registro: "a classical marble Greek statue holding a modern laptop", "a vintage
-     1970s television whose screen shows a glowing neural network", "a hand moving a chess piece".
-     Un solo soggetto, inquadratura che lascia spazio in alto per il titolo. Niente testo o loghi.
+     **Direzione visiva di questo carosello (obbligatoria): {{DIRECTION}}.** Inventa un soggetto
+     originale dentro questa direzione, collegato in modo intelligente al tema del post.
+     Deve essere DIVERSO da tutti questi soggetti già usati:
+{{AVOID}}
+     Un solo soggetto, ben scontornabile, inquadratura che lascia spazio in alto per il titolo.
+     Niente testo, numeri, loghi o marchi riconoscibili.
 2-4. **Tre slide di contenuto**, una per concetto chiave del post, in ordine logico.
    - `title`: max 4 parole, forte.
    - `lines`: 2-4 righe, ognuna max 11 parole. Fatti concreti (numeri, nomi, come si usa).

@@ -37,17 +37,23 @@
   <div class="drawer-actions">
     <button id="drawer-copy">Copia</button>
     <button id="drawer-regen" class="secondary">Rigenera</button>
+    <button id="drawer-edit" hidden>✏️ Modifica testo</button>
     <button id="drawer-publish" hidden>🚀 Pubblica / Programma</button>
     <span id="drawer-info" class="muted small"></span>
   </div>
   <div class="drawer-scroll">
-    <section id="drawer-images" class="images" hidden>
+    <section id="drawer-carousel" class="images" hidden>
       <div class="images-head">
-        <span class="eyebrow">Immagini con il tuo Soul</span>
-        <button id="images-btn">🖼️ Genera 2 immagini</button>
+        <span class="eyebrow">Carosello · 5 slide</span>
+        <span class="car-actions">
+          <button id="car-gen">🎠 Genera carosello</button>
+          <button id="car-edit" hidden>✏️ Modifica slide</button>
+          <button id="car-img" hidden title="Stessi testi, nuova immagine (~3 crediti)">🖼️ Nuova immagine</button>
+          <a id="car-pdf" hidden target="_blank" rel="noopener">PDF</a>
+        </span>
       </div>
-      <div id="images-grid" class="images-grid"></div>
-      <div id="images-info" class="muted small"></div>
+      <div id="car-strip" class="car-strip"></div>
+      <div id="car-info" class="muted small"></div>
     </section>
     <article id="drawer-body" class="prose"></article>
   </div>
@@ -62,7 +68,7 @@
     <label class="eyebrow" for="pub-text">Testo del post (puoi modificarlo)</label>
     <textarea id="pub-text" rows="16"></textarea>
     <div id="pub-count" class="small muted"></div>
-    <div class="eyebrow" style="margin-top:12px">Immagine</div>
+    <div class="eyebrow" style="margin-top:12px">Allegato</div>
     <div id="pub-images" class="pub-images"></div>
     <div class="pub-when">
       <label class="eyebrow" for="pub-at">Programma per</label>
@@ -73,6 +79,36 @@
     <div class="pub-actions">
       <button type="button" id="pub-schedule">📅 Programma</button>
       <button type="button" id="pub-now" class="danger">🚀 Pubblica adesso</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="post-dialog">
+  <form method="dialog" class="pub">
+    <div class="pub-head">
+      <div><div class="eyebrow">Modifica il testo del post</div><div id="post-dlg-title" class="drawer-title"></div></div>
+      <button value="cancel" class="icon" aria-label="Chiudi">✕</button>
+    </div>
+    <textarea id="post-dlg-text" rows="22"></textarea>
+    <div id="post-dlg-count" class="small muted"></div>
+    <div class="pub-actions">
+      <button value="cancel" class="secondary">Annulla</button>
+      <button type="button" id="post-dlg-save" class="danger">💾 Salva</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="car-dialog">
+  <form method="dialog" class="pub">
+    <div class="pub-head">
+      <div><div class="eyebrow">Modifica le slide</div><div class="drawer-title">Testi del carosello</div></div>
+      <button value="cancel" class="icon" aria-label="Chiudi">✕</button>
+    </div>
+    <div id="car-form" class="car-form"></div>
+    <div id="car-msg" class="small"></div>
+    <div class="pub-actions">
+      <button value="cancel" class="secondary">Annulla</button>
+      <button type="button" id="car-save" class="danger">🎨 Salva e reimpagina</button>
     </div>
   </form>
 </dialog>

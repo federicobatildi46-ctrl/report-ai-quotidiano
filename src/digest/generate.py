@@ -136,6 +136,18 @@ def generate(date: str, item_id: str, kind: str) -> Path:
     return path
 
 
+def save_post_text(item_id: str, text: str) -> Path:
+    """Sostituisce il testo della sezione '## Post' con quello modificato a mano."""
+    path = output_path("post", item_id)
+    md = path.read_text(encoding="utf-8")
+    m = re.search(r"(##\s*Post\s*\n)(.*?)(?=\n##\s|\Z)", md, re.S)
+    if not m:
+        raise ValueError("il file del post non ha la sezione '## Post'")
+    md = md[:m.start(2)] + text.strip() + "\n" + md[m.end(2):]
+    path.write_text(md, encoding="utf-8")
+    return path
+
+
 def read_output(path: Path) -> dict:
     text = path.read_text(encoding="utf-8")
     meta, body = {}, text

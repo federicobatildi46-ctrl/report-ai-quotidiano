@@ -175,14 +175,45 @@ def upload_image(tok: dict, path: Path) -> str:
     return urn
 
 
-def publish(text: str, image: Path | None = None, alt_text: str = "") -> dict:
+def init_document_upload(tok: dict) -> dict:
+    r = httpx.post(f"{API}/rest/documents?action=initializeUpload", headers=_headers(tok),
+                   json={"initializeUploadRequest": {"owner": tok["person_urn"]}}, timeout=30)
+    if r.status_code != 200:
+        raise LinkedInError(f"preparazione documento rifiutata ({r.status_code}): {r.text[:300]}")
+    return r.json()["value"]
+
+
+def upload_document(tok: dict, path: Path) -> str:
+    """Carica un PDF (il carosello): Documents API, poi attende che LinkedIn lo elabori."""
+    v = init_document_upload(tok)
+    r = httpx.put(v["uploadUrl"], content=path.read_bytes(),
+                  headers={"Authorization": f"Bearer {tok['access_token']}"}, timeout=180)
+    if r.status_code not in (200, 201):
+        raise LinkedInError(f"caricamento PDF fallito ({r.status_code})")
+    urn = v["document"]
+    for _ in range(30):
+        g = httpx.get(f"{API}/rest/documents/{quote(urn, safe='')}", headers=_headers(tok), timeout=30)
+        status = g.json().get("status") if g.status_code == 200 else None
+        if status == "AVAILABLE":
+            return urn
+        if status == "PROCESSING_FAILED":
+            raise LinkedInError("LinkedIn non è riuscito a elaborare il PDF")
+        time.sleep(3)
+    return urn   # di solito pubblicabile anche se ancora in elaborazione
+
+
+def publish(text: str, image: Path | None = None, alt_text: str = "",
+            document: Path | None = None, document_title: str = "") -> dict:
     """Pubblica DAVVERO sul profilo. Chiamarla solo dopo la conferma esplicita di Federico."""
     tok = _require_token()
     body = {"author": tok["person_urn"], "commentary": to_little_text(text), "visibility": "PUBLIC",
             "distribution": {"feedDistribution": "MAIN_FEED", "targetEntities": [],
                              "thirdPartyDistributionChannels": []},
             "lifecycleState": "PUBLISHED", "isReshareDisabledByAuthor": False}
-    if image:
+    if document:
+        body["content"] = {"media": {"id": upload_document(tok, document),
+                                     "title": (document_title or "Carosello")[:200]}}
+    elif image:
         body["content"] = {"media": {"id": upload_image(tok, image), "altText": alt_text[:300]}}
     r = httpx.post(f"{API}/rest/posts", headers=_headers(tok), json=body, timeout=60)
     if r.status_code != 201:
@@ -199,8 +230,18 @@ def check() -> dict:
                    timeout=30)
     if me.status_code != 200:
         raise LinkedInError(f"token non valido ({me.status_code})")
-    init_image_upload(tok)   # prenota un caricamento senza usarlo: conferma URN e permessi
+    init_image_upload(tok)      # prenota un caricamento senza usarlo: conferma URN e permessi
+    init_document_upload(tok)   # idem per i PDF dei caroselli
     return {"name": me.json().get("name"), "person_urn": tok["person_urn"], "api_version": api_version()}
+
+
+def carousel_pdf(item_id: str | None) -> Path | None:
+    if not item_id:
+        return None
+    p = OUTPUTS_DIR / "linkedin" / "caroselli" / Path(item_id).name / "carosello.pdf"
+    if not p.exists():
+        raise LinkedInError(f"carosello non trovato per {item_id}")
+    return p
 
 
 def image_path(filename: str | None) -> Path | None:

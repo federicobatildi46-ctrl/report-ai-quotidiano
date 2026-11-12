@@ -129,8 +129,18 @@ gh secret set CLAUDE_CODE_OAUTH_TOKEN
 
 ## App locale
 
-Doppio click su **`scripts\avvia-app.bat`** (oppure `uv run digest serve`): scarica da GitHub i
-report del cloud e apre http://localhost:8787. Per chiuderla chiudi la finestra nera.
+Indirizzo fisso: **http://localhost:8787** (mettilo nei segnalibri).
+
+- **Avvio automatico** all'accesso a Windows, in silenzio, così il segnalibro funziona sempre.
+  Si attiva una volta sola con:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts\avvio-automatico.ps1
+```
+
+  (per toglierlo: stesso comando con `-Rimuovi`). Log in `data\tmp\app.log`.
+- In alternativa doppio click su **`scripts\avvia-app.bat`**: se l'app è già accesa apre solo il
+  browser, altrimenti la avvia.
 
 - **A sinistra** l'archivio di tutti i report, **al centro** il report del giorno.
 - Sotto ogni notizia tre pulsanti:
@@ -144,10 +154,17 @@ report del cloud e apre http://localhost:8787. Per chiuderla chiudi la finestra 
 - Per il testo usa Claude Code col tuo abbonamento (modello in `config/topics.yaml` →
   `generators.model`).
 
-- **Immagini del post:** nel pannello del post, "🖼️ Genera 2 immagini" crea 2 varianti con il
-  tuo Soul su Higgsfield (~0,24 crediti, 1-2 minuti), dal "Prompt immagine" del post. Le trovi
-  in `outputs/linkedin/immagini/` (JPEG) e sono caricate anche su GitHub. Soul, modello e
-  formato si cambiano in `config/topics.yaml` → `generators.images`.
+- **Carosello (5 slide + PDF):** nel pannello del post, "🎠 Genera carosello" crea copertina con
+  il soggetto del tema, 3 slide di concetti e la slide finale con CTA e "Segui Federico", nello
+  stile dei riferimenti (blu elettrico e grigio carta, titoli Anton, corsivo, pillole, riquadro
+  giallo). Higgsfield genera solo l'immagine (~3 crediti), i testi li impagina il codice con font
+  veri: niente parole storpiate. Ogni carosello usa una "famiglia" visiva diversa dai precedenti
+  (statue, oggetti retrò, mani, astronauti, collage surreali, animali…).
+  - **✏️ Modifica slide**: cambi i testi di ogni slide e reimpagina (gratis, stessa immagine);
+  - **🖼️ Nuova immagine**: stessi testi, soggetto nuovo (~3 crediti);
+  - **🔄 Rigenera tutto**: testi e immagine nuovi.
+  File in `outputs/linkedin/caroselli/<notizia>/` (slide JPEG, `carosello.pdf`), anche su GitHub.
+- **✏️ Modifica testo** (post): correggi il testo del post e salvi; resta quello per la pubblicazione.
 
 Consiglio: crea un collegamento a `scripts\avvia-app.bat` sul desktop o sulla barra delle
 applicazioni.
@@ -166,7 +183,8 @@ Già saputo, Non mi serve, Troppo tecnico). Ricliccare lo stesso voto lo toglie.
 ## Pubblicare su LinkedIn
 
 Nel pannello del post: **🚀 Pubblica / Programma** apre una finestra dove puoi ritoccare il testo,
-scegliere l'immagine e poi:
+scegliere l'allegato (il **carosello PDF** è selezionato di default se esiste: su LinkedIn appare
+come documento da sfogliare) e poi:
 - **Pubblica adesso** → esce subito sul tuo profilo (dopo una conferma);
 - **Programma** → scegli data e ora: il post va nella coda `outputs/linkedin/coda.json` e lo
   pubblica il cloud ([.github/workflows/publish.yml](.github/workflows/publish.yml), ogni 30 minuti

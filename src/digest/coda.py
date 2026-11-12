@@ -24,12 +24,14 @@ def save(entries: list[dict]) -> None:
 
 
 def add(item_id: str, title: str, text: str, image: str | None, publish_at: str,
-        status: str = "programmato", result: dict | None = None) -> dict:
+        status: str = "programmato", result: dict | None = None, carousel: bool = False,
+        document_title: str = "") -> dict:
     when = datetime.fromisoformat(publish_at.replace("Z", "+00:00"))
     if status == "programmato" and when <= datetime.now(UTC):
         raise ValueError("l'orario di pubblicazione deve essere nel futuro")
     entry = {"id": uuid.uuid4().hex[:8], "item_id": item_id, "title": title, "text": text,
-             "image": image, "publish_at": when.astimezone(UTC).isoformat(timespec="minutes"),
+             "image": None if carousel else image, "carousel": carousel, "document_title": document_title,
+             "publish_at": when.astimezone(UTC).isoformat(timespec="minutes"),
              "status": status, "created": datetime.now(UTC).isoformat(timespec="seconds"),
              **(result or {})}
     entries = load()
@@ -52,7 +54,7 @@ def cancel(entry_id: str) -> dict:
 
 def publish_due() -> list[dict]:
     """Pubblica le voci programmate già scadute. Ritorna le voci toccate."""
-    from digest.linkedin_pub import image_path, publish
+    from digest.linkedin_pub import carousel_pdf, image_path, publish
 
     entries = load()
     now = datetime.now(UTC)
@@ -61,7 +63,9 @@ def publish_due() -> list[dict]:
         if e["status"] != "programmato" or datetime.fromisoformat(e["publish_at"]) > now:
             continue
         try:
-            e.update(publish(e["text"], image_path(e.get("image")), alt_text=e.get("title", "")))
+            e.update(publish(e["text"], image_path(e.get("image")), alt_text=e.get("title", ""),
+                             document=carousel_pdf(e["item_id"]) if e.get("carousel") else None,
+                             document_title=e.get("document_title", "")))
             e["status"] = "pubblicato"
         except Exception as ex:
             e.update(status="errore", error=f"{type(ex).__name__}: {ex}"[:400])

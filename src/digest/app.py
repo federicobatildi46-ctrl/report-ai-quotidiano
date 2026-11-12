@@ -18,7 +18,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from digest import REPORTS_DIR, ROOT
-from digest import coda, feedback, gitsync, images
+from digest import carousel, coda, feedback, gitsync, images
 from digest import generate as gen
 from digest import linkedin_pub as li
 
@@ -52,6 +52,8 @@ app = FastAPI(title="Report AI", lifespan=lifespan)
 app.mount("/static", StaticFiles(directory=WEB_DIR), name="static")
 images.IMAGES_DIR.mkdir(parents=True, exist_ok=True)
 app.mount("/immagini", StaticFiles(directory=images.IMAGES_DIR), name="immagini")
+carousel.CAROUSEL_DIR.mkdir(parents=True, exist_ok=True)
+app.mount("/caroselli", StaticFiles(directory=carousel.CAROUSEL_DIR), name="caroselli")
 
 
 @app.get("/")
@@ -213,6 +215,95 @@ def start_images(item_id: str):
     return {"job_id": job_id, "status": "in corso"}
 
 
+# ---------- carosello e modifica del post ----------
+
+def _push_async(paths: list[str], message: str):
+    threading.Thread(target=gitsync.commit_and_push, args=(paths, message), daemon=True).start()
+
+
+def _carousel_view(item_id: str) -> dict:
+    plan = carousel.load_plan(item_id)
+    if not plan:
+        return {"exists": False}
+    d = carousel.CAROUSEL_DIR / item_id
+    v = int((d / "carosello.pdf").stat().st_mtime) if (d / "carosello.pdf").exists() else 0
+    slides = [f"/caroselli/{item_id}/{p.name}?v={v}" for p in sorted(d.glob("slide-*.jpg"),
+                                                                      key=lambda p: int(p.stem.split("-")[1]))]
+    return {"exists": True, "plan": {k: plan[k] for k in ("cover", "slides", "cta")},
+            "slides": slides, "pdf": f"/caroselli/{item_id}/carosello.pdf?v={v}",
+            "title": carousel.pdf_title(plan)}
+
+
+def _run_carousel(job_id: str, item_id: str, mode: str):
+    job = jobs[job_id]
+    try:
+        if mode == "nuovo":
+            carousel.build_carousel(item_id)
+        else:
+            carousel.new_subject(item_id)
+        ok, detail = gitsync.commit_and_push(carousel.carousel_files(item_id), f"Carosello: {item_id}")
+        job.update(status="fatto", git="salvato su GitHub" if ok else f"non salvato su GitHub: {detail[-200:]}")
+    except Exception as e:
+        job.update(status="errore", error=f"{type(e).__name__}: {e}"[:500])
+
+
+def _start_job(item_id: str, kind: str, target, *args) -> dict:
+    for jid, j in jobs.items():
+        if j["status"] == "in corso" and (j["item_id"], j["kind"]) == (item_id, kind):
+            return {"job_id": jid, "status": "in corso"}
+    job_id = uuid.uuid4().hex[:10]
+    jobs[job_id] = {"status": "in corso", "item_id": item_id, "kind": kind,
+                    "started": datetime.now(UTC).isoformat(timespec="seconds")}
+    executor.submit(target, job_id, item_id, *args)
+    return {"job_id": job_id, "status": "in corso"}
+
+
+@app.get("/api/carousel/{item_id}")
+def get_carousel(item_id: str):
+    if not ITEM_RE.match(item_id):
+        raise HTTPException(400, "richiesta non valida")
+    return _carousel_view(item_id)
+
+
+@app.post("/api/carousel/{item_id}")
+def create_carousel(item_id: str, nuova_immagine: bool = False):
+    """Genera il carosello (testi + immagine nuovi) o, con nuova_immagine, cambia solo l'immagine."""
+    if not ITEM_RE.match(item_id):
+        raise HTTPException(400, "richiesta non valida")
+    if not gen.output_path("post", item_id).exists():
+        raise HTTPException(409, "prima genera il post")
+    mode = "immagine" if nuova_immagine else "nuovo"
+    return _start_job(item_id, f"carosello-{mode}", _run_carousel, mode)
+
+
+@app.put("/api/carousel/{item_id}")
+def edit_carousel(item_id: str, edited: dict):
+    """Testi delle slide modificati a mano: nuova impaginazione, stessa immagine (gratis)."""
+    if not ITEM_RE.match(item_id):
+        raise HTTPException(400, "richiesta non valida")
+    try:
+        carousel.update_texts(item_id, edited)
+    except FileNotFoundError as e:
+        raise HTTPException(404, str(e))
+    _push_async(carousel.carousel_files(item_id), f"Carosello modificato: {item_id}")
+    return _carousel_view(item_id)
+
+
+class PostText(BaseModel):
+    text: str
+
+
+@app.put("/api/outputs/post/{item_id}")
+def edit_post(item_id: str, body: PostText):
+    if not ITEM_RE.match(item_id) or not body.text.strip():
+        raise HTTPException(400, "richiesta non valida")
+    if not gen.output_path("post", item_id).exists():
+        raise HTTPException(404, "post non trovato")
+    path = gen.save_post_text(item_id, body.text)
+    _push_async([str(path.relative_to(ROOT))], f"Post modificato: {item_id}")
+    return {**gen.read_output(path), "path": str(path.relative_to(ROOT))}
+
+
 # ---------- LinkedIn (Fase 8) ----------
 
 oauth_states: set[str] = set()
@@ -260,15 +351,24 @@ class PublishRequest(BaseModel):
     title: str
     text: str
     image: str | None = None
+    carousel: bool = False          # allega il carosello PDF (ha la precedenza sull'immagine)
     publish_at: str | None = None   # ISO; assente = pubblica adesso
+
+
+def _doc_title(item_id: str) -> str:
+    plan = carousel.load_plan(item_id)
+    return carousel.pdf_title(plan) if plan else "Carosello"
 
 
 def _run_publish(job_id: str, req: PublishRequest):
     job = jobs[job_id]
     try:
-        result = li.publish(req.text, li.image_path(req.image), alt_text=req.title)
+        doc = li.carousel_pdf(req.item_id) if req.carousel else None
+        result = li.publish(req.text, None if doc else li.image_path(req.image), alt_text=req.title,
+                            document=doc, document_title=_doc_title(req.item_id) if doc else "")
         coda.add(req.item_id, req.title, req.text, req.image, result["published_at"],
-                 status="pubblicato", result=result)
+                 status="pubblicato", result=result, carousel=req.carousel,
+                 document_title=_doc_title(req.item_id) if doc else "")
         ok, _ = gitsync.commit_and_push([CODA_FILE], f"LinkedIn: pubblicato «{req.title[:50]}»")
         job.update(status="fatto", url=result["url"], git="salvato su GitHub" if ok else "non salvato su GitHub")
     except Exception as e:
@@ -296,13 +396,19 @@ def get_coda():
 def schedule_post(req: PublishRequest):
     if not ITEM_RE.match(req.item_id) or not req.text.strip() or not req.publish_at:
         raise HTTPException(400, "richiesta non valida")
-    if req.image:
-        li.image_path(req.image)   # l'immagine deve esistere (ed essere su GitHub per il cloud)
     try:
-        entry = coda.add(req.item_id, req.title, req.text, req.image, req.publish_at)
-    except ValueError as e:
+        if req.carousel:
+            li.carousel_pdf(req.item_id)   # il PDF deve esistere (ed essere su GitHub per il cloud)
+        elif req.image:
+            li.image_path(req.image)
+        entry = coda.add(req.item_id, req.title, req.text, req.image, req.publish_at,
+                         carousel=req.carousel, document_title=_doc_title(req.item_id) if req.carousel else "")
+    except (ValueError, li.LinkedInError) as e:
         raise HTTPException(400, str(e))
-    files = [CODA_FILE] + ([f"outputs/linkedin/immagini/{req.image}"] if req.image else [])
+    if req.carousel:
+        files = [CODA_FILE] + carousel.carousel_files(req.item_id)
+    else:
+        files = [CODA_FILE] + ([f"outputs/linkedin/immagini/{req.image}"] if req.image else [])
     ok, detail = gitsync.commit_and_push(files, f"LinkedIn: programmato «{req.title[:50]}»")
     return {**entry, "git": "salvato su GitHub" if ok else f"ATTENZIONE, non salvato su GitHub: {detail[-200:]}"}
 

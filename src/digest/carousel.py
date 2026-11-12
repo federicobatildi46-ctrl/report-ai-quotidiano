@@ -7,6 +7,7 @@ con font veri → niente refusi, niente lettere deformate.
 """
 
 import json
+import random
 import subprocess
 from pathlib import Path
 
@@ -30,9 +31,35 @@ WHITE = (255, 255, 255)
 YELLOW = (244, 226, 66)
 FONTS = ROOT / "assets" / "fonts"
 CAROUSEL_DIR = OUTPUTS_DIR / "linkedin" / "caroselli"
-HANDLE = "linkedin.com/in/federico-batildi-ai"
+FOOTER_NAME = "Federico Batildi · Digital Consultant"
 NAME = "FEDERICO BATILDI"
 SUBJECT_MODEL = "gpt_image_2_6"
+# Etichetta "immagine generata con AI": disattivata su scelta di Federico (i soggetti sono collage
+# evidentemente artistici, non foto realistiche). Per riattivarla basta mettere un testo qui.
+AI_LABEL = ""
+
+# Direzioni visive nello stile dei riferimenti: una diversa a ogni carosello, così ogni post ha
+# un soggetto nuovo (sempre collegato al tema del post).
+# (famiglia, direzione): le famiglie usate negli ultimi caroselli vengono escluse.
+STYLE_DIRECTIONS = [
+    ("statua", "classical marble statue or bust (Greek/Roman) interacting with modern technology"),
+    ("retro", "vintage retro technology object (1970s TV, rotary phone, typewriter, cassette, radio) "
+              "repurposed as a metaphor"),
+    ("mani", "human hands in close-up doing a symbolic gesture with an object (chess piece, key, "
+             "puzzle, lever, magnifying glass)"),
+    ("spazio", "astronaut or space-age figure in an unexpected everyday situation"),
+    ("testa-oggetto", "surreal editorial collage of an anonymous person whose head is replaced by an object"),
+    ("vintage-ufficio", "vintage 1950s-60s businessman or office worker in a surreal situation"),
+    ("tech-3d", "futuristic 3D object or device (VR headset, robot hand, glowing chip) as a still life"),
+    ("animale", "an animal (owl, fox, chameleon, octopus...) as a clever metaphor, photographed like a "
+                "studio portrait with one symbolic prop"),
+    ("oggetto-gigante", "an everyday object at monumental scale (giant paper plane, oversized key, "
+                        "huge light bulb) with a tiny figure for scale"),
+]
+
+
+def _family(direction: str) -> str:
+    return next((f for f, d in STYLE_DIRECTIONS if d == direction), "")
 
 
 # ---------- font e testo ----------
@@ -116,9 +143,20 @@ def footer(img, page: int, total: int, on_blue: bool, swipe: bool = False):
     top = H - 108
     d.rounded_rectangle((M - 20, top, W - M + 20, top + 64), radius=32, fill=WHITE)
     f = inter(24, 600)
-    d.text((M + 10, top + 18), HANDLE, font=f, fill=INK)
+    d.text((M + 10, top + 18), FOOTER_NAME, font=f, fill=INK)
     right = f"{page}/{total}" + ("   SCORRI →" if swipe else "")
     d.text((W - M - 10 - text_w(f, right), top + 18), right, font=f, fill=BLUE)
+
+
+def ai_label(img):
+    """Indicazione discreta sopra la barra, in basso a destra (solo se AI_LABEL non è vuota)."""
+    if not AI_LABEL:
+        return img
+    layer = Image.new("RGBA", img.size, (0, 0, 0, 0))
+    d = ImageDraw.Draw(layer)
+    f = inter(18, 500)
+    d.text((W - M - text_w(f, AI_LABEL), H - 136), AI_LABEL, font=f, fill=(255, 255, 255, 170))
+    return Image.alpha_composite(img.convert("RGBA"), layer)
 
 
 def watermark(img, text, color, y, size=420):
@@ -211,7 +249,7 @@ def cover(plan: dict, subj: Image.Image, total: int) -> Image.Image:
     d.ellipse((cx - 14, cy - 14, cx + 10, cy + 10), outline=BLUE, width=5)
     d.line((cx + 8, cy + 8, cx + 20, cy + 20), fill=BLUE, width=6)
     footer(img, 1, total, True, swipe=True)
-    return img.convert("RGB")
+    return ai_label(img).convert("RGB")
 
 
 PILL_COLORS = [YELLOW, (236, 92, 168), (64, 214, 140), WHITE]
@@ -323,7 +361,7 @@ def cta(plan: dict, subj: Image.Image, total: int) -> Image.Image:
         d.text((M, fy), part, font=fl, fill=WHITE)
         fy += 48
     footer(img, total, total, True)
-    return img.convert("RGB")
+    return ai_label(img).convert("RGB")
 
 
 # ---------- orchestrazione ----------
@@ -347,16 +385,45 @@ SCHEMA = {
 }
 
 
+def previous_subjects(exclude: str | None = None, limit: int = 15) -> list[dict]:
+    """Soggetti e direzioni dei caroselli già fatti (per non ripetersi)."""
+    out = []
+    for p in sorted(CAROUSEL_DIR.glob("*/carosello.json"), reverse=True):
+        if p.parent.name == exclude:
+            continue
+        plan = json.loads(p.read_text(encoding="utf-8"))
+        out.append({"subject": plan["cover"].get("subject_en", ""), "direction": plan.get("direction", "")})
+    return out[:limit]
+
+
+def pick_direction(previous: list[dict]) -> str:
+    """Una direzione di una famiglia non usata negli ultimi caroselli (anche se vecchi senza
+    famiglia: si riconoscono le statue dal soggetto)."""
+    recent = set()
+    for p in previous[:len(STYLE_DIRECTIONS) - 3]:
+        fam = _family(p.get("direction", ""))
+        if not fam and any(w in p.get("subject", "").lower() for w in ("statue", "bust", "marble", "sculpture")):
+            fam = "statua"
+        recent.add(fam)
+    choices = [d for f, d in STYLE_DIRECTIONS if f not in recent] or [d for _, d in STYLE_DIRECTIONS]
+    return random.choice(choices)
+
+
 def plan_carousel(item_id: str) -> dict:
     post = output_path("post", item_id)
     if not post.exists():
         raise FileNotFoundError("prima genera il post: il carosello parte dal suo testo")
     voice = VOICE_PATH.read_text(encoding="utf-8") if VOICE_PATH.exists() else ""
+    previous = previous_subjects(exclude=item_id)
+    direction = pick_direction(previous)
+    avoid = "\n".join(f"- {p['subject']}" for p in previous if p["subject"]) or "- (nessuno)"
     prompt = ((PROMPTS_DIR / "carousel.md").read_text(encoding="utf-8")
-              .replace("{{VOICE}}", voice).replace("{{POST}}", post_text(post.read_text(encoding="utf-8"))))
+              .replace("{{VOICE}}", voice).replace("{{POST}}", post_text(post.read_text(encoding="utf-8")))
+              .replace("{{DIRECTION}}", direction).replace("{{AVOID}}", avoid))
     out, _ = run_claude(prompt, SCHEMA, model="sonnet", timeout=600,
                         system="Progetti caroselli LinkedIn in italiano. Rispondi solo con dati conformi allo schema JSON.")
     out["slides"] = out["slides"][:3]
+    out["direction"] = direction
     return out
 
 
@@ -368,12 +435,15 @@ def render(plan: dict, subject_path: Path, out_dir: Path) -> list[Path]:
         slides.append(content(s, i + 2, total, on_blue=(i % 2 == 1)))
     slides.append(cta(plan, subj, total))
     out_dir.mkdir(parents=True, exist_ok=True)
+    for old in out_dir.glob("slide-*.*"):
+        old.unlink()
     paths = []
     for i, im in enumerate(slides, 1):
-        p = out_dir / f"slide-{i}.png"
-        im.save(p, optimize=True)
+        p = out_dir / f"slide-{i}.jpg"
+        im.save(p, "JPEG", quality=92, optimize=True)
         paths.append(p)
-    slides[0].save(out_dir / "carosello.pdf", save_all=True, append_images=slides[1:], resolution=144)
+    slides[0].save(out_dir / "carosello.pdf", save_all=True, append_images=slides[1:],
+                   resolution=144, quality=90, title=pdf_title(plan), author="Federico Batildi")
     # anteprima: tutte le slide affiancate
     thumb_w = 360
     sheet = Image.new("RGB", (thumb_w * len(slides) + 20 * (len(slides) + 1), int(thumb_w * H / W) + 40), (40, 40, 40))
@@ -383,14 +453,93 @@ def render(plan: dict, subject_path: Path, out_dir: Path) -> list[Path]:
     return paths
 
 
-def build_carousel(item_id: str, reuse_subject: bool = True) -> Path:
+def pdf_title(plan: dict) -> str:
+    c = plan["cover"]
+    return f"{c['title_big']} — {c['title_rest']}"
+
+
+def _save_subject(src: Path):
+    """Il soggetto si tiene in PNG (serve la trasparenza) ma ridimensionato: repo leggero."""
+    im = Image.open(src)
+    im.thumbnail((1400, 1800), Image.LANCZOS)
+    im.save(src, optimize=True)
+
+
+def build_carousel(item_id: str) -> Path:
+    """Testi nuovi + soggetto nuovo + impaginazione (costa ~3 crediti Higgsfield)."""
     out_dir = CAROUSEL_DIR / item_id
-    plan_path = out_dir / "carosello.json"
     plan = plan_carousel(item_id)
     subject = out_dir / "soggetto.png"
-    if not (reuse_subject and subject.exists()):
-        plan["subject_job"] = generate_subject(plan["cover"]["subject_en"], subject)
-    out_dir.mkdir(parents=True, exist_ok=True)
-    plan_path.write_text(json.dumps(plan, ensure_ascii=False, indent=1), encoding="utf-8")
+    plan["subject_job"] = generate_subject(plan["cover"]["subject_en"], subject)
+    _save_subject(subject)
+    save_plan(item_id, plan)
     render(plan, subject, out_dir)
     return out_dir
+
+
+def save_plan(item_id: str, plan: dict) -> None:
+    out_dir = CAROUSEL_DIR / item_id
+    out_dir.mkdir(parents=True, exist_ok=True)
+    (out_dir / "carosello.json").write_text(json.dumps(plan, ensure_ascii=False, indent=1), encoding="utf-8")
+
+
+def load_plan(item_id: str) -> dict | None:
+    p = CAROUSEL_DIR / item_id / "carosello.json"
+    return json.loads(p.read_text(encoding="utf-8")) if p.exists() else None
+
+
+def update_texts(item_id: str, edited: dict) -> Path:
+    """Testi modificati a mano → nuova impaginazione, stessa immagine (gratis)."""
+    plan = load_plan(item_id)
+    if not plan:
+        raise FileNotFoundError("carosello non ancora generato")
+    for key in ("cover", "cta"):
+        plan[key].update({k: v for k, v in (edited.get(key) or {}).items() if isinstance(v, str)})
+    if isinstance(edited.get("slides"), list):
+        plan["slides"] = [{"title": s.get("title", ""), "lines": [l for l in s.get("lines", []) if l.strip()],
+                           "highlight": s.get("highlight", ""), "tags": [t for t in s.get("tags", []) if t.strip()]}
+                          for s in edited["slides"]][:3]
+    save_plan(item_id, plan)
+    out_dir = CAROUSEL_DIR / item_id
+    render(plan, out_dir / "soggetto.png", out_dir)
+    return out_dir
+
+
+def _fresh_subject(item_id: str, plan: dict) -> tuple[str, str]:
+    """Nuova direzione + nuovo soggetto per lo stesso tema (stessi testi)."""
+    previous = previous_subjects()   # include anche questo carosello: niente ripetizioni
+    direction = pick_direction(previous)
+    avoid = "\n".join(f"- {p['subject']}" for p in previous if p["subject"])
+    c = plan["cover"]
+    prompt = (f"Tema del carosello LinkedIn: {c['kicker']} — {c['title_big']} {c['title_rest']} "
+              f"({c['script_accent']}).\nInventa in INGLESE il soggetto visivo della copertina: una "
+              f"metafora visiva forte, stile collage editoriale, collegata al tema. Direzione obbligatoria: "
+              f"{direction}. Nessuna persona reale riconoscibile, niente testo o loghi, un solo soggetto ben "
+              f"scontornabile con spazio in alto. Deve essere diverso da:\n{avoid}")
+    out, _ = run_claude(prompt, {"type": "object", "properties": {"subject_en": {"type": "string"}},
+                                 "required": ["subject_en"]},
+                        model="sonnet", timeout=300, system="Rispondi solo con dati conformi allo schema JSON.")
+    return direction, out["subject_en"]
+
+
+def new_subject(item_id: str, subject_en: str | None = None) -> Path:
+    """Nuova immagine per lo stesso carosello (stessi testi, nuovo soggetto), ~3 crediti."""
+    plan = load_plan(item_id)
+    if not plan:
+        raise FileNotFoundError("carosello non ancora generato")
+    if subject_en:
+        plan["cover"]["subject_en"] = subject_en
+    else:
+        plan["direction"], plan["cover"]["subject_en"] = _fresh_subject(item_id, plan)
+    out_dir = CAROUSEL_DIR / item_id
+    plan["subject_job"] = generate_subject(plan["cover"]["subject_en"], out_dir / "soggetto.png")
+    _save_subject(out_dir / "soggetto.png")
+    save_plan(item_id, plan)
+    render(plan, out_dir / "soggetto.png", out_dir)
+    return out_dir
+
+
+def carousel_files(item_id: str) -> list[str]:
+    """Percorsi (relativi al repo) da salvare su GitHub."""
+    out_dir = CAROUSEL_DIR / item_id
+    return [str(p.relative_to(ROOT)) for p in sorted(out_dir.glob("*")) if p.is_file()]

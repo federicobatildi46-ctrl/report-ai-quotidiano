@@ -69,6 +69,17 @@ Progetto: report AI quotidiano locale (vedi PIANO_OPERATIVO.md per obiettivi, ar
 - `prompt_block()` finisce nel prompt di selezione (`{{PREFERENCES}}` in prompts/triage.md).
 - Per i test usa file temporanei (riassegna FEEDBACK_PATH ecc.): non sporcare i voti veri.
 
+## Caroselli
+- `src/digest/carousel.py` + `prompts/carousel.md`: piano testi (Claude) → soggetto ritagliato
+  (Higgsfield `gpt_image_2_6`, background transparent) → impaginazione Pillow con i font in
+  `assets/fonts` (Anton, Great Vibes, Inter; licenza OFL) → slide JPEG + `carosello.pdf`.
+- Varietà: `STYLE_DIRECTIONS` a famiglie; `pick_direction` esclude le famiglie recenti.
+- Footer: "Federico Batildi · Digital Consultant". Etichetta AI disattivata per scelta di Federico
+  (`AI_LABEL = ""`).
+- LinkedIn: il PDF va con la Documents API (`upload_document`), titolo = `pdf_title(plan)`.
+- App: `scripts/avvio-nascosto.vbs` (avvio senza finestre), `scripts/avvio-automatico.ps1`
+  (collegamento in Esecuzione automatica: lo lancia Federico).
+
 ## Aggiungere una fonte
 Nuovo tipo → funzione `async def collect_x(ctx: Ctx) -> list[Item]` in `src/digest/collectors/`,
 registrata in `collectors/__init__.py`. Usa sempre `ctx.is_new(key)` prima di arricchire

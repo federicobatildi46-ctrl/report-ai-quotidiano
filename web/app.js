@@ -151,39 +151,142 @@ async function openOutput(kind, item, gitNote) {
   $("#drawer-info").textContent = `${out.path}${gitNote ? " · " + gitNote : ""}`;
   $("#drawer-copy").textContent = kind === "post" ? "Copia il post" : "Copia tutto";
   $("#drawer-body").innerHTML = DOMPurify.sanitize(marked.parse(out.markdown));
-  $("#drawer-images").hidden = kind !== "post";
-  $("#drawer-publish").hidden = kind !== "post";
-  if (kind === "post") renderImages((await api(`/api/images/${item}`)).images);
+  const isPost = kind === "post";
+  $("#drawer-carousel").hidden = !isPost;
+  $("#drawer-publish").hidden = !isPost;
+  $("#drawer-edit").hidden = !isPost;
+  if (isPost) renderCarousel(await api(`/api/carousel/${item}`));
   $("#drawer").hidden = false;
   document.querySelector(".drawer-scroll").scrollTop = 0;
 }
 
-function renderImages(list, note = "") {
-  $("#images-grid").innerHTML = list.map((src) =>
-    `<a href="${src}" target="_blank" rel="noopener" download title="Apri / scarica"><img src="${src}" alt="Immagine del post" loading="lazy"></a>`).join("");
-  $("#images-btn").textContent = list.length ? "🖼️ Altre 2 varianti" : "🖼️ Genera 2 immagini";
-  $("#images-info").textContent = note || (list.length
-    ? "Clicca un'immagine per aprirla a piena risoluzione e scaricarla."
-    : "Usa il \"Prompt immagine\" del post e il tuo Soul su Higgsfield · ~0,24 crediti · 1-2 minuti.");
+// ---------- carosello ----------
+async function pollJob(res, ms = 3000) {
+  const jobId = res.job_id;
+  while (res.status === "in corso") {
+    await new Promise((r) => setTimeout(r, ms));
+    res = await api(`/api/jobs/${jobId}`);
+  }
+  if (res.status === "errore") throw new Error(res.error);
+  return res;
 }
 
-$("#images-btn").onclick = async () => {
+function renderCarousel(c, note = "") {
+  state.carousel = c;
+  const has = !!c.exists;
+  $("#car-gen").textContent = has ? "🔄 Rigenera tutto" : "🎠 Genera carosello";
+  $("#car-gen").title = has ? "Testi e immagine nuovi (~3 crediti)" : "Testi + immagine dal post (~3 crediti, 1-2 minuti)";
+  $("#car-img").textContent = "🖼️ Nuova immagine";
+  $("#car-edit").hidden = $("#car-img").hidden = $("#car-pdf").hidden = !has;
+  if (has) $("#car-pdf").href = c.pdf;
+  $("#car-strip").innerHTML = has ? c.slides.map((src, i) =>
+    `<a href="${src}" target="_blank" rel="noopener" title="Slide ${i + 1}: apri in grande"><img src="${src}" alt="Slide ${i + 1}" loading="lazy"></a>`).join("") : "";
+  $("#car-info").textContent = note || (has
+    ? "Clicca una slide per vederla in grande. Il PDF è quello che va su LinkedIn."
+    : "Copertina con il soggetto del tema, 3 slide di concetti e la CTA finale, nel tuo stile.");
+}
+
+async function carouselJob(btn, url, label) {
   const d = state.drawer; if (!d) return;
-  const btn = $("#images-btn");
-  btn.disabled = true; btn.textContent = "⏳ Higgsfield al lavoro… (1-2 min)";
+  const buttons = ["#car-gen", "#car-edit", "#car-img"].map((s) => $(s));
+  buttons.forEach((b) => (b.disabled = true));
+  const original = btn.textContent;
+  btn.textContent = label;
   try {
-    let res = await api(`/api/images/${d.item}`, { method: "POST" });
-    const jobId = res.job_id;
-    while (res.status === "in corso") {
-      await new Promise((r) => setTimeout(r, 3000));
-      res = await api(`/api/jobs/${jobId}`);
-    }
-    if (res.status === "errore") throw new Error(res.error);
-    renderImages(res.images, res.git ? `Fatto · ${res.git}` : "");
+    const res = await pollJob(await api(url, { method: "POST" }));
+    renderCarousel(await api(`/api/carousel/${d.item}`), res.git ? `Fatto · ${res.git}` : "Fatto");
   } catch (e) {
-    renderImages((await api(`/api/images/${d.item}`)).images, `Non riuscito: ${e.message}`);
+    btn.textContent = original;
+    $("#car-info").textContent = `Non riuscito: ${e.message}`;
   } finally {
-    btn.disabled = false;
+    buttons.forEach((b) => (b.disabled = false));
+  }
+}
+
+$("#car-gen").onclick = () => {
+  const d = state.drawer;
+  if (state.carousel?.exists && !confirm("Rigenerare testi e immagine? Le modifiche fatte a mano andranno perse.")) return;
+  carouselJob($("#car-gen"), `/api/carousel/${d.item}`, "⏳ Testi e immagine in arrivo… (1-2 min)");
+};
+$("#car-img").onclick = () => {
+  const d = state.drawer;
+  carouselJob($("#car-img"), `/api/carousel/${d.item}?nuova_immagine=true`, "⏳ Nuova immagine… (1 min)");
+};
+
+function field(label, name, value, multiline = false) {
+  const v = esc(value ?? "");
+  return `<label>${label}</label>` + (multiline
+    ? `<textarea name="${name}" rows="${Math.max(2, (value || "").split("\n").length)}">${v}</textarea>`
+    : `<input name="${name}" value="${v}">`);
+}
+
+$("#car-edit").onclick = () => {
+  const p = state.carousel.plan;
+  const s = p.slides.map((sl, i) => `<fieldset><legend>Slide ${i + 2}</legend>
+    ${field("Titolo", `s${i}.title`, sl.title)}
+    ${field("Righe (una per riga, max 4)", `s${i}.lines`, (sl.lines || []).join("\n"), true)}
+    ${field("Frase in giallo", `s${i}.highlight`, sl.highlight)}
+    ${field("Pillole (separate da virgola)", `s${i}.tags`, (sl.tags || []).join(", "))}</fieldset>`).join("");
+  $("#car-form").innerHTML = `<fieldset><legend>Copertina</legend>
+      ${field("Sopratitolo", "cover.kicker", p.cover.kicker)}
+      ${field("Titolone (1-2 parole)", "cover.title_big", p.cover.title_big)}
+      ${field("Resto del titolo", "cover.title_rest", p.cover.title_rest)}
+      ${field("Corsivo", "cover.script_accent", p.cover.script_accent)}
+      ${field("Barra di ricerca", "cover.search_bar", p.cover.search_bar)}</fieldset>
+    ${s}
+    <fieldset><legend>Slide finale (CTA)</legend>
+      ${field("Titolo", "cta.title", p.cta.title)}
+      ${field("Testo", "cta.text", p.cta.text, true)}
+      ${field("Parola chiave da commentare", "cta.keyword", p.cta.keyword)}</fieldset>`;
+  $("#car-msg").textContent = "Le modifiche ai testi sono gratis: l'immagine resta la stessa.";
+  $("#car-msg").className = "small muted";
+  $("#car-dialog").showModal();
+};
+
+$("#car-save").onclick = async () => {
+  const val = (n) => $("#car-form").querySelector(`[name="${n}"]`)?.value.trim() ?? "";
+  const p = state.carousel.plan;
+  const edited = {
+    cover: Object.fromEntries(["kicker", "title_big", "title_rest", "script_accent", "search_bar"].map((k) => [k, val(`cover.${k}`)])),
+    slides: p.slides.map((_, i) => ({ title: val(`s${i}.title`), lines: val(`s${i}.lines`).split("\n"),
+      highlight: val(`s${i}.highlight`), tags: val(`s${i}.tags`).split(",").map((t) => t.trim()) })),
+    cta: { title: val("cta.title"), text: val("cta.text"), keyword: val("cta.keyword") },
+  };
+  $("#car-save").disabled = true;
+  $("#car-msg").textContent = "⏳ Reimpagino…";
+  try {
+    const c = await api(`/api/carousel/${state.drawer.item}`, { method: "PUT",
+      headers: { "Content-Type": "application/json" }, body: JSON.stringify(edited) });
+    renderCarousel(c, "Slide aggiornate · salvate su GitHub");
+    $("#car-dialog").close();
+  } catch (e) {
+    $("#car-msg").textContent = `Non salvato: ${e.message}`; $("#car-msg").className = "small err";
+  } finally {
+    $("#car-save").disabled = false;
+  }
+};
+
+// ---------- modifica del testo del post ----------
+$("#drawer-edit").onclick = () => {
+  const d = state.drawer; if (!d) return;
+  $("#post-dlg-title").textContent = $("#drawer-title").textContent;
+  $("#post-dlg-text").value = postText(d.markdown);
+  $("#post-dlg-count").textContent = `${$("#post-dlg-text").value.length} / 3000 caratteri`;
+  $("#post-dialog").showModal();
+};
+$("#post-dlg-text").addEventListener("input", () => {
+  const n = $("#post-dlg-text").value.length;
+  $("#post-dlg-count").textContent = `${n} / 3000 caratteri${n > 3000 ? " — troppo lungo per LinkedIn" : ""}`;
+});
+$("#post-dlg-save").onclick = async () => {
+  const d = state.drawer;
+  try {
+    await api(`/api/outputs/post/${d.item}`, { method: "PUT", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text: $("#post-dlg-text").value }) });
+    $("#post-dialog").close();
+    await openOutput("post", d.item, "modificato e salvato su GitHub");
+  } catch (e) {
+    $("#post-dlg-count").textContent = `Non salvato: ${e.message}`;
   }
 };
 
@@ -255,10 +358,13 @@ async function openPublish() {
   $("#pub-title").textContent = $("#drawer-title").textContent;
   $("#pub-text").value = postText(d.markdown);
   updateCount();
+  // allegato: il carosello (PDF) se c'è, altrimenti eventuali immagini singole o niente
+  const car = await api(`/api/carousel/${d.item}`);
   const imgs = (await api(`/api/images/${d.item}`)).images;
   $("#pub-images").innerHTML =
-    `<label><input type="radio" name="pubimg" value="" ${imgs.length ? "" : "checked"}><span class="noimg">nessuna</span></label>` +
-    imgs.map((src, i) => `<label><input type="radio" name="pubimg" value="${src.split("/").pop()}" ${i === 0 ? "checked" : ""}><img src="${src}" alt=""></label>`).join("");
+    (car.exists ? `<label class="car-choice"><input type="radio" name="pubimg" value="__carosello__" checked><img src="${car.slides[0]}" alt=""><span>Carosello PDF</span></label>` : "") +
+    imgs.map((src) => `<label><input type="radio" name="pubimg" value="${src.split("/").pop()}"><img src="${src}" alt=""></label>`).join("") +
+    `<label><input type="radio" name="pubimg" value="" ${car.exists ? "" : "checked"}><span class="noimg">nessuno</span></label>`;
   const t = new Date(); t.setDate(t.getDate() + 1); t.setHours(8, 30, 0, 0);
   $("#pub-at").value = new Date(t.getTime() - t.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
   const ready = state.li.connected;
@@ -273,8 +379,9 @@ function updateCount() {
 }
 function setMsg(text, isErr = false) { $("#pub-msg").textContent = text; $("#pub-msg").className = "small " + (isErr ? "err" : "ok"); }
 function pubPayload() {
+  const choice = document.querySelector('input[name="pubimg"]:checked')?.value || "";
   return { item_id: state.drawer.item, title: $("#pub-title").textContent, text: $("#pub-text").value.trim(),
-    image: document.querySelector('input[name="pubimg"]:checked')?.value || null };
+    carousel: choice === "__carosello__", image: choice && choice !== "__carosello__" ? choice : null };
 }
 
 $("#pub-text").addEventListener("input", updateCount);

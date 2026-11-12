@@ -83,6 +83,20 @@ section.sec { background: var(--card); border-radius: 12px; padding: 20px 24px; 
 .images { padding: 16px 22px; border-bottom: 1px solid var(--line); }
 .images[hidden] { display: none; }
 .images-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 10px; }
+.car-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.car-actions a { font-size: 14px; }
+.car-strip { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 6px; }
+.car-strip a { flex: 0 0 auto; display: block; border-radius: 6px; overflow: hidden; border: 1px solid var(--line); }
+.car-strip img { display: block; height: 220px; aspect-ratio: 1080 / 1350; object-fit: cover; }
+dialog#post-dialog, dialog#car-dialog { width: min(760px, 94vw); border: 1px solid var(--line); border-radius: 14px;
+  padding: 0; background: var(--card); color: var(--ink); box-shadow: 0 20px 60px rgba(0,0,0,.3); }
+.car-form { display: flex; flex-direction: column; gap: 10px; max-height: 62vh; overflow-y: auto; padding-right: 6px; }
+.car-form fieldset { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; display: grid; gap: 6px; }
+.car-form legend { font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.car-form label { font-size: 12px; color: var(--muted); }
+.car-form input, .car-form textarea { font: inherit; font-size: 14px; padding: 6px 8px; border-radius: 6px;
+  border: 1px solid var(--line); background: var(--bg); color: var(--ink); width: 100%; }
+.pub-images .car-choice img { width: 96px; }
 .images-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; }
 .images-grid a { display: block; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); }
 .images-grid img { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
