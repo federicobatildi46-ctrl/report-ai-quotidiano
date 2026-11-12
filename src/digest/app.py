@@ -196,6 +196,12 @@ def linkedin_login():
 def linkedin_callback(code: str = "", state: str = "", error: str = "", error_description: str = ""):
     if error or state not in oauth_states:
         msg = error_description or error or "richiesta non riconosciuta (riprova da 'Collega LinkedIn')"
+        if error == "unauthorized_scope_error":
+            msg += (". Soluzione: su linkedin.com/developers → la tua app → scheda Products, aggiungi "
+                    "'Sign In with LinkedIn using OpenID Connect' e 'Share on LinkedIn', poi riprova.")
+        elif "redirect_uri" in (error_description or ""):
+            msg += (". Soluzione: nella scheda Auth dell'app aggiungi esattamente "
+                    f"{li.redirect_uri()} tra gli Authorized redirect URLs.")
         return HTMLResponse(f"<p>Collegamento LinkedIn non riuscito: {msg}</p><p><a href='/'>Torna all'app</a></p>", 400)
     oauth_states.discard(state)
     try:
