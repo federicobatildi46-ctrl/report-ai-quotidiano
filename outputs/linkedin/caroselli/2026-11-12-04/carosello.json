@@ -5,7 +5,7 @@
   "title_rest": "completo, non un capo solo",
   "script_accent": "stilista AI",
   "search_bar": "Chi veste l'AI?",
-  "subject_en": "a classical white marble bust of a Greek statue wearing a tailored knitted sweater, its open head revealing glowing circuit boards and braided cables, editorial collage style, framed with empty space at the top"
+  "subject_en": "a vintage astronaut in a retro white space suit standing at a tailor's fitting platform, arms slightly outstretched, being measured with a yellow tape measure while wearing a full coordinated outfit over the suit: a navy blazer, striped shirt collar, chinos and loafers, editorial collage style, single cut-out subject, framed with empty space at the top"
  },
  "slides": [
   {
@@ -55,11 +55,11 @@
   "text": "Scrivi OUTFIT nei commenti e ti racconto come lo impostrei per il tuo negozio, amico.",
   "keyword": "OUTFIT"
  },
- "direction": "antique sculpture or museum artifact mixed with circuits, cables or screens",
+ "direction": "astronaut or space-age figure in an unexpected everyday situation",
  "subject_job": {
-  "job_id": "f96f6353-4d48-40b4-b64e-40cb6e76b4f0",
-  "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3DOc5jLidAoXBBZq382X62VFg2o/hf_20261112_205818_f96f6353-4d48-40b4-b64e-40cb6e76b4f0.png",
+  "job_id": "5f46fa23-7486-47c4-b3cc-c7f564d3351f",
+  "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3DOc5jLidAoXBBZq382X62VFg2o/hf_20261112_210037_5f46fa23-7486-47c4-b3cc-c7f564d3351f.png",
   "model": "gpt_image_2_6",
-  "prompt": "a classical white marble bust of a Greek statue wearing a tailored knitted sweater, its open head revealing glowing circuit boards and braided cables, editorial collage style, framed with empty space at the top. Black and white editorial photograph, isolated subject cut out on a fully transparent background, studio lighting, high contrast, fine film grain, sharp details, vintage magazine collage aesthetic. No text, no letters, no numbers, no logos, no watermark, no background, no frame."
+  "prompt": "a vintage astronaut in a retro white space suit standing at a tailor's fitting platform, arms slightly outstretched, being measured with a yellow tape measure while wearing a full coordinated outfit over the suit: a navy blazer, striped shirt collar, chinos and loafers, editorial collage style, single cut-out subject, framed with empty space at the top. Black and white editorial photograph, isolated subject cut out on a fully transparent background, studio lighting, high contrast, fine film grain, sharp details, vintage magazine collage aesthetic. No text, no letters, no numbers, no logos, no watermark, no background, no frame."
  }
 }
