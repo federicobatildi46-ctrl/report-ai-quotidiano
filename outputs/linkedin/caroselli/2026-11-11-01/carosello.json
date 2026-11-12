@@ -1,0 +1,66 @@
+{
+ "cover": {
+  "kicker": "NUOVO MODELLO CLAUDE",
+  "title_big": "FABLE 5.2",
+  "title_rest": "più veloce, meno caro",
+  "script_accent": "ma conviene?",
+  "search_bar": "Fable 5.2 costa troppo?",
+  "subject_en": "a vintage brass stopwatch resting on a stack of gold coins, editorial collage style, framed with empty space at the top"
+ },
+ "slides": [
+  {
+   "title": "Fable o Mythos?",
+   "lines": [
+    "Sono lo stesso modello. Cambiano solo le salvaguardie.",
+    "Fable: aperto a tutti, con protezioni su cyber e biologia.",
+    "Mythos: solo su richiesta, con i programmi Life Sciences e Cyber Verification."
+   ],
+   "highlight": "Stesso modello, salvaguardie diverse",
+   "tags": [
+    "Fable",
+    "Mythos",
+    "Salvaguardie"
+   ]
+  },
+  {
+   "title": "Cosa cambia",
+   "lines": [
+    "Genera fino al 30% più veloce rispetto alla 5.1.",
+    "Prezzo: $8 per milione di token in input, $40 in output.",
+    "Fast mode: fino a 2,5 volte più veloce, a $16 e $80."
+   ],
+   "highlight": "Fino al 30% più veloce",
+   "tags": [
+    "+30% velocità",
+    "$8 / $40",
+    "Fast mode"
+   ]
+  },
+  {
+   "title": "Il consiglio vero",
+   "lines": [
+    "Non usare sempre il modello più grosso.",
+    "Anthropic dice di partire da Opus 5.5 e salire o scendere.",
+    "Fable può fare da Advisor o da Orchestrator.",
+    "Lui propone, i piccoli lavorano, io approvo."
+   ],
+   "highlight": "Lui propone, io approvo",
+   "tags": [
+    "Opus 5.5",
+    "Advisor",
+    "Orchestrator"
+   ]
+  }
+ ],
+ "cta": {
+  "title": "Vuoi scegliere il modello giusto?",
+  "text": "Scrivi MODELLI nei commenti e ti spiego in privato come sceglierei il modello per un tuo caso.",
+  "keyword": "MODELLI"
+ },
+ "subject_job": {
+  "job_id": "4b5dda58-82ba-4523-bee2-70ee7e40ae72",
+  "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3DOc5jLidAoXBBZq382X62VFg2o/hf_20261112_203128_4b5dda58-82ba-4523-bee2-70ee7e40ae72.png",
+  "model": "gpt_image_2_6",
+  "prompt": "a classical marble Greek statue holding a glowing modern laptop, collage editorial style, framing leaves empty space at the top. Black and white editorial photograph, isolated subject cut out on a fully transparent background, studio lighting, high contrast, fine film grain, sharp details, vintage magazine collage aesthetic. No text, no letters, no numbers, no logos, no watermark, no background, no frame."
+ }
+}
