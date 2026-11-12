@@ -122,6 +122,7 @@ async function openOutput(kind, item, gitNote) {
   $("#drawer-copy").textContent = kind === "post" ? "Copia il post" : "Copia tutto";
   $("#drawer-body").innerHTML = DOMPurify.sanitize(marked.parse(out.markdown));
   $("#drawer-images").hidden = kind !== "post";
+  $("#drawer-publish").hidden = kind !== "post";
   if (kind === "post") renderImages((await api(`/api/images/${item}`)).images);
   $("#drawer").hidden = false;
   document.querySelector(".drawer-scroll").scrollTop = 0;
@@ -185,6 +186,99 @@ $("#drawer-regen").onclick = () => {
 $("#sync-btn").onclick = async () => { $("#sync-status").textContent = "Sincronizzazione…"; await api("/api/sync", { method: "POST" }); await init(); };
 window.addEventListener("hashchange", () => { const d = location.hash.slice(1); if (d && d !== state.date) showReport(d); });
 
+// ---------- LinkedIn: collegamento, pubblicazione, programmazione ----------
+const fmtWhen = (iso) => new Date(iso).toLocaleString("it-IT", { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+state.li = { connected: false };
+
+async function loadLinkedIn() {
+  const s = await api("/api/linkedin/status");
+  state.li = s;
+  let html;
+  if (!s.configured) html = "Da configurare: Client ID e Secret in <code>.env</code>, poi riavvia l'app.";
+  else if (!s.connected) html = `<a href="/linkedin/login">🔗 Collega LinkedIn</a>${s.expires_at ? " (collegamento scaduto)" : ""}`;
+  else html = `✅ ${esc(s.name || "Collegato")} · scade tra ${s.days_left} giorni` +
+    (s.days_left < 10 ? ` · <a href="/linkedin/login">ricollega</a>` : "") +
+    `<br>${s.secrets_synced ? "Programmazione nel cloud attiva" : "⚠️ Token non ancora copiato su GitHub (ricollega)"}`;
+  $("#li-status").innerHTML = html;
+
+  const q = await api("/api/coda");
+  const upcoming = q.filter((e) => e.status === "programmato");
+  const recent = q.filter((e) => e.status !== "programmato" && e.status !== "annullato").slice(0, 3);
+  $("#coda").innerHTML = [
+    ...upcoming.map((e) => `<div class="q"><div>${esc(e.title.slice(0, 60))}</div>
+      <div class="q-when">📅 ${fmtWhen(e.publish_at)} · <button class="link" data-cancel="${e.id}">Annulla</button></div></div>`),
+    ...recent.map((e) => `<div class="q"><div>${esc(e.title.slice(0, 60))}</div><div class="q-when">${e.status === "pubblicato"
+      ? `✅ ${fmtWhen(e.published_at || e.publish_at)} · <a href="${esc(e.url)}" target="_blank" rel="noopener">apri</a>`
+      : `❌ errore: ${esc((e.error || "").slice(0, 80))}`}</div></div>`),
+  ].join("") || '<span class="muted">Nessun post programmato.</span>';
+}
+
+$("#coda").addEventListener("click", async (e) => {
+  const id = e.target.dataset?.cancel; if (!id) return;
+  if (!confirm("Annullare questo post programmato? Non verrà pubblicato.")) return;
+  await api(`/api/coda/${id}`, { method: "DELETE" });
+  await loadLinkedIn();
+});
+
+async function openPublish() {
+  const d = state.drawer; if (!d) return;
+  $("#pub-title").textContent = $("#drawer-title").textContent;
+  $("#pub-text").value = postText(d.markdown);
+  updateCount();
+  const imgs = (await api(`/api/images/${d.item}`)).images;
+  $("#pub-images").innerHTML =
+    `<label><input type="radio" name="pubimg" value="" ${imgs.length ? "" : "checked"}><span class="noimg">nessuna</span></label>` +
+    imgs.map((src, i) => `<label><input type="radio" name="pubimg" value="${src.split("/").pop()}" ${i === 0 ? "checked" : ""}><img src="${src}" alt=""></label>`).join("");
+  const t = new Date(); t.setDate(t.getDate() + 1); t.setHours(8, 30, 0, 0);
+  $("#pub-at").value = new Date(t.getTime() - t.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+  const ready = state.li.connected;
+  $("#pub-now").disabled = $("#pub-schedule").disabled = !ready;
+  setMsg(ready ? "" : "Prima collega LinkedIn (colonna a sinistra).", !ready);
+  $("#publish-dialog").showModal();
+}
+
+function updateCount() {
+  const n = $("#pub-text").value.length;
+  $("#pub-count").textContent = `${n} / 3000 caratteri${n > 3000 ? " — troppo lungo per LinkedIn" : ""}`;
+}
+function setMsg(text, isErr = false) { $("#pub-msg").textContent = text; $("#pub-msg").className = "small " + (isErr ? "err" : "ok"); }
+function pubPayload() {
+  return { item_id: state.drawer.item, title: $("#pub-title").textContent, text: $("#pub-text").value.trim(),
+    image: document.querySelector('input[name="pubimg"]:checked')?.value || null };
+}
+
+$("#pub-text").addEventListener("input", updateCount);
+$("#drawer-publish").onclick = openPublish;
+
+$("#pub-schedule").onclick = async () => {
+  const when = new Date($("#pub-at").value);
+  if (isNaN(when) || when <= new Date()) return setMsg("Scegli una data e un'ora nel futuro.", true);
+  if ($("#pub-text").value.length > 3000) return setMsg("Il testo supera i 3000 caratteri.", true);
+  if (!confirm(`Programmare il post per ${fmtWhen(when.toISOString())}?\nVerrà pubblicato in automatico sul tuo profilo LinkedIn.`)) return;
+  try {
+    const r = await api("/api/coda", { method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...pubPayload(), publish_at: when.toISOString() }) });
+    setMsg(`📅 Programmato per ${fmtWhen(r.publish_at)} · ${r.git}`);
+    await loadLinkedIn();
+  } catch (e) { setMsg(`Non programmato: ${e.message}`, true); }
+};
+
+$("#pub-now").onclick = async () => {
+  if ($("#pub-text").value.length > 3000) return setMsg("Il testo supera i 3000 caratteri.", true);
+  if (!confirm("Pubblicare ADESSO questo post sul tuo profilo LinkedIn?\nSarà visibile a tutti subito.")) return;
+  const btn = $("#pub-now"); btn.disabled = true; setMsg("⏳ Pubblicazione in corso…");
+  try {
+    let res = await api("/api/linkedin/publish", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(pubPayload()) });
+    const jobId = res.job_id;
+    while (res.status === "in corso") { await new Promise((r) => setTimeout(r, 2000)); res = await api(`/api/jobs/${jobId}`); }
+    if (res.status === "errore") throw new Error(res.error);
+    $("#pub-msg").innerHTML = `✅ Pubblicato! <a href="${esc(res.url)}" target="_blank" rel="noopener">Apri su LinkedIn</a> · ${esc(res.git)}`;
+    $("#pub-msg").className = "small ok";
+    await loadLinkedIn();
+  } catch (e) { setMsg(`Non pubblicato: ${e.message}`, true); }
+  finally { btn.disabled = false; }
+};
+
 async function refreshSync() {
   const s = await api("/api/sync");
   $("#sync-status").textContent = s.status === "in corso" ? "Sincronizzazione…"
@@ -194,6 +288,11 @@ async function refreshSync() {
 }
 
 async function init() {
+  if (new URLSearchParams(location.search).get("linkedin") === "ok") {
+    history.replaceState(null, "", "/" + location.hash);
+    setTimeout(() => alert("LinkedIn collegato ✅"), 300);
+  }
+  loadLinkedIn().catch(() => { $("#li-status").textContent = "Stato LinkedIn non disponibile"; });
   const list = await loadArchive();
   const wanted = location.hash.slice(1);
   const date = list.find((r) => r.date === wanted) ? wanted : list[0]?.date;

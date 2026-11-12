@@ -11,4 +11,5 @@ Le decisioni prese sono in [PIANO_OPERATIVO.md §8](PIANO_OPERATIVO.md). Domande
 | Fase 4 | **Token Claude per il cloud** | Esegui `claude setup-token` in un terminale, poi lo salviamo come Secret del repo GitHub | ✅ fatto, caricato nei Secrets |
 | Fase 7 | **Higgsfield** | CLI già installato e autenticato, Soul "Federico Finale" | ✅ fatto |
 | Fase 7 | **Reference per le immagini** | Facoltativo: mandami immagini di stile se vuoi un look preciso | ⏳ quando vuoi |
-| Fase 8 | **App LinkedIn Developers** | La creiamo insieme associandola alla tua Pagina aziendale esistente | ⏳ |
+| Fase 8 | **App LinkedIn Developers** | 1) https://www.linkedin.com/developers/apps/new → nome "Report AI Federico", la tua Pagina aziendale, un logo · 2) scheda **Products**: richiedi "Share on LinkedIn" e "Sign In with LinkedIn using OpenID Connect" · 3) scheda **Auth** → Authorized redirect URLs: `http://localhost:8787/linkedin/callback` · 4) copia Client ID e Primary Client Secret in `.env` (`LINKEDIN_CLIENT_ID`, `LINKEDIN_CLIENT_SECRET`) · 5) riavvia l'app e premi "🔗 Collega LinkedIn" | ⏳ |
+| Ogni 60 giorni | **Ricollegare LinkedIn** | L'app avvisa 10 giorni prima: premi "ricollega" (il token nel cloud si aggiorna da solo) | — |

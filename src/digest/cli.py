@@ -161,6 +161,30 @@ def _voice(args) -> int:
     return 0
 
 
+def _publish_due(args) -> int:
+    from digest.coda import publish_due
+
+    touched = publish_due()
+    if not touched:
+        print("Nessun post da pubblicare adesso.")
+    for e in touched:
+        print(f"{e['status'].upper():<11} {e['title'][:60]}  {e.get('url') or e.get('error', '')}")
+    return 1 if any(e["status"] == "errore" for e in touched) else 0
+
+
+def _linkedin_check(args) -> int:
+    from digest.linkedin_pub import LinkedInError, check
+
+    try:
+        info = check()
+    except LinkedInError as e:
+        print(f"LinkedIn: {e}")
+        return 1
+    print(f"LinkedIn ok: {info['name']} ({info['person_urn']}), API {info['api_version']}. "
+          "Nessun post pubblicato.")
+    return 0
+
+
 def main() -> None:
     sys.stdout.reconfigure(encoding="utf-8")
     load_dotenv(ROOT / ".env")
@@ -184,6 +208,8 @@ def main() -> None:
     p = sub.add_parser("voice", help="scarica i tuoi post LinkedIn e rigenera la guida della tua voce")
     p.add_argument("--reuse", action="store_true", help="usa i post già scaricati (niente Apify)")
     p.add_argument("--model", default="sonnet", help="modello Claude (default: sonnet)")
+    sub.add_parser("publish-due", help="pubblica su LinkedIn i post programmati già scaduti")
+    sub.add_parser("linkedin-check", help="verifica il collegamento LinkedIn senza pubblicare")
     p = sub.add_parser("serve", help="app locale con report, archivio e generatori")
     p.add_argument("--port", type=int, help="porta (default: DIGEST_PORT o 8787)")
     p.add_argument("--no-browser", action="store_true", help="non aprire il browser")
@@ -205,3 +231,7 @@ def main() -> None:
         sys.exit(_serve(args))
     if args.cmd == "voice":
         sys.exit(_voice(args))
+    if args.cmd == "publish-due":
+        sys.exit(_publish_due(args))
+    if args.cmd == "linkedin-check":
+        sys.exit(_linkedin_check(args))

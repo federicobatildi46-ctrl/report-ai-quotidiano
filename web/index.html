@@ -12,6 +12,12 @@
 <aside class="sidebar">
   <div class="brand">Report AI</div>
   <nav id="archive" aria-label="Archivio dei report"></nav>
+  <div class="li-box">
+    <div class="eyebrow">LinkedIn</div>
+    <div id="li-status" class="small muted">…</div>
+    <div class="eyebrow" style="margin-top:12px">Programmati</div>
+    <div id="coda" class="small"></div>
+  </div>
   <div class="sync">
     <span id="sync-status">Sincronizzazione…</span>
     <button id="sync-btn" class="link">Aggiorna</button>
@@ -31,6 +37,7 @@
   <div class="drawer-actions">
     <button id="drawer-copy">Copia</button>
     <button id="drawer-regen" class="secondary">Rigenera</button>
+    <button id="drawer-publish" hidden>🚀 Pubblica / Programma</button>
     <span id="drawer-info" class="muted small"></span>
   </div>
   <div class="drawer-scroll">
@@ -45,6 +52,30 @@
     <article id="drawer-body" class="prose"></article>
   </div>
 </aside>
+
+<dialog id="publish-dialog">
+  <form method="dialog" class="pub">
+    <div class="pub-head">
+      <div><div class="eyebrow">Pubblica su LinkedIn</div><div id="pub-title" class="drawer-title"></div></div>
+      <button value="cancel" class="icon" aria-label="Chiudi">✕</button>
+    </div>
+    <label class="eyebrow" for="pub-text">Testo del post (puoi modificarlo)</label>
+    <textarea id="pub-text" rows="16"></textarea>
+    <div id="pub-count" class="small muted"></div>
+    <div class="eyebrow" style="margin-top:12px">Immagine</div>
+    <div id="pub-images" class="pub-images"></div>
+    <div class="pub-when">
+      <label class="eyebrow" for="pub-at">Programma per</label>
+      <input type="datetime-local" id="pub-at">
+      <span class="small muted">Esce entro ~40 minuti dall'orario scelto (tra le 7 e le 23).</span>
+    </div>
+    <div id="pub-msg" class="small"></div>
+    <div class="pub-actions">
+      <button type="button" id="pub-schedule">📅 Programma</button>
+      <button type="button" id="pub-now" class="danger">🚀 Pubblica adesso</button>
+    </div>
+  </form>
+</dialog>
 
 <script src="/static/app.js"></script>
 </body>

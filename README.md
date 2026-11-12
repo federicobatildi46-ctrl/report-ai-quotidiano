@@ -143,6 +143,26 @@ report del cloud e apre http://localhost:8787. Per chiuderla chiudi la finestra 
 Consiglio: crea un collegamento a `scripts\avvia-app.bat` sul desktop o sulla barra delle
 applicazioni.
 
+## Pubblicare su LinkedIn
+
+Nel pannello del post: **🚀 Pubblica / Programma** apre una finestra dove puoi ritoccare il testo,
+scegliere l'immagine e poi:
+- **Pubblica adesso** → esce subito sul tuo profilo (dopo una conferma);
+- **Programma** → scegli data e ora: il post va nella coda `outputs/linkedin/coda.json` e lo
+  pubblica il cloud ([.github/workflows/publish.yml](.github/workflows/publish.yml), ogni 30 minuti
+  tra le 7 e le 23), anche col PC spento. I programmati si vedono (e si annullano) nella colonna a
+  sinistra.
+
+Viene pubblicato esattamente il testo confermato nella finestra. Il collegamento dura 60 giorni:
+l'app avvisa e si ricollega con un click; il token per il cloud viene copiato da solo nei Secrets
+di GitHub. Verifica senza pubblicare nulla:
+
+```bash
+uv run digest linkedin-check
+```
+
+Prima volta: crea l'app su LinkedIn Developers (passi in [DOMANDE_APERTE.md](DOMANDE_APERTE.md)).
+
 ## La tua voce
 
 Post e Short seguono [config/voice/federico_voice.md](config/voice/federico_voice.md): una guida di

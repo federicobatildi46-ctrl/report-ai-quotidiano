@@ -52,6 +52,15 @@ Progetto: report AI quotidiano locale (vedi PIANO_OPERATIVO.md per obiettivi, ar
   con `custom_reference_id` = soul_id da `topics.yaml`; PNG → JPEG q90 con Pillow.
 - Il prompt immagine vieta testo/numeri/scritte leggibili (l'AI li sbaglia) e vuole il volto visibile.
 
+## LinkedIn (Fase 8)
+- `src/digest/linkedin_pub.py`: OAuth (redirect `http://localhost:8787/linkedin/callback`, scope
+  `openid profile w_member_social`), token 60 giorni in `data/linkedin_token.json` (gitignored) e
+  nei Secrets `LINKEDIN_ACCESS_TOKEN` / `LINKEDIN_PERSON_URN`. Testo → little text format
+  (`to_little_text`). Versione API in `topics.yaml` → `linkedin.api_version`.
+- `src/digest/coda.py` + `outputs/linkedin/coda.json`; cloud: `.github/workflows/publish.yml`.
+- MAI pubblicare senza conferma esplicita di Federico: niente test di pubblicazione automatici.
+  Per verificare usa `uv run digest linkedin-check` (non pubblica).
+
 ## Aggiungere una fonte
 Nuovo tipo → funzione `async def collect_x(ctx: Ctx) -> list[Item]` in `src/digest/collectors/`,
 registrata in `collectors/__init__.py`. Usa sempre `ctx.is_new(key)` prima di arricchire

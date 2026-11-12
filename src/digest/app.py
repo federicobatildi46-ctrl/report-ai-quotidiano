@@ -13,13 +13,14 @@ from contextlib import asynccontextmanager
 from datetime import UTC, datetime
 
 from fastapi import FastAPI, HTTPException
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from digest import REPORTS_DIR, ROOT
+from digest import coda, gitsync, images
 from digest import generate as gen
-from digest import gitsync, images
+from digest import linkedin_pub as li
 
 WEB_DIR = ROOT / "web"
 DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
@@ -168,6 +169,104 @@ def start_images(item_id: str):
                     "started": datetime.now(UTC).isoformat(timespec="seconds")}
     executor.submit(_run_images, job_id, item_id)
     return {"job_id": job_id, "status": "in corso"}
+
+
+# ---------- LinkedIn (Fase 8) ----------
+
+oauth_states: set[str] = set()
+CODA_FILE = str(coda.CODA_PATH.relative_to(ROOT))
+
+
+@app.get("/api/linkedin/status")
+def linkedin_status():
+    return li.status()
+
+
+@app.get("/linkedin/login")
+def linkedin_login():
+    try:
+        url, state = li.auth_url()
+    except li.LinkedInError as e:
+        raise HTTPException(400, str(e))
+    oauth_states.add(state)
+    return RedirectResponse(url)
+
+
+@app.get("/linkedin/callback")
+def linkedin_callback(code: str = "", state: str = "", error: str = "", error_description: str = ""):
+    if error or state not in oauth_states:
+        msg = error_description or error or "richiesta non riconosciuta (riprova da 'Collega LinkedIn')"
+        return HTMLResponse(f"<p>Collegamento LinkedIn non riuscito: {msg}</p><p><a href='/'>Torna all'app</a></p>", 400)
+    oauth_states.discard(state)
+    try:
+        li.exchange_code(code)
+    except li.LinkedInError as e:
+        return HTMLResponse(f"<p>{e}</p><p><a href='/'>Torna all'app</a></p>", 400)
+    # copia il token nei Secrets di GitHub, per i post programmati nel cloud
+    threading.Thread(target=li.sync_cloud_secrets, daemon=True).start()
+    return RedirectResponse("/?linkedin=ok")
+
+
+class PublishRequest(BaseModel):
+    item_id: str
+    title: str
+    text: str
+    image: str | None = None
+    publish_at: str | None = None   # ISO; assente = pubblica adesso
+
+
+def _run_publish(job_id: str, req: PublishRequest):
+    job = jobs[job_id]
+    try:
+        result = li.publish(req.text, li.image_path(req.image), alt_text=req.title)
+        coda.add(req.item_id, req.title, req.text, req.image, result["published_at"],
+                 status="pubblicato", result=result)
+        ok, _ = gitsync.commit_and_push([CODA_FILE], f"LinkedIn: pubblicato «{req.title[:50]}»")
+        job.update(status="fatto", url=result["url"], git="salvato su GitHub" if ok else "non salvato su GitHub")
+    except Exception as e:
+        job.update(status="errore", error=f"{type(e).__name__}: {e}"[:500])
+
+
+@app.post("/api/linkedin/publish")
+def linkedin_publish(req: PublishRequest):
+    """Pubblica ADESSO. L'app la chiama solo dopo la conferma esplicita nel dialogo."""
+    if not ITEM_RE.match(req.item_id) or not req.text.strip():
+        raise HTTPException(400, "richiesta non valida")
+    job_id = uuid.uuid4().hex[:10]
+    jobs[job_id] = {"status": "in corso", "item_id": req.item_id, "kind": "pubblicazione",
+                    "started": datetime.now(UTC).isoformat(timespec="seconds")}
+    executor.submit(_run_publish, job_id, req)
+    return {"job_id": job_id, "status": "in corso"}
+
+
+@app.get("/api/coda")
+def get_coda():
+    return sorted(coda.load(), key=lambda e: e["publish_at"], reverse=True)
+
+
+@app.post("/api/coda")
+def schedule_post(req: PublishRequest):
+    if not ITEM_RE.match(req.item_id) or not req.text.strip() or not req.publish_at:
+        raise HTTPException(400, "richiesta non valida")
+    if req.image:
+        li.image_path(req.image)   # l'immagine deve esistere (ed essere su GitHub per il cloud)
+    try:
+        entry = coda.add(req.item_id, req.title, req.text, req.image, req.publish_at)
+    except ValueError as e:
+        raise HTTPException(400, str(e))
+    files = [CODA_FILE] + ([f"outputs/linkedin/immagini/{req.image}"] if req.image else [])
+    ok, detail = gitsync.commit_and_push(files, f"LinkedIn: programmato «{req.title[:50]}»")
+    return {**entry, "git": "salvato su GitHub" if ok else f"ATTENZIONE, non salvato su GitHub: {detail[-200:]}"}
+
+
+@app.delete("/api/coda/{entry_id}")
+def cancel_post(entry_id: str):
+    try:
+        entry = coda.cancel(entry_id)
+    except (KeyError, ValueError) as e:
+        raise HTTPException(400, str(e))
+    ok, _ = gitsync.commit_and_push([CODA_FILE], f"LinkedIn: annullato «{entry['title'][:50]}»")
+    return {**entry, "git": "salvato su GitHub" if ok else "non salvato su GitHub"}
 
 
 @app.get("/api/outputs/{kind}/{item_id}")

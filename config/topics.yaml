@@ -8,6 +8,9 @@ report:
   lookback_hours: 26             # finestra di raccolta (24h + margine)
   model: sonnet                  # modello per il report quotidiano (risparmia quota del Pro)
 
+linkedin:
+  api_version: "202610"          # versione API LinkedIn (supportate ~1 anno: aggiornala ogni tanto)
+
 generators:                      # pulsanti dell'app locale (Lezione, Post, Short)
   model: sonnet                  # "opus" per testi migliori, a costo di più quota
   max_sources: 4                 # fonti scaricate per ogni generazione

@@ -11,3 +11,6 @@ __pycache__/
 data/raw/
 data/tmp/
 config/voice/samples/
+
+# Token LinkedIn: solo su questo PC (nel cloud sta nei Secrets)
+data/linkedin_token.json
