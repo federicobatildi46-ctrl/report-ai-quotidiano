@@ -25,6 +25,7 @@ Perché mi interessa: {{WHY}}
 - Un solo concetto, un esempio concreto, frasi brevi che suonano naturali dette ad alta voce.
 - Solo fatti presenti nelle fonti; opinioni dei creator attribuite.
 - Niente frasi da AI generica.
+- Niente parole "di lavoro" come README, report, fonti, changelog: di' "la pagina del progetto", "gli sviluppatori dicono".
 {{FORMAT}}
 
 ## Fonti

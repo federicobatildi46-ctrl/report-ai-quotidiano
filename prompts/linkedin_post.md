@@ -27,6 +27,10 @@ Perché mi interessa: {{WHY}}
 - Vietate le frasi da AI generica: "nel panorama in continua evoluzione", "rivoluzionario",
   "non è solo X, è Y", "immergiamoci", "in un mondo in cui".
 - Solo fatti presenti nelle fonti. Le opinioni dei creator vanno attribuite.
+- Scrivi per chi legge LinkedIn, non per me: niente parole "di lavoro" nostre come README,
+  report, fonti, item, changelog, repo (senza spiegarla). Al posto di "il README dice" scrivi
+  "la pagina del progetto su GitHub dice", "gli sviluppatori dichiarano", "secondo il sito".
+  Queste parole vanno bene solo nelle Note.
 
 ## Il blocco "quanto ti costa non farlo" (dentro il post, prima della CTA)
 Serve a far riconoscere un potenziale cliente nel problema e a fargli capire il costo
@@ -35,8 +39,9 @@ Il blocco è breve: **6-9 righe in tutto**, con gli stessi elenchi/frecce della 
 1. **Chi**: una riga che chiama il target più adatto a questa notizia (es. "Se hai uno studio
    con 3 sedi…", "Se gestisci un e-commerce…"). Un target concreto, non "le aziende".
 2. **2-3 pain point** veri e "caldi" di quel target, specifici e quotidiani, in cui chi legge si
-   riconosce subito. Ognuno con una **stima** di ore perse o di costi inutili
-   (es. "→ 6-8 ore a settimana a rispondere alle stesse domande su WhatsApp").
+   riconosce subito. **Ognuno, nessuno escluso, con una cifra**: ore perse, euro buttati,
+   percentuale o "1 su N" (es. "→ 6-8 ore a settimana a rispondere alle stesse domande su
+   WhatsApp", "→ 1 preventivo su 4 parte dopo 48 ore"). Un pain point senza numero non va bene.
 3. **La soluzione**: con un sistema su misura basato su questa novità → la **stima del
    guadagno** in ore, euro, percentuale o clienti in più (es. "fino al 60-70% di tempo in meno,
    ~25 ore al mese restituite").

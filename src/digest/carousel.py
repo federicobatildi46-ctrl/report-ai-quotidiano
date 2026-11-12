@@ -12,7 +12,7 @@ import subprocess
 from pathlib import Path
 
 import httpx
-from PIL import Image, ImageDraw, ImageEnhance, ImageFilter, ImageFont, ImageOps
+from PIL import Image, ImageChops, ImageDraw, ImageEnhance, ImageFilter, ImageFont, ImageOps
 
 from digest import OUTPUTS_DIR, PROMPTS_DIR, ROOT
 from digest.claude import run_claude
@@ -208,35 +208,91 @@ def generate_subject(prompt_en: str, dest: Path) -> dict:
 
 # ---------- slide ----------
 
+def title_font(text: str, max_w: int, sizes, max_lines: int = 2):
+    """Primo corpo Anton (tra `sizes`) con cui il titolo sta in `max_lines` righe e nessuna riga
+    (nemmeno una parola lunga tipo FREE-CLAUDE-CODE) esce dalla pagina."""
+    for s in sizes:
+        f = anton(s)
+        lines = wrap(f, text, max_w)
+        if len(lines) <= max_lines and all(text_w(f, l) <= max_w for l in lines):
+            return f, lines
+    s = sizes[-1]
+    while s > 40:   # ultima risorsa: si rimpicciolisce finché ogni riga entra
+        s -= 6
+        f = anton(s)
+        lines = wrap(f, text, max_w)
+        if all(text_w(f, l) <= max_w for l in lines):
+            break
+    return f, lines
+
+
+def _mask_of(subj: Image.Image, xy) -> Image.Image:
+    m = Image.new("L", (W, H), 0)
+    m.paste(subj.getchannel("A"), xy)
+    return m
+
+
+def _accent_layer(text: str, size: int) -> Image.Image:
+    acc = script(size)
+    layer = Image.new("RGBA", (text_w(acc, text) + 60, int(size * 1.9)), (0, 0, 0, 0))
+    ImageDraw.Draw(layer).text((20, 10), text, font=acc, fill=YELLOW)
+    return layer.rotate(7, expand=True, resample=Image.BICUBIC)
+
+
+def _overlaps(mask: Image.Image, layer: Image.Image, xy, margin: int = 19) -> bool:
+    """True se le lettere del corsivo (con un po' di respiro) toccano il soggetto."""
+    x, y = xy
+    letters = layer.getchannel("A").point(lambda v: 255 if v > 30 else 0).filter(ImageFilter.MaxFilter(margin))
+    under = mask.crop((x, y, x + layer.width, y + layer.height)).point(lambda v: 255 if v > 30 else 0)
+    return ImageChops.multiply(letters, under).getbbox() is not None
+
+
 def cover(plan: dict, subj: Image.Image, total: int) -> Image.Image:
     c = plan["cover"]
     img = background(BLUE).convert("RGBA")
     d = ImageDraw.Draw(img)
     header(img, True)
-    # kicker
     spaced(d, (M, 150), c["kicker"].upper(), inter(30, 800), WHITE, tracking=4)
     # titolone (dietro al soggetto)
-    big = fit(anton, c["title_big"].upper(), W - 2 * M, 380)
-    d.text((M - 6, 175), c["title_big"].upper(), font=big, fill=WHITE)
-    big_bottom = 175 + big.getbbox(c["title_big"].upper())[3]
-    # soggetto grande in primo piano: copre la base del titolo ed esce dal bordo in basso
-    top = big_bottom - 150
-    s = subj.copy()
-    s.thumbnail((int(W * 0.92), H + 60 - top), Image.LANCZOS)
-    paste_with_shadow(img, s, (W - s.width + 40, H + 60 - s.height))
-    d = ImageDraw.Draw(img)
-    # resto del titolo (una riga, su fascia nera) + accento in corsivo, sopra al soggetto
+    big_text = c["title_big"].upper()
+    big = fit(anton, big_text, W - 2 * M, 380)
+    d.text((M - 6, 175), big_text, font=big, fill=WHITE)
+    big_bottom = 175 + big.getbbox(big_text)[3]
+    # resto del titolo su fascia nera: stesso margine sopra e sotto le lettere
     rest_text = c["title_rest"].upper()
-    rest = fit(anton, rest_text, W - 2 * M, 84)
-    y = big_bottom + 14
-    d.rectangle((M - 10, y + 10, M + text_w(rest, rest_text) + 12, y + rest.size + 10), fill=INK)
-    d.text((M, y - 4), rest_text, font=rest, fill=WHITE)
-    y += rest.size + 26
-    acc = script(118)
-    layer = Image.new("RGBA", (text_w(acc, c["script_accent"]) + 60, 220), (0, 0, 0, 0))
-    ImageDraw.Draw(layer).text((20, 10), c["script_accent"], font=acc, fill=YELLOW)
-    layer = layer.rotate(7, expand=True, resample=Image.BICUBIC)
-    img.paste(layer, (M - 10, y + 10), layer)
+    rest = fit(anton, rest_text, W - 2 * M - 24, 84)
+    ry = big_bottom + 14
+    rb = d.textbbox((M, ry), rest_text, font=rest)
+    pad = 12
+    band = (rb[0] - pad, rb[1] - pad, rb[2] + pad, rb[3] + pad)
+    acc_y = band[3] + 20
+
+    # soggetto grande in primo piano, ancorato in basso a destra: il corsivo NON deve mai
+    # coprirlo → si prova prima a rimpicciolire il corsivo, poi il soggetto.
+    top = big_bottom - 150
+    base = subj.copy()
+    base.thumbnail((int(W * 0.92), H + 60 - top), Image.LANCZOS)
+    choice = None
+    for scale in (1.0, 0.92, 0.85, 0.78, 0.7, 0.62):
+        s = base.resize((int(base.width * scale), int(base.height * scale)), Image.LANCZOS) if scale < 1 else base
+        xy = (W - s.width + 40, H + 60 - s.height)
+        mask = _mask_of(s, xy)
+        for size in (118, 104, 92):
+            layer = _accent_layer(c["script_accent"], size)
+            if not _overlaps(mask, layer, (M - 10, acc_y)):
+                choice = (s, xy, layer)
+                break
+        if choice:
+            break
+    if not choice:   # caso estremo: soggetto piccolo e corsivo minimo
+        s = base.resize((int(base.width * 0.55), int(base.height * 0.55)), Image.LANCZOS)
+        choice = (s, (W - s.width + 40, H + 60 - s.height), _accent_layer(c["script_accent"], 80))
+    s, xy, layer = choice
+    paste_with_shadow(img, s, xy)
+    d = ImageDraw.Draw(img)
+    d.rectangle(band, fill=INK)
+    d.text((M, ry), rest_text, font=rest, fill=WHITE)
+    img.paste(layer, (M - 10, acc_y), layer)
     # barra di ricerca
     d = ImageDraw.Draw(img)
     q = c["search_bar"]
@@ -253,6 +309,18 @@ def cover(plan: dict, subj: Image.Image, total: int) -> Image.Image:
 
 
 PILL_COLORS = [YELLOW, (236, 92, 168), (64, 214, 140), WHITE]
+PILL_H, PILL_GAP = 58, 72
+
+
+def _pill_rows(tags) -> int:
+    f = inter(30, 700)
+    x, rows = M, 1
+    for t in tags[:3]:
+        w = text_w(f, t) + 48
+        if x + w > W - M:
+            x, rows = M, rows + 1
+        x += w + 16
+    return rows
 
 
 def pills(d, tags, y, on_blue) -> int:
@@ -262,15 +330,45 @@ def pills(d, tags, y, on_blue) -> int:
     for i, t in enumerate(tags[:3]):
         w = text_w(f, t) + 48
         if x + w > W - M:
-            x, y = M, y + 72
+            x, y = M, y + PILL_GAP
         color = PILL_COLORS[i % len(PILL_COLORS)]
         if not on_blue and color == WHITE:
             color = INK
-        d.rounded_rectangle((x, y, x + w, y + 58), radius=29, fill=color,
+        d.rounded_rectangle((x, y, x + w, y + PILL_H), radius=29, fill=color,
                             outline=INK if not on_blue else None, width=2)
         d.text((x + 24, y + 12), t, font=f, fill=WHITE if color == INK else INK)
         x += w + 16
-    return y + 58
+    return y + PILL_H
+
+
+# Spazio utile delle slide di contenuto: sotto l'intestazione e sopra la barra in basso.
+CONTENT_TOP, CONTENT_BOTTOM = 115, H - 140
+# Dal più grande al più piccolo: si usa il primo con cui tutto entra nello spazio utile.
+CONTENT_PRESETS = [
+    # titoli, corpo, interlinea, spazio tra punti, evidenziatore
+    {"title": (150, 130, 120), "body": 46, "lh": 62, "gap": 26, "hl": 42},
+    {"title": (124, 112, 104), "body": 42, "lh": 56, "gap": 20, "hl": 38},
+    {"title": (104, 96, 88), "body": 38, "lh": 50, "gap": 16, "hl": 34},
+    {"title": (88, 80, 72), "body": 34, "lh": 45, "gap": 12, "hl": 31},
+]
+
+
+def _content_layout(slide: dict, p: dict) -> dict:
+    title = slide["title"].upper()
+    tf, tlines = title_font(title, W - 2 * M, p["title"], max_lines=2)
+    body = inter(p["body"], 500)
+    blines = [wrap(body, line, W - 2 * M - 64) for line in slide["lines"]]
+    hf_ = inter(p["hl"], 800)
+    hl = wrap(hf_, slide["highlight"], W - 2 * M - 60) if slide.get("highlight") else []
+    hl_lh = p["hl"] + 14
+    tags = slide.get("tags") or []
+    pill_h = (_pill_rows(tags) - 1) * PILL_GAP + PILL_H if tags else 0
+    block = (50 + len(tlines) * (tf.size + 14) + 30
+             + sum(len(b) * p["lh"] + p["gap"] for b in blines)
+             + (4 + pill_h + 36 if tags else 0)
+             + (len(hl) * hl_lh + 36 if hl else 0))
+    return {"p": p, "tf": tf, "tlines": tlines, "body": body, "blines": blines, "hf": hf_,
+            "hl": hl, "hl_lh": hl_lh, "tags": tags, "block": block}
 
 
 def content(slide: dict, n: int, total: int, on_blue: bool) -> Image.Image:
@@ -285,42 +383,36 @@ def content(slide: dict, n: int, total: int, on_blue: bool) -> Image.Image:
     header(img, on_blue)
     d = ImageDraw.Draw(img)
 
-    # misura il blocco per centrarlo verticalmente tra intestazione e barra
-    title = slide["title"].upper()
-    tf = anton(150)
-    tlines = wrap(tf, title, W - 2 * M)
-    if len(tlines) > 2:
-        tf = anton(120)
-        tlines = wrap(tf, title, W - 2 * M)
-    body = inter(46, 500)
-    blines = [wrap(body, line, W - 2 * M - 64) for line in slide["lines"]]
-    hf_ = inter(42, 800)
-    hl = wrap(hf_, slide["highlight"], W - 2 * M - 60) if slide.get("highlight") else []
-    tags = slide.get("tags") or []
-    block = (50 + len(tlines) * (tf.size + 14) + 36 + sum(len(b) * 62 + 26 for b in blines)
-             + (len(hl) * 56 + 36 + 40 if hl else 0) + (58 + 40 if tags else 0))
-    y = max(140, 120 + (H - 260 - block) // 2)
+    # il preset più grande con cui tutto entra tra intestazione e barra, poi centrato
+    space = CONTENT_BOTTOM - CONTENT_TOP
+    for p in CONTENT_PRESETS:
+        L = _content_layout(slide, p)
+        if L["block"] <= space:
+            break
+    p = L["p"]
+    y = CONTENT_TOP + max(0, (space - L["block"]) // 2)
 
     spaced(d, (M, y), num, inter(30, 800), accent, tracking=4)
     y += 50
-    for line in tlines:
-        d.text((M - 4, y), line, font=tf, fill=accent)
-        y += tf.size + 14
-    y += 36
-    for parts in blines:
+    for line in L["tlines"]:
+        d.text((M - 4, y), line, font=L["tf"], fill=accent)
+        y += L["tf"].size + 14
+    y += 30
+    arrow = inter(p["body"], 700)
+    for parts in L["blines"]:
         for i, part in enumerate(parts):
             if i == 0:
-                d.text((M, y), "→", font=inter(46, 700), fill=YELLOW if on_blue else BLUE)
-            d.text((M + 64, y), part, font=body, fill=fg)
-            y += 62
-        y += 26
-    if tags:
-        y = pills(d, tags, y + 4, on_blue) + 40
-    if hl:
-        box_h = len(hl) * 56 + 36
+                d.text((M, y), "→", font=arrow, fill=YELLOW if on_blue else BLUE)
+            d.text((M + 64, y), part, font=L["body"], fill=fg)
+            y += p["lh"]
+        y += p["gap"]
+    if L["tags"]:
+        y = pills(d, L["tags"], y + 4, on_blue) + 36
+    if L["hl"]:
+        box_h = len(L["hl"]) * L["hl_lh"] + 36
         d.rectangle((M, y, W - M, y + box_h), fill=YELLOW)
-        for i, part in enumerate(hl):
-            d.text((M + 30, y + 18 + i * 56), part, font=hf_, fill=INK)
+        for i, part in enumerate(L["hl"]):
+            d.text((M + 30, y + 18 + i * L["hl_lh"]), part, font=L["hf"], fill=INK)
     footer(img, n, total, on_blue)
     return img
 
@@ -336,11 +428,7 @@ def pain(p: dict, n: int, total: int) -> Image.Image:
 
     points = [x for x in (p.get("points") or []) if (x.get("figure") or x.get("text"))][:3]
     title = (p.get("title") or "").upper()
-    tf = anton(108)
-    tlines = wrap(tf, title, W - 2 * M)
-    if len(tlines) > 2:
-        tf = anton(90)
-        tlines = wrap(tf, title, W - 2 * M)
+    tf, tlines = title_font(title, W - 2 * M, (108, 96, 90), max_lines=2)
     fig_w = 330
     txt = inter(34, 600)
     rows = []
@@ -405,9 +493,9 @@ def cta(plan: dict, subj: Image.Image, total: int) -> Image.Image:
     header(img, True)
     d = ImageDraw.Draw(img)
     spaced(d, (M, 150), "PRIMA DI ANDARE", inter(28, 800), WHITE, tracking=4)
-    tf = anton(130)
+    tf, tlines = title_font(c["title"].upper(), W - 2 * M, (130, 116, 104, 92), max_lines=3)
     y = 200
-    for line in wrap(tf, c["title"].upper(), W - 2 * M):
+    for line in tlines:
         d.text((M - 4, y), line, font=tf, fill=WHITE)
         y += tf.size + 12
     y += 50

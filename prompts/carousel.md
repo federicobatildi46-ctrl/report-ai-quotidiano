@@ -34,7 +34,9 @@ Ogni slide si legge in 3 secondi: poche parole, grandi, concrete.
    - `kicker`: chi è il target, max 6 parole (es. "SE HAI UNO STUDIO DENTISTICO").
    - `title`: max 4 parole, forte (es. "Quanto ti costa aspettare").
    - `points`: 2-3 pain point, ognuno con `figure` (la stima, max 12 caratteri, es. "6-8 h/sett.",
-     "€400/mese", "-30%") e `text` (il problema, max 10 parole).
+     "€400/mese", "-30%") e `text` (il problema, max 10 parole). `figure` è SEMPRE un numero
+     con unità (ore, €, %, "1 su 5"), mai parole tipo "zero risultati": se il post non ha una
+     cifra per quel punto, stimala in modo prudente.
    - `solution`: max 10 parole, la soluzione (es. "Con un assistente su misura su Claude").
    - `gain`: la stima del guadagno, max 14 caratteri (es. "-70% tempo", "+25 h/mese").
    - `gain_text`: max 10 parole che spiegano il guadagno.
@@ -46,5 +48,5 @@ Ogni slide si legge in 3 secondi: poche parole, grandi, concrete.
    - `text`: 1-2 righe, cosa fare (riprendi la CTA del post, con la parola chiave in MAIUSCOLO).
    - `keyword`: la parola chiave da commentare (es. "MODELLI").
 
-Regole: solo fatti presenti nel post; niente frasi da AI generica; niente emoji nelle slide;
+Regole: niente parole "di lavoro" come README, report, fonti, changelog (scrivi "la pagina del progetto", "secondo gli sviluppatori"); i titoli delle slide hanno parole corte: niente nomi lunghi tipo "free-claude-code" nel titolo (mettili nelle righe o nelle pillole); solo fatti presenti nel post; niente frasi da AI generica; niente emoji nelle slide;
 gli importi in formato italiano ("$8" va bene, "8 dollari" meglio se più chiaro).
