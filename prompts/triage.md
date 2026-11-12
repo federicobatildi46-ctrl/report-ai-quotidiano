@@ -19,6 +19,13 @@ Tetto totale: **{{MAX_STORIES}} notizie**. È un tetto, non un obiettivo: se una
 ## Scarta sempre
 {{NOISE}}
 
+## Cosa ho imparato dai tuoi voti
+Usa questi segnali per decidere cosa tenere e cosa scartare. Pesano più delle regole generiche
+"Tieni/Scarta" quando sono specifici, ma non scartare mai una novità davvero importante (es. un
+nuovo modello o un breaking change) solo perché somiglia a qualcosa votato 👎.
+
+{{PREFERENCES}}
+
 ## Regole
 1. **Una notizia = una storia.** Se più elementi parlano dello stesso fatto (es. il lancio di un
    modello dal sito ufficiale + un video di un creator + un thread di Hacker News), mettili nella

@@ -65,6 +65,11 @@ section.sec { background: var(--card); border-radius: 12px; padding: 20px 24px; 
 .actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
 .actions button.done { border-color: var(--ok); }
 .empty { color: var(--muted); margin: 14px 0 0; }
+.vote { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-left: auto; }
+.vote-btn { padding: 4px 9px; filter: grayscale(1); opacity: .65; }
+.vote-btn.on { filter: none; opacity: 1; border-color: var(--ink); background: var(--soft); }
+.chip { font-size: 12px; padding: 3px 9px; border-radius: 12px; color: var(--muted); }
+.chip.on { color: var(--ink); border-color: var(--ink); background: var(--soft); }
 
 .drawer { position: fixed; top: 0; right: 0; height: 100vh; width: min(760px, 100vw); background: var(--card);
   border-left: 1px solid var(--line); box-shadow: -12px 0 40px rgba(0,0,0,.18); display: flex; flex-direction: column; z-index: 10; }

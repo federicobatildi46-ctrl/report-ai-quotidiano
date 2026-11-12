@@ -112,6 +112,14 @@ def _daily(args) -> int:
           + (f" · fonti in errore: {', '.join(errors)}" if errors else "")
           + f" · video con trascrizione: {sum(bool(v['meta'].get('transcript')) for v in videos)}/{len(videos)}")
 
+    from digest import feedback
+    if feedback.needs_distill():
+        try:
+            feedback.distill()
+            print("Preferenze aggiornate dai tuoi voti (config/preferenze.md)")
+        except Exception as e:   # non deve mai bloccare il report
+            print(f"Preferenze non aggiornate: {e}")
+
     report_path, report = build(raw_path)
     print(f"Report: {report['stats']['stories']} notizie · ~{report['reading_minutes']} min")
 
@@ -158,6 +166,18 @@ def _voice(args) -> int:
     print(f"Post analizzati: {len(posts)}")
     _, stats = build_guide(posts, model=args.model)
     print(f"Guida scritta in {GUIDE.relative_to(ROOT)} ({stats['secs']}s)")
+    return 0
+
+
+def _preferences(args) -> int:
+    from digest import feedback
+
+    try:
+        feedback.distill()
+    except ValueError as e:
+        print(e)
+        return 1
+    print(f"Preferenze scritte in {feedback.PREFS_PATH.relative_to(ROOT)}")
     return 0
 
 
@@ -208,6 +228,7 @@ def main() -> None:
     p = sub.add_parser("voice", help="scarica i tuoi post LinkedIn e rigenera la guida della tua voce")
     p.add_argument("--reuse", action="store_true", help="usa i post già scaricati (niente Apify)")
     p.add_argument("--model", default="sonnet", help="modello Claude (default: sonnet)")
+    sub.add_parser("preferences", help="riassume i tuoi voti 👍/👎 in config/preferenze.md")
     sub.add_parser("publish-due", help="pubblica su LinkedIn i post programmati già scaduti")
     sub.add_parser("linkedin-check", help="verifica il collegamento LinkedIn senza pubblicare")
     p = sub.add_parser("serve", help="app locale con report, archivio e generatori")
@@ -231,6 +252,8 @@ def main() -> None:
         sys.exit(_serve(args))
     if args.cmd == "voice":
         sys.exit(_voice(args))
+    if args.cmd == "preferences":
+        sys.exit(_preferences(args))
     if args.cmd == "publish-due":
         sys.exit(_publish_due(args))
     if args.cmd == "linkedin-check":

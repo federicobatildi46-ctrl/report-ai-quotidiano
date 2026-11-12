@@ -9,9 +9,9 @@
 per imprenditori e professionisti (siti e SEO, social e personal brand, video e caroselli, ads,
 agenti AI anche vocali, automazioni). Il report serve a **formarmi** e a **produrre contenuti**.
 
-Stato: **Fasi 0–8 completate: report ogni mattina, app con lezione, post nella mia voce,
-short, immagini col mio Soul, pubblicazione e programmazione su LinkedIn** · prossimo passo:
-Fase 9 (affinamento con 👍/👎).
+Stato: **Tutte le fasi (0–9) completate** il 12/11/2026: report ogni mattina, app con lezione,
+post nella mia voce, short, immagini col mio Soul, pubblicazione/programmazione su LinkedIn e
+filtro che impara dai miei 👍/👎. Da qui: usarlo e affinarlo.
 
 ---
 
@@ -156,7 +156,7 @@ viene scartata o segnalata.
 | **6. Generatori** ✅ (v1) | Lezione · Post LinkedIn · Script Shorts (italiano, max 60 s): fonti riscaricate (pagine, trascrizioni, README), salvati in `outputs/` e su GitHub | Provati l'11/11/2026: lezione, post e short generati in 1-2 min e caricati su GitHub. La voce personale arriva in Fase 7 |
 | **7. Voce e immagine** ✅ | Guida di stile da 11 miei post (Apify → Claude, `digest voice`) + immagini con il Soul "Federico Finale" via CLI Higgsfield (Soul 2.0, 3:4, JPEG) | Post rigenerato con la mia voce e 2 immagini col mio volto, l'11/11/2026 |
 | **8. LinkedIn** ✅ | Pubblica adesso / Programma via API ufficiale (Posts + Images API, versione 202610), testo modificabile e conferma obbligatoria, coda nel repo + cloud ogni 30 min | Account collegato il 12/11/2026 (scade l'11/01/2027); verifica senza pubblicare riuscita sia dal PC sia dal cloud. La prima pubblicazione vera la faccio io dall'app |
-| **9. Affinamento** | 👍/👎 su ogni notizia → il filtro impara cosa è rumore per me | Report sempre più mirato |
+| **9. Affinamento** ✅ | 👍/👎 (+ motivo) nell'app → esempi e punteggi per fonte nella selezione; ogni 10 voti Claude riassume le regole in `config/preferenze.md` (modificabile) | Provato con voti di prova su file temporanei: preferenze sensate e motivate. Migliora con l'uso |
 
 Ogni fase si chiude solo quando il suo risultato è stato provato davvero.
 

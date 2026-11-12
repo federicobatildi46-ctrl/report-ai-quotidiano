@@ -18,7 +18,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from digest import REPORTS_DIR, ROOT
-from digest import coda, gitsync, images
+from digest import coda, feedback, gitsync, images
 from digest import generate as gen
 from digest import linkedin_pub as li
 
@@ -34,6 +34,9 @@ def _pull():
     ok, out = gitsync.pull()
     sync_state.update(status="ok" if ok else "errore", detail=out[-300:],
                       at=datetime.now(UTC).isoformat(timespec="seconds"))
+    # voti rimasti sul PC (es. app chiusa prima del salvataggio automatico): caricali ora
+    if feedback.FEEDBACK_PATH.exists():
+        gitsync.commit_and_push([str(feedback.FEEDBACK_PATH.relative_to(ROOT))], "Voti 👍/👎 sulle notizie")
 
 
 @asynccontextmanager
@@ -70,7 +73,43 @@ def get_report(date: str):
         raise HTTPException(404, "report non trovato")
     report = json.loads(path.read_text(encoding="utf-8"))
     report["outputs"] = gen.existing_outputs(date)
+    report["feedback"] = feedback.votes_for(date)
     return report
+
+
+# ---------- voti 👍/👎 (Fase 9) ----------
+
+_fb_timer: threading.Timer | None = None
+FEEDBACK_FILE = str(feedback.FEEDBACK_PATH.relative_to(ROOT))
+
+
+def _push_feedback():
+    gitsync.commit_and_push([FEEDBACK_FILE], "Voti 👍/👎 sulle notizie")
+
+
+class VoteRequest(BaseModel):
+    date: str
+    item_id: str
+    vote: int            # 1, -1, 0 (togli)
+    reason: str | None = None
+
+
+@app.post("/api/feedback")
+def post_vote(req: VoteRequest):
+    global _fb_timer
+    if not DATE_RE.match(req.date) or not ITEM_RE.match(req.item_id) or req.vote not in (-1, 0, 1):
+        raise HTTPException(400, "richiesta non valida")
+    try:
+        result = feedback.vote(req.date, req.item_id, req.vote, req.reason)
+    except KeyError as e:
+        raise HTTPException(404, str(e))
+    # i voti si salvano su GitHub tutti insieme, 30 secondi dopo l'ultimo click
+    if _fb_timer:
+        _fb_timer.cancel()
+    _fb_timer = threading.Timer(30, _push_feedback)
+    _fb_timer.daemon = True
+    _fb_timer.start()
+    return result
 
 
 @app.get("/api/sync")

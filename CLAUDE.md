@@ -61,6 +61,14 @@ Progetto: report AI quotidiano locale (vedi PIANO_OPERATIVO.md per obiettivi, ar
 - MAI pubblicare senza conferma esplicita di Federico: niente test di pubblicazione automatici.
   Per verificare usa `uv run digest linkedin-check` (non pubblica).
 
+## Voti e preferenze (Fase 9)
+- `src/digest/feedback.py`: `data/feedback.json` lo scrive SOLO l'app sul PC (push dopo 30 s di
+  inattività, e all'avvio se rimasto in sospeso); `data/preferenze_stato.json` e
+  `config/preferenze.md` li scrive chi rigenera (cloud in `daily`, ogni 10 voti nuovi). File
+  separati per evitare conflitti Git tra PC e cloud.
+- `prompt_block()` finisce nel prompt di selezione (`{{PREFERENCES}}` in prompts/triage.md).
+- Per i test usa file temporanei (riassegna FEEDBACK_PATH ecc.): non sporcare i voti veri.
+
 ## Aggiungere una fonte
 Nuovo tipo → funzione `async def collect_x(ctx: Ctx) -> list[Item]` in `src/digest/collectors/`,
 registrata in `collectors/__init__.py`. Usa sempre `ctx.is_new(key)` prima di arricchire

@@ -143,6 +143,17 @@ report del cloud e apre http://localhost:8787. Per chiuderla chiudi la finestra 
 Consiglio: crea un collegamento a `scripts\avvia-app.bat` sul desktop o sulla barra delle
 applicazioni.
 
+## Insegnare al filtro cosa ti serve (👍/👎)
+
+Sotto ogni notizia dell'app: **👍** se ti è servita, **👎** se no (poi, se vuoi, il motivo: Rumore,
+Già saputo, Non mi serve, Troppo tecnico). Ricliccare lo stesso voto lo toglie.
+
+- I voti finiscono in `data/feedback.json` e vanno su GitHub da soli (30 secondi dopo l'ultimo click).
+- Ogni mattina il caporedattore vede i tuoi ultimi voti come esempi + il punteggio di ogni fonte.
+- Ogni 10 voti nuovi Claude li riassume in **[config/preferenze.md](config/preferenze.md)**: regole
+  leggibili che puoi correggere a mano (le tue correzioni contano più dei voti). Per rigenerarle
+  subito: `uv run digest preferences`.
+
 ## Pubblicare su LinkedIn
 
 Nel pannello del post: **🚀 Pubblica / Programma** apre una finestra dove puoi ritoccare il testo,

@@ -18,7 +18,7 @@ from urllib.parse import urlparse
 import httpx
 import yaml
 
-from digest import CONFIG_DIR, DATA_DIR, PROMPTS_DIR, REPORTS_DIR
+from digest import CONFIG_DIR, DATA_DIR, PROMPTS_DIR, REPORTS_DIR, feedback
 from digest.claude import run_claude
 from digest.sources import load_config
 from digest.web import make_client, to_json
@@ -132,7 +132,7 @@ def triage(items: list[dict], topics: dict, date: str, model: str) -> tuple[list
                    DATE=date, PROFILE=topics["profile"].strip(), SECTIONS=_sections_text(topics),
                    MAX_STORIES=str(topics["report"]["max_stories"]),
                    SIGNAL=_bullets(topics["signal"]), NOISE=_bullets(topics["noise"]),
-                   ITEMS="\n".join(lines))
+                   PREFERENCES=feedback.prompt_block(), ITEMS="\n".join(lines))
     out, stats = run_claude(prompt, triage_schema(topics), system=SYSTEM, model=model)
 
     # pulizia deterministica: id esistenti, nessun elemento in due storie, tetti rispettati

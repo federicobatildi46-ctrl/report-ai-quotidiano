@@ -84,8 +84,38 @@ function renderItem(it, done) {
     <p class="summary">${esc(it.summary)}</p>${points}
     <div class="why"><b>Perché ti serve:</b> ${esc(it.why)}</div>
     <div class="sources">Fonti: ${sources}</div>
-    <div class="actions">${buttons}</div></div>`;
+    <div class="actions">${buttons}${renderVote(it.id)}</div></div>`;
 }
+
+// ---------- voti 👍/👎: il filtro impara cosa ti serve ----------
+const REASONS = ["Rumore", "Già saputo", "Non mi serve", "Troppo tecnico"];
+
+function renderVote(id) {
+  const v = state.report?.feedback?.[id] || {};
+  const reasons = v.vote === -1 ? `<span class="reasons">${REASONS.map((r) =>
+    `<button class="chip ${v.reason === r ? "on" : ""}" data-reason="${r}" data-vote-item="${id}">${r}</button>`).join("")}</span>` : "";
+  return `<span class="vote" data-vote-for="${id}">
+    <button class="vote-btn ${v.vote === 1 ? "on" : ""}" data-vote="1" data-vote-item="${id}" title="Mi è servita">👍</button>
+    <button class="vote-btn ${v.vote === -1 ? "on" : ""}" data-vote="-1" data-vote-item="${id}" title="Non mi serviva">👎</button>${reasons}</span>`;
+}
+
+async function sendVote(id, vote, reason = null) {
+  const cur = state.report.feedback[id]?.vote;
+  const value = reason ? -1 : (cur === vote ? 0 : vote);   // ri-cliccare lo stesso voto lo toglie
+  await api("/api/feedback", { method: "POST", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ date: state.date, item_id: id, vote: value, reason }) });
+  if (value === 0) delete state.report.feedback[id];
+  else state.report.feedback[id] = { vote: value, reason };
+  document.querySelector(`[data-vote-for="${id}"]`).outerHTML = renderVote(id);
+}
+
+document.addEventListener("click", (e) => {
+  const b = e.target.closest("[data-vote-item]");
+  if (!b) return;
+  e.stopPropagation();
+  if (b.dataset.reason) sendVote(b.dataset.voteItem, -1, b.dataset.reason);
+  else sendVote(b.dataset.voteItem, Number(b.dataset.vote));
+}, true);
 
 // ---------- generatori ----------
 async function onAction(btn, force = false) {
@@ -165,7 +195,7 @@ function postText(md) {
 
 // ---------- eventi ----------
 document.addEventListener("click", (e) => {
-  const btn = e.target.closest(".actions button");
+  const btn = e.target.closest(".actions button[data-kind]");
   if (!btn || btn.disabled) return;
   if (btn.classList.contains("done")) openOutput(btn.dataset.kind, btn.dataset.item);
   else onAction(btn);
