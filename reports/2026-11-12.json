@@ -1,0 +1,287 @@
+{
+ "title": "Report automatico notizie e aggiornamenti AI",
+ "date": "2026-11-12",
+ "generated_at": "2026-11-12T14:36:22.701239+00:00",
+ "reading_minutes": 4,
+ "in_breve": [
+  "Higgsfield pubblica una guida in 9 fasi per gestire la produzione video AI per i clienti, con ruoli e approvazioni.",
+  "J.Crew lancia Style Advisor, stilista AI costruito con Claude Code e vari modelli Claude, un caso d'uso retail reale.",
+  "Su GitHub in tendenza strumenti per agenti AI: DeskVoice (centralino vocale open source) e OpenBot (colleghi AI self-hosted)."
+ ],
+ "sections": [
+  {
+   "id": "claude",
+   "title": "Universo Claude",
+   "items": [
+    {
+     "id": "2026-11-12-04",
+     "subsection": "ecosistema",
+     "subsection_label": "Ecosistema a 360° — modelli, API, SDK, azienda",
+     "title": "J.Crew lancia Style Advisor, stilista AI costruito con Claude",
+     "summary": "J.Crew ha lanciato Style Advisor su JCrew.com, uno stilista AI che propone outfit completi a partire dai look dei propri shooting. È disponibile negli USA per donna e uomo ed è stato sviluppato con Claude Code.",
+     "key_points": [
+      "Fable 5.1 per la pianificazione, Opus 5.5 per il prototipo in Claude Code.",
+      "In produzione Sonnet 5.5 guida la conversazione, Haiku 5.5 gestisce i compiti rapidi.",
+      "Futuro: suggerimenti personalizzati su preferenze e acquisti passati, più mercati."
+     ],
+     "why": "È un caso reale di assistente di vendita multi-modello che puoi citare o adattare per un cliente e-commerce.",
+     "badge": "ufficiale",
+     "badge_note": "Articolo su Claude.com, sito ufficiale Anthropic, che racconta il lancio con J.Crew.",
+     "importance": 3,
+     "primary_url": "https://claude.com/resources/articles/j-crew-style-advisor-with-claude",
+     "sources": [
+      {
+       "name": "Claude.com",
+       "title": "J.Crew’s Style Advisor: an AI stylist built with Claude",
+       "url": "https://claude.com/resources/articles/j-crew-style-advisor-with-claude",
+       "official": true,
+       "kind": "article",
+       "item_id": "103f6398ed67",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "higgsfield",
+   "title": "Higgsfield",
+   "items": [
+    {
+     "id": "2026-11-12-01",
+     "subsection": "",
+     "subsection_label": "",
+     "title": "Higgsfield: guida in 9 fasi per produrre video AI per i clienti",
+     "summary": "Higgsfield descrive un flusso di lavoro in 9 fasi, dal brief alla consegna finale, con un responsabile e un risultato per ogni fase. In pratica offre un modello per organizzare un piccolo studio video AI e far approvare al cliente la previz prima della generazione completa.",
+     "key_points": [
+      "Fasi: brief, asset, storyboard/previz, generazione, selezione, editing, revisioni, adattamenti, QA finale.",
+      "Salvare personaggi e prodotti come Soul ID o Elements aiuta a mantenere la coerenza.",
+      "Cinque ruoli: producer, AI director, AI artist, editor, controlli su brand e diritti.",
+      "Alterworld Studios dice di aver ridotto il giro di revisione storyboard da 2-3 giorni a poche ore."
+     ],
+     "why": "Ti dà una struttura pronta da replicare per vendere video AI ai clienti dell'agenzia, con approvazioni e ruoli chiari.",
+     "badge": "ufficiale",
+     "badge_note": "Guida pubblicata sul blog ufficiale Higgsfield; i casi citati provengono da storie cliente della stessa azienda.",
+     "importance": 2,
+     "primary_url": "https://higgsfield.ai/blog/scale-ai-video-production-for-clients",
+     "sources": [
+      {
+       "name": "Blog Higgsfield",
+       "title": "How to Scale AI Video Production for Clients (Full Guide)",
+       "url": "https://higgsfield.ai/blog/scale-ai-video-production-for-clients",
+       "official": true,
+       "kind": "article",
+       "item_id": "da34e190ab0e",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "elevenlabs",
+   "title": "ElevenLabs",
+   "items": []
+  },
+  {
+   "id": "creators",
+   "title": "Dai creator che seguo",
+   "items": [
+    {
+     "id": "2026-11-12-05",
+     "subsection": "Riccardo Belli Contarini",
+     "subsection_label": "Riccardo Belli Contarini",
+     "title": "Tre tool gratuiti per gli effetti sonori nei video montati con Claude",
+     "summary": "Riccardo Belli Contarini presenta in uno Short Openverse, Real SFX ed Earshot: un archivio di audio liberi, una skill che li posiziona sul fotogramma esatto e un generatore di effetti in codice.",
+     "key_points": [],
+     "why": "Utile per rifinire i video che monti con Claude e per un contenuto sul tema.",
+     "badge": "da_verificare",
+     "badge_note": "Solo uno Short del creator, senza fonti ufficiali o indipendenti.",
+     "importance": 3,
+     "primary_url": "https://www.youtube.com/shorts/vgtJoJd45lQ",
+     "sources": [
+      {
+       "name": "YouTube · Riccardo Belli Contarini",
+       "title": "Openverse, Real SFX ed Earshot: gli effetti sonori per i video di Claude #Shorts",
+       "url": "https://www.youtube.com/shorts/vgtJoJd45lQ",
+       "official": false,
+       "kind": "short",
+       "item_id": "7d31959a3859",
+       "meta": {
+        "creator": "Riccardo Belli Contarini",
+        "duration": null
+       },
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "github",
+   "title": "GitHub: repo e skill per la mia agenzia",
+   "items": [
+    {
+     "id": "2026-11-12-02",
+     "subsection": "claude",
+     "subsection_label": "Skill e tool per Claude",
+     "title": "free-claude-code: usare Claude Code e altri harness con provider gratuiti",
+     "summary": "Un progetto open source indipendente, in tendenza su GitHub, instrada harness come Claude Code, Codex e OpenCode verso modelli di vari provider. Dichiara oltre 1,3 miliardi di token gratuiti al mese. Non è affiliato ad Anthropic, quindi va valutato con cautela.",
+     "key_points": [
+      "Supporta 12 harness e 61 provider, tra gratuiti, a pagamento e locali.",
+      "Licenza AGPL v3, scritto in Python con uv.",
+      "Usabile da terminale, app desktop, estensioni IDE e telefono.",
+      "Il progetto dice di seguire i ToS dei provider e di rimuovere integrazioni non più consentite."
+     ],
+     "why": "Può servirti per provare Claude Code con modelli diversi e abbassare i costi di test, ma controlla termini e affidabilità prima di proporlo a un cliente.",
+     "badge": "dal_repo",
+     "badge_note": "Una sola fonte non ufficiale (README del repo): i numeri sui token gratuiti sono dichiarati dall'autore.",
+     "importance": 2,
+     "primary_url": "https://github.com/Alishahryar1/free-claude-code",
+     "sources": [
+      {
+       "name": "GitHub Trending",
+       "title": "Alishahryar1/free-claude-code",
+       "url": "https://github.com/Alishahryar1/free-claude-code",
+       "official": false,
+       "kind": "repo",
+       "item_id": "8b1da1de1fc8",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-12-03",
+     "subsection": "agenti",
+     "subsection_label": "Agenti AI e agenti vocali",
+     "title": "DeskVoice: centralino telefonico open source gestito da agenti AI",
+     "summary": "DeskVoice è un centralino open source, da installare sulla propria VPS, in cui agenti AI rispondono alle chiamate, usano strumenti durante la conversazione e chiedono approvazione a un umano quando serve. Il progetto è dichiarato in fase di fondazione.",
+     "key_points": [
+      "Licenza MIT, self-hosted, installazione con un comando su VPS con Docker.",
+      "Configurazione da interfaccia: trunk SIP, numero, chiave AI e agente.",
+      "Il README segnala che il progetto è in costruzione, senza date di roadmap.",
+      "Il progetto è sostenuto da una partnership con HostGator."
+     ],
+     "why": "È un punto di partenza concreto per studiare gli agenti vocali, uno dei servizi che vuoi offrire, e prototipare una demo per un cliente.",
+     "badge": "dal_repo",
+     "badge_note": "Solo il README del repo (53 stelle), fonte non ufficiale; il progetto stesso si dice ancora in costruzione.",
+     "importance": 2,
+     "primary_url": "https://github.com/DeskLabs-OpenSource/DeskVoice",
+     "sources": [
+      {
+       "name": "GitHub",
+       "title": "DeskLabs-OpenSource/DeskVoice",
+       "url": "https://github.com/DeskLabs-OpenSource/DeskVoice",
+       "official": false,
+       "kind": "repo",
+       "item_id": "95214da4bd64",
+       "meta": {
+        "stars": 53
+       },
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-12-06",
+     "subsection": "agenti",
+     "subsection_label": "Agenti AI e agenti vocali",
+     "title": "OpenBot: colleghi AI open source con un computer proprio",
+     "summary": "OpenBot, di CopilotKit, è uno spazio di lavoro self-hosted in cui agenti AI hanno browser, file e strumenti propri. Ogni azione è decisa prima e registrata dopo. Funziona con qualsiasi agente AG-UI.",
+     "key_points": [
+      "App per Mac (Apple silicon e Intel) e Windows, senza terminale.",
+      "Distribuibile anche su Kubernetes o da sorgente.",
+      "Esiste una versione Business con accesso anticipato."
+     ],
+     "why": "Ti mostra come impostare agenti con approvazione umana, un approccio utile per automazioni affidabili per i clienti.",
+     "badge": "dal_repo",
+     "badge_note": "Solo il README del repo, fonte non ufficiale; segnalato in tendenza su GitHub.",
+     "importance": 3,
+     "primary_url": "https://github.com/CopilotKit/OpenBot",
+     "sources": [
+      {
+       "name": "GitHub Trending",
+       "title": "CopilotKit/OpenBot",
+       "url": "https://github.com/CopilotKit/OpenBot",
+       "official": false,
+       "kind": "repo",
+       "item_id": "2693809b1e8e",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-12-07",
+     "subsection": "siti_seo",
+     "subsection_label": "Siti web e SEO",
+     "title": "seo-ai-link: skill per automatizzare la link building",
+     "summary": "Una skill per Claude Code, Codex e altri strumenti che copre l'intero processo di link building: analisi dei backlink dei competitor, gestione di un archivio, invio automatico e verifica dell'indicizzazione. Il README è in cinese.",
+     "key_points": [
+      "Richiede DataForSEO per i backlink dei competitor, o altri strumenti a scelta.",
+      "Massimo 10 invii riusciti al giorno per sito; niente spam di massa.",
+      "Archivio con 206 siti utilizzabili; licenza All Rights Reserved."
+     ],
+     "why": "Spunto per capire come impacchettare un servizio SEO come skill, ma la licenza restrittiva e la fonte unica richiedono cautela.",
+     "badge": "dal_repo",
+     "badge_note": "Solo il README del repo (25 stelle), fonte non ufficiale.",
+     "importance": 3,
+     "primary_url": "https://github.com/chenchaoge/seo-ai-link",
+     "sources": [
+      {
+       "name": "GitHub",
+       "title": "chenchaoge/seo-ai-link",
+       "url": "https://github.com/chenchaoge/seo-ai-link",
+       "official": false,
+       "kind": "repo",
+       "item_id": "14ca55d03d1a",
+       "meta": {
+        "stars": 25
+       },
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "stats": {
+  "collected": 17,
+  "stories": 7,
+  "discarded": 10,
+  "dropped_broken_links": [],
+  "source_errors": [
+   {
+    "source": "linkedin-creators",
+    "section": "creators",
+    "new": 0,
+    "baseline": false,
+    "error": "HTTPStatusError: Client error '401 Unauthorized' for url 'https://api.apify.com/v2/acts/harvestapi~linkedin-profile-posts/run-sync-get-dataset-items?timeout=240'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+    "secs": 1.4
+   }
+  ],
+  "window_hours": 26,
+  "model": "sonnet",
+  "claude": {
+   "selezione": {
+    "secs": 5.2,
+    "turns": 2,
+    "input_tokens": 7913,
+    "cache_read_tokens": 0,
+    "output_tokens": 546,
+    "equivalent_api_usd": 0.037108
+   },
+   "scrittura": {
+    "secs": 19.4,
+    "turns": 2,
+    "input_tokens": 16960,
+    "cache_read_tokens": 0,
+    "output_tokens": 2744,
+    "equivalent_api_usd": 0.095276
+   }
+  }
+ }
+}
