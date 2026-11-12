@@ -3,8 +3,8 @@
 report:
   title: "Report automatico notizie e aggiornamenti AI"
   language: it
-  max_reading_minutes: 15        # tetto totale di lettura (~28 notizie)
-  max_stories: 28                # tetto totale di notizie nel report
+  max_reading_minutes: 15        # tetto totale di lettura (~32 notizie)
+  max_stories: 32                # tetto totale di notizie nel report
   lookback_hours: 26             # finestra di raccolta (24h + margine)
   model: sonnet                  # modello per il report quotidiano (risparmia quota del Pro)
 
@@ -67,6 +67,18 @@ sections:
       agenti:       "Agenti AI e agenti vocali"
       automazioni:  "Automazioni e routine cloud"
       curatori:     "Dai curatori (Hacker News, Simon Willison)"
+  - id: virali
+    title: "Da provare: repo, skill e tool virali (idee per gli Shorts)"
+    max_items: 6
+    focus: >-
+      strumenti con effetto "wow" che chiunque può provare subito, gratis o con prova gratuita:
+      repo GitHub, skill/plugin per Claude, connettori MCP, app AI. Pubblico: persone che lavorano
+      e vogliono strumenti fighi per lavoro e progetti, non sviluppatori esperti
+    subsections:
+      repo:       "Repo GitHub"
+      skill:      "Skill e plugin per Claude"
+      connettori: "Connettori e MCP"
+      app:        "App e tool AI"
 
 # Cosa SEMPRE tenere
 signal:
@@ -85,4 +97,6 @@ noise:
   - repo fuori tema per l'agenzia (giochi, emulatori, progetti personali senza riuso)
   - video/post che ripetono una notizia già coperta da fonte ufficiale (citarli solo come conferma)
   - hype senza contenuto ("questo cambia TUTTO")
+  - post Reddit con lamentele, opinioni, domande o voci senza dettagli (da Reddit tieni solo
+    strumenti e progetti concreti, con link, da mettere in "Da provare")
   - notizie societarie minori (round, accordi commerciali); quelle grandi (es. IPO di Anthropic) sì, ma brevi

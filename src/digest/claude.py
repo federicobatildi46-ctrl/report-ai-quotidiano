@@ -32,8 +32,12 @@ def claude_executable() -> str:
 
 
 def run_claude(prompt: str, schema: dict, *, system: str, model: str = "sonnet",
-               timeout: int = 1200) -> tuple[dict, dict]:
-    """Ritorna (output strutturato, statistiche d'uso)."""
+               timeout: int = 1200, tools: list[str] | None = None) -> tuple[dict, dict]:
+    """Ritorna (output strutturato, statistiche d'uso).
+
+    `tools`: strumenti di sola lettura da concedere (es. ["WebSearch", "WebFetch"] per le
+    ricerche online); di default nessuno."""
+    tools = tools or []
     cmd = [
         claude_executable(), "-p",
         "--model", model,
@@ -41,9 +45,11 @@ def run_claude(prompt: str, schema: dict, *, system: str, model: str = "sonnet",
         "--system-prompt", system,
         "--json-schema", json.dumps(schema, ensure_ascii=False),
         "--strict-mcp-config", "--mcp-config", '{"mcpServers":{}}',
-        "--tools", "",
+        "--tools", ",".join(tools),
         "--no-session-persistence",
     ]
+    if tools:
+        cmd += ["--allowedTools", *tools]
     env = {k: v for k, v in os.environ.items() if k not in ("CLAUDECODE", "CLAUDE_CODE_ENTRYPOINT")}
     if env.get("CLAUDE_CODE_OAUTH_TOKEN"):
         # copiando il token da un terminale stretto può entrarci uno spazio/a capo: lo togliamo

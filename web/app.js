@@ -83,6 +83,7 @@ function renderItem(it, done) {
     <div><span class="badge b-${it.badge}">${BADGES[it.badge] || it.badge}</span><span class="note">${esc(it.badge_note)}</span></div>
     <p class="summary">${esc(it.summary)}</p>${points}
     <div class="why"><b>Perché ti serve:</b> ${esc(it.why)}</div>
+    ${it.short_hook ? `<div class="why hook"><b>🎬 Idea Short:</b> «${esc(it.short_hook)}»</div>` : ""}
     <div class="sources">Fonti: ${sources}</div>
     <div class="actions">${buttons}${renderVote(it.id)}</div></div>`;
 }
@@ -251,7 +252,7 @@ function renderCarousel(c, note = "") {
     `<a href="${src}" target="_blank" rel="noopener" title="Slide ${i + 1}: apri in grande"><img src="${src}" alt="Slide ${i + 1}" loading="lazy"></a>`).join("") : "";
   $("#car-info").textContent = note || (has
     ? "Clicca una slide per vederla in grande. Il PDF è quello che va su LinkedIn."
-    : "Copertina con il soggetto del tema, 3 slide di concetti e la CTA finale, nel tuo stile.");
+    : "Copertina con il soggetto del tema, 3 slide di concetti, il costo del non farlo e la CTA finale, nel tuo stile.");
 }
 
 async function carouselJob(btn, url, label) {
@@ -302,6 +303,15 @@ $("#car-edit").onclick = () => {
       ${field("Corsivo", "cover.script_accent", p.cover.script_accent)}
       ${field("Barra di ricerca", "cover.search_bar", p.cover.search_bar)}</fieldset>
     ${s}
+    ${p.pain ? `<fieldset><legend>Slide ${p.slides.length + 2} · Quanto ti costa non farlo</legend>
+      ${field("Target (sopratitolo)", "pain.kicker", p.pain.kicker)}
+      ${field("Titolo", "pain.title", p.pain.title)}
+      ${field("Pain point: una riga per punto, «stima | problema» (max 3)", "pain.points",
+        (p.pain.points || []).map((x) => `${x.figure} | ${x.text}`).join("\n"), true)}
+      ${field("Soluzione", "pain.solution", p.pain.solution)}
+      ${field("Guadagno stimato (in giallo)", "pain.gain", p.pain.gain)}
+      ${field("Spiegazione del guadagno", "pain.gain_text", p.pain.gain_text)}
+      ${field("Disclaimer", "pain.note", p.pain.note)}</fieldset>` : ""}
     <fieldset><legend>Slide finale (CTA)</legend>
       ${field("Titolo", "cta.title", p.cta.title)}
       ${field("Testo", "cta.text", p.cta.text, true)}
@@ -320,6 +330,13 @@ $("#car-save").onclick = async () => {
       highlight: val(`s${i}.highlight`), tags: val(`s${i}.tags`).split(",").map((t) => t.trim()) })),
     cta: { title: val("cta.title"), text: val("cta.text"), keyword: val("cta.keyword") },
   };
+  if (p.pain) {
+    edited.pain = Object.fromEntries(["kicker", "title", "solution", "gain", "gain_text", "note"].map((k) => [k, val(`pain.${k}`)]));
+    edited.pain.points = val("pain.points").split("\n").filter((l) => l.trim()).map((l) => {
+      const [figure, ...rest] = l.split("|");
+      return rest.length ? { figure: figure.trim(), text: rest.join("|").trim() } : { figure: "", text: figure.trim() };
+    });
+  }
   $("#car-save").disabled = true;
   $("#car-msg").textContent = "⏳ Reimpagino…";
   try {

@@ -1,6 +1,6 @@
-# Carosello LinkedIn (5 slide)
+# Carosello LinkedIn (6 slide)
 
-Trasforma il mio post in un carosello di **5 slide** in italiano, con la mia voce (guida sotto).
+Trasforma il mio post in un carosello di **6 slide** in italiano, con la mia voce (guida sotto).
 Ogni slide si legge in 3 secondi: poche parole, grandi, concrete.
 
 ## La mia voce
@@ -30,7 +30,18 @@ Ogni slide si legge in 3 secondi: poche parole, grandi, concrete.
    - `highlight`: facoltativo, max 8 parole: la frase da evidenziare in giallo.
    - `tags`: 2-3 etichette brevissime (1-3 parole) con le parole chiave della slide: diventano
      pillole colorate (es. "Opus 5.5", "Advisor", "Orchestrator").
-5. **CTA** — sempre l'ultima.
+5. **Quanto ti costa non farlo** (`pain`) — dal blocco del post sul costo dell'inazione.
+   - `kicker`: chi è il target, max 6 parole (es. "SE HAI UNO STUDIO DENTISTICO").
+   - `title`: max 4 parole, forte (es. "Quanto ti costa aspettare").
+   - `points`: 2-3 pain point, ognuno con `figure` (la stima, max 12 caratteri, es. "6-8 h/sett.",
+     "€400/mese", "-30%") e `text` (il problema, max 10 parole).
+   - `solution`: max 10 parole, la soluzione (es. "Con un assistente su misura su Claude").
+   - `gain`: la stima del guadagno, max 14 caratteri (es. "-70% tempo", "+25 h/mese").
+   - `gain_text`: max 10 parole che spiegano il guadagno.
+   - `note`: il disclaimer in max 14 parole (es. "Stime indicative: solo un'analisi del tuo
+     caso toglie ogni dubbio.").
+   Usa le stesse stime del post: non inventarne di nuove.
+6. **CTA** — sempre l'ultima.
    - `title`: max 5 parole (es. "Vuoi scegliere il modello giusto?").
    - `text`: 1-2 righe, cosa fare (riprendi la CTA del post, con la parola chiave in MAIUSCOLO).
    - `keyword`: la parola chiave da commentare (es. "MODELLI").

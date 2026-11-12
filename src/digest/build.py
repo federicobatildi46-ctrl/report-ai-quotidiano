@@ -173,6 +173,7 @@ def write_schema(n: int) -> dict:
                     "badge_note": {"type": "string"},
                     "subsection": {"type": "string"},
                     "importance": {"type": "integer", "minimum": 1, "maximum": 3},
+                    "short_hook": {"type": "string"},   # solo sezione "virali"
                 },
                 "required": ["story", "title", "summary", "key_points", "why", "badge", "badge_note",
                              "subsection", "importance"],
@@ -302,6 +303,8 @@ def build(input_path: Path | None = None, model: str | None = None) -> tuple[Pat
             "why": w["why"],
             "badge": fix_badge(w["badge"], usable), "badge_note": w["badge_note"],
             "importance": w["importance"],
+            **({"short_hook": w["short_hook"].strip()}
+               if st["section"] == "virali" and (w.get("short_hook") or "").strip() else {}),
             "primary_url": usable[0]["url"],
             "sources": usable,
         })
@@ -367,5 +370,6 @@ def to_markdown(r: dict) -> str:
                     f"*{tag}{BADGE_LABEL[it['badge']]}* — {it['badge_note']}", "",
                     it["summary"], "", *[f"- {p}" for p in it.get("key_points", [])],
                     "", f"**Perché ti serve:** {it['why']}", "",
+                    *([f"**🎬 Idea Short:** {it['short_hook']}", ""] if it.get("short_hook") else []),
                     "Fonti: " + " · ".join(f"[{s['name']}]({s['url']})" for s in it["sources"]), ""]
     return "\n".join(out)

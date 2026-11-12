@@ -74,7 +74,22 @@ Progetto: report AI quotidiano locale (vedi PIANO_OPERATIVO.md per obiettivi, ar
   `claude -p` (modello di `generators.model`); salvata in `outputs/lezioni/<id>.chat.json`.
 - API: GET/POST/DELETE `/api/chat/{item_id}`. Nei test svuota la chat alla fine.
 
+## Sezione "Da provare" (virali)
+- Sezione `virali` in topics.yaml/sources.yaml: Product Hunt AI, Show HN, Reddit r/ClaudeAI e la
+  ricerca web `collectors/websearch.py` (tipo `websearch`, `run_claude(..., tools=["WebSearch",
+  "WebFetch"])`, prompt `prompts/web_research.md`, dedupe per URL + titoli degli ultimi report).
+- Il redattore scrive anche `short_hook` (solo per questa sezione), mostrato come "🎬 Idea Short".
+- Short: `SHORT_FORMATS` in generate.py → formato "strumento" per `virali` (CTA con parola chiave,
+  risposta ai commenti con il link ufficiale), "notizia" per il resto.
+
+## Post: costo dell'inazione
+- `prompts/linkedin_post.md`: blocco breve (target, 2-3 pain point con stime, soluzione con
+  guadagno stimato, disclaimer) prima della CTA; il generatore del post ha WebSearch/WebFetch per
+  ancorare le stime. Gli altri generatori restano senza strumenti.
+
 ## Caroselli
+- 6 slide: copertina, 3 concetti, `pain` ("quanto ti costa non farlo"), CTA. I piani vecchi senza
+  `pain` restano a 5 slide.
 - `src/digest/carousel.py` + `prompts/carousel.md`: piano testi (Claude) → soggetto ritagliato
   (Higgsfield `gpt_image_2_6`, background transparent) → impaginazione Pillow con i font in
   `assets/fonts` (Anton, Great Vibes, Inter; licenza OFL) → slide JPEG + `carosello.pdf`.

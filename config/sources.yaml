@@ -2,7 +2,7 @@
 #   id         identificativo unico (non cambiarlo: è la chiave della memoria in data/seen.json)
 #   name       nome leggibile
 #   type       rss | atom | github_releases | sitemap | sections | youtube | linkedin
-#              | github_search | github_trending | hackernews
+#              | github_search | github_trending | hackernews | websearch
 #   exclude_title  regex: titoli scartati subito (articoli SEO, promo…)
 #   subsection sottosezione nel report ("auto" = la decide Claude)
 #   official   true = fonte primaria dell'azienda (badge "Ufficiale")
@@ -29,6 +29,10 @@ labels:
   gh-trending: GitHub Trending
   hn-claude: Hacker News
   simonwillison: Simon Willison
+  web-virali: Ricerca web
+  producthunt-ai: Product Hunt
+  hn-show: Show HN
+  reddit-claudeai: Reddit r/ClaudeAI
 
 # Un link che punta a questi domini conta come fonte ufficiale anche se arriva da un curatore
 # (es. un post di Hacker News che rimanda a claude.com).
@@ -214,6 +218,35 @@ github:
     name: Simon Willison (curatore affidabile su LLM e tool)
     type: atom
     url: https://simonwillison.net/atom/everything/
+
+# Sezione "Da provare": strumenti con effetto wow per gli Shorts (pubblico non tecnico).
+# Anche GitHub Trending (sopra) finisce qui quando la repo è adatta a tutti: lo decide Claude.
+virali:
+  - id: web-virali
+    name: Ricerca web di Claude — repo, skill, connettori e tool virali
+    type: websearch        # claude -p con WebSearch (abbonamento, ~1 minuto)
+    subsection: auto
+    max_items: 8
+  - id: producthunt-ai
+    name: Product Hunt — AI
+    type: atom
+    url: https://www.producthunt.com/feed?category=artificial-intelligence
+    subsection: app
+    max_items: 10
+  - id: hn-show
+    name: Show HN (≥80 punti)
+    type: hackernews       # progetti presentati dagli autori su Hacker News
+    tags: show_hn
+    min_points: 80
+    subsection: auto
+    max_items: 8
+  - id: reddit-claudeai
+    name: Reddit r/ClaudeAI — top del giorno
+    type: rss
+    url: https://www.reddit.com/r/ClaudeAI/top/.rss?t=day
+    fetch_full: false      # reddit blocca i bot: basta il testo del feed
+    subsection: auto
+    max_items: 8
 
 # Profilo personale: usato SOLO per imparare lo stile di scrittura (Fase 7), non nel report.
 me:

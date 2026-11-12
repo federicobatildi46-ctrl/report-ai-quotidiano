@@ -4,6 +4,7 @@ from digest.collectors.feeds import collect_feed, collect_github_releases, colle
 from digest.collectors.github import collect_github_search, collect_github_trending
 from digest.collectors.linkedin import collect_linkedin
 from digest.collectors.pages import collect_sections, collect_sitemap
+from digest.collectors.websearch import collect_websearch
 from digest.collectors.youtube import collect_youtube
 
 COLLECTORS = {
@@ -17,4 +18,5 @@ COLLECTORS = {
     "github_search": collect_github_search,
     "github_trending": collect_github_trending,
     "hackernews": collect_hackernews,
+    "websearch": collect_websearch,
 }

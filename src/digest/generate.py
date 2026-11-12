@@ -36,6 +36,41 @@ SYSTEM = ("Scrivi contenuti in italiano per Federico. Rispondi solo con dati con
           "JSON. Nel campo markdown metti il contenuto completo. Non inventare fatti.")
 
 
+# Formato dello Short: "strumento" per la sezione Da provare (reach pura), "notizia" per il resto.
+SHORT_FORMATS = {
+    "notizia": """- Chiusura con call to action breve (seguimi / commenta / salva).
+
+## Output (markdown)
+`## Script` — una tabella con colonne: Tempo | Parlato | A schermo (testo o visual da mostrare).
+`## Da mostrare a schermo` — elenco di registrazioni schermo/immagini da preparare.
+`## Titolo, descrizione e hashtag` — titolo (max 60 caratteri), descrizione di 2 righe, 3 hashtag.""",
+    "strumento": """
+## Formato "strumento da provare" (obbligatorio)
+Lo Short presenta uno strumento (repo, skill, connettore o app) che chi guarda può provare subito.
+1. **0-3 s · Hook**: il risultato wow, concreto (es. "Questa repo clona qualsiasi sito in un
+   minuto. Ed è gratis."). Parti dall'idea Short se c'è.
+2. **Cos'è**: 1-2 frasi semplici, cosa fa e per chi è.
+3. **Demo**: cosa si vede a schermo mentre lo usi (descrivi la registrazione da fare).
+4. **Come provarlo**: 2-3 passi concreti presi dalle fonti (scarica / installa / apri / incolla).
+   Se le fonti non danno i passi, di' "ti lascio la guida" senza inventarli.
+5. **A cosa ti serve**: un esempio pratico nel lavoro o in un progetto di chi guarda.
+6. **CTA finale**: «Commenta "PAROLA" e ti mando il link» + «seguimi per altri strumenti così».
+   PAROLA: una sola parola in MAIUSCOLO, corta, legata allo strumento (es. CLONA, TELEFONO,
+   NOTE), facile da scrivere dal telefono.
+Se lo strumento ha limiti importanti (solo inglese, solo USA, serve un PC potente, a pagamento
+dopo la prova), dillo in 1 frase: la fiducia vale più della reach.
+
+## Output (markdown)
+`## Script` — una tabella con colonne: Tempo | Parlato | A schermo (testo o visual da mostrare).
+`## Parola chiave` — la PAROLA della CTA.
+`## Risposta ai commenti` — il messaggio privato da mandare a chi commenta: 3-5 righe, tono
+amichevole, con il link ufficiale (lo trovi nelle fonti: copia l'URL esatto, non inventarlo) e
+i passi per provarlo.
+`## Da mostrare a schermo` — elenco di registrazioni schermo/immagini da preparare.
+`## Titolo, descrizione e hashtag` — titolo (max 60 caratteri), descrizione di 2 righe, 3 hashtag.""",
+}
+
+
 def _topics() -> dict:
     with open(CONFIG_DIR / "topics.yaml", encoding="utf-8") as f:
         return yaml.safe_load(f)
@@ -46,7 +81,7 @@ def find_item(date: str, item_id: str) -> dict:
     for sec in report["sections"]:
         for it in sec["items"]:
             if it["id"] == item_id:
-                return it
+                return {**it, "section": sec["id"]}
     raise KeyError(f"notizia {item_id} non trovata nel report del {date}")
 
 
@@ -113,16 +148,21 @@ def generate(date: str, item_id: str, kind: str) -> Path:
 
     src_block = "\n\n---\n\n".join(
         f"FONTE: {s['name']} ({'ufficiale' if s['official'] else 'non ufficiale'})\n"
-        f"TITOLO: {s['title']}\nCONTENUTO: {s['text'] or '(non scaricabile: usa solo il riassunto)'}"
+        f"URL: {s['url']}\nTITOLO: {s['title']}\n"
+        f"CONTENUTO: {s['text'] or '(non scaricabile: usa solo il riassunto)'}"
         for s in sources)
     voice = VOICE_PATH.read_text(encoding="utf-8") if VOICE_PATH.exists() else NO_VOICE
     prompt = _fill((PROMPTS_DIR / KINDS[kind]["prompt"]).read_text(encoding="utf-8"),
                    DATE=date, TITLE=item["title"], SUMMARY=item["summary"],
                    KEY_POINTS="\n".join(f"- {p}" for p in item.get("key_points", [])),
                    WHY=item["why"], PROFILE=topics["profile"].strip(), VOICE=voice,
+                   HOOK=f"Idea Short dal report: «{item['short_hook']}»" if item.get("short_hook") else "",
+                   FORMAT=SHORT_FORMATS["strumento" if item["section"] == "virali" else "notizia"],
                    SOURCES=src_block)
+    # il post fa una piccola ricerca online per ancorare pain point e stime a dati reali
+    tools = ["WebSearch", "WebFetch"] if kind == "post" else None
     out, stats = run_claude(prompt, SCHEMA, system=SYSTEM, model=gen_cfg.get("model", "sonnet"),
-                            timeout=900)
+                            timeout=900, tools=tools)
 
     fonti = "\n".join(f"- [{s['name']}]({s['url']})" for s in item["sources"])
     meta = {"tipo": KINDS[kind]["label"], "notizia": item["title"], "report": date,

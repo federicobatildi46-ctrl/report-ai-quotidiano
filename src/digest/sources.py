@@ -6,7 +6,7 @@ import yaml
 
 from digest import CONFIG_DIR
 
-SECTIONS = ("claude", "higgsfield", "elevenlabs", "creators", "github")
+SECTIONS = ("claude", "higgsfield", "elevenlabs", "creators", "github", "virali")
 YOUTUBE_FEED = "https://www.youtube.com/feeds/videos.xml?channel_id={}"
 
 
@@ -29,7 +29,7 @@ def check_url(src: dict) -> str | None:
             return YOUTUBE_FEED.format(src["channel_id"])
         case "github_search":
             return "https://api.github.com/search/repositories?q=topic:claude-code&per_page=1"
-        case "linkedin":
+        case "linkedin" | "websearch":
             return None
         case _:
             return src["url"]

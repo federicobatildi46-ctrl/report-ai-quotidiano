@@ -56,7 +56,7 @@ async def _feed_items(ctx: Ctx) -> list[Item]:
 async def collect_hackernews(ctx: Ctx) -> list[Item]:
     """Storie di Hacker News sulla query, con un minimo di punti (API Algolia, ufficiale e gratuita)."""
     r = await ctx.client.get("https://hn.algolia.com/api/v1/search_by_date", params={
-        "query": ctx.src["query"], "tags": "story", "hitsPerPage": 50,
+        "query": ctx.src.get("query", ""), "tags": ctx.src.get("tags", "story"), "hitsPerPage": 50,
         "numericFilters": f"points>={ctx.src.get('min_points', 100)},"
                           f"created_at_i>={int(ctx.since.timestamp())}"})
     r.raise_for_status()

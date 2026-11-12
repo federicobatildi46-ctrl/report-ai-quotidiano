@@ -1,4 +1,4 @@
-"""Caroselli LinkedIn (5 slide, 1080×1350) nello stile dei riferimenti Pinterest di Federico:
+"""Caroselli LinkedIn (6 slide, 1080×1350) nello stile dei riferimenti Pinterest di Federico:
 blu elettrico + grigio carta, titoli enormi condensati (Anton), accenti in corsivo (Great Vibes),
 testi in Inter, soggetto fotografico in bianco e nero ritagliato, grana, barra in basso.
 
@@ -325,6 +325,77 @@ def content(slide: dict, n: int, total: int, on_blue: bool) -> Image.Image:
     return img
 
 
+def pain(p: dict, n: int, total: int) -> Image.Image:
+    """Slide "quanto ti costa non farlo": pain point con le stime, soluzione e guadagno stimato."""
+    img = background(PAPER)
+    d = ImageDraw.Draw(img)
+    wf = anton(760)   # "€" in filigrana in alto a destra, tagliato dal bordo, dietro al titolo
+    d.text((W - int(text_w(wf, "€") * 0.72), -40), "€", font=wf, fill=PAPER_DARK)
+    header(img, False)
+    d = ImageDraw.Draw(img)
+
+    points = [x for x in (p.get("points") or []) if (x.get("figure") or x.get("text"))][:3]
+    title = (p.get("title") or "").upper()
+    tf = anton(108)
+    tlines = wrap(tf, title, W - 2 * M)
+    if len(tlines) > 2:
+        tf = anton(90)
+        tlines = wrap(tf, title, W - 2 * M)
+    fig_w = 330
+    txt = inter(34, 600)
+    rows = []
+    for x in points:
+        ff = fit(anton, (x.get("figure") or "").upper(), fig_w, 76, 40)
+        tl = wrap(txt, x.get("text") or "", W - 2 * M - fig_w - 30)
+        rows.append((ff, tl, max(ff.size + 10, len(tl) * 44 + 6)))
+    sol = inter(34, 700)
+    sol_lines = wrap(sol, p.get("solution") or "", W - 2 * M - 70)
+    gain_f = fit(anton, (p.get("gain") or "").upper(), W - 2 * M - 70, 110, 60)
+    gt = inter(32, 500)
+    gt_lines = wrap(gt, p.get("gain_text") or "", W - 2 * M - 70)
+    box_h = 36 + len(sol_lines) * 44 + 8 + gain_f.size + 22 + len(gt_lines) * 42 + 30
+    note_f = inter(24, 500)
+    note_lines = wrap(note_f, p.get("note") or "", W - 2 * M)
+    block = (50 + len(tlines) * (tf.size + 10) + 30 + sum(r[2] + 26 for r in rows) + 30
+             + box_h + 22 + len(note_lines) * 32)
+    y = max(130, 110 + (H - 270 - block) // 2)
+
+    spaced(d, (M, y), (p.get("kicker") or "").upper(), inter(28, 800), BLUE, tracking=4)
+    y += 50
+    for line in tlines:
+        d.text((M - 4, y), line, font=tf, fill=INK)
+        y += tf.size + 10
+    y += 30
+    for x, (ff, tl, rh) in zip(points, rows):
+        d.line((M, y, W - M, y), fill=INK, width=2)
+        y += 18
+        d.text((M, y - 6), (x.get("figure") or "").upper(), font=ff, fill=BLUE)
+        ty = y + max(0, (ff.size - len(tl) * 44) // 2)
+        for i, part in enumerate(tl):
+            d.text((M + fig_w + 30, ty + i * 44), part, font=txt, fill=INK)
+        y += rh + 8
+    d.line((M, y, W - M, y), fill=INK, width=2)
+    y += 30
+    # soluzione: riquadro blu con il guadagno stimato in giallo
+    d.rectangle((M, y, W - M, y + box_h), fill=BLUE)
+    by = y + 36
+    for part in sol_lines:
+        d.text((M + 35, by), part, font=sol, fill=WHITE)
+        by += 44
+    by += 8
+    d.text((M + 32, by - 10), (p.get("gain") or "").upper(), font=gain_f, fill=YELLOW)
+    by += gain_f.size + 22
+    for part in gt_lines:
+        d.text((M + 35, by), part, font=gt, fill=WHITE)
+        by += 42
+    y += box_h + 22
+    for part in note_lines:
+        d.text((M, y), part, font=note_f, fill=(95, 95, 95))
+        y += 32
+    footer(img, n, total, False)
+    return img
+
+
 def cta(plan: dict, subj: Image.Image, total: int) -> Image.Image:
     c = plan["cta"]
     img = background(BLUE).convert("RGBA")
@@ -377,11 +448,18 @@ SCHEMA = {
             "title": {"type": "string"}, "lines": {"type": "array", "items": {"type": "string"}},
             "highlight": {"type": "string"}, "tags": {"type": "array", "items": {"type": "string"}}},
             "required": ["title", "lines"]}},
+        "pain": {"type": "object", "properties": {
+            "kicker": {"type": "string"}, "title": {"type": "string"},
+            "points": {"type": "array", "items": {"type": "object", "properties": {
+                "figure": {"type": "string"}, "text": {"type": "string"}}, "required": ["figure", "text"]}},
+            "solution": {"type": "string"}, "gain": {"type": "string"}, "gain_text": {"type": "string"},
+            "note": {"type": "string"}},
+            "required": ["kicker", "title", "points", "solution", "gain", "gain_text", "note"]},
         "cta": {"type": "object", "properties": {
             "title": {"type": "string"}, "text": {"type": "string"}, "keyword": {"type": "string"}},
             "required": ["title", "text", "keyword"]},
     },
-    "required": ["cover", "slides", "cta"],
+    "required": ["cover", "slides", "pain", "cta"],
 }
 
 
@@ -429,10 +507,13 @@ def plan_carousel(item_id: str) -> dict:
 
 def render(plan: dict, subject_path: Path, out_dir: Path) -> list[Path]:
     subj = subject_bw(subject_path)
-    total = 2 + len(plan["slides"])
+    has_pain = bool(plan.get("pain"))   # i caroselli fatti prima di novembre 2026 non l'hanno
+    total = 2 + len(plan["slides"]) + has_pain
     slides = [cover(plan, subj, total)]
     for i, s in enumerate(plan["slides"]):
         slides.append(content(s, i + 2, total, on_blue=(i % 2 == 1)))
+    if has_pain:
+        slides.append(pain(plan["pain"], len(slides) + 1, total))
     slides.append(cta(plan, subj, total))
     out_dir.mkdir(parents=True, exist_ok=True)
     for old in out_dir.glob("slide-*.*"):
@@ -499,6 +580,12 @@ def update_texts(item_id: str, edited: dict) -> Path:
         plan["slides"] = [{"title": s.get("title", ""), "lines": [l for l in s.get("lines", []) if l.strip()],
                            "highlight": s.get("highlight", ""), "tags": [t for t in s.get("tags", []) if t.strip()]}
                           for s in edited["slides"]][:3]
+    if isinstance(edited.get("pain"), dict):
+        e = edited["pain"]
+        plan["pain"] = {**(plan.get("pain") or {}),
+                        **{k: v for k, v in e.items() if isinstance(v, str)},
+                        "points": [{"figure": str(x.get("figure", "")).strip(), "text": str(x.get("text", "")).strip()}
+                                   for x in e.get("points") or [] if x.get("figure") or x.get("text")][:3]}
     save_plan(item_id, plan)
     out_dir = CAROUSEL_DIR / item_id
     render(plan, out_dir / "soggetto.png", out_dir)

@@ -35,6 +35,12 @@ nuovo modello o un breaking change) solo perché somiglia a qualcosa votato 👎
 2. **Sezione:** la storia va nella sezione dell'azienda/prodotto di cui parla. Un video di un
    creator che spiega una novità di Claude va in "claude" (come conferma); in "creators" vanno le
    idee/lezioni originali dei creator che non sono già una notizia di un'altra sezione.
+   **Sezione `virali` ("Da provare"):** strumenti con effetto wow che una persona normale prova in
+   pochi minuti (repo, skill/plugin per Claude, connettori MCP, app AI), gratis o con prova. Ci
+   possono finire anche elementi di GitHub Trending, Show HN o Product Hunt. Le repo utili solo
+   alla mia agenzia o troppo tecniche restano in `github`; le novità ufficiali di Claude restano
+   in `claude`. Scarta i tool a pagamento senza prova, i cloni senza novità e i prodotti B2B
+   noiosi. Sottosezioni: `repo`, `skill`, `connettori`, `app`.
 3. **Sottosezione:** usa uno degli id indicati per la sezione. Per "creators" usa il nome del
    creator. Per elementi di Hacker News o Simon Willison che non riguardano un'altra sezione usa
    "github" / "curatori".

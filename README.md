@@ -146,16 +146,22 @@ powershell -ExecutionPolicy Bypass -File scripts\avvio-automatico.ps1
 - Sotto ogni notizia tre pulsanti:
   - **🎓 Genera lezione**: guida pratica passo passo, con applicazione a un cliente e
     mini-verifica;
-  - **💼 Post LinkedIn**: post pronto da incollare, 2 hook alternativi, prompt per l'immagine;
+  - **💼 Post LinkedIn**: post pronto da incollare, 2 hook alternativi, prompt per l'immagine.
+    Dentro il post c'è un blocco breve "quanto ti costa non farlo": il target, 2-3 pain point con
+    stime di ore o costi persi, la soluzione con il guadagno stimato e una riga di disclaimer.
+    Claude fa 2-4 ricerche online per ancorare le stime a dati veri (fonti nelle Note);
   - **🎬 Script Short**: script da massimo 60 secondi in tabella (tempo, parlato, a schermo).
+    Per le notizie di "Da provare" usa il formato strumento: hook wow, cos'è, demo, come
+    provarlo, "Commenta PAROLA e ti mando il link", più il messaggio pronto per chi commenta.
 - Ogni contenuto impiega 1-3 minuti, si apre nel pannello a destra (**Copia** / **Rigenera**), viene
   salvato in `outputs/` e caricato su GitHub in automatico. Una volta creato, il pulsante diventa
   "Apri".
 - Per il testo usa Claude Code col tuo abbonamento (modello in `config/topics.yaml` →
   `generators.model`).
 
-- **Carosello (5 slide + PDF):** nel pannello del post, "🎠 Genera carosello" crea copertina con
-  il soggetto del tema, 3 slide di concetti e la slide finale con CTA e "Segui Federico", nello
+- **Carosello (6 slide + PDF):** nel pannello del post, "🎠 Genera carosello" crea copertina con
+  il soggetto del tema, 3 slide di concetti, la slide "quanto ti costa non farlo" (pain point con
+  stime, soluzione, guadagno stimato e disclaimer) e la slide finale con CTA e "Segui Federico", nello
   stile dei riferimenti (blu elettrico e grigio carta, titoli Anton, corsivo, pillole, riquadro
   giallo). Higgsfield genera solo l'immagine (~3 crediti), i testi li impagina il codice con font
   veri: niente parole storpiate. Ogni carosello usa una "famiglia" visiva diversa dai precedenti
@@ -173,6 +179,17 @@ powershell -ExecutionPolicy Bypass -File scripts\avvio-automatico.ps1
 
 Consiglio: crea un collegamento a `scripts\avvia-app.bat` sul desktop o sulla barra delle
 applicazioni.
+
+## La sezione "Da provare" (idee per gli Shorts)
+
+Repo, skill e plugin per Claude, connettori MCP e app AI con effetto wow, che chiunque può provare
+subito: pensata per gli Shorts di reach, dove il pubblico non è tecnico. Fonti:
+- **ricerca web di Claude** ogni mattina (`claude -p` con WebSearch, ~1 minuto, prompt in
+  `prompts/web_research.md`): solo cose virali negli ultimi giorni, con link ufficiale ed evidenza;
+- **Product Hunt AI**, **Show HN** (≥80 punti), **Reddit r/ClaudeAI** (top del giorno) e
+  **GitHub Trending**, quando la repo è adatta a tutti.
+
+Ogni notizia ha "Cosa fa / Come si prova / Costo" e un **🎬 Idea Short**: la prima frase pronta.
 
 ## Insegnare al filtro cosa ti serve (👍/👎)
 

@@ -1,7 +1,7 @@
 :root {
   --ink: #1f2328; --muted: #5f6670; --line: #e4e7eb; --bg: #f4f5f7; --card: #fff;
   --soft: #f4f5f7; --accent: #c96442; --btn: #1f2328; --btn-ink: #fff;
-  --claude: #c96442; --higgsfield: #6d4aff; --elevenlabs: #1f1f1f; --creators: #d0344e; --github: #2b3137;
+  --claude: #c96442; --higgsfield: #6d4aff; --elevenlabs: #1f1f1f; --creators: #d0344e; --github: #2b3137; --virali: #e0a100;
   --ok-bg: #e6f4ea; --ok: #1d6b3a; --conf-bg: #e5effa; --conf: #1a4f8b;
   --warn-bg: #fdf1dc; --warn: #8a5300; --bad-bg: #fbe6e6; --bad: #a12020; --repo-bg: #eceef1; --repo: #4b4f58;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -61,6 +61,7 @@ section.sec { background: var(--card); border-radius: 12px; padding: 20px 24px; 
 .summary { font-size: 16px; line-height: 1.6; margin: 10px 0 6px; }
 .points { margin: 0 0 10px; padding-left: 22px; line-height: 1.55; font-size: 15px; }
 .why { background: var(--soft); border-radius: 8px; padding: 9px 12px; font-size: 15px; line-height: 1.5; }
+.why.hook { background: color-mix(in srgb, var(--virali) 16%, transparent); margin-top: 8px; }
 .sources { font-size: 13px; color: var(--muted); margin-top: 10px; }
 .actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
 .actions button.done { border-color: var(--ok); }

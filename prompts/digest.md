@@ -26,6 +26,16 @@ chiari, pragmatici, senza hype.
 - **subsection**: conferma o correggi quella proposta (stessi id).
 - **importance**: 1 = da sapere oggi, 2 = utile, 3 = curiosità.
 
+## Solo per la sezione `virali` ("Da provare")
+Queste storie diventano YouTube Shorts per un pubblico non tecnico. Quindi:
+- **summary**: cosa fa, detto semplice, con il risultato concreto ("clona un sito in un minuto").
+- **key_points**: "Cosa fa: …", "Come si prova: …" (i passi reali, es. comando o pagina da
+  aprire), "Costo: …" (se noto), e un limite se c'è. Solo ciò che dicono le fonti.
+- **why**: perché piacerà a chi mi segue e in che lavoro/progetto lo usa.
+- **short_hook**: la prima frase dello Short, max 12 parole, che fa fermare lo scroll (es.
+  "Questa repo clona qualsiasi sito in un minuto. Gratis."). Nelle altre sezioni lascialo vuoto.
+- I numeri di "viralità" (stelle, voti) arrivati dalla ricerca web vanno riportati come tali.
+
 ## In breve
 **in_breve**: le 3 cose più importanti di oggi, una frase ciascuna (max 25 parole).
 

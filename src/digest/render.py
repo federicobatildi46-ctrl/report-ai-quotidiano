@@ -20,7 +20,7 @@ BADGES = {  # etichetta, testo, sfondo
     "dal_repo": ("📦 Dal README", "#4b4f58", "#eceef1"),
 }
 ACCENT = {"claude": "#c96442", "higgsfield": "#6d4aff", "elevenlabs": "#1f1f1f",
-          "creators": "#d0344e", "github": "#2b3137"}
+          "creators": "#d0344e", "github": "#2b3137", "virali": "#e0a100"}
 
 INK, MUTED, LINE, BG, CARD = "#1f2328", "#5f6670", "#e4e7eb", "#f4f5f7", "#ffffff"
 FONT = "-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif"
@@ -57,6 +57,9 @@ def _item(it: dict) -> str:
            + '</ul>' if it.get("key_points") else "") +
         f'<div style="font-size:14px;line-height:1.5;color:{INK};background:{BG};border-radius:6px;'
         f'padding:8px 10px;margin:0 0 8px"><b>Perché ti serve:</b> {escape(it["why"])}</div>'
+        + (f'<div style="font-size:14px;line-height:1.5;color:{INK};background:#fff6d6;border-radius:6px;'
+           f'padding:8px 10px;margin:0 0 8px"><b>🎬 Idea Short:</b> «{escape(it["short_hook"])}»</div>'
+           if it.get("short_hook") else "") +
         f'<div style="font-size:12px;color:{MUTED}">Fonti: {sources}</div>'
         f'</div>')
 
