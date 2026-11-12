@@ -161,7 +161,11 @@ di GitHub. Verifica senza pubblicare nulla:
 uv run digest linkedin-check
 ```
 
+Per verificare anche dal cloud: GitHub → Actions → "Pubblica post programmati" → Run workflow
+con "Solo verifica" spuntato (oppure `gh workflow run publish.yml -f verifica=true`).
+
 Prima volta: crea l'app su LinkedIn Developers (passi in [DOMANDE_APERTE.md](DOMANDE_APERTE.md)).
+Servono entrambi i prodotti "Share on LinkedIn" e "Sign In with LinkedIn using OpenID Connect".
 
 ## La tua voce
 
