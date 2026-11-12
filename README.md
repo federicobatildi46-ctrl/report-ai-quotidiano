@@ -99,8 +99,17 @@ tutto riesce. `--no-send` salta l'email.
 ## Nel cloud (GitHub Actions)
 
 Il workflow [.github/workflows/daily.yml](.github/workflows/daily.yml) esegue `digest daily` ogni
-giorno alle **06:00 UTC** (7:00 in inverno, 8:00 in estate) sui server di GitHub, gratis, e
-salva report e memoria nel repo. Se fallisce, GitHub ti manda un'email.
+mattina sui server di GitHub, gratis, e salva report e memoria nel repo. Se fallisce, GitHub ti
+manda un'email. Siccome GitHub a volte avvia in ritardo, ci sono più difese:
+- 3 tentativi: 05:23, 06:53, 08:23 italiane d'inverno (un'ora dopo d'estate); appena il report
+  di oggi esiste, i tentativi successivi si fermano;
+- il workflow dei post programmati, ogni 30 minuti, rilancia il report se dopo le 9 manca;
+- l'app sul PC, all'avvio, lo richiede se manca;
+- la raccolta parte dall'ultimo report riuscito (fino a 72 ore), quindi un ritardo non fa
+  perdere notizie.
+
+Per rifarlo a mano anche se esiste già: Run workflow con "forza", oppure
+`gh workflow run daily.yml -f forza=true`.
 
 - **Lanciarlo a mano:** su GitHub → Actions → "Report AI quotidiano" → Run workflow, oppure:
 

@@ -167,6 +167,13 @@ Ogni fase si chiude solo quando il suo risultato è stato provato davvero.
 - **YouTube potrebbe bloccare i server di GitHub** sui sottotitoli. Verificato l'11/11/2026: per
   ora funziona. Il log stampa "video con trascrizione: X/Y": se scende a 0, piano B = attore
   Apify per le trascrizioni (pochi centesimi). Intanto il codice ripiega sulla descrizione.
+- **Lo "sveglia" di GitHub Actions è best-effort**: il 12/11/2026 è partito con 8 ore e mezza di
+  ritardo. Difese: 3 tentativi al mattino (stop se il report c'è già), guardiano ogni 30 minuti
+  che lo rilancia dopo le 9, l'app sul PC che lo richiede all'avvio, e raccolta che recupera
+  dall'ultimo report riuscito (fino a 72 ore).
+- **Apify ha avuto un incidente di sicurezza (9-10/11/2026)** e ha annullato tutti i token API:
+  il token va rigenerato (vedi DOMANDE_APERTE.md). Se la fonte LinkedIn va in errore 401, è
+  questo.
 - **Il token Claude del cloud** (da `claude setup-token`) dura a lungo ma non per sempre: se
   l'esecuzione fallisce con "Not logged in", rigenerarlo e aggiornarlo con
   `gh secret set CLAUDE_CODE_OAUTH_TOKEN`.
