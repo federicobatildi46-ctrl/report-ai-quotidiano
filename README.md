@@ -164,6 +164,11 @@ powershell -ExecutionPolicy Bypass -File scripts\avvio-automatico.ps1
   - **🖼️ Nuova immagine**: stessi testi, soggetto nuovo (~3 crediti);
   - **🔄 Rigenera tutto**: testi e immagine nuovi.
   File in `outputs/linkedin/caroselli/<notizia>/` (slide JPEG, `carosello.pdf`), anche su GitHub.
+- **💬 Chiedi alla lezione:** sotto ogni lezione c'è una chat. Fai domande, chiedi esempi o come
+  applicarla a te o a un cliente (descrivilo: settore, dimensioni, obiettivo). Claude conosce la
+  lezione, le fonti e i tuoi obiettivi, ricorda gli ultimi scambi e distingue i fatti dai suoi
+  suggerimenti. Risposta in 10-30 secondi; la conversazione è salvata con la lezione
+  (`outputs/lezioni/<notizia>.chat.json`, anche su GitHub). "Svuota chat" per ricominciare.
 - **✏️ Modifica testo** (post): correggi il testo del post e salvi; resta quello per la pubblicazione.
 
 Consiglio: crea un collegamento a `scripts\avvia-app.bat` sul desktop o sulla barra delle

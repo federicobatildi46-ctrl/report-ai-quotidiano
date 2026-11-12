@@ -18,7 +18,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from digest import REPORTS_DIR, ROOT
-from digest import carousel, coda, feedback, gitsync, images
+from digest import carousel, chat, coda, feedback, gitsync, images
 from digest import generate as gen
 from digest import linkedin_pub as li
 
@@ -302,6 +302,44 @@ def edit_post(item_id: str, body: PostText):
     path = gen.save_post_text(item_id, body.text)
     _push_async([str(path.relative_to(ROOT))], f"Post modificato: {item_id}")
     return {**gen.read_output(path), "path": str(path.relative_to(ROOT))}
+
+
+# ---------- chat sotto la lezione ----------
+
+class ChatQuestion(BaseModel):
+    message: str
+
+
+@app.get("/api/chat/{item_id}")
+def get_chat(item_id: str):
+    if not ITEM_RE.match(item_id):
+        raise HTTPException(400, "richiesta non valida")
+    return {"messages": chat.load(item_id)}
+
+
+@app.post("/api/chat/{item_id}")
+def post_chat(item_id: str, body: ChatQuestion):
+    """Una domanda sulla lezione: risponde Claude (10-30 secondi)."""
+    if not ITEM_RE.match(item_id):
+        raise HTTPException(400, "richiesta non valida")
+    try:
+        result = chat.ask(item_id, body.message)
+    except (FileNotFoundError, ValueError) as e:
+        raise HTTPException(400, str(e))
+    _push_async([str(chat.chat_path(item_id).relative_to(ROOT))], f"Chat lezione: {item_id}")
+    return result
+
+
+@app.delete("/api/chat/{item_id}")
+def delete_chat(item_id: str):
+    if not ITEM_RE.match(item_id):
+        raise HTTPException(400, "richiesta non valida")
+    path = str(chat.chat_path(item_id).relative_to(ROOT))
+    tracked = chat.chat_path(item_id).exists()
+    chat.clear(item_id)
+    if tracked:
+        _push_async([path], f"Chat lezione svuotata: {item_id}")
+    return {"messages": []}
 
 
 # ---------- LinkedIn (Fase 8) ----------

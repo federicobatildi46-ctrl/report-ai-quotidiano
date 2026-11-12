@@ -156,9 +156,77 @@ async function openOutput(kind, item, gitNote) {
   $("#drawer-publish").hidden = !isPost;
   $("#drawer-edit").hidden = !isPost;
   if (isPost) renderCarousel(await api(`/api/carousel/${item}`));
+  const isLesson = kind === "lezione";
+  $("#lesson-chat").hidden = !isLesson;
+  $("#drawer-chat").hidden = !isLesson;
+  if (isLesson) await loadChat(item);
   $("#drawer").hidden = false;
   document.querySelector(".drawer-scroll").scrollTop = 0;
 }
+
+// ---------- chat sotto la lezione ----------
+const SUGGESTIONS = ["Come lo applico a un mio cliente?", "Fammi un esempio pratico passo passo",
+  "Quali errori devo evitare?", "Come ne faccio un post o uno Short?", "Spiegamelo più semplice"];
+
+function renderChat(messages, pending = null) {
+  const log = $("#chat-log");
+  log.innerHTML = messages.map((m) => m.role === "user"
+    ? `<div class="msg user">${esc(m.text)}</div>`
+    : `<div class="msg assistant">${DOMPurify.sanitize(marked.parse(m.text))}</div>`).join("") +
+    (pending ? `<div class="msg user">${esc(pending)}</div><div class="msg assistant thinking">Sto pensando… (10-30 secondi)</div>` : "");
+  log.scrollTop = log.scrollHeight;
+  $("#chat-suggest").innerHTML = SUGGESTIONS.map((s) => `<button class="chip" data-suggest="${esc(s)}">${esc(s)}</button>`).join("");
+  $("#chat-clear").hidden = !messages.length;
+}
+
+async function loadChat(item) {
+  const { messages } = await api(`/api/chat/${item}`);
+  state.chat = messages;
+  renderChat(messages);
+  $("#chat-panel").hidden = !messages.length;   // se c'è già una conversazione resta aperta
+  $("#chat-status").textContent = messages.length ? `${messages.length / 2} domande salvate` : "";
+}
+
+function openChat() {
+  $("#chat-panel").hidden = false;
+  $("#lesson-chat").scrollIntoView({ behavior: "smooth", block: "start" });
+  setTimeout(() => $("#chat-text").focus(), 300);
+}
+
+async function sendChat(text) {
+  const q = (text ?? $("#chat-text").value).trim();
+  if (!q || $("#chat-send").disabled) return;
+  $("#chat-text").value = "";
+  $("#chat-send").disabled = true;
+  renderChat(state.chat, q);
+  try {
+    const res = await api(`/api/chat/${state.drawer.item}`, { method: "POST",
+      headers: { "Content-Type": "application/json" }, body: JSON.stringify({ message: q }) });
+    state.chat = res.messages;
+    renderChat(state.chat);
+    $("#chat-status").textContent = `Risposta in ${Math.round(res.secs || 0)} s · salvata con la lezione`;
+  } catch (e) {
+    renderChat(state.chat);
+    $("#chat-text").value = q;
+    $("#chat-status").textContent = `Non riuscito: ${e.message}`;
+  } finally {
+    $("#chat-send").disabled = false;
+  }
+}
+
+$("#chat-toggle").onclick = () => { $("#chat-panel").hidden ? openChat() : ($("#chat-panel").hidden = true); };
+$("#drawer-chat").onclick = openChat;
+$("#chat-send").onclick = () => sendChat();
+$("#chat-text").addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendChat(); }
+});
+$("#chat-suggest").addEventListener("click", (e) => { const s = e.target.dataset?.suggest; if (s) sendChat(s); });
+$("#chat-clear").onclick = async () => {
+  if (!confirm("Svuotare la chat di questa lezione?")) return;
+  state.chat = (await api(`/api/chat/${state.drawer.item}`, { method: "DELETE" })).messages;
+  renderChat(state.chat);
+  $("#chat-status").textContent = "";
+};
 
 // ---------- carosello ----------
 async function pollJob(res, ms = 3000) {

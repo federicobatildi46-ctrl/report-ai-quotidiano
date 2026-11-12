@@ -69,6 +69,11 @@ Progetto: report AI quotidiano locale (vedi PIANO_OPERATIVO.md per obiettivi, ar
 - `prompt_block()` finisce nel prompt di selezione (`{{PREFERENCES}}` in prompts/triage.md).
 - Per i test usa file temporanei (riassegna FEEDBACK_PATH ecc.): non sporcare i voti veri.
 
+## Chat della lezione
+- `src/digest/chat.py` + `prompts/lesson_chat.md`: lezione completa + profilo + ultimi 8 scambi →
+  `claude -p` (modello di `generators.model`); salvata in `outputs/lezioni/<id>.chat.json`.
+- API: GET/POST/DELETE `/api/chat/{item_id}`. Nei test svuota la chat alla fine.
+
 ## Caroselli
 - `src/digest/carousel.py` + `prompts/carousel.md`: piano testi (Claude) → soggetto ritagliato
   (Higgsfield `gpt_image_2_6`, background transparent) → impaginazione Pillow con i font in

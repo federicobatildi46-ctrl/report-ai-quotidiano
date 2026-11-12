@@ -38,6 +38,7 @@
     <button id="drawer-copy">Copia</button>
     <button id="drawer-regen" class="secondary">Rigenera</button>
     <button id="drawer-edit" hidden>✏️ Modifica testo</button>
+    <button id="drawer-chat" hidden>💬 Chiedi alla lezione</button>
     <button id="drawer-publish" hidden>🚀 Pubblica / Programma</button>
     <span id="drawer-info" class="muted small"></span>
   </div>
@@ -56,6 +57,18 @@
       <div id="car-info" class="muted small"></div>
     </section>
     <article id="drawer-body" class="prose"></article>
+    <section id="lesson-chat" class="chat" hidden>
+      <button id="chat-toggle" class="chat-toggle">💬 Chiedi alla lezione <span class="muted small">— domande, esempi, come applicarla a te o a un cliente</span></button>
+      <div id="chat-panel" hidden>
+        <div id="chat-log" class="chat-log"></div>
+        <div id="chat-suggest" class="chat-suggest"></div>
+        <div class="chat-input">
+          <textarea id="chat-text" rows="2" placeholder="Fai una domanda… (Invio per inviare, Maiusc+Invio per andare a capo)"></textarea>
+          <button id="chat-send" class="danger">Invia</button>
+        </div>
+        <div class="chat-foot"><span id="chat-status" class="small muted"></span><button id="chat-clear" class="link">Svuota chat</button></div>
+      </div>
+    </section>
   </div>
 </aside>
 
