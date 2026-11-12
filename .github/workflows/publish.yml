@@ -1,6 +1,7 @@
 # Pubblica su LinkedIn i post programmati dall'app (outputs/linkedin/coda.json).
 # Gira ogni 30 minuti dalle 06:05 alle 21:35 UTC (≈ 7–23 in Italia): un post programmato esce al
 # massimo ~30-40 minuti dopo l'orario scelto. Se la coda è vuota finisce in pochi secondi.
+# Avvio manuale con "verifica" = controlla solo il collegamento, non pubblica nulla.
 
 name: Pubblica post programmati
 
@@ -8,6 +9,11 @@ on:
   schedule:
     - cron: "5,35 6-21 * * *"
   workflow_dispatch:
+    inputs:
+      verifica:
+        description: "Solo verifica del collegamento LinkedIn (non pubblica nulla)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -20,12 +26,15 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    env:
+      SOLO_VERIFICA: ${{ inputs.verifica == true }}
     steps:
       - uses: actions/checkout@v4
 
       - name: Ci sono post da pubblicare?
         id: due
         run: |
+          if [ "$SOLO_VERIFICA" = "true" ]; then echo "count=0" >> "$GITHUB_OUTPUT"; exit 0; fi
           python3 - <<'EOF' >> "$GITHUB_OUTPUT"
           import json, os
           from datetime import datetime, timezone
@@ -39,10 +48,19 @@ jobs:
           EOF
 
       - uses: astral-sh/setup-uv@v6
-        if: steps.due.outputs.count != '0'
+        if: env.SOLO_VERIFICA == 'true' || steps.due.outputs.count != '0'
+
+      - name: Verifica collegamento (non pubblica)
+        if: env.SOLO_VERIFICA == 'true'
+        env:
+          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+          LINKEDIN_PERSON_URN: ${{ secrets.LINKEDIN_PERSON_URN }}
+        run: |
+          uv sync --frozen
+          uv run digest linkedin-check | sed -E 's/(urn:li:person:)[A-Za-z0-9_-]+/\1***/'
 
       - name: Pubblica
-        if: steps.due.outputs.count != '0'
+        if: env.SOLO_VERIFICA != 'true' && steps.due.outputs.count != '0'
         env:
           LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
           LINKEDIN_PERSON_URN: ${{ secrets.LINKEDIN_PERSON_URN }}
@@ -51,7 +69,7 @@ jobs:
           uv run digest publish-due
 
       - name: Salva lo stato della coda
-        if: always() && steps.due.outputs.count != '0'
+        if: always() && env.SOLO_VERIFICA != 'true' && steps.due.outputs.count != '0'
         run: |
           git config user.name "report-ai-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
