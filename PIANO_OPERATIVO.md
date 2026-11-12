@@ -153,7 +153,7 @@ viene scartata o segnalata.
 | **4. Cloud** ✅ | Workflow GitHub Actions alle 06:00 UTC (7:00 inverno / 8:00 estate), segreti nel repo, commit automatico di report e memoria, dati grezzi conservati 7 giorni | Esecuzione cloud dell'11/11/2026: 49 elementi, 14 notizie, email inviata, trascrizioni YouTube ok, ~4 minuti |
 | **5. App locale** ✅ | Server locale (FastAPI), report, archivio, `git pull` all'avvio, avvio con doppio click | `scripts\avvia-app.bat` → `localhost:8787` |
 | **6. Generatori** ✅ (v1) | Lezione · Post LinkedIn · Script Shorts (italiano, max 60 s): fonti riscaricate (pagine, trascrizioni, README), salvati in `outputs/` e su GitHub | Provati l'11/11/2026: lezione, post e short generati in 1-2 min e caricati su GitHub. La voce personale arriva in Fase 7 |
-| **7. Voce e immagine** | Guida di stile dai miei post (Apify) + immagini col mio Soul (Higgsfield) | Post che suonano come me + immagine con me |
+| **7. Voce e immagine** ✅ | Guida di stile da 11 miei post (Apify → Claude, `digest voice`) + immagini con il Soul "Federico Finale" via CLI Higgsfield (Soul 2.0, 3:4, JPEG) | Post rigenerato con la mia voce e 2 immagini col mio volto, l'11/11/2026 |
 | **8. LinkedIn** | Copia → poi **Pubblica** e **Programma** via API ufficiale (con conferma) | Post pubblicato/programmato dall'app |
 | **9. Affinamento** | 👍/👎 su ogni notizia → il filtro impara cosa è rumore per me | Report sempre più mirato |
 
