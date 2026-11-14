@@ -1,0 +1,384 @@
+{
+ "title": "Report automatico notizie e aggiornamenti AI",
+ "date": "2026-11-14",
+ "generated_at": "2026-11-14T11:38:48.351462+00:00",
+ "reading_minutes": 5,
+ "in_breve": [
+  "Claude Meetings entra in beta su Team ed Enterprise: Claude partecipa alle call su Google Meet, prende note e lavora su documenti e lavagne.",
+  "Anthropic spiega l'architettura degli agenti always-on: cinque primitive, tra cui event inbox, timer, memoria, permessi e outbox.",
+  "Su GitHub Trending corrono due skill gratuite per Claude Code e altri agenti: security-audit di Cloudflare ed EGM di Google."
+ ],
+ "sections": [
+  {
+   "id": "claude",
+   "title": "Universo Claude",
+   "items": [
+    {
+     "id": "2026-11-14-01",
+     "subsection": "chat",
+     "subsection_label": "Chat (app claude.ai)",
+     "title": "Claude Meetings in beta: Claude entra nelle tue videocall",
+     "summary": "Claude può unirsi alle videocall come partecipante visibile, seguire la conversazione e iniziare a lavorare durante la riunione. Risponde per iscritto, crea documenti e lavagne con il team e scrive note e azioni da fare. La beta è attiva su Team ed Enterprise.",
+     "key_points": [
+      "Al momento supporta solo Google Meet; altre piattaforme arriveranno presto.",
+      "Salva trascrizione, riassunto e descrizioni dello schermo, non l'audio.",
+      "Con ospiti esterni di default Claude non entra, o esce se arrivano a metà call.",
+      "Non disponibile per alcune organizzazioni, ad esempio con zero data retention o HIPAA-ready."
+     ],
+     "why": "Puoi proporlo a clienti con team che fanno molte riunioni e ci puoi fare un contenuto su note e azioni automatiche.",
+     "badge": "ufficiale",
+     "badge_note": "Annuncio sul sito ufficiale claude.com, rilanciato da Hacker News.",
+     "importance": 1,
+     "primary_url": "https://claude.com/resources/articles/claude-meetings",
+     "sources": [
+      {
+       "name": "claude.com (via Hacker News)",
+       "title": "Claude Meetings",
+       "url": "https://claude.com/resources/articles/claude-meetings",
+       "official": true,
+       "kind": "article",
+       "item_id": "5452aaa8e404",
+       "meta": {
+        "points": 100,
+        "comments": "https://news.ycombinator.com/item?id=50491097"
+       },
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-14-03",
+     "subsection": "code",
+     "subsection_label": "Claude Code",
+     "title": "Claude Code v2.1.325: fix di sicurezza zstd e molti bug corretti",
+     "summary": "La nuova versione corregge un problema di sicurezza nella decodifica delle risposte compresse con zstd. Include molte correzioni su subagenti, sessioni riprese, plan mode e comandi come /security-review, /stats e /voice.",
+     "key_points": [
+      "Corretti i subagenti con modello proprio spostati sul modello del plan mode con `opusplan` o `haiku`.",
+      "Sistemate le sessioni su gateway di terze parti e Foundry che andavano in errore di contesto.",
+      "Corretto `/insights`, che scriveva due valori nel report HTML senza escaping.",
+      "Nuovo suggerimento dopo il blocco da policy: `/rewind` o `/clear`."
+     ],
+     "why": "Usi Claude Code ogni giorno: aggiornare ti dà la correzione di sicurezza e subagenti più affidabili.",
+     "badge": "ufficiale",
+     "badge_note": "Note di rilascio ufficiali di Claude Code.",
+     "importance": 2,
+     "primary_url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.325",
+     "sources": [
+      {
+       "name": "Claude Code (release)",
+       "title": "v2.1.325",
+       "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.325",
+       "official": true,
+       "kind": "release",
+       "item_id": "f8d9f4981e60",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-14-04",
+     "subsection": "ecosistema",
+     "subsection_label": "Ecosistema a 360° — modelli, API, SDK, azienda",
+     "title": "Anthropic spiega come costruire agenti always-on",
+     "summary": "Anthropic descrive gli agenti always-on: stateful e proattivi, in realtà dormono quasi sempre e si svegliano a ogni evento. Il post descrive le primitive dell'architettura e come si combinano.",
+     "key_points": [
+      "Cinque primitive: event inbox, timer, memoria, permessi e outbox.",
+      "L'inbox è una tabella di eventi, un handler HTTP e un worker.",
+      "Consigliata un'inbox per utente, con database relazionale e deduplica degli eventi.",
+      "Su un benchmark di coding a lungo orizzonte, Opus 5.5 costa il 78% in meno di Opus 5."
+     ],
+     "why": "È lo schema base per le automazioni e gli agenti nel cloud che vuoi vendere all'agenzia, e materiale per un carosello.",
+     "badge": "ufficiale",
+     "badge_note": "Articolo pubblicato sul sito ufficiale Claude.com.",
+     "importance": 2,
+     "primary_url": "https://claude.com/resources/articles/building-always-on-agents",
+     "sources": [
+      {
+       "name": "Claude.com",
+       "title": "Building always-on agents",
+       "url": "https://claude.com/resources/articles/building-always-on-agents",
+       "official": true,
+       "kind": "article",
+       "item_id": "984d08da3cf7",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-14-08",
+     "subsection": "ecosistema",
+     "subsection_label": "Ecosistema a 360° — modelli, API, SDK, azienda",
+     "title": "Incidenti Claude del 13-14 novembre: errori diffusi, acquisti e login con Apple",
+     "summary": "Il 13 novembre ci sono stati errori su claude.ai, API e Claude Code, poi risolti. Nella notte sono stati risolti anche problemi sugli acquisti. Resta in indagine il login con Apple su iOS.",
+     "key_points": [
+      "Il 13/11 errori risolti alle 15:38 UTC; routine in ritardo oltre due ore.",
+      "Acquisti e cambi piano errati dalle 02:34 alle 04:03 UTC del 14/11; non serve pagare di nuovo.",
+      "Login con Apple su iOS: i nuovi utenti possono usare Google o email."
+     ],
+     "why": "Se usi routine e automazioni nel cloud, sappi che ritardi o salti possono capitare.",
+     "badge": "ufficiale",
+     "badge_note": "Pagina di stato ufficiale di Claude.",
+     "importance": 3,
+     "primary_url": "https://status.claude.com/incidents/34wq7gxnxvvm",
+     "sources": [
+      {
+       "name": "Status Claude",
+       "title": "Elevated errors on claude.ai, the Claude API, and Claude Code",
+       "url": "https://status.claude.com/incidents/34wq7gxnxvvm",
+       "official": true,
+       "kind": "incident",
+       "item_id": "ba3ecc68effc",
+       "meta": {},
+       "link": "ok"
+      },
+      {
+       "name": "Status Claude",
+       "title": "Elevated purchasing errors on claude.ai",
+       "url": "https://status.claude.com/incidents/qrpz8k79qm7x",
+       "official": true,
+       "kind": "incident",
+       "item_id": "a79ac9efb4bd",
+       "meta": {},
+       "link": "ok"
+      },
+      {
+       "name": "Status Claude",
+       "title": "Some users unable to sign up with Apple on the Claude iOS app",
+       "url": "https://status.claude.com/incidents/ct4c2pwf2xpj",
+       "official": true,
+       "kind": "incident",
+       "item_id": "0ac133373a68",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "higgsfield",
+   "title": "Higgsfield",
+   "items": []
+  },
+  {
+   "id": "elevenlabs",
+   "title": "ElevenLabs",
+   "items": [
+    {
+     "id": "2026-11-14-05",
+     "subsection": "",
+     "subsection_label": "",
+     "title": "ElevenLabs lancia i Forward Deployed Creatives in ElevenCreative",
+     "summary": "ElevenLabs offre professionisti creativi che lavorano con i team dentro ElevenCreative o consegnano pubblicità finite. Puntano a risolvere coerenza di brand, strumenti frammentati e controllo creativo.",
+     "key_points": [
+      "Tre formule: abilitare, potenziare o estendere il team creativo.",
+      "Brand Kit applica colori, font, logo e immagini di riferimento alle generazioni.",
+      "Le localizzazioni sono riviste da linguisti e professionisti audio.",
+      "Sicurezza enterprise: single sign-on, permessi di workspace, audit log."
+     ],
+     "why": "Mostra un modello di servizio, AI più creativi umani, che puoi ispirare per la tua agenzia di contenuti e ads.",
+     "badge": "ufficiale",
+     "badge_note": "Annuncio sul blog ufficiale di ElevenLabs.",
+     "importance": 2,
+     "primary_url": "https://elevenlabs.io/blog/introducing-forward-deployed-creatives",
+     "sources": [
+      {
+       "name": "Blog ElevenLabs",
+       "title": "Introducing Forward Deployed Creatives in ElevenCreative",
+       "url": "https://elevenlabs.io/blog/introducing-forward-deployed-creatives",
+       "official": true,
+       "kind": "article",
+       "item_id": "cb5a4d17dfb8",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "creators",
+   "title": "Dai creator che seguo",
+   "items": [
+    {
+     "id": "2026-11-14-06",
+     "subsection": "Giovanni Beggiato",
+     "subsection_label": "Giovanni Beggiato",
+     "title": "Giovanni Beggiato: le 5 migliori repo GitHub per Claude su oltre 100 provate",
+     "summary": "Il creator seleziona 5 repository tra più di 100 testate e per ognuna mostra cosa fa, come installarla e un prompt d'uso. Secondo lui sono la base di partenza per usare Claude Code in modo più potente.",
+     "key_points": [
+      "Find Skills di Vercel cerca e installa altre skill al posto tuo.",
+      "Gstack di Gary Tan: oltre 40 skill, con /office hours e /diagram.",
+      "Unslop toglie alle pagine l'aspetto tipico delle interfacce fatte con l'AI.",
+      "HyperFrames di HeyGen crea video mp4; Agent Browser di Vercel dà a Claude un browser."
+     ],
+     "why": "Ti dà un elenco pronto di skill da provare per siti e video dei clienti e spunti per un tuo contenuto.",
+     "badge": "da_verificare",
+     "badge_note": "Una sola fonte non ufficiale: il video del creator Giovanni Beggiato, sono sue valutazioni.",
+     "importance": 2,
+     "primary_url": "https://www.youtube.com/watch?v=_p_6VTSOSBQ",
+     "sources": [
+      {
+       "name": "YouTube · Giovanni Beggiato",
+       "title": "Ho Provato 100+Repo Github per Claude. Ecco Le Migliore 5",
+       "url": "https://www.youtube.com/watch?v=_p_6VTSOSBQ",
+       "official": false,
+       "kind": "video",
+       "item_id": "2c0aa5d20357",
+       "meta": {
+        "creator": "Giovanni Beggiato",
+        "duration": null
+       },
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "github",
+   "title": "GitHub: repo e skill per la mia agenzia",
+   "items": [
+    {
+     "id": "2026-11-14-10",
+     "subsection": "video",
+     "subsection_label": "Video editing e caroselli",
+     "title": "Due skill Claude Code per montare video parlati cinesi (solo macOS)",
+     "summary": "Repo con due skill per Claude Code che montano video cinesi a camera fissa: tagliano errori e pause e producono un 9:16 senza animazioni o un 3:4 con grafica Remotion. La documentazione è in cinese.",
+     "key_points": [
+      "Richiede macOS su Apple silicon, ffmpeg e uv; la versione animata anche Node.js.",
+      "Trascrizione e rimozione dello sfondo avvengono in locale, senza API a pagamento.",
+      "Licenza Apache-2.0; la repo ha 43 stelle."
+     ],
+     "why": "Non utilizzabile su Windows e pensata per il cinese, ma l'approccio al montaggio automatico con skill è un'idea per i video dei clienti.",
+     "badge": "dal_repo",
+     "badge_note": "Una sola fonte non ufficiale, il README del repository GitHub.",
+     "importance": 3,
+     "primary_url": "https://github.com/QQTangBa/cangshu-koubo-video-skills",
+     "sources": [
+      {
+       "name": "GitHub",
+       "title": "QQTangBa/cangshu-koubo-video-skills",
+       "url": "https://github.com/QQTangBa/cangshu-koubo-video-skills",
+       "official": false,
+       "kind": "repo",
+       "item_id": "9df0a5488c90",
+       "meta": {
+        "stars": 43
+       },
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "virali",
+   "title": "Da provare: repo, skill e tool virali (idee per gli Shorts)",
+   "items": [
+    {
+     "id": "2026-11-14-02",
+     "subsection": "skill",
+     "subsection_label": "Skill e plugin per Claude",
+     "title": "cloudflare/security-audit-skill: audit di sicurezza del codice in 6 fasi",
+     "summary": "Skill open source che trasforma l'agente AI in un revisore di sicurezza. Analizza un progetto in 6 fasi e produce un report in cui ogni problema è confermato o scartato da un secondo agente che prova a smentirlo.",
+     "key_points": [
+      "Cosa fa: audit di sicurezza in 6 fasi, con verifica incrociata tra agenti.",
+      "Come si prova: `npx skills add https://github.com/cloudflare/security-audit-skill --skill security-audit`, poi scrivi \"security audit this codebase\".",
+      "Costo: gratis (MIT); paghi solo l'agente o il modello usato.",
+      "Servono Node.js e un agente che supporti i sub-agenti."
+     ],
+     "why": "Ottimo per uno Short dall'effetto wow e come controllo da offrire ai clienti con siti o codice personalizzato.",
+     "badge": "dal_repo",
+     "badge_note": "Solo ricerca web, non ufficiale: +8.829 stelle in una settimana su GitHub Trending (totale ~72.200), dato da verificare.",
+     "importance": 1,
+     "short_hook": "Questa skill fa l'audit di sicurezza del tuo codice. Gratis.",
+     "primary_url": "https://github.com/cloudflare/security-audit-skill",
+     "sources": [
+      {
+       "name": "Ricerca web",
+       "title": "cloudflare/security-audit-skill",
+       "url": "https://github.com/cloudflare/security-audit-skill",
+       "official": false,
+       "kind": "repo",
+       "item_id": "57e1609901b3",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-14-07",
+     "subsection": "skill",
+     "subsection_label": "Skill e plugin per Claude",
+     "title": "google/elephant-goldfish-model: plugin per progettare con agenti Elefante e Pesce rosso",
+     "summary": "Plugin open source per progettare e rivedere un progetto con agenti AI. L'agente \"Elefante\" ricorda il contesto e scrive la specifica, i revisori \"Pesce rosso\", senza memoria della chat, la controllano e trovano le ipotesi non dette.",
+     "key_points": [
+      "Cosa fa: brainstorming, bozza della specifica e revisione con agenti separati.",
+      "Come si prova: `claude plugin marketplace add google/elephant-goldfish-model`, poi `claude plugin install egm@egm`.",
+      "Comandi: `/egm-brainstorm`, `/egm-draft`, `/egm-review design_draft.md` dopo il riavvio.",
+      "Costo: gratis (Apache 2.0), non prodotto ufficialmente supportato da Google."
+     ],
+     "why": "Si prova subito in Claude Code e funziona da metodo per scrivere specifiche di progetto con i clienti, oltre che da idea per uno Short.",
+     "badge": "dal_repo",
+     "badge_note": "Solo ricerca web, non ufficiale: +5.560 stelle in una settimana su GitHub Trending (totale ~18.800), da verificare.",
+     "importance": 2,
+     "short_hook": "Google ha fatto un plugin con un elefante e un pesce rosso.",
+     "primary_url": "https://github.com/google/elephant-goldfish-model",
+     "sources": [
+      {
+       "name": "Ricerca web",
+       "title": "google/elephant-goldfish-model (EGM)",
+       "url": "https://github.com/google/elephant-goldfish-model",
+       "official": false,
+       "kind": "repo",
+       "item_id": "484f5200420d",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "stats": {
+  "collected": 28,
+  "stories": 9,
+  "discarded": 16,
+  "dropped_broken_links": [
+   "Tabletop by Google Labs: esperienze di gruppo interattive con l'AI"
+  ],
+  "source_errors": [
+   {
+    "source": "reddit-claudeai",
+    "section": "virali",
+    "new": 0,
+    "baseline": true,
+    "error": "HTTPStatusError: Client error '403 Blocked' for url 'https://www.reddit.com/r/ClaudeAI/top/.rss?t=day'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403",
+    "secs": 1.2
+   }
+  ],
+  "window_hours": 26,
+  "model": "sonnet",
+  "claude": {
+   "selezione": {
+    "secs": 5.7,
+    "turns": 2,
+    "input_tokens": 11060,
+    "cache_read_tokens": 0,
+    "output_tokens": 773,
+    "equivalent_api_usd": 0.051966
+   },
+   "scrittura": {
+    "secs": 27.5,
+    "turns": 2,
+    "input_tokens": 17270,
+    "cache_read_tokens": 0,
+    "output_tokens": 3976,
+    "equivalent_api_usd": 0.10883599999999999
+   }
+  }
+ }
+}
