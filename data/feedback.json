@@ -11,6 +11,18 @@
     "Blog Higgsfield"
    ],
    "at": "2026-11-12T23:40:16+00:00"
+  },
+  "2026-11-13-01": {
+   "date": "2026-11-13",
+   "vote": 1,
+   "reason": null,
+   "title": "Claude Code v2.1.323: Code Mode sperimentale e novità sui plugin",
+   "section": "claude",
+   "subsection": "code",
+   "sources": [
+    "Claude Code (release)"
+   ],
+   "at": "2026-11-14T02:27:19+00:00"
   }
  }
 }
