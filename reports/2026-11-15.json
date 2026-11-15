@@ -1,0 +1,77 @@
+{
+ "title": "Report automatico notizie e aggiornamenti AI",
+ "date": "2026-11-15",
+ "generated_at": "2026-11-15T12:04:40.635771+00:00",
+ "reading_minutes": 1,
+ "in_breve": [
+  "placeholder"
+ ],
+ "sections": [
+  {
+   "id": "claude",
+   "title": "Universo Claude",
+   "items": []
+  },
+  {
+   "id": "higgsfield",
+   "title": "Higgsfield",
+   "items": []
+  },
+  {
+   "id": "elevenlabs",
+   "title": "ElevenLabs",
+   "items": []
+  },
+  {
+   "id": "creators",
+   "title": "Dai creator che seguo",
+   "items": []
+  },
+  {
+   "id": "github",
+   "title": "GitHub: repo e skill per la mia agenzia",
+   "items": []
+  },
+  {
+   "id": "virali",
+   "title": "Da provare: repo, skill e tool virali (idee per gli Shorts)",
+   "items": []
+  }
+ ],
+ "stats": {
+  "collected": 27,
+  "stories": 0,
+  "discarded": 16,
+  "dropped_broken_links": [],
+  "source_errors": [
+   {
+    "source": "reddit-claudeai",
+    "section": "virali",
+    "new": 0,
+    "baseline": true,
+    "error": "HTTPStatusError: Client error '403 Blocked' for url 'https://www.reddit.com/r/ClaudeAI/top/.rss?t=day'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403",
+    "secs": 1.2
+   }
+  ],
+  "window_hours": 27,
+  "model": "sonnet",
+  "claude": {
+   "selezione": {
+    "secs": 5.8,
+    "turns": 2,
+    "input_tokens": 11077,
+    "cache_read_tokens": 0,
+    "output_tokens": 776,
+    "equivalent_api_usd": 0.052064
+   },
+   "scrittura": {
+    "secs": 7.2,
+    "turns": 3,
+    "input_tokens": 18815,
+    "cache_read_tokens": 0,
+    "output_tokens": 901,
+    "equivalent_api_usd": 0.08426600000000001
+   }
+  }
+ }
+}
