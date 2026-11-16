@@ -122,8 +122,16 @@ def _daily(args) -> int:
         except Exception as e:   # non deve mai bloccare il report
             print(f"Preferenze non aggiornate: {e}")
 
-    report_path, report = build(raw_path)
+    from digest.build import BuildError
+    try:
+        report_path, report = build(raw_path)
+    except BuildError as e:
+        print(f"Report NON inviato: {e}. La memoria non è stata toccata: il prossimo tentativo riparte da capo.")
+        return 1
     print(f"Report: {report['stats']['stories']} notizie · ~{report['reading_minutes']} min")
+    for key, label in (("linkedin", "Post del giorno"), ("short", "Short del giorno")):
+        if (report.get("picks") or {}).get(key):
+            print(f"{label}: {report['picks'][key]['title']}")
 
     if args.no_send:
         print("Invio saltato (--no-send)")

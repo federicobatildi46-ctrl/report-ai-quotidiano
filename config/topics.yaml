@@ -30,6 +30,20 @@ profile: >
   (anche vocali) e automazioni con routine nel cloud. Uso Claude Code ogni giorno.
   Mi servono notizie che posso imparare, applicare a un cliente o trasformare in contenuto.
 
+# A chi parlo: usato per scegliere "il post del giorno" e "lo Short del giorno" e per scriverli.
+audience:
+  linkedin: >
+    Liberi professionisti e imprenditori italiani. Due profili: (1) titolari di piccole attività
+    con dipendenti, da 10 a un massimo di 20 persone (studi professionali, agenzie, artigiani
+    strutturati, e-commerce, servizi B2B locali); (2) liberi professionisti che si gestiscono il
+    lavoro da soli. Non sono tecnici. Cercano automazioni, agenti AI o sistemi fatti con Claude
+    Code per semplificare il lavoro, abbassare i costi, lavorare meno ore o produrre di più.
+    Decidono in base a tempo e soldi risparmiati, non alla tecnologia. Diffidano dell'hype.
+  shorts: >
+    Persone che lavorano (non professionisti tech) e mi seguono per le novità AI e per strumenti
+    fighi da usare subito nel lavoro e nei progetti personali: repo, skill, connettori, app.
+    Vogliono vedere il risultato, capire come provarlo e ricevere il link.
+
 # max_items: tetto di notizie per sezione (meglio 2 notizie vere che 10 riempitivi)
 sections:
   - id: claude
@@ -97,6 +111,5 @@ noise:
   - repo fuori tema per l'agenzia (giochi, emulatori, progetti personali senza riuso)
   - video/post che ripetono una notizia già coperta da fonte ufficiale (citarli solo come conferma)
   - hype senza contenuto ("questo cambia TUTTO")
-  - post Reddit con lamentele, opinioni, domande o voci senza dettagli (da Reddit tieni solo
-    strumenti e progetti concreti, con link, da mettere in "Da provare")
+  - lamentele, opinioni, domande o voci senza dettagli prese da forum e social
   - notizie societarie minori (round, accordi commerciali); quelle grandi (es. IPO di Anthropic) sì, ma brevi

@@ -1,33 +1,69 @@
 {
  "title": "Report automatico notizie e aggiornamenti AI",
  "date": "2026-11-16",
- "generated_at": "2026-11-16T12:58:23.854802+00:00",
- "reading_minutes": 5,
+ "generated_at": "2026-11-16T13:59:21.943029+00:00",
+ "reading_minutes": 7,
  "in_breve": [
-  "Higgsfield MCP collegato a Claude produce decine di video ads in un pomeriggio, secondo il creator Coco (video in collaborazione con Higgsfield).",
-  "Incidente risolto su Claude Sonnet 5.5 e altri modelli: errori elevati su claude.ai, API, Claude Code e Cowork dalle 07:32 alle 08:45 UTC.",
-  "Su GitHub in crescita ffmpeg-skill (editor video locale per agenti, 42 tool FFmpeg) e last30days-skill per la ricerca multi-fonte."
+  "Claude ha avuto errori elevati su claude.ai, API, Claude Code e Cowork tra le 07:32 e le 08:45 UTC del 16 novembre; ora è risolto.",
+  "Higgsfield MCP collegato a Claude permette di produrre decine di video ads in un pomeriggio, secondo il creator Coco (video in collaborazione con Higgsfield).",
+  "PostNord ha sostituito il sistema vocale con ElevenAgents: completamento delle chiamate dal 45% al 60% in circa 90 giorni."
  ],
+ "picks": {
+  "linkedin": {
+   "item_id": "2026-11-16-04",
+   "score": 7,
+   "hook": "PostNord ha portato il completamento dei compiti del suo supporto telefonico dal 45% al 60%. Il segreto non è l'AI: è come l'hanno introdotta, in quattro fasi.",
+   "why": "Caso reale con numeri misurabili e fonte ufficiale. Mostra come introdurre un agente vocale in modo graduale, con operatore in affiancamento. Parla di telefono e tempo perso.",
+   "target": "titolari di piccole attività con 10-20 persone che rispondono al telefono a mano",
+   "pain": "Il telefono assorbe ore ogni giorno con richieste ripetitive, e affidarlo a un'AI sembra un rischio per i clienti.",
+   "angle": "Il telefono ruba ore a te e ai tuoi dipendenti. PostNord ha sostituito il vecchio sistema vocale con agenti AI, partendo da un test nel weekend e da una fase ibrida con operatore: un sistema su misura si introduce così, a piccoli passi.",
+   "caveat": "",
+   "alternatives": [
+    {
+     "item_id": "2026-11-16-02",
+     "reason": "Video ads con Claude e costi d'agenzia; ma DA VERIFICARE e in collaborazione.",
+     "title": "Higgsfield MCP collegato a Claude per produrre video ads"
+    },
+    {
+     "item_id": "2026-11-16-05",
+     "reason": "Montaggio video locale a costo zero; però non ancora provato.",
+     "title": "ffmpeg-skill: 42 strumenti FFmpeg locali per far montare video a Claude Code"
+    }
+   ],
+   "title": "PostNord rifà il supporto telefonico svedese con ElevenAgents: completamento dal 45% al 60%",
+   "badge": "ufficiale",
+   "section": "elevenlabs"
+  },
+  "short": {
+   "item_id": "2026-11-16-07",
+   "score": 8,
+   "hook": "Questa skill cerca su Reddit, HN e YouTube e riassume tutto.",
+   "why": "Si installa con due comandi in Claude Code, funziona subito su Reddit, HN e GitHub, è gratis (MIT) e ha 67.863 stelle: ottima per una CTA con link.",
+   "title": "last30days: skill che ricerca un argomento su Reddit, X, YouTube e altro",
+   "badge": "dal_repo",
+   "section": "virali"
+  }
+ },
  "sections": [
   {
    "id": "claude",
    "title": "Universo Claude",
    "items": [
     {
-     "id": "2026-11-16-03",
+     "id": "2026-11-16-01",
      "subsection": "ecosistema",
      "subsection_label": "Ecosistema a 360° — modelli, API, SDK, azienda",
-     "title": "Errori elevati su Claude Sonnet 5.5 e altri modelli, incidente risolto",
-     "summary": "Anthropic ha segnalato errori elevati che hanno colpito claude.ai, API, Claude Code e Cowork. L'incidente è durato dalle 07:32 alle 08:45 UTC del 16 novembre ed è stato risolto con un fix.",
+     "title": "Errori elevati su Claude Sonnet 5.5 e Fable 5.2, incidente risolto",
+     "summary": "Tra le 07:32 e le 08:45 UTC del 16 novembre sono stati registrati errori elevati su claude.ai, API, Claude Code e Cowork. Il problema è stato risolto dopo il rilascio di una correzione.",
      "key_points": [
-      "Impatto: 07:32–08:45 UTC (23:32–00:45 PT) del 16 novembre.",
-      "Il titolo cita Claude Sonnet 5.5 e Claude Fable 5.2.",
-      "Fix distribuito alle 08:02 UTC, risoluzione confermata alle 09:04 UTC."
+      "Impatto: dalle 23:32 PT del 15 novembre (07:32 UTC) alle 00:45 PT (08:45 UTC).",
+      "Prodotti coinvolti: claude.ai, Claude API, Claude Code e Claude Cowork.",
+      "Correzione distribuita alle 08:02 UTC, risoluzione confermata alle 09:04 UTC."
      ],
-     "why": "Se hai automazioni o lavori con Claude Code in quella fascia, capisci eventuali errori e sai che le routine nel cloud possono essere colpite.",
+     "why": "Se usi Claude Code per lavori di un cliente, sapere di questa finestra di errori spiega eventuali richieste fallite di stanotte.",
      "badge": "ufficiale",
-     "badge_note": "Pagina di stato ufficiale di Claude.",
-     "importance": 2,
+     "badge_note": "Pagina di stato ufficiale di Claude, incidente segnato come risolto.",
+     "importance": 1,
      "primary_url": "https://status.claude.com/incidents/r1b4f9bbnsx1",
      "sources": [
       {
@@ -43,18 +79,19 @@
      ]
     },
     {
-     "id": "2026-11-16-04",
+     "id": "2026-11-16-03",
      "subsection": "code",
      "subsection_label": "Claude Code",
-     "title": "Claude Code: /advisor per usare Fable come consulente e Sonnet come principale",
-     "summary": "Con il comando /advisor di Claude Code si sceglie Fable come consulente mantenendo Sonnet come modello principale. Secondo il creator, Fable pianifica i lavori difficili e Sonnet esegue, per non finire i limiti.",
+     "title": "Con /advisor di Claude Code usi Fable come consulente e Sonnet come principale",
+     "summary": "Secondo Riccardo Belli Contarini, il comando /advisor di Claude Code permette di scegliere Fable come consulente mantenendo Sonnet come modello principale. Così Fable pianifica i lavori difficili e Sonnet li esegue, per non finire i limiti.",
      "key_points": [
-      "Fable fa il piano sui lavori difficili, Sonnet svolge il lavoro.",
-      "Il creator rimanda a una guida su /advisor sul suo sito."
+      "Fable fa il piano sui lavori difficili, Sonnet fa il lavoro.",
+      "Si attiva con il comando /advisor in Claude Code.",
+      "Il creator rimanda a una guida dedicata su riccardobelli.com."
      ],
-     "why": "Usi Claude Code ogni giorno: è un modo per gestire meglio i limiti e può diventare un contenuto breve.",
+     "why": "Puoi usarlo subito nelle tue sessioni di Claude Code per consumare meno limiti, e farne un breve contenuto pratico.",
      "badge": "da_verificare",
-     "badge_note": "Una sola fonte non ufficiale (YouTube Short di Riccardo Belli Contarini).",
+     "badge_note": "Una sola fonte non ufficiale (creator): il funzionamento è descritto da lui, non confermato da Anthropic.",
      "importance": 2,
      "primary_url": "https://www.youtube.com/shorts/2ChZ4Wve1GI",
      "sources": [
@@ -80,20 +117,20 @@
    "title": "Higgsfield",
    "items": [
     {
-     "id": "2026-11-16-01",
+     "id": "2026-11-16-02",
      "subsection": "",
      "subsection_label": "",
-     "title": "Higgsfield MCP collegato a Claude: decine di video ads in un pomeriggio",
-     "summary": "Il creator Coco mostra come, collegando Higgsfield MCP a Claude, ha generato decine di video ads per il lancio del suo SaaS in un pomeriggio. Secondo lui l'equivalente con agenzia o studio sarebbe costato oltre 1.500 €. Il video è in collaborazione con Higgsfield.",
+     "title": "Higgsfield MCP collegato a Claude per produrre video ads",
+     "summary": "Il creator Coco mostra come collegare Higgsfield MCP a Claude per generare decine di video ads per il lancio del suo SaaS in un pomeriggio. Secondo lui un lavoro simile con un'agenzia costerebbe oltre 1.500 €. Il video è in collaborazione con Higgsfield.",
      "key_points": [
-      "Server MCP: mcp.higgsfield.ai/mcp; funziona con Claude, Claude Code, OpenClaw, Hermes Agent.",
-      "Claude sceglie il modello per ogni pezzo: Seedance per video, GPT Image 2 per immagini.",
-      "Metodo in 7 regole: analisi competitor, 10 script, scene descritte, fasi salvate in .md.",
-      "I file finiscono direttamente nella cartella del progetto."
+      "Server MCP indicato: mcp.higgsfield.ai/mcp; funziona anche con Claude Code, OpenClaw e Hermes Agent.",
+      "Claude sceglie il modello per ogni pezzo: Seedance per i video, GPT Image 2 per le immagini.",
+      "Metodo in 7 regole, tra cui: analizza le ad dei competitor, 10 script e tieni i migliori.",
+      "Si lavora a fasi, salvando tutto in .md; i file finiscono nella cartella del progetto."
      ],
-     "why": "È un workflow replicabile per offrire video ads a un cliente dell'agenzia e un ottimo spunto per un contenuto o carosello.",
+     "why": "È un flusso replicabile per il servizio ads dell'agenzia e per un contenuto sul metodo, usando Claude Code che già usi ogni giorno.",
      "badge": "da_verificare",
-     "badge_note": "Una sola fonte non ufficiale (creator Coco, video in collaborazione con Higgsfield): i risultati e il risparmio sono dichiarazioni sue.",
+     "badge_note": "Una sola fonte non ufficiale (creator Coco), in collaborazione con Higgsfield: risultati e risparmi sono dichiarati da lui.",
      "importance": 1,
      "primary_url": "https://www.youtube.com/watch?v=H9QnLjXWCf4",
      "sources": [
@@ -119,21 +156,21 @@
    "title": "ElevenLabs",
    "items": [
     {
-     "id": "2026-11-16-08",
+     "id": "2026-11-16-04",
      "subsection": "",
      "subsection_label": "",
-     "title": "PostNord: supporto clienti rifatto con ElevenAgents, completamento dal 45% al 60%",
-     "summary": "PostNord ha sostituito il sistema telefonico automatico svedese con un sistema multi-agente su ElevenAgents. Il vecchio sistema è stato dismesso in circa 90 giorni e il completamento dei task è salito dal 45% al 60%.",
+     "title": "PostNord rifà il supporto telefonico svedese con ElevenAgents: completamento dal 45% al 60%",
+     "summary": "PostNord ha sostituito il vecchio sistema vocale AI con un sistema multi-agente su ElevenAgents. Il completamento dei compiti è salito dal 45% al 60% e il sistema precedente è stato dismesso in circa 90 giorni.",
      "key_points": [
-      "Un orchestratore instrada ogni richiesta a 4 subagenti specializzati, incluso uno per il tracking.",
-      "Rollout in 4 fasi, dal test nel weekend alla produzione completa.",
-      "A/B test sul traffico reale per ottimizzare in continuo; il 60% è un dato attuale.",
-      "Include guardrail, classificatore di intenti e svedese naturale con dialetti."
+      "Un orchestratore smista le richieste a quattro subagenti specializzati, incluso uno per il tracking.",
+      "Architettura con guardrail, classificatore di intenti e test A/B sul traffico reale.",
+      "Rollout in quattro fasi: test nel weekend, ibrido con operatore, parziale, produzione completa.",
+      "Il 60% è una misura attuale: la configurazione continua a essere ottimizzata."
      ],
-     "why": "È un caso concreto di architettura per agenti vocali, utile da citare quando proponi un agente telefonico a un cliente.",
+     "why": "È un caso reale di agente vocale con orchestratore e subagenti, utile come modello per proporre agenti vocali ai clienti e come esempio di rollout a fasi.",
      "badge": "ufficiale",
-     "badge_note": "Case study pubblicato sul blog ufficiale di ElevenLabs (dati forniti dall'azienda).",
-     "importance": 3,
+     "badge_note": "Caso cliente sul blog ufficiale di ElevenLabs; i risultati sono dichiarati dall'azienda stessa.",
+     "importance": 2,
      "primary_url": "https://elevenlabs.io/blog/postnord",
      "sources": [
       {
@@ -153,7 +190,39 @@
   {
    "id": "creators",
    "title": "Dai creator che seguo",
-   "items": []
+   "items": [
+    {
+     "id": "2026-11-16-09",
+     "subsection": "Nick Saraev",
+     "subsection_label": "Nick Saraev",
+     "title": "Nick Saraev: la domanda di competenze AI cresce, ecco i tool più richiesti",
+     "summary": "Nick Saraev sostiene che la domanda di AI su Indeed, Upwork e Fiverr è cresciuta negli ultimi 3-4 mesi e che molte piccole aziende non hanno chi modernizzi i loro sistemi. Il post promuove anche il suo programma Maker School.",
+     "key_points": [
+      "Tool citati nelle offerte di lavoro: Claude Code, n8n, GoHighLevel, HubSpot, Cal.com, Instantly, ClickUp, Pipedrive, QuickBooks, Zapier.",
+      "Cita Lovable: 400 milioni di dollari con 146 dipendenti (dato suo, non verificato).",
+      "Dice che servono 3-5 ore di risorse gratuite per partire."
+     ],
+     "why": "Ti dà una lista di tool da conoscere per proporre automazioni a clienti piccoli, tenendo presente che il post è anche pubblicità.",
+     "badge": "da_verificare",
+     "badge_note": "Una sola fonte non ufficiale (post LinkedIn di un creator che vende un corso); numeri e compensi non verificati.",
+     "importance": 3,
+     "primary_url": "https://www.linkedin.com/posts/nick-saraev_lovable-makes-400m-with-146-employees-thats-activity-7527754908045926400-jNeK",
+     "sources": [
+      {
+       "name": "LinkedIn · Nick Saraev",
+       "title": "Nick Saraev: Lovable makes $400M with 146 employees. That's ~$2.7M per employee. Gamma is at …",
+       "url": "https://www.linkedin.com/posts/nick-saraev_lovable-makes-400m-with-146-employees-thats-activity-7527754908045926400-jNeK",
+       "official": false,
+       "kind": "post",
+       "item_id": "403052ac57ec",
+       "meta": {
+        "creator": "Nick Saraev"
+       },
+       "link": "non_verificabile"
+      }
+     ]
+    }
+   ]
   },
   {
    "id": "github",
@@ -163,17 +232,17 @@
      "id": "2026-11-16-05",
      "subsection": "video",
      "subsection_label": "Video editing e caroselli",
-     "title": "ffmpeg-skill: un editor video locale per Claude Code, Cursor e Codex",
-     "summary": "Repo che dà agli agenti di coding 42 tool FFmpeg e un server MCP per editare video in locale: tagli, sottotitoli, reframe, loudness ed export per piattaforme. Nessun cloud e nessuna chiave API.",
+     "title": "ffmpeg-skill: 42 strumenti FFmpeg locali per far montare video a Claude Code",
+     "summary": "Repo che dà ad agenti come Claude Code, Cursor e Codex un editor video locale basato su FFmpeg, con server MCP. Taglia, aggiunge sottotitoli, ricentra i formati e esporta per le piattaforme, senza cloud né chiavi API.",
      "key_points": [
-      "Si avvia con npx ffmpeg-skill; licenza MIT, solo libreria standard Python.",
-      "Esempi: sottotitoli animati karaoke, reframe 16:9 → 9:16, rimozione silenzi.",
-      "Il README indica 331 stelle oggi su GitHub Trending.",
-      "Testato con FFmpeg 6.1, 7.1, 8 e 9."
+      "42 strumenti FFmpeg; si avvia con npx ffmpeg-skill.",
+      "Esempi: sottotitoli animati karaoke, riformattazione 16:9 in 9:16, rimozione silenzi, normalizzazione audio.",
+      "Dati GitHub: 6.206 stelle, creata il 2026-09-03, licenza MIT.",
+      "Funzioni dichiarate dagli autori, non ancora provate."
      ],
-     "why": "Puoi automatizzare montaggio e sottotitoli di Shorts e Reel per i clienti direttamente da Claude Code, senza costi cloud.",
+     "why": "Ti permette di automatizzare il montaggio di Reel, TikTok e Shorts per i clienti direttamente da Claude Code, a costo zero.",
      "badge": "dal_repo",
-     "badge_note": "Fonte unica non ufficiale (GitHub Trending, README del repo).",
+     "badge_note": "Stelle, date e licenza verificate su GitHub; le funzioni sono dichiarate dagli autori, non ancora provate.",
      "importance": 2,
      "primary_url": "https://github.com/kajisho5/ffmpeg-skill",
      "sources": [
@@ -184,7 +253,11 @@
        "official": false,
        "kind": "repo",
        "item_id": "0c9aa7780e0a",
-       "meta": {},
+       "meta": {
+        "stars": 6206,
+        "stars_verified": true,
+        "license": "MIT"
+       },
        "link": "ok"
       }
      ]
@@ -193,47 +266,51 @@
      "id": "2026-11-16-06",
      "subsection": "design_web",
      "subsection_label": "Design per siti e social",
-     "title": "Stitch Skills: skill di Google per progettare design con agenti di coding",
-     "summary": "Google Labs pubblica una libreria di Agent Skills per il server MCP di Google Stitch, compatibili con Claude Code, Cursor, Gemini CLI, Codex e altri. Seguono lo standard aperto Agent Skills.",
+     "title": "Google Labs pubblica stitch-skills: skill per usare Google Stitch con Claude Code",
+     "summary": "Raccolta di Agent Skills per il server MCP di Google Stitch, compatibile con Claude Code, Cursor, Gemini CLI, Codex e altri. Serve a far generare e costruire design da un agente di coding.",
      "key_points": [
-      "Plugin raggruppati in stitch-design, stitch-build e stitch-utilities.",
-      "Claude Code: npx plugins add google-labs-code/stitch-skills --scope project --target claude-code.",
-      "Serve completare il setup del server MCP di Stitch.",
-      "Il repo indica 247 stelle oggi su GitHub Trending."
+      "Per Claude Code: npx plugins add google-labs-code/stitch-skills --scope project --target claude-code.",
+      "Tre plugin: stitch-design, stitch-build, stitch-utilities.",
+      "Dati GitHub: 9.602 stelle, licenza Apache-2.0, ultimo aggiornamento 2026-08-17.",
+      "Richiede la configurazione del server MCP di Stitch."
      ],
-     "why": "Può accelerare la creazione di design e siti web per i clienti, partendo dal tuo flusso in Claude Code.",
-     "badge": "dal_repo",
-     "badge_note": "Fonte unica (GitHub Trending); il repo appartiene a google-labs-code ma non è tra i domini ufficiali configurati.",
+     "why": "Può accelerare la creazione di design per siti web dei clienti, restando nel flusso di Claude Code.",
+     "badge": "ufficiale",
+     "badge_note": "Repo nell'organizzazione google-labs-code; stelle e licenza verificate su GitHub, funzioni non provate.",
      "importance": 2,
      "primary_url": "https://github.com/google-labs-code/stitch-skills",
      "sources": [
       {
-       "name": "GitHub Trending",
+       "name": "github.com (via GitHub Trending)",
        "title": "google-labs-code/stitch-skills",
        "url": "https://github.com/google-labs-code/stitch-skills",
-       "official": false,
+       "official": true,
        "kind": "repo",
        "item_id": "7e24061ab465",
-       "meta": {},
+       "meta": {
+        "stars": 9602,
+        "stars_verified": true,
+        "license": "Apache-2.0"
+       },
        "link": "ok"
       }
      ]
     },
     {
-     "id": "2026-11-16-09",
+     "id": "2026-11-16-10",
      "subsection": "claude",
      "subsection_label": "Skill e tool per Claude",
-     "title": "turbo-browser-mcp: server Playwright MCP che riduce turni e token",
-     "summary": "Server MCP per l'automazione del browser basato su Playwright, con 11 tool che fanno più azioni per chiamata. Punta a ridurre turni del modello e token.",
+     "title": "turbo-browser-mcp: server MCP Playwright che riduce turni e token",
+     "summary": "Server MCP per automazione del browser, basato su Playwright, pensato per ridurre i turni dell'agente e i token usati. Compila un intero form in una sola chiamata.",
      "key_points": [
-      "Include smart_fill_form, inspect_compact e batch_actions.",
-      "Installazione: claude mcp add turbo-browser -- npx -y turbo-browser-mcp.",
-      "Pulsanti tipo Invia o Paga bloccati di default; serve Node 20+.",
-      "Il repo indica 122 stelle."
+      "11 strumenti, tra cui smart_fill_form, inspect_compact e batch_actions.",
+      "Installazione in Claude Code: claude mcp add turbo-browser -- npx -y turbo-browser-mcp.",
+      "I pulsanti finali (Invia, Paga, Conferma) sono bloccati di default.",
+      "Dati GitHub: 123 stelle, creata il 2026-11-14, licenza MIT."
      ],
-     "why": "Utile per automatizzare compilazione di form e flussi web per un cliente, con meno consumo di token in Claude Code.",
+     "why": "Utile per automatizzare compilazioni e verifiche sui siti dei clienti con meno consumo di token, ma il progetto è nuovissimo.",
      "badge": "dal_repo",
-     "badge_note": "Fonte unica non ufficiale (README su GitHub); i benchmark non sono stati verificati.",
+     "badge_note": "Dati GitHub verificati; i benefici su turni e token sono dichiarati dall'autore, non provati.",
      "importance": 3,
      "primary_url": "https://github.com/Tthanh2k6/turbo-browser-mcp",
      "sources": [
@@ -245,8 +322,40 @@
        "kind": "repo",
        "item_id": "5b9c260a87a0",
        "meta": {
-        "stars": 122
+        "stars": 123,
+        "stars_verified": true,
+        "license": "MIT"
        },
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-16-11",
+     "subsection": "curatori",
+     "subsection_label": "Dai curatori (Hacker News, Simon Willison)",
+     "title": "Datasette 1.0a43: Simon Willison usa Claude Fable 5.2 e aggiunge view transitions CSS",
+     "summary": "Simon Willison rilascia datasette 1.0a43, con streaming per i renderer di output e correzioni di sicurezza. Dice di appoggiarsi molto a Claude Fable 5.2 per completare la milestone 1.0, ora al 53%.",
+     "key_points": [
+      "Novità: Response.stream() per esportare CSV e TSV in streaming.",
+      "Corretta una falla: query salvate private potevano esporre titolo e SQL.",
+      "View transitions CSS multi-pagina: funzionano su Safari e Chrome.",
+      "Firefox le supporterebbe dalla versione 162, l'8 dicembre 2026."
+     ],
+     "why": "Le view transitions CSS sono un trucco semplice per far sembrare più fluido un sito multi-pagina di un cliente.",
+     "badge": "da_verificare",
+     "badge_note": "Fonte unica (blog di Simon Willison, curatore), che è anche l'autore del software; l'uso di Fable è sua dichiarazione.",
+     "importance": 3,
+     "primary_url": "https://simonwillison.net/2026/Nov/15/datasette/",
+     "sources": [
+      {
+       "name": "Simon Willison",
+       "title": "datasette 1.0a43",
+       "url": "https://simonwillison.net/2026/Nov/15/datasette/",
+       "official": false,
+       "kind": "article",
+       "item_id": "67eb98ac1cd8",
+       "meta": {},
        "link": "ok"
       }
      ]
@@ -258,22 +367,22 @@
    "title": "Da provare: repo, skill e tool virali (idee per gli Shorts)",
    "items": [
     {
-     "id": "2026-11-16-02",
+     "id": "2026-11-16-07",
      "subsection": "skill",
      "subsection_label": "Skill e plugin per Claude",
-     "title": "last30days-skill: ricerca su Reddit, X, YouTube, HN e web in un comando",
-     "summary": "Skill per agenti AI che cerca un argomento su Reddit, X, YouTube, HN, Polymarket e web, poi li sintetizza in un riassunto. Si installa in Claude Code con due comandi e parte con /last30days seguito dal tema.",
+     "title": "last30days: skill che ricerca un argomento su Reddit, X, YouTube e altro",
+     "summary": "Skill per agenti AI che cerca un tema su Reddit, X, YouTube, HN, Polymarket e web, poi produce una sintesi basata su ciò che la gente davvero segue. Funziona subito, senza configurazione, su Reddit, HN, Polymarket e GitHub.",
      "key_points": [
-      "Cosa fa: cerca in parallelo su più piattaforme e le ordina per upvote, like e engagement.",
+      "Cosa fa: ricerca in parallelo su più piattaforme e sintetizza un brief.",
       "Come si prova: in Claude Code /plugin marketplace add mvanhorn/last30days-skill, poi /plugin install last30days.",
-      "Costo: non indicato; Reddit, HN, Polymarket e GitHub funzionano subito senza configurazione.",
-      "Per sbloccare X, YouTube, TikTok e altri serve il wizard di setup, con chiavi o sessioni proprie."
+      "Uso: /last30days seguito dall'argomento o dalla persona.",
+      "Dati GitHub: 67.863 stelle, licenza MIT; X, YouTube e TikTok richiedono il wizard di setup."
      ],
-     "why": "Piacerà a chi segue l'AI per fare ricerche su trend e concorrenti, e ti serve per preparare contenuti o analisi per un cliente.",
+     "why": "Perfetto per preparare idee di contenuto o ricerche su un cliente e un settore, e per uno Short sul tema \"ricerca che batte Google\".",
      "badge": "dal_repo",
-     "badge_note": "Fonte unica non ufficiale (GitHub Trending, README del repo): 122 stelle nel giorno.",
-     "importance": 1,
-     "short_hook": "Questa skill ricerca qualsiasi cosa su Reddit, X e YouTube. In un comando.",
+     "badge_note": "Stelle e licenza verificate su GitHub; le funzioni sono dichiarate dagli autori, non ancora provate.",
+     "importance": 2,
+     "short_hook": "Questa skill cerca su Reddit, X e YouTube per te. Gratis.",
      "primary_url": "https://github.com/mvanhorn/last30days-skill",
      "sources": [
       {
@@ -283,28 +392,32 @@
        "official": false,
        "kind": "repo",
        "item_id": "ce334b6655c3",
-       "meta": {},
+       "meta": {
+        "stars": 67863,
+        "stars_verified": true,
+        "license": "MIT"
+       },
        "link": "ok"
       }
      ]
     },
     {
-     "id": "2026-11-16-07",
+     "id": "2026-11-16-08",
      "subsection": "repo",
      "subsection_label": "Repo GitHub",
-     "title": "OpenMAIC: classi interattive con insegnanti AI da un argomento o documento",
-     "summary": "Trasforma un argomento o un documento in una classe interattiva con slide, quiz e simulazioni, con insegnanti e compagni AI che parlano e disegnano alla lavagna. Esporta in PPTX o HTML.",
+     "title": "OpenMAIC: trasforma un argomento in una classe interattiva con insegnanti AI",
+     "summary": "Strumento open source che trasforma un argomento o un documento in una classe interattiva con slide, quiz e simulazioni. Insegnanti e compagni AI parlano e disegnano alla lavagna.",
      "key_points": [
       "Cosa fa: slide, quiz e simulazioni; esporta in PPTX o HTML.",
-      "Come si prova: demo su open.maic.chat; in locale git clone, pnpm install, .env.local con chiave API, pnpm db:up, pnpm dev, localhost:3000.",
-      "Costo: gratis (MIT); in locale servono chiavi API di un provider AI, a pagamento.",
-      "Dalla ricerca web: circa 43,7k stelle; data di uscita non verificata."
+      "Come si prova: demo online su open.maic.chat; in locale git clone, pnpm install, .env.local, pnpm db:up, pnpm dev.",
+      "Costo: gratis (MIT), ma in locale servono chiavi API di un provider AI a pagamento.",
+      "Dati GitHub: 43.720 stelle, creata il 2026-03-11."
      ],
-     "why": "Piacerà a chi si occupa di formazione: lo usi per creare corsi o materiali per clienti professionisti.",
+     "why": "Piacerà a chi segue corsi e formazione: lo usi per creare materiali didattici o mini-corsi per clienti professionisti.",
      "badge": "dal_repo",
-     "badge_note": "Fonte unica non ufficiale (ricerca web); stelle e popolarità citate da un roundup, da verificare.",
+     "badge_note": "Stelle e licenza verificate su GitHub; la crescita citata viene da un roundup web secondario, non verificato.",
      "importance": 2,
-     "short_hook": "Questa repo trasforma un documento in una classe con insegnanti AI.",
+     "short_hook": "Questo strumento trasforma qualsiasi argomento in una classe interattiva.",
      "primary_url": "https://github.com/THU-MAIC/OpenMAIC",
      "sources": [
       {
@@ -314,7 +427,46 @@
        "official": false,
        "kind": "repo",
        "item_id": "c1cef8ac9ff4",
-       "meta": {},
+       "meta": {
+        "stars": 43720,
+        "stars_verified": true,
+        "license": "MIT"
+       },
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-16-12",
+     "subsection": "app",
+     "subsection_label": "App e tool AI",
+     "title": "Orkas: app desktop che divide un obiettivo tra 16 agenti, Claude Code e Codex",
+     "summary": "App desktop locale in cui descrivi un obiettivo e un coordinatore lo divide in compiti. Li affida a 16 agenti specializzati o a Claude Code e Codex.",
+     "key_points": [
+      "Cosa fa: coordinatore che scompone l'obiettivo e distribuisce i compiti.",
+      "Come si prova: scarica l'app per macOS 12+ o Windows 10+ e accedi al primo avvio.",
+      "Costo: freemium, 500 crediti inclusi senza chiave API; piani da 11,99 $/mese.",
+      "Dati GitHub: 9.399 stelle, licenza MIT; la crescita citata viene da un roundup secondario."
+     ],
+     "why": "Piacerà a chi vuole delegare lavori complessi all'AI senza usare il terminale; prova se può organizzare i progetti dei clienti.",
+     "badge": "dal_repo",
+     "badge_note": "Stelle e licenza verificate su GitHub; funzioni e crescita provengono dalla ricerca web e dagli autori, non provate.",
+     "importance": 3,
+     "short_hook": "Descrivi un obiettivo e 16 agenti AI lo risolvono. Si parte gratis.",
+     "primary_url": "https://github.com/Orkas-AI/Orkas",
+     "sources": [
+      {
+       "name": "Ricerca web",
+       "title": "Orkas",
+       "url": "https://github.com/Orkas-AI/Orkas",
+       "official": false,
+       "kind": "repo",
+       "item_id": "9dd592cb493d",
+       "meta": {
+        "stars": 9399,
+        "stars_verified": true,
+        "license": "MIT"
+       },
        "link": "ok"
       }
      ]
@@ -324,11 +476,9 @@
  ],
  "stats": {
   "collected": 31,
-  "stories": 9,
-  "discarded": 21,
-  "dropped_broken_links": [
-   "ByteVoice: parlare con gli agenti di coding e sentirli rispondere"
-  ],
+  "stories": 12,
+  "discarded": 19,
+  "dropped_broken_links": [],
   "source_errors": [
    {
     "source": "reddit-claudeai",
@@ -341,22 +491,43 @@
   ],
   "window_hours": 27,
   "model": "sonnet",
+  "checks": {
+   "links_tested": 12,
+   "links_ok": 11,
+   "links_unverifiable": 1,
+   "repos_verified": 6,
+   "badges": {
+    "ufficiale": 3,
+    "da_verificare": 4,
+    "dal_repo": 5
+   },
+   "write_attempts": 1
+  },
   "claude": {
    "selezione": {
-    "secs": 5.8,
+    "secs": 23.0,
     "turns": 2,
-    "input_tokens": 11402,
-    "cache_read_tokens": 0,
-    "output_tokens": 760,
-    "equivalent_api_usd": 0.053204
+    "input_tokens": 11129,
+    "cache_read_tokens": 703,
+    "output_tokens": 912,
+    "equivalent_api_usd": 0.0537023
    },
    "scrittura": {
-    "secs": 27.0,
+    "secs": 55.1,
     "turns": 2,
-    "input_tokens": 16539,
+    "input_tokens": 19545,
     "cache_read_tokens": 0,
-    "output_tokens": 4077,
-    "equivalent_api_usd": 0.10692199999999999
+    "output_tokens": 5245,
+    "equivalent_api_usd": 0.130626,
+    "attempts": 1
+   },
+   "scelte": {
+    "secs": 37.6,
+    "turns": 6,
+    "input_tokens": 16170,
+    "cache_read_tokens": 57405,
+    "output_tokens": 4616,
+    "equivalent_api_usd": 0.1165605
    }
   }
  }

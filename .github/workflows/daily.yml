@@ -40,6 +40,10 @@ on:
         description: "Rifai il report anche se quello di oggi esiste già"
         type: boolean
         default: false
+      prova:
+        description: "Solo prova: raccoglie e scrive il report ma NON invia e NON salva nulla"
+        type: boolean
+        default: false
 
 permissions:
   contents: write      # per salvare report e memoria nel repo
@@ -60,7 +64,7 @@ jobs:
       - name: Il report di oggi c'è già?
         id: today
         env:
-          FORZA: ${{ inputs.forza == true }}
+          FORZA: ${{ inputs.forza == true || inputs.prova == true }}
         run: |
           echo "Avviato da: ${GITHUB_EVENT_NAME} (${GITHUB_REF_NAME}) alle $(date -u +%H:%M) UTC"
           # Finestra utile per gli avvii automatici: 03:45-20:00 UTC (dalle 04:45 italiane).
@@ -105,7 +109,22 @@ jobs:
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
           REPORT_TO: ${{ secrets.REPORT_TO }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: uv run digest daily ${{ inputs.no_send && '--no-send' || '' }}
+        run: |
+          if [ "${{ inputs.prova == true }}" = "true" ]; then
+            # prova: la memoria non viene toccata e niente viene inviato o salvato nel repo
+            uv run digest collect --dry-run --hours 30
+            uv run digest build
+          else
+            uv run digest daily ${{ inputs.no_send && '--no-send' || '' }}
+          fi
+
+      - name: Report di prova (scaricabile da questa pagina)
+        if: inputs.prova == true
+        uses: actions/upload-artifact@v4
+        with:
+          name: report-di-prova-${{ github.run_id }}
+          path: reports/
+          retention-days: 3
 
       - name: Conserva i dati grezzi (7 giorni, per capire eventuali problemi)
         if: always() && steps.today.outputs.skip == 'false'
@@ -117,7 +136,7 @@ jobs:
           if-no-files-found: ignore
 
       - name: Salva report e memoria nel repo
-        if: steps.today.outputs.skip == 'false'
+        if: steps.today.outputs.skip == 'false' && inputs.prova != true
         run: |
           git config user.name "report-ai-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"

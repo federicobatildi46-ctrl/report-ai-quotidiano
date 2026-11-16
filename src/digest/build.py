@@ -25,7 +25,13 @@ from digest.web import make_client, to_json
 
 RAW_DIR = DATA_DIR / "raw"
 BADGES = ["ufficiale", "confermata", "da_verificare", "smentita"]
-UNVERIFIABLE_HOSTS = ("linkedin.com", "reddit.com", "x.com", "twitter.com")  # bloccano i bot
+# siti che rifiutano i robot: il link funziona nel browser ma non si può testare da qui
+UNVERIFIABLE_HOSTS = ("linkedin.com", "reddit.com", "x.com", "twitter.com", "producthunt.com")
+WRITE_ATTEMPTS = 3          # la scrittura viene controllata e, se incompleta, rifatta
+
+
+class BuildError(RuntimeError):
+    """Il report non ha superato i controlli di qualità: meglio non inviarlo e riprovare."""
 SYSTEM = ("Sei il redattore di un report di notizie AI personale, in italiano. Rispondi solo con "
           "dati conformi allo schema JSON richiesto. Non inventare nulla che non sia nelle fonti.")
 
@@ -62,13 +68,29 @@ def _sections_text(topics: dict) -> str:
 def _is_official_url(url: str, domains: list[str]) -> bool:
     p = urlparse(url)
     host = p.netloc.lower().removeprefix("www.")
+    path = p.path.lower().strip("/").split("/")
     for d in domains:
+        d = d.lower()
         if "/" in d:
-            if f"{host}{p.path}".startswith(d):
+            d_host, *d_path = d.strip("/").split("/")
+            if host == d_host and path[:len(d_path)] == d_path:
                 return True
         elif host == d or host.endswith("." + d):
             return True
     return False
+
+
+def publisher(src: dict) -> str:
+    """Chi parla davvero: due contenuti dello stesso creator (YouTube + LinkedIn) o dello stesso
+    sito NON sono due fonti indipendenti."""
+    creator = (src.get("meta") or {}).get("creator")
+    if creator:
+        return f"creator:{creator.lower()}"
+    u = urlparse(src["url"])
+    host = u.netloc.lower().removeprefix("www.")
+    if host == "github.com":
+        return "github.com/" + u.path.strip("/").split("/")[0].lower()
+    return ".".join(host.split(".")[-2:])
 
 
 def prepare(items: list[dict]) -> None:
@@ -98,6 +120,52 @@ def _meta_line(it: dict) -> str:
     if it["kind"] in ("video", "short") and m.get("duration"):
         bits.append(f"durata={m['duration']}s")
     return " ".join(bits)
+
+
+# ---------- dati verificati su GitHub ----------
+
+REPO_RE = __import__("re").compile(r"^https://github\.com/([^/]+/[^/#?]+?)(?:\.git)?/?(?:[#?].*)?$")
+
+
+async def repo_facts(urls: list[str]) -> dict[str, dict]:
+    """url → dati letti ORA dall'API di GitHub (stelle, date, licenza). Sono fatti verificati:
+    sostituiscono i numeri di popolarità riportati da creator, aggregatori o ricerca web."""
+    from digest.collectors.github import github_token
+
+    headers = {"Accept": "application/vnd.github+json"}
+    if token := github_token():
+        headers["Authorization"] = f"Bearer {token}"
+
+    async def one(client, url):
+        m = REPO_RE.match(url)
+        if not m:
+            return url, None
+        try:
+            r = await client.get(f"https://api.github.com/repos/{m.group(1)}", headers=headers)
+            if r.status_code != 200:
+                return url, None
+            d = r.json()
+            return url, {"stars": d.get("stargazers_count"), "created": (d.get("created_at") or "")[:10],
+                         "pushed": (d.get("pushed_at") or "")[:10],
+                         "license": (d.get("license") or {}).get("spdx_id") or "",
+                         "archived": bool(d.get("archived")), "owner": d["owner"]["login"],
+                         "owner_type": d["owner"].get("type", "")}
+        except (httpx.HTTPError, KeyError, ValueError):
+            return url, None
+
+    async with make_client() as client:
+        found = await asyncio.gather(*(one(client, u) for u in dict.fromkeys(urls)))
+    return {u: f for u, f in found if f}
+
+
+def _facts_line(f: dict) -> str:
+    bits = [f"{f['stars']:,} stelle".replace(",", "."), f"creata il {f['created']}",
+            f"ultimo aggiornamento {f['pushed']}"]
+    if f["license"] and f["license"] != "NOASSERTION":
+        bits.append(f"licenza {f['license']}")
+    if f["archived"]:
+        bits.append("ARCHIVIATA (non più mantenuta)")
+    return "DATI VERIFICATI SU GITHUB ORA: " + " · ".join(bits)
 
 
 # ---------- 1. selezione ----------
@@ -183,7 +251,9 @@ def write_schema(n: int) -> dict:
     }
 
 
-def write(stories: list[dict], by_id: dict, topics: dict, date: str, model: str) -> tuple[dict, dict]:
+def write(stories: list[dict], by_id: dict, topics: dict, date: str, model: str,
+          facts: dict[str, dict] | None = None) -> tuple[dict, dict]:
+    facts = facts or {}
     blocks = []
     for n, st in enumerate(stories, 1):
         parts = [f"### Storia {n} — sezione `{st['section']}`, sottosezione proposta "
@@ -192,8 +262,10 @@ def write(stories: list[dict], by_id: dict, topics: dict, date: str, model: str)
             it = by_id[iid]
             limit = TRANSCRIPT_CHARS if it["kind"] in ("video", "short") else CONTENT_CHARS
             meta = _meta_line(it)
+            verified = f"\n{_facts_line(facts[it['url']])}" if it["url"] in facts else ""
             parts.append(f"FONTE: {it['label']} · {it['kind']} · official={it['official']} · "
-                         f"{(it['published'] or '')[:10]}{' · ' + meta if meta else ''}\n"
+                         f"autore={publisher(it)} · "
+                         f"{(it['published'] or '')[:10]}{' · ' + meta if meta else ''}{verified}\n"
                          f"TITOLO: {it['title']}\nCONTENUTO: {(it['content'] or it['summary'])[:limit]}")
         blocks.append("\n\n".join(parts))
     prompt = _fill((PROMPTS_DIR / "digest.md").read_text(encoding="utf-8"),
@@ -201,19 +273,51 @@ def write(stories: list[dict], by_id: dict, topics: dict, date: str, model: str)
     return run_claude(prompt, write_schema(len(stories)), system=SYSTEM, model=model)
 
 
+def written_problems(written: dict, n_stories: int) -> list[str]:
+    """Controllo di qualità sulla scrittura: testi veri per (quasi) tutte le storie selezionate."""
+    problems = []
+    good = [w for w in written.get("stories", [])
+            if 1 <= w.get("story", 0) <= n_stories and len(w.get("title", "")) >= 12
+            and len(w.get("summary", "")) >= 40 and len(w.get("why", "")) >= 15]
+    covered = len({w["story"] for w in good})
+    if covered < max(1, round(n_stories * 0.8)):
+        problems.append(f"scritte {covered} storie su {n_stories}")
+    text = " ".join([*written.get("in_breve", []), *(w.get("title", "") + w.get("summary", "") for w in good)])
+    if any(x in text.lower() for x in ("placeholder", "lorem ipsum", "todo")):
+        problems.append("testo segnaposto nella risposta")
+    if n_stories and not [x for x in written.get("in_breve", []) if len(x) >= 20]:
+        problems.append("'In breve' mancante")
+    return problems
+
+
+def write_checked(stories, by_id, topics, date, model, facts) -> tuple[dict, dict]:
+    """Scrive e controlla; se la risposta è incompleta la rifà. Dopo 3 tentativi si ferma:
+    un report vuoto o a metà non deve mai partire (il 15/11/2026 era successo)."""
+    last = []
+    for attempt in range(1, WRITE_ATTEMPTS + 1):
+        written, stats = write(stories, by_id, topics, date, model, facts)
+        last = written_problems(written, len(stories))
+        if not last:
+            stats["attempts"] = attempt
+            return written, stats
+        print(f"Scrittura da rifare (tentativo {attempt}/{WRITE_ATTEMPTS}): {'; '.join(last)}")
+    raise BuildError("scrittura del report non riuscita: " + "; ".join(last))
+
+
 # ---------- 3. controlli ----------
 
 def fix_badge(badge: str, sources: list[dict]) -> str:
     """Il badge deve essere coerente con le fonti reali, qualunque cosa abbia scritto Claude."""
     official = any(s["official"] for s in sources)
-    independent = len({s["name"] for s in sources})
-    if all(s["kind"] == "repo" for s in sources) and badge != "confermata":
+    independent = len({publisher(s) for s in sources})
+    if badge == "smentita":
+        return badge if official else "da_verificare"   # per smentire serve una fonte ufficiale
+    if official:
+        # il redattore può dire che la fonte ufficiale NON conferma l'affermazione: resta il dubbio
+        return "da_verificare" if badge == "da_verificare" else "ufficiale"
+    if all(s["kind"] == "repo" for s in sources):
         return "dal_repo"   # descrizione del progetto stesso: affidabile su cosa fa, non ancora provato
-    if badge == "ufficiale" and not official:
-        return "confermata" if independent >= 2 else "da_verificare"
-    if badge == "confermata" and independent < 2 and not official:
-        return "da_verificare"
-    return badge
+    return "confermata" if independent >= 2 else "da_verificare"
 
 
 async def check_links(urls: list[str]) -> dict[str, str]:
@@ -262,7 +366,16 @@ def build(input_path: Path | None = None, model: str | None = None) -> tuple[Pat
     date = raw["generated_at"][:10]
 
     stories, triage_stats = triage(items, topics, date, model) if items else ([], {})
-    written, write_stats = write(stories, by_id, topics, date, model) if stories else ({"in_breve": [], "stories": []}, {})
+    if not stories and len(items) >= 12:   # zero storie con tanto materiale: probabile risposta a vuoto
+        print("Selezione vuota con molto materiale: la rifaccio una volta")
+        stories, triage_stats = triage(items, topics, date, model)
+    facts = asyncio.run(repo_facts([by_id[i]["url"] for st in stories for i in st["item_ids"]]))
+    # repo archiviate: non si propongono come novità
+    for st in stories:
+        st["item_ids"] = [i for i in st["item_ids"] if not facts.get(by_id[i]["url"], {}).get("archived")]
+    stories = [st for st in stories if st["item_ids"]]
+    written, write_stats = (write_checked(stories, by_id, topics, date, model, facts)
+                            if stories else ({"in_breve": [], "stories": []}, {}))
 
     # fonti reali per ogni storia (prima le ufficiali, senza link doppi), poi verifica dei link
     for st in stories:
@@ -274,8 +387,10 @@ def build(input_path: Path | None = None, model: str | None = None) -> tuple[Pat
         srcs.sort(key=lambda s: not s["official"])
         st["sources"] = [{"name": s["label"], "title": s["title"], "url": s["url"],
                           "official": s["official"], "kind": s["kind"], "item_id": s["id"],
-                          "meta": {k: v for k, v in (s.get("meta") or {}).items()
-                                   if k in ("creator", "stars", "points", "comments", "duration")}}
+                          "meta": {**{k: v for k, v in (s.get("meta") or {}).items()
+                                      if k in ("creator", "stars", "points", "comments", "duration")},
+                                   **({"stars": facts[s["url"]]["stars"], "stars_verified": True,
+                                       "license": facts[s["url"]]["license"]} if s["url"] in facts else {})}}
                          for s in srcs]
     links = asyncio.run(check_links([s["url"] for st in stories for s in st["sources"]]))
 
@@ -311,14 +426,22 @@ def build(input_path: Path | None = None, model: str | None = None) -> tuple[Pat
     for sec in sections.values():
         sec["items"].sort(key=lambda i: i["importance"])
 
+    from digest.picks import choose_picks
+    picks, picks_stats = choose_picks(list(sections.values()), topics, model)
+
+    all_items = [i for sec in sections.values() for i in sec["items"]]
+    badges: dict[str, int] = {}
+    for i in all_items:
+        badges[i["badge"]] = badges.get(i["badge"], 0) + 1
     words = sum(len(" ".join([i["title"], i["summary"], i["why"], *i["key_points"]]).split())
-                for sec in sections.values() for i in sec["items"])
+                for i in all_items)
     report = {
         "title": topics["report"]["title"],
         "date": date,
         "generated_at": datetime.now(UTC).isoformat(),
         "reading_minutes": max(1, round(words / 200)),
         "in_breve": written["in_breve"][:3],
+        "picks": picks,
         "sections": list(sections.values()),
         "stats": {
             "collected": len(items),
@@ -328,7 +451,11 @@ def build(input_path: Path | None = None, model: str | None = None) -> tuple[Pat
             "source_errors": [s for s in raw.get("stats", []) if s.get("error")],
             "window_hours": raw.get("lookback_hours"),
             "model": model,
-            "claude": {"selezione": triage_stats, "scrittura": write_stats},
+            "checks": {"links_tested": len(links), "links_ok": sum(v == "ok" for v in links.values()),
+                       "links_unverifiable": sum(v == "non_verificabile" for v in links.values()),
+                       "repos_verified": len(facts), "badges": badges,
+                       "write_attempts": write_stats.get("attempts", 0)},
+            "claude": {"selezione": triage_stats, "scrittura": write_stats, "scelte": picks_stats},
         },
     }
     REPORTS_DIR.mkdir(parents=True, exist_ok=True)
@@ -350,7 +477,7 @@ def write_html(json_path: Path) -> Path:
 
 BADGE_LABEL = {"ufficiale": "✅ Ufficiale", "confermata": "🔁 Confermata",
                "da_verificare": "⚠️ Da verificare", "smentita": "❌ Smentita",
-               "dal_repo": "📦 Dal README"}
+               "dal_repo": "📦 Dal progetto"}
 
 
 def to_markdown(r: dict) -> str:
@@ -360,6 +487,12 @@ def to_markdown(r: dict) -> str:
            f"{r['stats']['collected']} elementi raccolti, {r['stats']['discarded']} scartati come rumore*", ""]
     if r["in_breve"]:
         out += ["## In breve", ""] + [f"- {x}" for x in r["in_breve"]] + [""]
+    titles = {i["id"]: i["title"] for sec in r["sections"] for i in sec["items"]}
+    for key, label in (("linkedin", "Post LinkedIn del giorno"), ("short", "Short del giorno")):
+        pk = (r.get("picks") or {}).get(key)
+        if pk:
+            out += [f"## {label}", "", f"**{titles.get(pk['item_id'], '')}**", "",
+                    f"«{pk['hook']}»", "", pk["why"], ""]
     for sec in r["sections"]:
         out += [f"## {sec['title']}", ""]
         if not sec["items"]:

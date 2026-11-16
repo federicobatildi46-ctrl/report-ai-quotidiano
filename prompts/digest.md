@@ -18,7 +18,8 @@ chiari, pragmatici, senza hype.
   usarla per un cliente dell'agenzia, farci un contenuto). Niente frasi generiche.
 - **badge** (fact check), seguendo queste regole alla lettera:
   - `ufficiale` — almeno una fonte è ufficiale (campo official = true) e conferma il fatto
-  - `confermata` — nessuna fonte ufficiale, ma ≥2 fonti indipendenti concordano
+  - `confermata` — nessuna fonte ufficiale, ma ≥2 fonti indipendenti concordano. Indipendenti
+    = `autore` diverso: un video e un post dello stesso creator contano come UNA fonte
   - `da_verificare` — una sola fonte non ufficiale (es. un creator): dillo nel summary
   - `smentita` — una fonte ufficiale contraddice quanto affermato da un'altra fonte
 - **badge_note**: una riga che spiega il badge (es. "Annuncio sul sito Anthropic, confermato da
@@ -40,6 +41,11 @@ Queste storie diventano YouTube Shorts per un pubblico non tecnico. Quindi:
 **in_breve**: le 3 cose più importanti di oggi, una frase ciascuna (max 25 parole).
 
 ## Regole di verità
+- Se una fonte ha la riga **DATI VERIFICATI SU GITHUB ORA**, per stelle, date e licenza usa SOLO
+  quei dati (sono letti adesso da GitHub). Ignora i numeri di popolarità riportati da creator,
+  aggregatori o ricerca web quando non coincidono, e non scrivere "da verificare" su quei dati.
+- Nel `badge_note` scrivi cosa è verificato e cosa no in parole semplici (es. "Stelle e licenza
+  verificate su GitHub; le funzioni sono dichiarate dagli autori, non ancora provate").
 - Usa SOLO informazioni presenti nel contenuto delle fonti. Non aggiungere fatti, numeri, date o
   funzioni che non ci sono. Se un dettaglio manca, non inventarlo.
 - I creator possono esagerare: separa il fatto (verificabile) dall'opinione ("secondo Nick…").

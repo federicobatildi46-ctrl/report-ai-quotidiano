@@ -65,6 +65,7 @@ async def lifespan(_app):
 
 app = FastAPI(title="Report AI", lifespan=lifespan)
 app.mount("/static", StaticFiles(directory=WEB_DIR), name="static")
+app.mount("/fonts", StaticFiles(directory=ROOT / "assets" / "fonts"), name="fonts")   # Anton e Inter, come nei caroselli
 images.IMAGES_DIR.mkdir(parents=True, exist_ok=True)
 app.mount("/immagini", StaticFiles(directory=images.IMAGES_DIR), name="immagini")
 carousel.CAROUSEL_DIR.mkdir(parents=True, exist_ok=True)
@@ -73,7 +74,12 @@ app.mount("/caroselli", StaticFiles(directory=carousel.CAROUSEL_DIR), name="caro
 
 @app.get("/")
 def index():
-    return FileResponse(WEB_DIR / "index.html")
+    # ?v=<ultima modifica>: dopo un aggiornamento il browser non usa mai CSS o JS vecchi
+    html = (WEB_DIR / "index.html").read_text(encoding="utf-8")
+    for name in ("app.css", "app.js"):
+        v = int((WEB_DIR / name).stat().st_mtime)
+        html = html.replace(f"/static/{name}", f"/static/{name}?v={v}")
+    return HTMLResponse(html, headers={"Cache-Control": "no-store"})
 
 
 @app.get("/api/reports")

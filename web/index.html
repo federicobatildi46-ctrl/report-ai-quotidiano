@@ -10,7 +10,8 @@
 </head>
 <body>
 <aside class="sidebar">
-  <div class="brand">Report AI</div>
+  <div class="brand"><span class="logo">F</span>Report AI</div>
+  <div class="eyebrow side-label">Archivio</div>
   <nav id="archive" aria-label="Archivio dei report"></nav>
   <div class="li-box">
     <div class="eyebrow">LinkedIn</div>
@@ -24,7 +25,12 @@
   </div>
 </aside>
 
-<main id="report" aria-live="polite"><p class="muted">Caricamento…</p></main>
+<main>
+  <div id="today-banner" class="banner" hidden></div>
+  <div id="report" aria-live="polite"><p class="muted">Caricamento…</p></div>
+</main>
+
+<div id="scrim" class="scrim" hidden></div>
 
 <aside id="drawer" class="drawer" hidden>
   <header class="drawer-head">
@@ -36,7 +42,7 @@
   </header>
   <div class="drawer-actions">
     <button id="drawer-copy">Copia</button>
-    <button id="drawer-regen" class="secondary">Rigenera</button>
+    <button id="drawer-regen" class="secondary">🔄 Rigenera</button>
     <button id="drawer-edit" hidden>✏️ Modifica testo</button>
     <button id="drawer-chat" hidden>💬 Chiedi alla lezione</button>
     <button id="drawer-publish" hidden>🚀 Pubblica / Programma</button>
@@ -126,6 +132,7 @@
   </form>
 </dialog>
 
+<div id="toast" role="status" aria-live="polite"></div>
 <script src="/static/app.js"></script>
 </body>
 </html>

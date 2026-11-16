@@ -32,12 +32,20 @@ labels:
   web-virali: Ricerca web
   producthunt-ai: Product Hunt
   hn-show: Show HN
-  reddit-claudeai: Reddit r/ClaudeAI
 
 # Un link che punta a questi domini conta come fonte ufficiale anche se arriva da un curatore
 # (es. un post di Hacker News che rimanda a claude.com).
-official_domains: [anthropic.com, claude.com, claude.dev, claude.ai, github.com/anthropics,
-                   higgsfield.ai, elevenlabs.io]
+# Per GitHub conta il proprietario esatto del repo: una repo pubblicata dall'azienda stessa
+# (es. github.com/google/...) è la fonte ufficiale di quel progetto.
+official_domains: [anthropic.com, claude.com, claude.dev, claude.ai, higgsfield.ai, elevenlabs.io,
+                   github.com/anthropics, github.com/modelcontextprotocol,
+                   github.com/elevenlabs, github.com/higgsfield-ai,
+                   github.com/google, github.com/google-labs-code, github.com/googlechrome,
+                   github.com/chromedevtools, github.com/google-gemini, github.com/microsoft,
+                   github.com/openai, github.com/cloudflare, github.com/vercel,
+                   github.com/vercel-labs, github.com/huggingface, github.com/github,
+                   github.com/n8n-io, github.com/supabase, github.com/stripe, github.com/figma,
+                   github.com/aws, github.com/awslabs, github.com/nvidia, github.com/meta-llama]
 
 claude:
   - id: claude-code-releases
@@ -238,13 +246,6 @@ virali:
     type: hackernews       # progetti presentati dagli autori su Hacker News
     tags: show_hn
     min_points: 80
-    subsection: auto
-    max_items: 8
-  - id: reddit-claudeai
-    name: Reddit r/ClaudeAI — top del giorno
-    type: rss
-    url: https://www.reddit.com/r/ClaudeAI/top/.rss?t=day
-    fetch_full: false      # reddit blocca i bot: basta il testo del feed
     subsection: auto
     max_items: 8
 

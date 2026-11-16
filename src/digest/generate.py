@@ -81,7 +81,9 @@ def find_item(date: str, item_id: str) -> dict:
     for sec in report["sections"]:
         for it in sec["items"]:
             if it["id"] == item_id:
-                return {**it, "section": sec["id"]}
+                pick = next((v for k, v in (report.get("picks") or {}).items()
+                             if k == "linkedin" and v.get("item_id") == item_id), None)
+                return {**it, "section": sec["id"], "linkedin_pick": pick}
     raise KeyError(f"notizia {item_id} non trovata nel report del {date}")
 
 
@@ -132,6 +134,16 @@ async def gather_sources(item: dict, limit: int) -> list[dict]:
     return [{**s, "text": t[:SOURCE_CHARS]} for s, t in zip(srcs, texts)]
 
 
+def _angle(pick: dict | None) -> str:
+    """Se la notizia è "il post del giorno", il post parte dall'angolo già scelto nel report."""
+    if not pick:
+        return ""
+    return ("\nQuesta notizia è stata scelta come post del giorno. Parti da qui (puoi migliorarlo):\n"
+            f"- Target: {pick.get('target', '')}\n- Problema: {pick.get('pain', '')}\n"
+            f"- Angolo: {pick.get('angle', '')}\n- Hook proposto: {pick.get('hook', '')}"
+            + (f"\n- Attenzione: {pick['caveat']}" if pick.get("caveat") else ""))
+
+
 def _fill(template: str, **values) -> str:
     for k, v in values.items():
         template = template.replace("{{" + k + "}}", v)
@@ -158,6 +170,8 @@ def generate(date: str, item_id: str, kind: str) -> Path:
                    WHY=item["why"], PROFILE=topics["profile"].strip(), VOICE=voice,
                    HOOK=f"Idea Short dal report: «{item['short_hook']}»" if item.get("short_hook") else "",
                    FORMAT=SHORT_FORMATS["strumento" if item["section"] == "virali" else "notizia"],
+                   AUDIENCE=((topics.get("audience") or {}).get("linkedin") or "").strip(),
+                   ANGLE=_angle(item.get("linkedin_pick")),
                    SOURCES=src_block)
     # il post fa una piccola ricerca online per ancorare pain point e stime a dati reali
     tools = ["WebSearch", "WebFetch"] if kind == "post" else None

@@ -6,14 +6,16 @@ const KINDS = {
   short: { icon: "🎬", gen: "Script Short", open: "Apri short", label: "Script Shorts" },
 };
 const BADGES = { ufficiale: "✅ Ufficiale", confermata: "🔁 Confermata", da_verificare: "⚠️ Da verificare",
-  smentita: "❌ Smentita", dal_repo: "📦 Dal README" };
+  smentita: "❌ Smentita", dal_repo: "📦 Dal progetto" };
+const BADGE_PLURAL = { ufficiale: "ufficiali", confermata: "confermate", da_verificare: "da verificare",
+  smentita: "smentite", dal_repo: "dal progetto" };
 const GIORNI = ["domenica", "lunedì", "martedì", "mercoledì", "giovedì", "venerdì", "sabato"];
 const MESI = ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto",
   "settembre", "ottobre", "novembre", "dicembre"];
 
 const $ = (s) => document.querySelector(s);
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-const state = { date: null, report: null, drawer: null };
+const state = { date: null, report: null, drawer: null, latest: null };
 
 function dataIt(iso, withDay = true) {
   const [y, m, d] = iso.split("-").map(Number);
@@ -21,6 +23,7 @@ function dataIt(iso, withDay = true) {
   const s = `${d} ${MESI[m - 1]} ${y}`;
   return withDay ? `${GIORNI[dt.getDay()][0].toUpperCase()}${GIORNI[dt.getDay()].slice(1)} ${s}` : s;
 }
+const num = (n) => String(Math.round(Number(n))).replace(/\B(?=(\d{3})+(?!\d))/g, ".");   // 67863 → 67.863
 
 async function api(path, opts) {
   const r = await fetch(path, { cache: "no-store", ...opts });   // sempre dati freschi
@@ -28,12 +31,45 @@ async function api(path, opts) {
   return r.json();
 }
 
+let toastTimer;
+function toast(text) {
+  const t = $("#toast");
+  t.textContent = text;
+  t.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove("show"), 2200);
+}
+
+function setDrawer(open) {
+  $("#drawer").hidden = !open;
+  $("#scrim").hidden = !open;
+}
+
+// indirizzo: #2026-11-16 (un report) oppure #2026-11-16/2026-11-16-04 (una notizia, es. dall'email)
+function parseHash() {
+  const [date, item] = location.hash.slice(1).split("/");
+  return { date: /^\d{4}-\d{2}-\d{2}$/.test(date || "") ? date : null, item: item || null };
+}
+
+function goToItem(id, flash = true) {
+  const el = document.getElementById(`n-${id}`);
+  if (!el) return;
+  el.scrollIntoView({ behavior: "smooth", block: "start" });
+  if (flash) { el.classList.add("flash"); setTimeout(() => el.classList.remove("flash"), 1800); }
+}
+
 // ---------- archivio ----------
 async function loadArchive() {
   const list = await api("/api/reports");
-  $("#archive").innerHTML = list.map((r) =>
-    `<a href="#${r.date}" data-date="${r.date}"><div class="d">${dataIt(r.date, false)}</div>
-     <div class="m">${r.stories} notizie · ${r.minutes} min</div></a>`).join("") || '<p class="muted small">Nessun report.</p>';
+  state.latest = list[0]?.date || null;
+  $("#archive").innerHTML = list.map((r) => {
+    const [y, m, d] = r.date.split("-").map(Number);
+    const wd = GIORNI[new Date(y, m - 1, d).getDay()];
+    return `<a href="#${r.date}" data-date="${r.date}" class="${r.stories ? "" : "empty-day"}" title="${esc(r.headline || "")}">
+      <div><div class="day">${d}</div><div class="mon">${MESI[m - 1].slice(0, 3)}</div></div>
+      <div><div class="d">${wd}</div><div class="m">${r.stories} notizie · ${r.minutes} min</div></div></a>`;
+  }).join("") || '<p class="muted small">Nessun report.</p>';
+  markActive();
   return list;
 }
 
@@ -42,51 +78,173 @@ function markActive() {
 }
 
 // ---------- report ----------
-async function showReport(date) {
+async function showReport(date, item = null) {
   state.date = date;
   markActive();
   const r = await api(`/api/reports/${date}`);
   state.report = r;
   const s = r.stats;
-  const sections = r.sections.map((sec) => renderSection(sec, r.outputs)).join("");
+  const [y, m, d] = r.date.split("-").map(Number);
+  const wd = GIORNI[new Date(y, m - 1, d).getDay()];
+  const picks = r.picks || {};
+  const pickLabels = {};
+  for (const [k, label] of [["linkedin", "Post LinkedIn del giorno"], ["short", "Short del giorno"]]) {
+    if (picks[k]) (pickLabels[picks[k].item_id] ||= []).push(label);
+  }
+  const full = r.sections.filter((sec) => sec.items.length);
+  const empty = r.sections.filter((sec) => !sec.items.length).map((sec) => sec.title.split(":")[0]);
+  const hasPicks = "picks" in r && (picks.linkedin || picks.short || s.stories > 0);
+
+  const nav = [
+    r.in_breve.length ? `<button data-scroll="breve">In breve</button>` : "",
+    hasPicks ? `<button data-scroll="picks"><span class="dot"></span>Da pubblicare</button>` : "",
+    ...full.map((sec) => `<button data-scroll="sec-${sec.id}" style="--sec:var(--${sec.id})"><span class="dot"></span>${esc(sec.title.split(":")[0])}<span class="n">${sec.items.length}</span></button>`),
+  ].join("");
+
   $("#report").innerHTML = `
-    <div class="date">${dataIt(r.date)}</div>
-    <h1>${esc(r.title)}</h1>
-    <div class="stats">${s.stories} notizie · circa ${r.reading_minutes} minuti · ${s.collected} elementi raccolti, ${s.discarded} scartati come rumore</div>
-    ${r.in_breve.length ? `<div class="breve"><div class="eyebrow">In breve</div><ul>${r.in_breve.map((x) => `<li>${esc(x)}</li>`).join("")}</ul></div>` : ""}
-    ${sections}`;
+    <header class="mast">
+      <div class="eyebrow">Report AI · ${y}</div>
+      <h1>${wd} ${d} ${MESI[m - 1]}</h1>
+      <div class="stats"><b>${s.stories} notizie</b> · circa ${r.reading_minutes} minuti · ${s.collected} elementi raccolti, ${s.discarded} scartati come rumore</div>
+    </header>
+    <nav class="secnav" aria-label="Sezioni del report"><div class="chips">${nav}</div>
+      <input id="filter" type="search" placeholder="Cerca nel report…  ( / )" aria-label="Cerca nel report"></nav>
+    ${r.in_breve.length ? `<div class="breve" id="breve"><div class="eyebrow">In breve</div><ol>${r.in_breve.map((x) => `<li><span>${esc(x)}</span></li>`).join("")}</ol></div>` : ""}
+    ${hasPicks ? renderPicks(picks, r.outputs) : ""}
+    ${full.map((sec) => renderSection(sec, r.outputs, pickLabels)).join("")}
+    <p class="no-results" id="no-results" hidden>Nessuna notizia contiene questo testo.</p>
+    ${renderFoot(r, empty)}`;
+  setupNav();
+  if (item) setTimeout(() => goToItem(item), 150); else window.scrollTo({ top: 0 });
 }
 
-function renderSection(sec, outputs) {
-  const head = `<h2>${esc(sec.title)} <small>· ${sec.items.length}</small></h2>`;
-  if (!sec.items.length) return `<section class="sec" style="--sec:var(--${sec.id})">${head}<p class="empty">Nessuna novità rilevante.</p></section>`;
+function renderPicks(picks, outputs) {
+  const block = (key) => {
+    const pk = picks[key];
+    if (!pk) return "";
+    const isPost = key === "linkedin", kind = isPost ? "post" : "short";
+    const done = (outputs[pk.item_id] || []).includes(kind);
+    const rows = [
+      isPost && pk.target ? ["A chi parla.", pk.target] : null,
+      isPost && pk.pain ? ["Il problema.", pk.pain] : null,
+      isPost && pk.angle ? ["L'angolo.", pk.angle] : null,
+      ["Perché oggi.", pk.why],
+    ].filter(Boolean).map(([t, v]) => `<div><dt>${t}</dt> <dd>${esc(v)}</dd></div>`).join("");
+    const alts = (pk.alternatives || []).map((a) => `<a href="#${state.date}/${a.item_id}" title="${esc(a.reason)}">${esc(a.title)}</a>`).join(" · ");
+    return `<article class="pick ${isPost ? "" : "short"}">
+      <div class="eyebrow">${isPost ? "💼 Post LinkedIn del giorno" : "🎬 Short del giorno"}
+        <span class="score">adatta ${pk.score}/10</span><span class="badge b-${pk.badge}">${BADGES[pk.badge] || pk.badge}</span></div>
+      <h3><a href="#${state.date}/${pk.item_id}">${esc(pk.title)}</a></h3>
+      <blockquote>«${esc(pk.hook)}»</blockquote>
+      <dl>${rows}</dl>
+      ${pk.caveat ? `<div class="caveat"><b>Prima di pubblicare.</b> ${esc(pk.caveat)}</div>` : ""}
+      ${alts ? `<div class="alts">In alternativa: ${alts}</div>` : ""}
+      <div class="actions">
+        <button class="primary ${done ? "done" : ""}" data-item="${pk.item_id}" data-kind="${kind}">${KINDS[kind].icon} ${done ? KINDS[kind].open : (isPost ? "Genera il post" : "Genera lo script")}</button>
+        <button data-goto="${pk.item_id}">Vai alla notizia</button>
+      </div></article>`;
+  };
+  const none = !picks.linkedin ? `<div class="pick-none"><b>💼 Oggi nessun post LinkedIn.</b> Nessuna notizia è abbastanza forte per la tua nicchia: meglio saltare un giorno che forzare.</div>` : "";
+  return `<section class="picks" id="picks"><div class="picks-head"><h2>Da pubblicare oggi</h2>
+    <span class="muted small">scelte tra le notizie di oggi per la tua nicchia: controllale tu prima di pubblicare</span></div>
+    <div class="picks-grid">${none}${block("linkedin")}${block("short")}</div></section>`;
+}
+
+function renderSection(sec, outputs, pickLabels) {
   const groups = new Map();
   sec.items.forEach((it) => { const k = it.subsection || ""; if (!groups.has(k)) groups.set(k, []); groups.get(k).push(it); });
   let body = "";
   for (const [, items] of groups) {
     const label = items[0].subsection_label;
     if (label && groups.size > 1) body += `<div class="eyebrow sub">${esc(label)}</div>`;
-    body += items.map((it) => renderItem(it, outputs[it.id] || [])).join("");
+    body += items.map((it) => renderItem(it, outputs[it.id] || [], pickLabels[it.id] || [])).join("");
   }
-  return `<section class="sec" style="--sec:var(--${sec.id})">${head}${body}</section>`;
+  return `<section class="sec" id="sec-${sec.id}" style="--sec:var(--${sec.id})">
+    <h2>${esc(sec.title)} <small>· ${sec.items.length}</small></h2>${body}</section>`;
 }
 
-function renderItem(it, done) {
+function renderItem(it, done, labels = []) {
   const points = it.key_points?.length ? `<ul class="points">${it.key_points.map((p) => `<li>${esc(p)}</li>`).join("")}</ul>` : "";
-  const sources = it.sources.map((s) => `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name)}</a>`).join(" · ");
+  const sources = it.sources.map((s) => `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name)}</a>` +
+    (s.meta?.stars_verified ? ` <span class="star" title="Stelle lette ora da GitHub">★ ${num(s.meta.stars)}</span>` : "")).join(" · ");
   const buttons = Object.entries(KINDS).map(([k, v]) => {
     const has = done.includes(k);
     return `<button data-item="${it.id}" data-kind="${k}" class="${has ? "done" : ""}">${v.icon} ${has ? v.open : v.gen}</button>`;
   }).join("");
-  return `<div class="item" id="n-${it.id}">
+  return `<article class="item" id="n-${it.id}">
+    ${labels.map((l) => `<div class="ribbon">★ ${esc(l)}</div>`).join("")}
     <h3><a href="${esc(it.primary_url)}" target="_blank" rel="noopener">${esc(it.title)}</a></h3>
-    <div><span class="badge b-${it.badge}">${BADGES[it.badge] || it.badge}</span><span class="note">${esc(it.badge_note)}</span></div>
+    <div class="badge-row"><span class="badge b-${it.badge}">${BADGES[it.badge] || it.badge}</span><span class="note">${esc(it.badge_note)}</span></div>
     <p class="summary">${esc(it.summary)}</p>${points}
-    <div class="why"><b>Perché ti serve:</b> ${esc(it.why)}</div>
-    ${it.short_hook ? `<div class="why hook"><b>🎬 Idea Short:</b> «${esc(it.short_hook)}»</div>` : ""}
+    <div class="why"><b>Perché ti serve.</b> ${esc(it.why)}</div>
+    ${it.short_hook ? `<div class="why hook"><b>🎬 Idea Short.</b> «${esc(it.short_hook)}»</div>` : ""}
     <div class="sources">Fonti: ${sources}</div>
-    <div class="actions">${buttons}${renderVote(it.id)}</div></div>`;
+    <div class="actions">${buttons}${renderVote(it.id)}</div></article>`;
 }
+
+function renderFoot(r, empty) {
+  const s = r.stats, c = s.checks;
+  const lines = [];
+  if (c) {
+    const bits = [`${c.links_tested} link testati (${c.links_ok} funzionanti${c.links_unverifiable ? `, ${c.links_unverifiable} su siti che non si fanno controllare dai robot` : ""})`];
+    if (c.repos_verified) bits.push(`${c.repos_verified} repo verificate su GitHub (stelle ★, date, licenza)`);
+    const badges = Object.entries(c.badges || {}).map(([b, n]) => `${n} ${BADGE_PLURAL[b] || b}`).join(", ");
+    if (badges) bits.push(`fact check: ${badges}`);
+    lines.push(`<b>Controlli di questo report.</b> ${esc(bits.join(" · "))}.`);
+  }
+  if (empty.length) lines.push(`Nessuna novità rilevante in: ${esc(empty.join(", "))}.`);
+  if (s.source_errors?.length) lines.push(`Fonti non raggiungibili: ${esc(s.source_errors.map((e) => e.source).join(", "))}.`);
+  if (s.dropped_broken_links?.length) lines.push(`Notizie scartate per link non funzionante: ${s.dropped_broken_links.length}.`);
+  lines.push(`<b>Badge.</b> ✅ fonte ufficiale · 🔁 confermata da più fonti indipendenti · ⚠️ una sola fonte non ufficiale · 📦 descrizione del progetto, non ancora provato · ❌ smentita da una fonte ufficiale.`);
+  lines.push(`Generato con Claude (${esc(s.model || "")}) alle ${new Date(r.generated_at).toLocaleTimeString("it-IT", { hour: "2-digit", minute: "2-digit" })}.`);
+  return `<footer class="report-foot">${lines.map((l) => `<div>${l}</div>`).join("")}</footer>`;
+}
+
+// barra delle sezioni: salto rapido, sezione attiva evidenziata, ricerca nel testo
+let navTargets = [];
+function markSection() {
+  const nav = $(".secnav");
+  if (!nav) return;
+  nav.classList.toggle("stuck", window.scrollY > 150);
+  // la sezione attiva è l'ultima il cui inizio ha superato la barra
+  let current = null;
+  for (const t of navTargets) if (!t.hidden && t.getBoundingClientRect().top <= 110) current = t;
+  nav.querySelectorAll("[data-scroll]").forEach((b) => {
+    const on = !!current && b.dataset.scroll === current.id;
+    if (on && !b.classList.contains("on")) b.scrollIntoView({ block: "nearest", inline: "nearest" });
+    b.classList.toggle("on", on);
+  });
+}
+function setupNav() {
+  navTargets = [...document.querySelectorAll(".secnav [data-scroll]")].map((b) => document.getElementById(b.dataset.scroll)).filter(Boolean);
+  markSection();
+  $("#filter").addEventListener("input", (e) => {
+    const q = e.target.value.trim().toLowerCase();
+    let shown = 0;
+    document.querySelectorAll("section.sec").forEach((sec) => {
+      let any = false;
+      sec.querySelectorAll(".item").forEach((it) => {
+        const hit = !q || it.textContent.toLowerCase().includes(q);
+        it.hidden = !hit; any ||= hit; shown += hit ? 1 : 0;
+      });
+      sec.hidden = !any;
+    });
+    $("#no-results").hidden = shown > 0;
+    for (const id of ["breve", "picks"]) { const el = document.getElementById(id); if (el) el.hidden = !!q; }
+  });
+}
+let navTick = false;
+window.addEventListener("scroll", () => {
+  if (navTick) return;
+  navTick = true;
+  requestAnimationFrame(() => { navTick = false; markSection(); });
+}, { passive: true });
+document.addEventListener("click", (e) => {
+  const s = e.target.closest("[data-scroll]");
+  if (s) document.getElementById(s.dataset.scroll)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  const g = e.target.closest("[data-goto]");
+  if (g) goToItem(g.dataset.goto);
+});
 
 // ---------- voti 👍/👎: il filtro impara cosa ti serve ----------
 const REASONS = ["Rumore", "Già saputo", "Non mi serve", "Troppo tecnico"];
@@ -108,6 +266,7 @@ async function sendVote(id, vote, reason = null) {
   if (value === 0) delete state.report.feedback[id];
   else state.report.feedback[id] = { vote: value, reason };
   document.querySelector(`[data-vote-for="${id}"]`).outerHTML = renderVote(id);
+  toast(value === 0 ? "Voto tolto" : value === 1 ? "👍 Segnato: più notizie così" : "👎 Segnato: meno notizie così");
 }
 
 document.addEventListener("click", (e) => {
@@ -133,8 +292,13 @@ async function onAction(btn, force = false) {
       res = await api(`/api/jobs/${jobId}`);
     }
     if (res.status === "errore") throw new Error(res.error);
-    btn.classList.add("done");
-    btn.textContent = `${KINDS[kind].icon} ${KINDS[kind].open}`;
+    // la stessa notizia può avere il pulsante in due punti (scheda e "Da pubblicare oggi")
+    document.querySelectorAll(`.actions button[data-item="${item}"][data-kind="${kind}"]`).forEach((b) => {
+      b.classList.add("done");
+      b.textContent = `${KINDS[kind].icon} ${KINDS[kind].open}`;
+    });
+    const outs = (state.report.outputs[item] ||= []);
+    if (!outs.includes(kind)) outs.push(kind);
     await openOutput(kind, item, res.git);
   } catch (e) {
     btn.textContent = original;
@@ -161,7 +325,7 @@ async function openOutput(kind, item, gitNote) {
   $("#lesson-chat").hidden = !isLesson;
   $("#drawer-chat").hidden = !isLesson;
   if (isLesson) await loadChat(item);
-  $("#drawer").hidden = false;
+  setDrawer(true);
   document.querySelector(".drawer-scroll").scrollTop = 0;
 }
 
@@ -388,21 +552,33 @@ document.addEventListener("click", (e) => {
   if (btn.classList.contains("done")) openOutput(btn.dataset.kind, btn.dataset.item);
   else onAction(btn);
 });
-$("#drawer-close").onclick = () => { $("#drawer").hidden = true; };
-document.addEventListener("keydown", (e) => { if (e.key === "Escape") $("#drawer").hidden = true; });
+$("#drawer-close").onclick = () => setDrawer(false);
+$("#scrim").onclick = () => setDrawer(false);
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && !document.querySelector("dialog[open]")) setDrawer(false);
+  // "/" porta alla ricerca nel report (se non stai già scrivendo)
+  if (e.key === "/" && !/INPUT|TEXTAREA/.test(document.activeElement.tagName) && $("#filter")) { e.preventDefault(); $("#filter").focus(); }
+});
 $("#drawer-copy").onclick = async () => {
   const d = state.drawer; if (!d) return;
   await navigator.clipboard.writeText(d.kind === "post" ? postText(d.markdown) : d.markdown);
   $("#drawer-copy").textContent = "Copiato ✓";
+  toast(d.kind === "post" ? "Post copiato: incollalo su LinkedIn" : "Copiato negli appunti");
 };
 $("#drawer-regen").onclick = () => {
   const d = state.drawer; if (!d) return;
   const btn = document.querySelector(`.actions button[data-item="${d.item}"][data-kind="${d.kind}"]`);
-  $("#drawer").hidden = true;
-  if (btn && confirm("Rigenerare? Il testo attuale verrà sostituito.")) onAction(btn, true);
+  if (!btn || !confirm("Rigenerare? Il testo attuale verrà sostituito.")) return;
+  setDrawer(false);
+  onAction(btn, true);
 };
 $("#sync-btn").onclick = async () => { $("#sync-status").textContent = "Sincronizzazione…"; await api("/api/sync", { method: "POST" }); await init(); };
-window.addEventListener("hashchange", () => { const d = location.hash.slice(1); if (d && d !== state.date) showReport(d); });
+window.addEventListener("hashchange", () => {
+  const { date, item } = parseHash();
+  if (!date) return;
+  if (date !== state.date) showReport(date, item);
+  else if (item) goToItem(item);
+});
 
 // ---------- LinkedIn: collegamento, pubblicazione, programmazione ----------
 const fmtWhen = (iso) => new Date(iso).toLocaleString("it-IT", { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
@@ -507,8 +683,37 @@ async function refreshSync() {
     : s.status === "ok" ? (s.report_today && s.report_today !== "presente"
       ? `Report di oggi: ${s.report_today}` : "Aggiornato da GitHub") : "GitHub non raggiungibile";
   $("#sync-status").title = s.detail || "";
+  renderBanner(s);
   return s.status;
 }
+
+// avviso in alto: il report di oggi non è ancora arrivato, oppure ne è appena arrivato uno nuovo
+function renderBanner(s) {
+  const b = $("#today-banner");
+  const now = new Date();
+  const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+  if (state.latest && state.date && state.latest > state.date && state.newArrived) {
+    b.innerHTML = `<span>📬 È arrivato il report di ${dataIt(state.latest, false)}.</span><button class="primary" data-open-latest>Apri</button>`;
+    b.hidden = false;
+  } else if (state.latest !== today && now.getHours() >= 6 && s?.report_today && s.report_today !== "presente") {
+    b.innerHTML = `<span>⏳ Il report di oggi non è ancora arrivato · stato: <b>${esc(s.report_today)}</b>.</span><button data-check-now>Controlla ora</button>`;
+    b.hidden = false;
+  } else b.hidden = true;
+}
+document.addEventListener("click", async (e) => {
+  if (e.target.closest("[data-open-latest]")) { state.newArrived = false; location.hash = state.latest; }
+  if (e.target.closest("[data-check-now]")) { e.target.disabled = true; e.target.textContent = "Controllo…"; $("#sync-btn").click(); }
+});
+
+// ogni 3 minuti: se nel frattempo è arrivato un report nuovo, lo segnala (senza spostarti)
+setInterval(async () => {
+  try {
+    const before = state.latest;
+    await loadArchive();
+    if (before && state.latest > before) state.newArrived = true;
+    await refreshSync();
+  } catch { /* app momentaneamente non raggiungibile: riprova al prossimo giro */ }
+}, 180000);
 
 async function init() {
   if (new URLSearchParams(location.search).get("linkedin") === "ok") {
@@ -517,9 +722,10 @@ async function init() {
   }
   loadLinkedIn().catch(() => { $("#li-status").textContent = "Stato LinkedIn non disponibile"; });
   const list = await loadArchive();
-  const wanted = location.hash.slice(1);
-  const date = list.find((r) => r.date === wanted) ? wanted : list[0]?.date;
-  if (date) await showReport(date); else $("#report").innerHTML = '<p class="muted">Ancora nessun report.</p>';
+  const wanted = parseHash();
+  const date = list.find((r) => r.date === wanted.date) ? wanted.date : list[0]?.date;
+  if (date) await showReport(date, date === wanted.date ? wanted.item : null);
+  else $("#report").innerHTML = '<p class="muted">Ancora nessun report.</p>';
   // il primo git pull gira in background: quando finisce ricarica l'archivio
   if ((await refreshSync()) === "in corso") {
     const t = setInterval(async () => { if ((await refreshSync()) !== "in corso") { clearInterval(t); await loadArchive(); markActive(); } }, 2000);

@@ -5,6 +5,10 @@ Scrivi un post LinkedIn in italiano sul tema qui sotto, per il mio profilo perso
 ## Chi sono
 {{PROFILE}}
 
+## A chi parlo (la mia nicchia)
+{{AUDIENCE}}
+{{ANGLE}}
+
 ## La mia voce
 {{VOICE}}
 
@@ -36,8 +40,9 @@ Perché mi interessa: {{WHY}}
 Serve a far riconoscere un potenziale cliente nel problema e a fargli capire il costo
 dell'inazione. Il resto del post NON cambia: stessa struttura, stesso ritmo, stessa leggerezza.
 Il blocco è breve: **6-9 righe in tutto**, con gli stessi elenchi/frecce della guida.
-1. **Chi**: una riga che chiama il target più adatto a questa notizia (es. "Se hai uno studio
-   con 3 sedi…", "Se gestisci un e-commerce…"). Un target concreto, non "le aziende".
+1. **Chi**: una riga che chiama il target più adatto a questa notizia, sempre DENTRO la mia
+   nicchia (es. "Se hai uno studio con 12 persone…", "Se lavori da solo e fai tutto tu…").
+   Un target concreto, non "le aziende".
 2. **2-3 pain point** veri e "caldi" di quel target, specifici e quotidiani, in cui chi legge si
    riconosce subito. **Ognuno, nessuno escluso, con una cifra**: ore perse, euro buttati,
    percentuale o "1 su N" (es. "→ 6-8 ore a settimana a rispondere alle stesse domande su
