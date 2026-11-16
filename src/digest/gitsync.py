@@ -24,8 +24,10 @@ def pull() -> tuple[bool, str]:
 
 
 WAKE_FROM_UTC = (4, 45)   # dalle 05:45 italiane d'inverno (06:45 d'estate) il PC può svegliare il cloud
-MAX_WAKES_PER_DAY = 3
+MAX_WAKES_PER_DAY = 4
+WAKE_GAP_MINUTES = 50     # tra un tentativo e l'altro: se Claude ha finito la quota serve tempo
 _wakes: dict[str, int] = {}
+_last_wake = None
 
 
 def ensure_today_report() -> str:
@@ -42,8 +44,11 @@ def ensure_today_report() -> str:
         return "presente"
     if (now.hour, now.minute) < WAKE_FROM_UTC:
         return "in attesa del cloud"
+    global _last_wake
     if _wakes.get(today, 0) >= MAX_WAKES_PER_DAY:
         return "già richiesto più volte oggi: controlla GitHub Actions"
+    if _last_wake and (now - _last_wake).total_seconds() < WAKE_GAP_MINUTES * 60:
+        return "richiesto al cloud, non ancora arrivato: riprovo tra poco"
     try:
         r = subprocess.run(["gh", "run", "list", "--workflow", "daily.yml", "--created",
                             f">={today}", "--json", "status"],
@@ -55,6 +60,7 @@ def ensure_today_report() -> str:
                            capture_output=True, text=True, timeout=30)
         if r.returncode == 0:
             _wakes[today] = _wakes.get(today, 0) + 1
+            _last_wake = now
             return "richiesto ora al cloud (arriva in ~5 minuti)"
         return "non richiedibile (gh non disponibile)"
     except (OSError, subprocess.SubprocessError, ValueError):

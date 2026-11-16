@@ -98,18 +98,35 @@ tutto riesce. `--no-send` salta l'email.
 
 ## Nel cloud (GitHub Actions)
 
-Il workflow [.github/workflows/daily.yml](.github/workflows/daily.yml) esegue `digest daily` ogni
-mattina sui server di GitHub, gratis, e salva report e memoria nel repo. Se fallisce, GitHub ti
-manda un'email. Siccome GitHub a volte avvia in ritardo, ci sono più difese:
-- 3 tentativi: 05:23, 06:53, 08:23 italiane d'inverno (un'ora dopo d'estate); appena il report
-  di oggi esiste, i tentativi successivi si fermano;
-- il workflow dei post programmati, ogni 30 minuti, rilancia il report se dopo le 9 manca;
-- l'app sul PC, all'avvio, lo richiede se manca;
-- la raccolta parte dall'ultimo report riuscito (fino a 72 ore), quindi un ritardo non fa
-  perdere notizie.
+Il workflow [.github/workflows/daily.yml](.github/workflows/daily.yml) esegue `digest daily` sui
+server di GitHub, gratis, e salva report e memoria nel repo. Se fallisce, GitHub ti manda un'email.
 
-Per rifarlo a mano anche se esiste già: Run workflow con "forza", oppure
-`gh workflow run daily.yml -f forza=true`.
+**Perché l'orario non dipende più da GitHub.** L'orologio interno di GitHub (`schedule`) su questo
+repo parte con 5-8 ore di ritardo: dal 13 al 16/11/2026 l'avvio delle 04:23 UTC è partito tra le
+11:37 e le 12:57, e l'email arrivava dopo le 13. L'avvio "a comando" invece è immediato. Quindi il
+workflow viene svegliato da più orologi indipendenti; il primo che arriva fa il report, gli altri
+si fermano in pochi secondi perché il report di oggi esiste già:
+1. **Routine Claude nel cloud** (06:30 e 07:30 italiane d'inverno): fa un push su un ramo
+   `claude/...` con un file in `sveglia/`, e il workflow parte subito. Funziona a PC spento.
+   Si gestisce da https://claude.ai/code/routines. *Richiede che Claude abbia accesso al repo
+   (GitHub collegato su claude.ai): senza, questa sveglia non esiste.*
+2. **L'app sul PC**: ogni 10 minuti, dalle 05:45 italiane, se il report manca lo richiede
+   (massimo 4 volte al giorno, a 50 minuti di distanza).
+3. **Crono di GitHub della sera prima** (20:23–00:23 UTC): con il ritardo abituale partono tra le
+   05 e le 09 italiane; quelli che partono fuori dalla finestra 03:45–20:00 UTC si fermano.
+4. I crono del mattino restano, nel caso GitHub torni puntuale.
+
+La raccolta parte sempre dall'ultimo report riuscito (fino a 72 ore): un ritardo non fa perdere
+notizie. Se Claude ha finito la quota dell'abbonamento (limite delle 5 ore) il report fallisce
+senza toccare la memoria e il tentativo successivo riparte da capo.
+
+Prova nel cloud senza inviare né salvare nulla (il report si scarica dalla pagina dell'esecuzione):
+
+```bash
+gh workflow run daily.yml -f prova=true
+```
+
+Per rifarlo a mano anche se esiste già: `gh workflow run daily.yml -f forza=true`.
 
 - **Lanciarlo a mano:** su GitHub → Actions → "Report AI quotidiano" → Run workflow, oppure:
 
@@ -145,7 +162,12 @@ powershell -ExecutionPolicy Bypass -File scripts\avvio-automatico.ps1
   browser, altrimenti accende il guardiano e apre il browser appena l'app è pronta.
 - Per fermare tutto: chiudi `wscript.exe` e `python.exe` (Report AI) da Gestione attività.
 
-- **A sinistra** l'archivio di tutti i report, **al centro** il report del giorno.
+- **A sinistra** l'archivio di tutti i report, **al centro** il report del giorno. In alto la
+  barra delle sezioni (salto rapido, sezione attiva evidenziata) e la ricerca nel testo (tasto `/`).
+- Dall'email, "Apri nell'app →" porta alla stessa notizia nell'app
+  (indirizzo `http://localhost:8787/#AAAA-MM-GG/id-notizia`).
+- Se il report di oggi non è ancora arrivato, o ne arriva uno nuovo mentre l'app è aperta,
+  compare un avviso in alto.
 - Sotto ogni notizia tre pulsanti:
   - **🎓 Genera lezione**: guida pratica passo passo, con applicazione a un cliente e
     mini-verifica;
@@ -183,14 +205,41 @@ powershell -ExecutionPolicy Bypass -File scripts\avvio-automatico.ps1
 Consiglio: crea un collegamento a `scripts\avvia-app.bat` sul desktop o sulla barra delle
 applicazioni.
 
+## Controlli di qualità e fact check
+
+Prima di partire, ogni report passa questi controlli automatici (riassunti in fondo a email e app):
+- **Scrittura verificata**: se Claude risponde a metà o con testo segnaposto, la scrittura viene
+  rifatta fino a 3 volte; se non riesce, il report NON parte (meglio niente che un report vuoto).
+- **Link**: ogni link viene aperto; le notizie con link rotto vengono scartate. LinkedIn, X e
+  Product Hunt non si fanno controllare dai robot: restano, segnati come non verificabili.
+- **Badge calcolato dal codice**, non da Claude: ✅ se c'è una fonte ufficiale (sito dell'azienda
+  o repo GitHub della sua organizzazione, elenco in `config/sources.yaml` → `official_domains`);
+  🔁 se parlano almeno 2 autori diversi (video + post dello stesso creator = 1 fonte);
+  📦 se l'unica fonte è il progetto stesso; ⚠️ negli altri casi.
+- **Repo verificate su GitHub**: stelle, date, licenza e stato "archiviata" vengono letti al
+  momento dall'API di GitHub e sostituiscono i numeri riportati da creator e aggregatori (★).
+
+## Da pubblicare oggi: il post e lo Short del giorno
+
+Tra le notizie già verificate, Claude sceglie:
+- **💼 il post LinkedIn del giorno** per la tua nicchia (definita in `config/topics.yaml` →
+  `audience.linkedin`: liberi professionisti e titolari di attività da 10-20 persone): voto di
+  adattamento, a chi parla, il problema, l'angolo, l'hook e due alternative. A parità di interesse
+  vince la notizia con fact check più forte; sotto 6/10 non propone niente ("oggi non pubblicare").
+- **🎬 lo Short del giorno** per il pubblico degli Shorts (`audience.shorts`).
+
+In email e app c'è il riquadro "Da pubblicare oggi"; dall'app "Genera il post" scrive il post
+partendo dall'angolo scelto. Decidi sempre tu: niente viene pubblicato da solo.
+Per cambiare criteri: `prompts/picks.md`.
+
 ## La sezione "Da provare" (idee per gli Shorts)
 
 Repo, skill e plugin per Claude, connettori MCP e app AI con effetto wow, che chiunque può provare
 subito: pensata per gli Shorts di reach, dove il pubblico non è tecnico. Fonti:
 - **ricerca web di Claude** ogni mattina (`claude -p` con WebSearch, ~1 minuto, prompt in
   `prompts/web_research.md`): solo cose virali negli ultimi giorni, con link ufficiale ed evidenza;
-- **Product Hunt AI**, **Show HN** (≥80 punti), **Reddit r/ClaudeAI** (top del giorno) e
-  **GitHub Trending**, quando la repo è adatta a tutti.
+- **Product Hunt AI**, **Show HN** (≥80 punti) e **GitHub Trending**, quando la repo è adatta a
+  tutti. (Reddit è stato tolto: blocca le richieste dai server del cloud.)
 
 Ogni notizia ha "Cosa fa / Come si prova / Costo" e un **🎬 Idea Short**: la prima frase pronta.
 

@@ -36,6 +36,26 @@ Progetto: report AI quotidiano locale (vedi PIANO_OPERATIVO.md per obiettivi, ar
 - `data/seen.json` è la memoria ufficiale: vive nel repo e la aggiorna il cloud. In locale usa
   `--dry-run` per non creare divergenze.
 
+## Orario del report (sveglie)
+- Lo `schedule` di GitHub su questo repo parte con 5-8 ore di ritardo: NON affidarsi a lui.
+  `workflow_dispatch` e `push` partono subito. Sveglie: routine Claude (push su `claude/**` con
+  file in `sveglia/`, il workflow cancella poi il ramo), app sul PC (`gitsync.ensure_today_report`
+  ogni 10 min da `app._keep_in_sync`), crono serali con finestra 03:45-20:00 UTC.
+- Il workflow lavora sempre su `main` (`ref: main`), qualunque sia il ramo che lo sveglia.
+- Prova nel cloud senza effetti: `gh workflow run daily.yml -f prova=true`.
+- Le chiamate `claude -p` consumano la quota dell'abbonamento: molti test nello stesso pomeriggio
+  possono far fallire il cloud con "5-hour limit".
+
+## Qualità e scelte del giorno
+- `build.write_checked`: valida la scrittura e riprova (max 3), poi `BuildError` → `daily` esce
+  con errore senza salvare la memoria. Mai inviare report vuoti o a metà.
+- `build.fix_badge` è deterministico: ufficiale / dal_repo / confermata (≥2 `publisher()` diversi)
+  / da_verificare. `repo_facts()` legge stelle e licenza dall'API GitHub prima della scrittura.
+- `picks.py` + `prompts/picks.md` → `report["picks"]` (linkedin, short); nicchie in
+  `topics.yaml` → `audience`. Non deve mai bloccare il report (try/except).
+- Design di email (`render.py`) e app (`web/`): stessi colori dei caroselli; font locali da
+  `/fonts` (assets/fonts). `index()` aggiunge `?v=mtime` a CSS e JS: niente cache vecchia.
+
 ## App locale (Fasi 5-6)
 - `src/digest/app.py` (FastAPI, solo 127.0.0.1:8787) + `web/` (HTML/CSS/JS, marked + DOMPurify da CDN).
 - `src/digest/generate.py`: riscarica le fonti (pagina / trascrizione YouTube / README GitHub;
@@ -75,7 +95,7 @@ Progetto: report AI quotidiano locale (vedi PIANO_OPERATIVO.md per obiettivi, ar
 - API: GET/POST/DELETE `/api/chat/{item_id}`. Nei test svuota la chat alla fine.
 
 ## Sezione "Da provare" (virali)
-- Sezione `virali` in topics.yaml/sources.yaml: Product Hunt AI, Show HN, Reddit r/ClaudeAI e la
+- Sezione `virali` in topics.yaml/sources.yaml: Product Hunt AI, Show HN e la
   ricerca web `collectors/websearch.py` (tipo `websearch`, `run_claude(..., tools=["WebSearch",
   "WebFetch"])`, prompt `prompts/web_research.md`, dedupe per URL + titoli degli ultimi report).
 - Il redattore scrive anche `short_hook` (solo per questa sezione), mostrato come "🎬 Idea Short".

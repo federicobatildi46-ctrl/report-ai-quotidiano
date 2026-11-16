@@ -123,9 +123,10 @@ def _daily(args) -> int:
             print(f"Preferenze non aggiornate: {e}")
 
     from digest.build import BuildError
+    from digest.claude import ClaudeError
     try:
         report_path, report = build(raw_path)
-    except BuildError as e:
+    except (BuildError, ClaudeError) as e:
         print(f"Report NON inviato: {e}. La memoria non è stata toccata: il prossimo tentativo riparte da capo.")
         return 1
     print(f"Report: {report['stats']['stories']} notizie · ~{report['reading_minutes']} min")
