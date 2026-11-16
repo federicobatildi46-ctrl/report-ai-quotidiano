@@ -18,7 +18,15 @@ on:
     branches: ["claude/**"]
     paths: ["sveglia/**"]
   schedule:
-    # UTC. Ultima riserva: di solito GitHub li fa partire con ore di ritardo.
+    # UTC. GitHub fa partire questi orari con 5-8 ore di ritardo (misurato dal 12 al 16/11/2026).
+    # Quelli della sera prima "atterrano" quindi tra le 04 e le 08 UTC (05-09 italiane): il primo
+    # che parte dentro la finestra utile fa il report, gli altri si fermano in pochi secondi.
+    - cron: "23 20 * * *"
+    - cron: "23 21 * * *"
+    - cron: "23 22 * * *"
+    - cron: "23 23 * * *"
+    - cron: "23 0 * * *"
+    # Questi coprono il caso in cui GitHub torni puntuale (05:23, 06:53, 08:23 italiane d'inverno).
     - cron: "23 4 * * *"
     - cron: "53 5 * * *"
     - cron: "23 7 * * *"
@@ -55,6 +63,13 @@ jobs:
           FORZA: ${{ inputs.forza == true }}
         run: |
           echo "Avviato da: ${GITHUB_EVENT_NAME} (${GITHUB_REF_NAME}) alle $(date -u +%H:%M) UTC"
+          # Finestra utile per gli avvii automatici: 03:45-20:00 UTC (dalle 04:45 italiane).
+          # Un cron della sera partito troppo presto si ferma: ci pensa il successivo.
+          now=$((10#$(date -u +%H) * 60 + 10#$(date -u +%M)))
+          if [ "${GITHUB_EVENT_NAME}" = "schedule" ] && { [ "$now" -lt 225 ] || [ "$now" -ge 1200 ]; }; then
+            echo "Troppo presto (fuori dalla finestra 03:45-20:00 UTC): mi fermo."
+            echo "skip=true" >> "$GITHUB_OUTPUT"; exit 0
+          fi
           # controlla l'ultima versione su GitHub (un tentativo precedente può averlo appena salvato)
           git fetch -q origin main
           if [ "$FORZA" != "true" ] && git cat-file -e "origin/main:reports/$(date -u +%Y-%m-%d).json" 2>/dev/null; then

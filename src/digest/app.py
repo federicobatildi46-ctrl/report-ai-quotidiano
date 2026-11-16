@@ -42,9 +42,24 @@ def _pull():
         sync_state["report_today"] = gitsync.ensure_today_report()
 
 
+CHECK_EVERY = 600   # secondi: l'app resta accesa per giorni, quindi ricontrolla da sola
+
+
+def _keep_in_sync():
+    """Ogni 10 minuti: scarica i report nuovi e, se quello di oggi manca, lo chiede al cloud.
+    È una delle sveglie del report (l'orologio interno di GitHub parte con ore di ritardo)."""
+    import time
+    while True:
+        try:
+            _pull()
+        except Exception as e:   # un errore di rete non deve fermare il controllo
+            sync_state.update(status="errore", detail=str(e)[-300:])
+        time.sleep(CHECK_EVERY)
+
+
 @asynccontextmanager
 async def lifespan(_app):
-    threading.Thread(target=_pull, daemon=True).start()
+    threading.Thread(target=_keep_in_sync, daemon=True).start()
     yield
 
 

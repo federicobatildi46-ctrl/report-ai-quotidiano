@@ -23,29 +23,40 @@ def pull() -> tuple[bool, str]:
         return _git("pull", "--rebase", "--autostash")
 
 
+WAKE_FROM_UTC = (4, 45)   # dalle 05:45 italiane d'inverno (06:45 d'estate) il PC può svegliare il cloud
+MAX_WAKES_PER_DAY = 3
+_wakes: dict[str, int] = {}
+
+
 def ensure_today_report() -> str:
     """Se il report di oggi non c'è (e nessun tentativo è in corso), chiede a GitHub di farlo.
-    Ritorna uno stato leggibile per l'app."""
+    Chiamata all'avvio dell'app e poi ogni 10 minuti. Ritorna uno stato leggibile per l'app."""
     import json as _json
     from datetime import UTC, datetime
 
     from digest import REPORTS_DIR
 
     now = datetime.now(UTC)
-    if (REPORTS_DIR / f"{now.date().isoformat()}.json").exists():
+    today = now.date().isoformat()
+    if (REPORTS_DIR / f"{today}.json").exists():
         return "presente"
-    if now.hour < 6:   # i tentativi automatici partono dalle 04:23 UTC: diamogli tempo
+    if (now.hour, now.minute) < WAKE_FROM_UTC:
         return "in attesa del cloud"
+    if _wakes.get(today, 0) >= MAX_WAKES_PER_DAY:
+        return "già richiesto più volte oggi: controlla GitHub Actions"
     try:
         r = subprocess.run(["gh", "run", "list", "--workflow", "daily.yml", "--created",
-                            f">={now.date().isoformat()}", "--json", "status"],
+                            f">={today}", "--json", "status"],
                            cwd=ROOT, capture_output=True, text=True, timeout=30)
         runs = _json.loads(r.stdout or "[]")
         if any(x["status"] != "completed" for x in runs):
             return "in preparazione nel cloud"
         r = subprocess.run(["gh", "workflow", "run", "daily.yml"], cwd=ROOT,
                            capture_output=True, text=True, timeout=30)
-        return "richiesto ora al cloud (arriva in ~5 minuti)" if r.returncode == 0 else "non richiedibile (gh non disponibile)"
+        if r.returncode == 0:
+            _wakes[today] = _wakes.get(today, 0) + 1
+            return "richiesto ora al cloud (arriva in ~5 minuti)"
+        return "non richiedibile (gh non disponibile)"
     except (OSError, subprocess.SubprocessError, ValueError):
         return "non richiedibile (gh non disponibile)"
 
