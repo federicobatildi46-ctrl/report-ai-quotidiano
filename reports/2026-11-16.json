@@ -1,0 +1,363 @@
+{
+ "title": "Report automatico notizie e aggiornamenti AI",
+ "date": "2026-11-16",
+ "generated_at": "2026-11-16T12:58:23.854802+00:00",
+ "reading_minutes": 5,
+ "in_breve": [
+  "Higgsfield MCP collegato a Claude produce decine di video ads in un pomeriggio, secondo il creator Coco (video in collaborazione con Higgsfield).",
+  "Incidente risolto su Claude Sonnet 5.5 e altri modelli: errori elevati su claude.ai, API, Claude Code e Cowork dalle 07:32 alle 08:45 UTC.",
+  "Su GitHub in crescita ffmpeg-skill (editor video locale per agenti, 42 tool FFmpeg) e last30days-skill per la ricerca multi-fonte."
+ ],
+ "sections": [
+  {
+   "id": "claude",
+   "title": "Universo Claude",
+   "items": [
+    {
+     "id": "2026-11-16-03",
+     "subsection": "ecosistema",
+     "subsection_label": "Ecosistema a 360° — modelli, API, SDK, azienda",
+     "title": "Errori elevati su Claude Sonnet 5.5 e altri modelli, incidente risolto",
+     "summary": "Anthropic ha segnalato errori elevati che hanno colpito claude.ai, API, Claude Code e Cowork. L'incidente è durato dalle 07:32 alle 08:45 UTC del 16 novembre ed è stato risolto con un fix.",
+     "key_points": [
+      "Impatto: 07:32–08:45 UTC (23:32–00:45 PT) del 16 novembre.",
+      "Il titolo cita Claude Sonnet 5.5 e Claude Fable 5.2.",
+      "Fix distribuito alle 08:02 UTC, risoluzione confermata alle 09:04 UTC."
+     ],
+     "why": "Se hai automazioni o lavori con Claude Code in quella fascia, capisci eventuali errori e sai che le routine nel cloud possono essere colpite.",
+     "badge": "ufficiale",
+     "badge_note": "Pagina di stato ufficiale di Claude.",
+     "importance": 2,
+     "primary_url": "https://status.claude.com/incidents/r1b4f9bbnsx1",
+     "sources": [
+      {
+       "name": "Status Claude",
+       "title": "Elevated errors for Claude Sonnet 5.5 and Claude Fable 5.2",
+       "url": "https://status.claude.com/incidents/r1b4f9bbnsx1",
+       "official": true,
+       "kind": "incident",
+       "item_id": "9a48a5162ed2",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-16-04",
+     "subsection": "code",
+     "subsection_label": "Claude Code",
+     "title": "Claude Code: /advisor per usare Fable come consulente e Sonnet come principale",
+     "summary": "Con il comando /advisor di Claude Code si sceglie Fable come consulente mantenendo Sonnet come modello principale. Secondo il creator, Fable pianifica i lavori difficili e Sonnet esegue, per non finire i limiti.",
+     "key_points": [
+      "Fable fa il piano sui lavori difficili, Sonnet svolge il lavoro.",
+      "Il creator rimanda a una guida su /advisor sul suo sito."
+     ],
+     "why": "Usi Claude Code ogni giorno: è un modo per gestire meglio i limiti e può diventare un contenuto breve.",
+     "badge": "da_verificare",
+     "badge_note": "Una sola fonte non ufficiale (YouTube Short di Riccardo Belli Contarini).",
+     "importance": 2,
+     "primary_url": "https://www.youtube.com/shorts/2ChZ4Wve1GI",
+     "sources": [
+      {
+       "name": "YouTube · Riccardo Belli Contarini",
+       "title": "Fable in Claude Code senza finire i limiti: il comando /advisor #Shorts",
+       "url": "https://www.youtube.com/shorts/2ChZ4Wve1GI",
+       "official": false,
+       "kind": "short",
+       "item_id": "a2590ecddf16",
+       "meta": {
+        "creator": "Riccardo Belli Contarini",
+        "duration": null
+       },
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "higgsfield",
+   "title": "Higgsfield",
+   "items": [
+    {
+     "id": "2026-11-16-01",
+     "subsection": "",
+     "subsection_label": "",
+     "title": "Higgsfield MCP collegato a Claude: decine di video ads in un pomeriggio",
+     "summary": "Il creator Coco mostra come, collegando Higgsfield MCP a Claude, ha generato decine di video ads per il lancio del suo SaaS in un pomeriggio. Secondo lui l'equivalente con agenzia o studio sarebbe costato oltre 1.500 €. Il video è in collaborazione con Higgsfield.",
+     "key_points": [
+      "Server MCP: mcp.higgsfield.ai/mcp; funziona con Claude, Claude Code, OpenClaw, Hermes Agent.",
+      "Claude sceglie il modello per ogni pezzo: Seedance per video, GPT Image 2 per immagini.",
+      "Metodo in 7 regole: analisi competitor, 10 script, scene descritte, fasi salvate in .md.",
+      "I file finiscono direttamente nella cartella del progetto."
+     ],
+     "why": "È un workflow replicabile per offrire video ads a un cliente dell'agenzia e un ottimo spunto per un contenuto o carosello.",
+     "badge": "da_verificare",
+     "badge_note": "Una sola fonte non ufficiale (creator Coco, video in collaborazione con Higgsfield): i risultati e il risparmio sono dichiarazioni sue.",
+     "importance": 1,
+     "primary_url": "https://www.youtube.com/watch?v=H9QnLjXWCf4",
+     "sources": [
+      {
+       "name": "YouTube · Coco",
+       "title": "La nuova funzione ASSURDA di Higgsfield MCP ha trasformato Claude in un’agenzia creativa",
+       "url": "https://www.youtube.com/watch?v=H9QnLjXWCf4",
+       "official": false,
+       "kind": "video",
+       "item_id": "c276ae525517",
+       "meta": {
+        "creator": "Coco",
+        "duration": null
+       },
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "elevenlabs",
+   "title": "ElevenLabs",
+   "items": [
+    {
+     "id": "2026-11-16-08",
+     "subsection": "",
+     "subsection_label": "",
+     "title": "PostNord: supporto clienti rifatto con ElevenAgents, completamento dal 45% al 60%",
+     "summary": "PostNord ha sostituito il sistema telefonico automatico svedese con un sistema multi-agente su ElevenAgents. Il vecchio sistema è stato dismesso in circa 90 giorni e il completamento dei task è salito dal 45% al 60%.",
+     "key_points": [
+      "Un orchestratore instrada ogni richiesta a 4 subagenti specializzati, incluso uno per il tracking.",
+      "Rollout in 4 fasi, dal test nel weekend alla produzione completa.",
+      "A/B test sul traffico reale per ottimizzare in continuo; il 60% è un dato attuale.",
+      "Include guardrail, classificatore di intenti e svedese naturale con dialetti."
+     ],
+     "why": "È un caso concreto di architettura per agenti vocali, utile da citare quando proponi un agente telefonico a un cliente.",
+     "badge": "ufficiale",
+     "badge_note": "Case study pubblicato sul blog ufficiale di ElevenLabs (dati forniti dall'azienda).",
+     "importance": 3,
+     "primary_url": "https://elevenlabs.io/blog/postnord",
+     "sources": [
+      {
+       "name": "Blog ElevenLabs",
+       "title": "How the Nordics' leading postal operator rebuilt its customer support on ElevenAgents",
+       "url": "https://elevenlabs.io/blog/postnord",
+       "official": true,
+       "kind": "article",
+       "item_id": "2bd9a2245c49",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "creators",
+   "title": "Dai creator che seguo",
+   "items": []
+  },
+  {
+   "id": "github",
+   "title": "GitHub: repo e skill per la mia agenzia",
+   "items": [
+    {
+     "id": "2026-11-16-05",
+     "subsection": "video",
+     "subsection_label": "Video editing e caroselli",
+     "title": "ffmpeg-skill: un editor video locale per Claude Code, Cursor e Codex",
+     "summary": "Repo che dà agli agenti di coding 42 tool FFmpeg e un server MCP per editare video in locale: tagli, sottotitoli, reframe, loudness ed export per piattaforme. Nessun cloud e nessuna chiave API.",
+     "key_points": [
+      "Si avvia con npx ffmpeg-skill; licenza MIT, solo libreria standard Python.",
+      "Esempi: sottotitoli animati karaoke, reframe 16:9 → 9:16, rimozione silenzi.",
+      "Il README indica 331 stelle oggi su GitHub Trending.",
+      "Testato con FFmpeg 6.1, 7.1, 8 e 9."
+     ],
+     "why": "Puoi automatizzare montaggio e sottotitoli di Shorts e Reel per i clienti direttamente da Claude Code, senza costi cloud.",
+     "badge": "dal_repo",
+     "badge_note": "Fonte unica non ufficiale (GitHub Trending, README del repo).",
+     "importance": 2,
+     "primary_url": "https://github.com/kajisho5/ffmpeg-skill",
+     "sources": [
+      {
+       "name": "GitHub Trending",
+       "title": "kajisho5/ffmpeg-skill",
+       "url": "https://github.com/kajisho5/ffmpeg-skill",
+       "official": false,
+       "kind": "repo",
+       "item_id": "0c9aa7780e0a",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-16-06",
+     "subsection": "design_web",
+     "subsection_label": "Design per siti e social",
+     "title": "Stitch Skills: skill di Google per progettare design con agenti di coding",
+     "summary": "Google Labs pubblica una libreria di Agent Skills per il server MCP di Google Stitch, compatibili con Claude Code, Cursor, Gemini CLI, Codex e altri. Seguono lo standard aperto Agent Skills.",
+     "key_points": [
+      "Plugin raggruppati in stitch-design, stitch-build e stitch-utilities.",
+      "Claude Code: npx plugins add google-labs-code/stitch-skills --scope project --target claude-code.",
+      "Serve completare il setup del server MCP di Stitch.",
+      "Il repo indica 247 stelle oggi su GitHub Trending."
+     ],
+     "why": "Può accelerare la creazione di design e siti web per i clienti, partendo dal tuo flusso in Claude Code.",
+     "badge": "dal_repo",
+     "badge_note": "Fonte unica (GitHub Trending); il repo appartiene a google-labs-code ma non è tra i domini ufficiali configurati.",
+     "importance": 2,
+     "primary_url": "https://github.com/google-labs-code/stitch-skills",
+     "sources": [
+      {
+       "name": "GitHub Trending",
+       "title": "google-labs-code/stitch-skills",
+       "url": "https://github.com/google-labs-code/stitch-skills",
+       "official": false,
+       "kind": "repo",
+       "item_id": "7e24061ab465",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-16-09",
+     "subsection": "claude",
+     "subsection_label": "Skill e tool per Claude",
+     "title": "turbo-browser-mcp: server Playwright MCP che riduce turni e token",
+     "summary": "Server MCP per l'automazione del browser basato su Playwright, con 11 tool che fanno più azioni per chiamata. Punta a ridurre turni del modello e token.",
+     "key_points": [
+      "Include smart_fill_form, inspect_compact e batch_actions.",
+      "Installazione: claude mcp add turbo-browser -- npx -y turbo-browser-mcp.",
+      "Pulsanti tipo Invia o Paga bloccati di default; serve Node 20+.",
+      "Il repo indica 122 stelle."
+     ],
+     "why": "Utile per automatizzare compilazione di form e flussi web per un cliente, con meno consumo di token in Claude Code.",
+     "badge": "dal_repo",
+     "badge_note": "Fonte unica non ufficiale (README su GitHub); i benchmark non sono stati verificati.",
+     "importance": 3,
+     "primary_url": "https://github.com/Tthanh2k6/turbo-browser-mcp",
+     "sources": [
+      {
+       "name": "GitHub",
+       "title": "Tthanh2k6/turbo-browser-mcp",
+       "url": "https://github.com/Tthanh2k6/turbo-browser-mcp",
+       "official": false,
+       "kind": "repo",
+       "item_id": "5b9c260a87a0",
+       "meta": {
+        "stars": 122
+       },
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "virali",
+   "title": "Da provare: repo, skill e tool virali (idee per gli Shorts)",
+   "items": [
+    {
+     "id": "2026-11-16-02",
+     "subsection": "skill",
+     "subsection_label": "Skill e plugin per Claude",
+     "title": "last30days-skill: ricerca su Reddit, X, YouTube, HN e web in un comando",
+     "summary": "Skill per agenti AI che cerca un argomento su Reddit, X, YouTube, HN, Polymarket e web, poi li sintetizza in un riassunto. Si installa in Claude Code con due comandi e parte con /last30days seguito dal tema.",
+     "key_points": [
+      "Cosa fa: cerca in parallelo su più piattaforme e le ordina per upvote, like e engagement.",
+      "Come si prova: in Claude Code /plugin marketplace add mvanhorn/last30days-skill, poi /plugin install last30days.",
+      "Costo: non indicato; Reddit, HN, Polymarket e GitHub funzionano subito senza configurazione.",
+      "Per sbloccare X, YouTube, TikTok e altri serve il wizard di setup, con chiavi o sessioni proprie."
+     ],
+     "why": "Piacerà a chi segue l'AI per fare ricerche su trend e concorrenti, e ti serve per preparare contenuti o analisi per un cliente.",
+     "badge": "dal_repo",
+     "badge_note": "Fonte unica non ufficiale (GitHub Trending, README del repo): 122 stelle nel giorno.",
+     "importance": 1,
+     "short_hook": "Questa skill ricerca qualsiasi cosa su Reddit, X e YouTube. In un comando.",
+     "primary_url": "https://github.com/mvanhorn/last30days-skill",
+     "sources": [
+      {
+       "name": "GitHub Trending",
+       "title": "mvanhorn/last30days-skill",
+       "url": "https://github.com/mvanhorn/last30days-skill",
+       "official": false,
+       "kind": "repo",
+       "item_id": "ce334b6655c3",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-16-07",
+     "subsection": "repo",
+     "subsection_label": "Repo GitHub",
+     "title": "OpenMAIC: classi interattive con insegnanti AI da un argomento o documento",
+     "summary": "Trasforma un argomento o un documento in una classe interattiva con slide, quiz e simulazioni, con insegnanti e compagni AI che parlano e disegnano alla lavagna. Esporta in PPTX o HTML.",
+     "key_points": [
+      "Cosa fa: slide, quiz e simulazioni; esporta in PPTX o HTML.",
+      "Come si prova: demo su open.maic.chat; in locale git clone, pnpm install, .env.local con chiave API, pnpm db:up, pnpm dev, localhost:3000.",
+      "Costo: gratis (MIT); in locale servono chiavi API di un provider AI, a pagamento.",
+      "Dalla ricerca web: circa 43,7k stelle; data di uscita non verificata."
+     ],
+     "why": "Piacerà a chi si occupa di formazione: lo usi per creare corsi o materiali per clienti professionisti.",
+     "badge": "dal_repo",
+     "badge_note": "Fonte unica non ufficiale (ricerca web); stelle e popolarità citate da un roundup, da verificare.",
+     "importance": 2,
+     "short_hook": "Questa repo trasforma un documento in una classe con insegnanti AI.",
+     "primary_url": "https://github.com/THU-MAIC/OpenMAIC",
+     "sources": [
+      {
+       "name": "Ricerca web",
+       "title": "OpenMAIC",
+       "url": "https://github.com/THU-MAIC/OpenMAIC",
+       "official": false,
+       "kind": "repo",
+       "item_id": "c1cef8ac9ff4",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "stats": {
+  "collected": 31,
+  "stories": 9,
+  "discarded": 21,
+  "dropped_broken_links": [
+   "ByteVoice: parlare con gli agenti di coding e sentirli rispondere"
+  ],
+  "source_errors": [
+   {
+    "source": "reddit-claudeai",
+    "section": "virali",
+    "new": 0,
+    "baseline": true,
+    "error": "HTTPStatusError: Client error '403 Blocked' for url 'https://www.reddit.com/r/ClaudeAI/top/.rss?t=day'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403",
+    "secs": 1.4
+   }
+  ],
+  "window_hours": 27,
+  "model": "sonnet",
+  "claude": {
+   "selezione": {
+    "secs": 5.8,
+    "turns": 2,
+    "input_tokens": 11402,
+    "cache_read_tokens": 0,
+    "output_tokens": 760,
+    "equivalent_api_usd": 0.053204
+   },
+   "scrittura": {
+    "secs": 27.0,
+    "turns": 2,
+    "input_tokens": 16539,
+    "cache_read_tokens": 0,
+    "output_tokens": 4077,
+    "equivalent_api_usd": 0.10692199999999999
+   }
+  }
+ }
+}
