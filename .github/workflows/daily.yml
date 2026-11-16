@@ -2,17 +2,23 @@
 # Raccoglie le fonti, Claude (abbonamento Pro) scrive il report, lo invia su Gmail e salva
 # report + memoria nel repo. Se qualcosa va storto GitHub ti manda un'email di errore.
 #
-# Affidabilità: lo "sveglia" di GitHub è best-effort (il 12/11/2026 è partito con 8 ore e mezza
-# di ritardo). Per questo:
-#  - 3 tentativi, a minuti "dispari" (GitHub sconsiglia l'ora esatta, la più congestionata);
-#  - se il report di oggi è già su GitHub, i tentativi successivi si fermano subito;
-#  - il workflow "Pubblica post programmati" e l'app sul PC lo rilanciano se dopo le 9 manca.
+# Affidabilità: la "sveglia" interna di GitHub (schedule) è best-effort e su questo repo parte con
+# 7-8 ore di ritardo (13-16/11/2026: impostata alle 04:23 UTC, partita tra le 11:37 e le 12:57).
+# Per questo l'orario NON dipende più da lei. A svegliare il workflow sono, in ordine:
+#  1. una routine Claude nel cloud (06:30 e 07:30 italiane d'inverno) che fa un push su un ramo
+#     claude/... con un file in sveglia/ → evento "push" qui sotto, che parte subito;
+#  2. l'app sul PC, che ogni 10 minuti controlla e lancia "workflow_dispatch" se il report manca;
+#  3. lo schedule di GitHub, solo come ultima riserva.
+# Se il report di oggi è già su GitHub ogni tentativo in più si ferma in pochi secondi.
 
 name: Report AI quotidiano
 
 on:
+  push:                # la sveglia esterna (routine Claude): parte subito, senza code
+    branches: ["claude/**"]
+    paths: ["sveglia/**"]
   schedule:
-    # UTC. In inverno: 05:23, 06:53, 08:23 italiane (in estate un'ora dopo).
+    # UTC. Ultima riserva: di solito GitHub li fa partire con ore di ritardo.
     - cron: "23 4 * * *"
     - cron: "53 5 * * *"
     - cron: "23 7 * * *"
@@ -40,19 +46,22 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main          # si lavora sempre su main, anche se la sveglia arriva da un ramo claude/...
 
       - name: Il report di oggi c'è già?
         id: today
         env:
           FORZA: ${{ inputs.forza == true }}
         run: |
+          echo "Avviato da: ${GITHUB_EVENT_NAME} (${GITHUB_REF_NAME}) alle $(date -u +%H:%M) UTC"
           # controlla l'ultima versione su GitHub (un tentativo precedente può averlo appena salvato)
-          git fetch -q origin "${GITHUB_REF_NAME}"
-          if [ "$FORZA" != "true" ] && git cat-file -e "origin/${GITHUB_REF_NAME}:reports/$(date -u +%Y-%m-%d).json" 2>/dev/null; then
+          git fetch -q origin main
+          if [ "$FORZA" != "true" ] && git cat-file -e "origin/main:reports/$(date -u +%Y-%m-%d).json" 2>/dev/null; then
             echo "Il report di oggi è già stato fatto: mi fermo."
             echo "skip=true" >> "$GITHUB_OUTPUT"
           else
-            git merge -q --ff-only "origin/${GITHUB_REF_NAME}" || true
+            git merge -q --ff-only origin/main || true
             echo "skip=false" >> "$GITHUB_OUTPUT"
           fi
 
@@ -106,3 +115,7 @@ jobs:
             git pull --rebase
             git push
           fi
+
+      - name: Rimuove il ramo usato come sveglia
+        if: always() && github.event_name == 'push'
+        run: git push origin --delete "${GITHUB_REF_NAME}" || true
