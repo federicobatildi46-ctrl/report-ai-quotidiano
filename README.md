@@ -162,7 +162,9 @@ powershell -ExecutionPolicy Bypass -File scripts\avvio-automatico.ps1
   browser, altrimenti accende il guardiano e apre il browser appena l'app è pronta.
 - Per fermare tutto: chiudi `wscript.exe` e `python.exe` (Report AI) da Gestione attività.
 
-- **A sinistra** l'archivio di tutti i report, **al centro** il report del giorno. In alto la
+- **A sinistra** gli ultimi 7 report; i più vecchi sono nello **Storico** (chiuso, diviso per mese)
+  sotto di loro. Tutti i report restano anche su GitHub, nella cartella `reports/` (~25 MB l'anno).
+  **Al centro** il report del giorno. In alto la
   barra delle sezioni (salto rapido, sezione attiva evidenziata) e la ricerca nel testo (tasto `/`).
 - Dall'email, "Apri nell'app →" porta alla stessa notizia nell'app
   (indirizzo `http://localhost:8787/#AAAA-MM-GG/id-notizia`).

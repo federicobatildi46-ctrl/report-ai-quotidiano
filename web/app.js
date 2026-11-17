@@ -59,22 +59,38 @@ function goToItem(id, flash = true) {
 }
 
 // ---------- archivio ----------
+const RECENT_DAYS = 7;   // nella colonna a sinistra: gli ultimi 7 report, il resto nello storico
+
+function archiveLink(r) {
+  const [y, m, d] = r.date.split("-").map(Number);
+  const wd = GIORNI[new Date(y, m - 1, d).getDay()];
+  return `<a href="#${r.date}" data-date="${r.date}" class="${r.stories ? "" : "empty-day"}" title="${esc(r.headline || "")}">
+    <div><div class="day">${d}</div><div class="mon">${MESI[m - 1].slice(0, 3)}</div></div>
+    <div><div class="d">${wd}</div><div class="m">${r.stories} notizie · ${r.minutes} min</div></div></a>`;
+}
+
 async function loadArchive() {
   const list = await api("/api/reports");
   state.latest = list[0]?.date || null;
-  $("#archive").innerHTML = list.map((r) => {
-    const [y, m, d] = r.date.split("-").map(Number);
-    const wd = GIORNI[new Date(y, m - 1, d).getDay()];
-    return `<a href="#${r.date}" data-date="${r.date}" class="${r.stories ? "" : "empty-day"}" title="${esc(r.headline || "")}">
-      <div><div class="day">${d}</div><div class="mon">${MESI[m - 1].slice(0, 3)}</div></div>
-      <div><div class="d">${wd}</div><div class="m">${r.stories} notizie · ${r.minutes} min</div></div></a>`;
-  }).join("") || '<p class="muted small">Nessun report.</p>';
+  const recent = list.slice(0, RECENT_DAYS), old = list.slice(RECENT_DAYS);
+  // storico raggruppato per mese, chiuso di default (si riapre da solo se stai guardando un report vecchio)
+  const months = new Map();
+  old.forEach((r) => { const k = r.date.slice(0, 7); if (!months.has(k)) months.set(k, []); months.get(k).push(r); });
+  const storico = old.length ? `<details class="storico" ${old.some((r) => r.date === state.date) ? "open" : ""}>
+      <summary>Storico <span class="muted">· ${old.length} report</span></summary>
+      ${[...months].map(([k, rs]) => {
+        const [y, m] = k.split("-").map(Number);
+        return `<div class="eyebrow storico-mese">${MESI[m - 1]} ${y}</div>${rs.map(archiveLink).join("")}`;
+      }).join("")}</details>` : "";
+  $("#archive").innerHTML = (recent.map(archiveLink).join("") + storico) || '<p class="muted small">Nessun report.</p>';
   markActive();
   return list;
 }
 
 function markActive() {
   document.querySelectorAll("#archive a").forEach((a) => a.classList.toggle("active", a.dataset.date === state.date));
+  const det = document.querySelector("#archive .storico");
+  if (det && det.querySelector("a.active")) det.open = true;
 }
 
 // ---------- report ----------
