@@ -1,0 +1,693 @@
+{
+ "title": "Report automatico notizie e aggiornamenti AI",
+ "date": "2026-11-17",
+ "generated_at": "2026-11-17T04:02:06.762710+00:00",
+ "reading_minutes": 8,
+ "in_breve": [
+  "Higgsfield lancia Short Drama Studio: da uno script a una mini serie con personaggi coerenti, in anteprima su desktop e via MCP in Claude.",
+  "Anthropic spiega come il team di Claude Code verifica il lavoro degli agenti: test end-to-end, di proprietà e differenziali, per delegare di più.",
+  "Da provare oggi: FFmpeg Skill per montare video da Claude Code e NVIDIA SkillSpector per controllare le skill prima di installarle."
+ ],
+ "picks": {
+  "linkedin": {
+   "item_id": "2026-11-17-06",
+   "score": 8,
+   "hook": "Un gruppo riceve 100.000 chiamate al mese e non riesce a rispondere a tutte. Quante ne perdi tu, senza accorgertene?",
+   "why": "Caso reale ufficiale e italiano: un agente vocale risponde, qualifica e crea lead anche fuori orario. Parla a ore perse e clienti che scappano.",
+   "target": "titolari di piccole attività che perdono chiamate e richieste di appuntamento",
+   "pain": "Telefonate senza risposta fuori orario o nei momenti di picco sono clienti e appuntamenti persi.",
+   "angle": "Il problema sono le chiamate che nessuno riesce a gestire. Autotorino ha messo un agente vocale che risponde, qualifica le richieste e crea lead anche fuori orario. Un sistema su misura può fare lo stesso in una piccola attività.",
+   "caveat": "Autotorino è un grande gruppo con 100.000 chiamate al mese: non promettere gli stessi risultati a una piccola attività. Il caso è raccontato da ElevenLabs, che è anche il fornitore.",
+   "alternatives": [
+    {
+     "item_id": "2026-11-17-16",
+     "reason": "Casi concreti, tra cui bandi su WhatsApp, ma fonte unica non ufficiale.",
+     "title": "Giovanni Beggiato: 15 usi concreti di Claude Code"
+    },
+    {
+     "item_id": "2026-11-17-08",
+     "reason": "Skill gratuite per SEO e attività locali, ma non ancora provate.",
+     "title": "Boring Marketing Skills: skill di marketing gratuite per Claude Code"
+    }
+   ],
+   "title": "Autotorino risponde alle chiamate delle concessionarie con ElevenAgents",
+   "badge": "ufficiale",
+   "section": "elevenlabs"
+  },
+  "short": {
+   "item_id": "2026-11-17-09",
+   "score": 8,
+   "hook": "Dai un link YouTube a Claude e lui guarda il video",
+   "why": "Effetto wow immediato: il comando /watch fa leggere sottotitoli e fotogrammi di un video. È gratis, MIT, facile da provare e c'è il link da dare nei commenti.",
+   "title": "Claude Video: il comando /watch per far guardare video a Claude Code",
+   "badge": "dal_repo",
+   "section": "virali"
+  }
+ },
+ "sections": [
+  {
+   "id": "claude",
+   "title": "Universo Claude",
+   "items": [
+    {
+     "id": "2026-11-17-03",
+     "subsection": "code",
+     "subsection_label": "Claude Code",
+     "title": "Claude Code v2.1.326: più avvisi e correzioni su permessi e impostazioni",
+     "summary": "La release v2.1.326 di Claude Code aggiunge diversi avvisi e correzioni. Riguardano soprattutto permessi, impostazioni, sandbox, MCP e plugin. Con gli agent teams attivi ora si può usare anche Code Mode.",
+     "key_points": [
+      "Nuovo avviso se --allowedTools o --tools contengono regole incomplete",
+      "Ctrl+O mostra gli avvisi di avvio nascosti",
+      "/status indica quando funzioni sono disattivate da provider o variabili",
+      "Nuova variabile OTEL_RESOURCE_INCLUDE_HOST, disattivata di default"
+     ],
+     "why": "Se usi Claude Code ogni giorno, i fix su permessi e impostazioni ti evitano errori silenziosi nei progetti dei clienti.",
+     "badge": "ufficiale",
+     "badge_note": "Note di rilascio ufficiali del repo anthropics su GitHub.",
+     "importance": 2,
+     "primary_url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.326",
+     "sources": [
+      {
+       "name": "Claude Code (release)",
+       "title": "v2.1.326",
+       "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.326",
+       "official": true,
+       "kind": "release",
+       "item_id": "03df320b5bf1",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-17-04",
+     "subsection": "code",
+     "subsection_label": "Claude Code",
+     "title": "Come il team di Claude Code verifica il lavoro degli agenti",
+     "summary": "Sul blog di Claude, Addy Osmani spiega che nel team circa il 90% del codice è scritto e rivisto da Claude. I cicli di verifica permettono di delegare più lavoro in parallelo. Per lui il test più utile è l'end-to-end.",
+     "key_points": [
+      "Tre tipi di test da privilegiare, a partire dagli end-to-end",
+      "Test instabili o lenti peggiorano il lavoro dell'agente",
+      "Un valutatore separato con rubrica ha migliorato il successo fino a 10 punti",
+      "Un test che fallisce spesso può diventare una regola in CLAUDE.md o un hook"
+     ],
+     "why": "Puoi applicare questi cicli di verifica ai progetti per i clienti e farci un contenuto su come far lavorare più agenti insieme.",
+     "badge": "ufficiale",
+     "badge_note": "Articolo pubblicato sul blog ufficiale di Claude; i dati sono interni al team.",
+     "importance": 2,
+     "primary_url": "https://claude.dev/blog/how-the-claude-code-team-thinks-about-verification/",
+     "sources": [
+      {
+       "name": "Blog Claude",
+       "title": "How the Claude Code team thinks about verification / claude.dev Blog",
+       "url": "https://claude.dev/blog/how-the-claude-code-team-thinks-about-verification/",
+       "official": true,
+       "kind": "article",
+       "item_id": "567d2c83df20",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-17-11",
+     "subsection": "ecosistema",
+     "subsection_label": "Ecosistema a 360° — modelli, API, SDK, azienda",
+     "title": "Claude Platform: filigrana di testo sui modelli Claude",
+     "summary": "Il testo generato da Claude Opus 4.6, Opus 4.5, Sonnet 4.5 e Haiku 4.5 porta la filigrana di testo di Anthropic sulle piattaforme supportate. Se imposti temperature, top_p o top_k fuori dai valori standard, la filigrana potrebbe mancare.",
+     "key_points": [],
+     "why": "Se usi l'API per testi dei clienti, sappi che il testo può essere marcato.",
+     "badge": "ufficiale",
+     "badge_note": "Note di rilascio ufficiali di Claude Platform.",
+     "importance": 3,
+     "primary_url": "https://platform.claude.com/docs/en/release-notes/overview#november-16-2026",
+     "sources": [
+      {
+       "name": "Release notes Claude Platform",
+       "title": "Claude Platform — release notes — November 16, 2026",
+       "url": "https://platform.claude.com/docs/en/release-notes/overview#november-16-2026",
+       "official": true,
+       "kind": "changelog",
+       "item_id": "56fe65463ef3",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-17-12",
+     "subsection": "ecosistema",
+     "subsection_label": "Ecosistema a 360° — modelli, API, SDK, azienda",
+     "title": "Claude Meetings (beta): problemi a entrare nelle chiamate",
+     "summary": "Claude Meetings (beta) ha avuto più richieste del previsto e Claude non riusciva a entrare in molte chiamate. Ora è riattivato per i clienti Enterprise, ma resta in pausa per Team.",
+     "key_points": [
+      "Enterprise: riattivato, ingresso un po' più lento",
+      "Team: aggiunta a nuove chiamate e Auto-join in pausa",
+      "Le chiamate già in corso non sono toccate"
+     ],
+     "why": "Se pensi di usarlo con i clienti, per ora non è affidabile sul piano Team.",
+     "badge": "ufficiale",
+     "badge_note": "Aggiornamenti dalla pagina di stato ufficiale di Claude.",
+     "importance": 3,
+     "primary_url": "https://status.claude.com/incidents/b5cq662qf2wm",
+     "sources": [
+      {
+       "name": "Status Claude",
+       "title": "Claude unable to join meetings",
+       "url": "https://status.claude.com/incidents/b5cq662qf2wm",
+       "official": true,
+       "kind": "incident",
+       "item_id": "c6a1f5653bb3",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-17-13",
+     "subsection": "ecosistema",
+     "subsection_label": "Ecosistema a 360° — modelli, API, SDK, azienda",
+     "title": "Anthropic accorcia i tempi di divulgazione delle vulnerabilità",
+     "summary": "Anthropic porta la finestra della sua politica di divulgazione coordinata da 90 a 30 giorni per i problemi gravi e critici, e a 45 per gli altri. Vale per le segnalazioni dal 1° gennaio 2027, perché le AI trovano bug più in fretta.",
+     "key_points": [
+      "Escalation a un coordinatore esterno dopo 15 giorni invece di 30",
+      "Dettagli tecnici dopo 30 giorni dalla patch, non 45",
+      "Sette giorni per le vulnerabilità già sfruttate, invariato"
+     ],
+     "why": "Utile per capire come l'AI cambia la sicurezza, tema da citare con clienti con siti e automazioni.",
+     "badge": "ufficiale",
+     "badge_note": "Annuncio sul sito ufficiale di Anthropic.",
+     "importance": 3,
+     "primary_url": "https://www.anthropic.com/research/coordinated-vulnerability-disclosure-timelines",
+     "sources": [
+      {
+       "name": "Anthropic",
+       "title": "Updating our coordinated vulnerability disclosure policy timelines",
+       "url": "https://www.anthropic.com/research/coordinated-vulnerability-disclosure-timelines",
+       "official": true,
+       "kind": "article",
+       "item_id": "0c2bca83aac9",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-17-14",
+     "subsection": "code",
+     "subsection_label": "Claude Code",
+     "title": "Anthropic: come risolve la revisione del codice scritto da Claude",
+     "summary": "La pagina Code Review di Claude rimanda a un articolo del blog su come Anthropic fa la revisione del codice, dato che Claude scrive la maggior parte del codice. Il contenuto raccolto è solo un rimando.",
+     "key_points": [],
+     "why": "Si collega al tema della verifica degli agenti ed è utile per approfondire.",
+     "badge": "ufficiale",
+     "badge_note": "Pagina ufficiale di Claude.com; il testo raccolto è molto breve.",
+     "importance": 3,
+     "primary_url": "https://claude.com/product/code-review",
+     "sources": [
+      {
+       "name": "Claude.com",
+       "title": "Code Review by Claude | AI code review tool for pull requests",
+       "url": "https://claude.com/product/code-review",
+       "official": true,
+       "kind": "article",
+       "item_id": "47a0a5b3f4b1",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "higgsfield",
+   "title": "Higgsfield",
+   "items": [
+    {
+     "id": "2026-11-17-01",
+     "subsection": "",
+     "subsection_label": "",
+     "title": "Higgsfield lancia Short Drama Studio: dallo script a una mini serie",
+     "summary": "Higgsfield ha rilasciato Short Drama Studio, che trasforma uno script in una serie breve: divide il testo in episodi, crea cast, ambientazioni e oggetti e genera gli episodi con gli stessi personaggi. È in anteprima, solo desktop, e si usa anche da Claude con Higgsfield MCP.",
+     "key_points": [
+      "Script in PDF, DOCX, FDX, TXT o MD fino a 10 MB",
+      "Sei formati d'immagine e 15 stili, da Cinematic a K-Drama e Anime",
+      "Episodi generati in bozza 480p, 720p o 1080p",
+      "Si usa passo passo, con Auto-generate all o dal pannello Agent"
+     ],
+     "why": "Puoi provarlo per creare serie brevi con personaggi coerenti per i social di un cliente e per i tuoi contenuti, anche da Claude via MCP.",
+     "badge": "ufficiale",
+     "badge_note": "Annuncio nel changelog ufficiale di Higgsfield; la funzione è in anteprima.",
+     "importance": 1,
+     "primary_url": "https://higgsfield.ai/creator-hub/changelog#short-drama-studio-title",
+     "sources": [
+      {
+       "name": "Higgsfield What's new",
+       "title": "Short Drama Studio",
+       "url": "https://higgsfield.ai/creator-hub/changelog#short-drama-studio-title",
+       "official": true,
+       "kind": "changelog",
+       "item_id": "fa414c3bd867",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-17-05",
+     "subsection": "",
+     "subsection_label": "",
+     "title": "Higgsfield: guida per creare una mascotte di brand coerente con l'AI",
+     "summary": "La guida di Higgsfield mostra come ottenere una mascotte coerente con GPT Image 2.6: approvare un design base, creare schede di riferimento e riusare sempre lo stesso paragrafo d'identità nei prompt. Si chiude con un kit riutilizzabile.",
+     "key_points": [
+      "Un paragrafo d'identità, identico in ogni prompt",
+      "Schede separate per angoli, espressioni e pose",
+      "Prompt diviso in parte fissa e parte variabile",
+      "Controlla ogni risultato rispetto al riferimento: la deriva si corregge subito"
+     ],
+     "why": "È un metodo concreto per dare ai clienti un personaggio riconoscibile nei social e nei caroselli.",
+     "badge": "ufficiale",
+     "badge_note": "Guida pubblicata sul blog ufficiale di Higgsfield.",
+     "importance": 2,
+     "primary_url": "https://higgsfield.ai/blog/consistent-brand-mascot-ai",
+     "sources": [
+      {
+       "name": "Blog Higgsfield",
+       "title": "How to Make a Consistent Brand Mascot with AI in 2026 (Full Guide)",
+       "url": "https://higgsfield.ai/blog/consistent-brand-mascot-ai",
+       "official": true,
+       "kind": "article",
+       "item_id": "f56553ea509f",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "elevenlabs",
+   "title": "ElevenLabs",
+   "items": [
+    {
+     "id": "2026-11-17-06",
+     "subsection": "",
+     "subsection_label": "",
+     "title": "Autotorino risponde alle chiamate delle concessionarie con ElevenAgents",
+     "summary": "Il gruppo italiano Autotorino riceve circa 100.000 chiamate al mese e non riesce a rispondere a tutte. Ha creato un agente vocale su ElevenAgents che risponde, qualifica le richieste e crea lead, anche fuori orario.",
+     "key_points": [
+      "Prima: messaggio registrato con Zapier, trascrizione e lead su Salesforce",
+      "Circa il 70% delle richieste è post-vendita, soprattutto appuntamenti in officina",
+      "Volume di chiamate automatizzate più che raddoppiato",
+      "Con Eleven v4 la voce suona più naturale a parità di prompt"
+     ],
+     "why": "È un caso reale da portare a un cliente con tante chiamate, come esempio per i tuoi agenti vocali.",
+     "badge": "ufficiale",
+     "badge_note": "Caso pubblicato sul blog ufficiale di ElevenLabs; i risultati sono dichiarati dall'azienda.",
+     "importance": 2,
+     "primary_url": "https://elevenlabs.io/blog/autotorino-agents",
+     "sources": [
+      {
+       "name": "Blog ElevenLabs",
+       "title": "Autotorino automates dealership calls with ElevenAgents",
+       "url": "https://elevenlabs.io/blog/autotorino-agents",
+       "official": true,
+       "kind": "article",
+       "item_id": "acd9d81f8120",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-17-15",
+     "subsection": "",
+     "subsection_label": "",
+     "title": "ElevenLabs acquisisce Kotoba, laboratorio giapponese di voice AI",
+     "summary": "ElevenLabs annuncia l'acquisizione di Kotoba, laboratorio giapponese di voce AI fondato nel 2023. L'obiettivo è accelerare agenti e interfacce vocali in Giappone, migliorando il giapponese nello stack di ElevenLabs.",
+     "key_points": [
+      "Kotoba fondata nel 2023 da Noriyuki Kojima e Jungo Kasai",
+      "Obiettivo: voce AI naturale per ogni lingua e cultura",
+      "Non sono riportati prezzo o tempi dell'accordo"
+     ],
+     "why": "Mostra che ElevenLabs punta sulle lingue locali, utile per agenti vocali multilingua.",
+     "badge": "ufficiale",
+     "badge_note": "Annuncio sul blog ufficiale di ElevenLabs.",
+     "importance": 3,
+     "primary_url": "https://elevenlabs.io/blog/kotoba",
+     "sources": [
+      {
+       "name": "Blog ElevenLabs",
+       "title": "Kotoba is joining ElevenLabs",
+       "url": "https://elevenlabs.io/blog/kotoba",
+       "official": true,
+       "kind": "article",
+       "item_id": "8b70d99b098d",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "creators",
+   "title": "Dai creator che seguo",
+   "items": [
+    {
+     "id": "2026-11-17-07",
+     "subsection": "Nick Saraev",
+     "subsection_label": "Nick Saraev",
+     "title": "Nick Saraev: sette funzioni di Claude che pochi conoscono",
+     "summary": "Nick Saraev racconta che l'estensione Claude in Chrome ha registrato alcuni suoi compiti manuali e poi li ha rifatti da sola. Dice che sono sette le novità recenti poco note, elencate nelle slide.",
+     "key_points": [
+      "Registrazione dei clic nell'estensione Claude in Chrome",
+      "Citate anche Claude in auto e Claude Code controllabile a distanza",
+      "Le sette funzioni sono solo nelle slide, non nel testo"
+     ],
+     "why": "Ti dà spunti per automatizzare compiti ripetitivi dei clienti e per un contenuto sulle funzioni nascoste.",
+     "badge": "da_verificare",
+     "badge_note": "Una sola fonte non ufficiale: secondo Nick Saraev, non verificato.",
+     "importance": 2,
+     "primary_url": "https://www.linkedin.com/posts/nick-saraev_7-claude-features-almost-nobody-uses-activity-7528117758950223873-HCm-",
+     "sources": [
+      {
+       "name": "LinkedIn · Nick Saraev",
+       "title": "Nick Saraev: I feel more obsolete than a Blockbuster membership card. I have a very click-hea…",
+       "url": "https://www.linkedin.com/posts/nick-saraev_7-claude-features-almost-nobody-uses-activity-7528117758950223873-HCm-",
+       "official": false,
+       "kind": "post",
+       "item_id": "4af3e81a7523",
+       "meta": {
+        "creator": "Nick Saraev"
+       },
+       "link": "non_verificabile"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-17-16",
+     "subsection": "Giovanni Beggiato",
+     "subsection_label": "Giovanni Beggiato",
+     "title": "Giovanni Beggiato: 15 usi concreti di Claude Code",
+     "summary": "Video con 15 casi reali di persone che usano Claude Code per problemi quotidiani, dal driver di una stampante a un servizio di bandi pubblici su WhatsApp.",
+     "key_points": [
+      "Un'app per tablet nei taxi venduta a 20.000 dollari",
+      "Servizio che filtra i bandi pubblici e li invia su WhatsApp",
+      "Montaggio automatico di 8 ore di riprese",
+      "Robot vocale con ESP32 e animazione con Suno e Blender"
+     ],
+     "why": "Ti dà idee di servizi vendibili e spunti per un video.",
+     "badge": "da_verificare",
+     "badge_note": "Una sola fonte non ufficiale: video di Giovanni Beggiato; i casi sono raccontati da lui.",
+     "importance": 3,
+     "primary_url": "https://www.youtube.com/watch?v=mC3oIuq0KFs",
+     "sources": [
+      {
+       "name": "YouTube · Giovanni Beggiato",
+       "title": "15 cose pazzesche che la gente fa con Claude",
+       "url": "https://www.youtube.com/watch?v=mC3oIuq0KFs",
+       "official": false,
+       "kind": "video",
+       "item_id": "bc48868848a9",
+       "meta": {
+        "creator": "Giovanni Beggiato",
+        "duration": null
+       },
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "github",
+   "title": "GitHub: repo e skill per la mia agenzia",
+   "items": [
+    {
+     "id": "2026-11-17-08",
+     "subsection": "claude",
+     "subsection_label": "Skill e tool per Claude",
+     "title": "Boring Marketing Skills: skill di marketing gratuite per Claude Code",
+     "summary": "Un repo MIT con skill di marketing per agenti AI, tra cui ricerca, posizionamento, copy, pagine, SEO, ricerca AI e annunci. Il README parla di 32 skill, la descrizione di 31, e c'è un pacchetto per le attività locali.",
+     "key_points": [
+      "Installazione: npx skills add boringmarketer/boring-marketing-skills",
+      "Oppure plugin Claude Code, poi /start-here con il nome dell'attività",
+      "La prima esecuzione richiede circa 3 minuti",
+      "Funziona con Claude Code, Codex, Cursor e altri"
+     ],
+     "why": "Puoi usarle per SEO e siti locali dei clienti e studiare come sono costruite le skill.",
+     "badge": "dal_repo",
+     "badge_note": "Stelle, data e licenza verificate su GitHub (188, MIT); le funzioni sono dichiarate dall'autore, non provate.",
+     "importance": 2,
+     "primary_url": "https://github.com/boringmarketer/boring-marketing-skills",
+     "sources": [
+      {
+       "name": "GitHub",
+       "title": "boringmarketer/boring-marketing-skills",
+       "url": "https://github.com/boringmarketer/boring-marketing-skills",
+       "official": false,
+       "kind": "repo",
+       "item_id": "f8e4ab975644",
+       "meta": {
+        "stars": 188,
+        "stars_verified": true,
+        "license": "MIT"
+       },
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "virali",
+   "title": "Da provare: repo, skill e tool virali (idee per gli Shorts)",
+   "items": [
+    {
+     "id": "2026-11-17-02",
+     "subsection": "skill",
+     "subsection_label": "Skill e plugin per Claude",
+     "title": "FFmpeg Skill: 42 comandi FFmpeg per Claude Code",
+     "summary": "Questa skill dà a Claude Code 42 comandi FFmpeg pronti per tagliare video, aggiungere sottotitoli, togliere i silenzi e fare video verticali. Gira in locale, senza chiavi API.",
+     "key_points": [
+      "Cosa fa: taglia video, sottotitoli, toglie i silenzi, video verticali",
+      "Come si prova: apri il repo e segui il README per aggiungere la skill",
+      "Costo: gratis, licenza MIT",
+      "La fonte non riporta un comando di installazione"
+     ],
+     "why": "Ti serve per montare in automatico video e Shorts per te e per i clienti, restando dentro Claude Code.",
+     "badge": "dal_repo",
+     "badge_note": "Stelle e licenza verificate su GitHub (6.998, MIT); le funzioni sono dichiarate dall'autore, non ancora provate. Il dato sulla crescita settimanale arriva dalla ricerca web.",
+     "importance": 1,
+     "short_hook": "Questa skill monta i tuoi video da sola. Gratis.",
+     "primary_url": "https://github.com/kajisho5/ffmpeg-skill",
+     "sources": [
+      {
+       "name": "Ricerca web",
+       "title": "FFmpeg Skill",
+       "url": "https://github.com/kajisho5/ffmpeg-skill",
+       "official": false,
+       "kind": "repo",
+       "item_id": "b38ce2d642a3",
+       "meta": {
+        "stars": 6998,
+        "stars_verified": true,
+        "license": "MIT"
+       },
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-17-09",
+     "subsection": "skill",
+     "subsection_label": "Skill e plugin per Claude",
+     "title": "Claude Video: il comando /watch per far guardare video a Claude Code",
+     "summary": "Aggiunge a Claude Code il comando /watch. Dai un link a un video e Claude ne legge sottotitoli e fotogrammi con i timestamp.",
+     "key_points": [
+      "Cosa fa: legge sottotitoli e fotogrammi con timestamp",
+      "Come si prova: installa dal repo, poi /watch con il link",
+      "Costo: gratis, licenza MIT",
+      "Funziona solo in Claude Code, non in Chat o Cowork"
+     ],
+     "why": "Puoi far analizzare video di competitor o tutorial e trasformarli in contenuti per i clienti.",
+     "badge": "dal_repo",
+     "badge_note": "Stelle e licenza verificate su GitHub (21.046, MIT); le funzioni sono dichiarate dall'autore, non provate. La crescita settimanale è dalla ricerca web.",
+     "importance": 2,
+     "short_hook": "Claude ora guarda i video per te. Gratis.",
+     "primary_url": "https://github.com/bradautomates/claude-video",
+     "sources": [
+      {
+       "name": "Ricerca web",
+       "title": "Claude Video",
+       "url": "https://github.com/bradautomates/claude-video",
+       "official": false,
+       "kind": "repo",
+       "item_id": "449af878ec54",
+       "meta": {
+        "stars": 21046,
+        "stars_verified": true,
+        "license": "MIT"
+       },
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-17-10",
+     "subsection": "skill",
+     "subsection_label": "Skill e plugin per Claude",
+     "title": "NVIDIA SkillSpector: controlla le skill di Claude Code prima di installarle",
+     "summary": "Strumento NVIDIA che scansiona le skill di Claude Code per trovare vulnerabilità e intenzioni malevole prima dell'installazione.",
+     "key_points": [
+      "Cosa fa: cerca vulnerabilità e intenzioni malevole nelle skill",
+      "Come si prova: analizzi una skill partendo dal link GitHub",
+      "Costo: scansione base gratuita e senza chiave API",
+      "Licenza Apache-2.0"
+     ],
+     "why": "Prima di installare skill sui progetti dei clienti, è un controllo di sicurezza e un buon tema per un contenuto.",
+     "badge": "ufficiale",
+     "badge_note": "Repo del profilo nvidia, stelle e licenza verificate su GitHub (26.475, Apache-2.0); le funzioni non sono ancora provate.",
+     "importance": 2,
+     "short_hook": "Prima di installare una skill, controlla se è sicura.",
+     "primary_url": "https://github.com/NVIDIA/SkillSpector",
+     "sources": [
+      {
+       "name": "github.com (via Ricerca web)",
+       "title": "NVIDIA SkillSpector",
+       "url": "https://github.com/NVIDIA/SkillSpector",
+       "official": true,
+       "kind": "repo",
+       "item_id": "ba121356e9aa",
+       "meta": {
+        "stars": 26475,
+        "stars_verified": true,
+        "license": "Apache-2.0"
+       },
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-17-17",
+     "subsection": "repo",
+     "subsection_label": "Repo GitHub",
+     "title": "Claude Code Game Studios: da una frase a un gioco da browser",
+     "summary": "Repo che trasforma una frase in un gioco da browser giocabile. Claude non costruisce nulla finché non approvi il piano.",
+     "key_points": [
+      "Cosa fa: crea giochi da browser da una descrizione",
+      "Come si prova: copia il repo, apri Claude Code nella cartella e descrivi il gioco",
+      "Costo: gratis, ma serve un abbonamento Claude Code",
+      "La modalità di build media costa meno"
+     ],
+     "why": "Ottimo da mostrare in un video dimostrativo e per prototipi veloci per i clienti.",
+     "badge": "dal_repo",
+     "badge_note": "Stelle e licenza verificate su GitHub (39.800, MIT); le funzioni sono dichiarate dall'autore, non provate.",
+     "importance": 3,
+     "short_hook": "Una frase e Claude ti costruisce un gioco.",
+     "primary_url": "https://github.com/Donchitos/Claude-Code-Game-Studios",
+     "sources": [
+      {
+       "name": "Ricerca web",
+       "title": "Claude Code Game Studios",
+       "url": "https://github.com/Donchitos/Claude-Code-Game-Studios",
+       "official": false,
+       "kind": "repo",
+       "item_id": "6609ae6f1b82",
+       "meta": {
+        "stars": 39800,
+        "stars_verified": true,
+        "license": "MIT"
+       },
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-17-18",
+     "subsection": "connettori",
+     "subsection_label": "Connettori e MCP",
+     "title": "HA-MCP: collega Claude a Home Assistant",
+     "summary": "Collega Claude a Home Assistant, così può creare automazioni per la casa smart.",
+     "key_points": [
+      "Cosa fa: crea automazioni per la casa smart",
+      "Come si prova: segui il README",
+      "Al terzo passo scegli l'account: meglio uno dedicato e solo locale",
+      "Costo: gratis, licenza MIT"
+     ],
+     "why": "Ti fa vedere un connettore MCP reale, da usare come esempio in un contenuto.",
+     "badge": "dal_repo",
+     "badge_note": "Stelle e licenza verificate su GitHub (7.908, MIT); le funzioni sono dichiarate dall'autore, non provate.",
+     "importance": 3,
+     "short_hook": "Claude può gestire la tua casa smart.",
+     "primary_url": "https://github.com/homeassistant-ai/ha-mcp",
+     "sources": [
+      {
+       "name": "Ricerca web",
+       "title": "HA-MCP (Home Assistant)",
+       "url": "https://github.com/homeassistant-ai/ha-mcp",
+       "official": false,
+       "kind": "repo",
+       "item_id": "ea86bb1e07bf",
+       "meta": {
+        "stars": 7908,
+        "stars_verified": true,
+        "license": "MIT"
+       },
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "stats": {
+  "collected": 30,
+  "stories": 18,
+  "discarded": 12,
+  "dropped_broken_links": [],
+  "source_errors": [],
+  "window_hours": 26,
+  "model": "sonnet",
+  "checks": {
+   "links_tested": 18,
+   "links_ok": 17,
+   "links_unverifiable": 1,
+   "repos_verified": 6,
+   "badges": {
+    "ufficiale": 11,
+    "da_verificare": 2,
+    "dal_repo": 5
+   },
+   "write_attempts": 1
+  },
+  "claude": {
+   "selezione": {
+    "secs": 9.3,
+    "turns": 2,
+    "input_tokens": 12117,
+    "cache_read_tokens": 0,
+    "output_tokens": 1329,
+    "equivalent_api_usd": 0.061754
+   },
+   "scrittura": {
+    "secs": 38.6,
+    "turns": 2,
+    "input_tokens": 21178,
+    "cache_read_tokens": 0,
+    "output_tokens": 6222,
+    "equivalent_api_usd": 0.146928,
+    "attempts": 1
+   },
+   "scelte": {
+    "secs": 6.0,
+    "turns": 2,
+    "input_tokens": 12630,
+    "cache_read_tokens": 0,
+    "output_tokens": 697,
+    "equivalent_api_usd": 0.057486
+   }
+  }
+ }
+}
