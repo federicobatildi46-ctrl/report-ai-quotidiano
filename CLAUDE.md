@@ -77,7 +77,10 @@ Progetto: report AI quotidiano locale (vedi PIANO_OPERATIVO.md per obiettivi, ar
   `openid profile w_member_social`), token 60 giorni in `data/linkedin_token.json` (gitignored) e
   nei Secrets `LINKEDIN_ACCESS_TOKEN` / `LINKEDIN_PERSON_URN`. Testo → little text format
   (`to_little_text`). Versione API in `topics.yaml` → `linkedin.api_version`.
-- `src/digest/coda.py` + `outputs/linkedin/coda.json`; cloud: `.github/workflows/publish.yml`.
+- `src/digest/coda.py` + `outputs/linkedin/coda.json`. Chi pubblica i programmati: `app._publish_loop`
+  (PC, ogni 30 s, all'orario) e `publish.yml` (push su `claude/**` con `sveglia-pubblica/**` da
+  `scripts/sveglia-pubblica.sh`, lanciato da 2 routine Claude ai :00 e :30; attende orario+120 s,
+  `git pull`, `publish-due --margine 120`). Oltre `MAX_LATE_HOURS` (3) → stato `scaduto`.
 - MAI pubblicare senza conferma esplicita di Federico: niente test di pubblicazione automatici.
   Per verificare usa `uv run digest linkedin-check` (non pubblica).
 

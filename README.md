@@ -261,9 +261,15 @@ scegliere l'allegato (il **carosello PDF** è selezionato di default se esiste: 
 come documento da sfogliare) e poi:
 - **Pubblica adesso** → esce subito sul tuo profilo (dopo una conferma);
 - **Programma** → scegli data e ora: il post va nella coda `outputs/linkedin/coda.json` e lo
-  pubblica il cloud ([.github/workflows/publish.yml](.github/workflows/publish.yml), ogni 30 minuti
-  tra le 7 e le 23), anche col PC spento. I programmati si vedono (e si annullano) nella colonna a
-  sinistra.
+  pubblica, all'orario scelto:
+  1. **l'app sul PC**, se è accesa (controlla la coda ogni 30 secondi);
+  2. **a PC spento, il cloud**: due routine Claude (ai :00 e ai :30, 06:00-22:30 italiane
+     d'inverno) lanciano `scripts/sveglia-pubblica.sh`, che sveglia
+     [.github/workflows/publish.yml](.github/workflows/publish.yml) solo se c'è un post in uscita
+     entro 45 minuti; il workflow aspetta l'orario + 2 minuti (precedenza al PC) e pubblica.
+     Routine: https://claude.ai/code/routines.
+  Un post rimasto indietro di oltre 3 ore non esce più ("⏰ non uscito, riprogrammalo"): niente
+  pubblicazioni a sorpresa o doppioni. I programmati si vedono (e si annullano) a sinistra.
 
 Viene pubblicato esattamente il testo confermato nella finestra. Il collegamento dura 60 giorni:
 l'app avvisa e si ricollega con un click; il token per il cloud viene copiato da solo nei Secrets
