@@ -23,6 +23,210 @@
     "Claude Code (release)"
    ],
    "at": "2026-11-14T02:27:19+00:00"
+  },
+  "2026-11-17-17": {
+   "date": "2026-11-17",
+   "vote": 1,
+   "reason": null,
+   "title": "Claude Code Game Studios: da una frase a un gioco da browser",
+   "section": "virali",
+   "subsection": "repo",
+   "sources": [
+    "Ricerca web"
+   ],
+   "at": "2026-11-17T05:28:24+00:00"
+  },
+  "2026-11-17-18": {
+   "date": "2026-11-17",
+   "vote": 1,
+   "reason": null,
+   "title": "HA-MCP: collega Claude a Home Assistant",
+   "section": "virali",
+   "subsection": "connettori",
+   "sources": [
+    "Ricerca web"
+   ],
+   "at": "2026-11-17T05:28:30+00:00"
+  },
+  "2026-11-17-10": {
+   "date": "2026-11-17",
+   "vote": 1,
+   "reason": null,
+   "title": "NVIDIA SkillSpector: controlla le skill di Claude Code prima di installarle",
+   "section": "virali",
+   "subsection": "skill",
+   "sources": [
+    "github.com (via Ricerca web)"
+   ],
+   "at": "2026-11-17T05:28:35+00:00"
+  },
+  "2026-11-17-09": {
+   "date": "2026-11-17",
+   "vote": 1,
+   "reason": null,
+   "title": "Claude Video: il comando /watch per far guardare video a Claude Code",
+   "section": "virali",
+   "subsection": "skill",
+   "sources": [
+    "Ricerca web"
+   ],
+   "at": "2026-11-17T05:28:39+00:00"
+  },
+  "2026-11-17-02": {
+   "date": "2026-11-17",
+   "vote": -1,
+   "reason": "Già saputo",
+   "title": "FFmpeg Skill: 42 comandi FFmpeg per Claude Code",
+   "section": "virali",
+   "subsection": "skill",
+   "sources": [
+    "Ricerca web"
+   ],
+   "at": "2026-11-17T05:28:59+00:00"
+  },
+  "2026-11-17-08": {
+   "date": "2026-11-17",
+   "vote": -1,
+   "reason": "Rumore",
+   "title": "Boring Marketing Skills: skill di marketing gratuite per Claude Code",
+   "section": "github",
+   "subsection": "claude",
+   "sources": [
+    "GitHub"
+   ],
+   "at": "2026-11-17T05:29:09+00:00"
+  },
+  "2026-11-17-16": {
+   "date": "2026-11-17",
+   "vote": 1,
+   "reason": null,
+   "title": "Giovanni Beggiato: 15 usi concreti di Claude Code",
+   "section": "creators",
+   "subsection": "Giovanni Beggiato",
+   "sources": [
+    "YouTube · Giovanni Beggiato"
+   ],
+   "at": "2026-11-17T05:29:13+00:00"
+  },
+  "2026-11-17-07": {
+   "date": "2026-11-17",
+   "vote": 1,
+   "reason": null,
+   "title": "Nick Saraev: sette funzioni di Claude che pochi conoscono",
+   "section": "creators",
+   "subsection": "Nick Saraev",
+   "sources": [
+    "LinkedIn · Nick Saraev"
+   ],
+   "at": "2026-11-17T05:29:16+00:00"
+  },
+  "2026-11-17-15": {
+   "date": "2026-11-17",
+   "vote": -1,
+   "reason": "Troppo tecnico",
+   "title": "ElevenLabs acquisisce Kotoba, laboratorio giapponese di voice AI",
+   "section": "elevenlabs",
+   "subsection": "",
+   "sources": [
+    "Blog ElevenLabs"
+   ],
+   "at": "2026-11-17T05:29:30+00:00"
+  },
+  "2026-11-17-06": {
+   "date": "2026-11-17",
+   "vote": 1,
+   "reason": null,
+   "title": "Autotorino risponde alle chiamate delle concessionarie con ElevenAgents",
+   "section": "elevenlabs",
+   "subsection": "",
+   "sources": [
+    "Blog ElevenLabs"
+   ],
+   "at": "2026-11-17T05:29:33+00:00"
+  },
+  "2026-11-17-05": {
+   "date": "2026-11-17",
+   "vote": 1,
+   "reason": null,
+   "title": "Higgsfield: guida per creare una mascotte di brand coerente con l'AI",
+   "section": "higgsfield",
+   "subsection": "",
+   "sources": [
+    "Blog Higgsfield"
+   ],
+   "at": "2026-11-17T05:29:38+00:00"
+  },
+  "2026-11-17-01": {
+   "date": "2026-11-17",
+   "vote": 1,
+   "reason": null,
+   "title": "Higgsfield lancia Short Drama Studio: dallo script a una mini serie",
+   "section": "higgsfield",
+   "subsection": "",
+   "sources": [
+    "Higgsfield What's new"
+   ],
+   "at": "2026-11-17T05:29:41+00:00"
+  },
+  "2026-11-17-13": {
+   "date": "2026-11-17",
+   "vote": -1,
+   "reason": "Non mi serve",
+   "title": "Anthropic accorcia i tempi di divulgazione delle vulnerabilità",
+   "section": "claude",
+   "subsection": "ecosistema",
+   "sources": [
+    "Anthropic"
+   ],
+   "at": "2026-11-17T05:29:55+00:00"
+  },
+  "2026-11-17-12": {
+   "date": "2026-11-17",
+   "vote": -1,
+   "reason": "Non mi serve",
+   "title": "Claude Meetings (beta): problemi a entrare nelle chiamate",
+   "section": "claude",
+   "subsection": "ecosistema",
+   "sources": [
+    "Status Claude"
+   ],
+   "at": "2026-11-17T05:30:02+00:00"
+  },
+  "2026-11-17-11": {
+   "date": "2026-11-17",
+   "vote": 1,
+   "reason": null,
+   "title": "Claude Platform: filigrana di testo sui modelli Claude",
+   "section": "claude",
+   "subsection": "ecosistema",
+   "sources": [
+    "Release notes Claude Platform"
+   ],
+   "at": "2026-11-17T05:30:05+00:00"
+  },
+  "2026-11-17-14": {
+   "date": "2026-11-17",
+   "vote": 1,
+   "reason": null,
+   "title": "Anthropic: come risolve la revisione del codice scritto da Claude",
+   "section": "claude",
+   "subsection": "code",
+   "sources": [
+    "Claude.com"
+   ],
+   "at": "2026-11-17T05:30:12+00:00"
+  },
+  "2026-11-17-04": {
+   "date": "2026-11-17",
+   "vote": 1,
+   "reason": null,
+   "title": "Come il team di Claude Code verifica il lavoro degli agenti",
+   "section": "claude",
+   "subsection": "code",
+   "sources": [
+    "Blog Claude"
+   ],
+   "at": "2026-11-17T05:30:18+00:00"
   }
  }
 }
