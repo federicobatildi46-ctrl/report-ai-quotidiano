@@ -1,0 +1,91 @@
+{
+ "cover": {
+  "kicker": "CHIAMATE PERSE",
+  "title_big": "100.000",
+  "title_rest": "chiamate al mese, nessuno risponde",
+  "script_accent": "e tu?",
+  "search_bar": "Quante chiamate perdo davvero?",
+  "subject_en": "a vintage 1950s businessman in a grey suit sitting at a desk, calmly reading a newspaper while a dozen black rotary telephones ring around him, with their coiled cords floating upward like tangled spaghetti, editorial collage style, single cut-out subject, framed with empty space at the top"
+ },
+ "slides": [
+  {
+   "title": "Il caso Autotorino",
+   "lines": [
+    "Gruppo italiano di concessionarie: 100.000 chiamate al mese.",
+    "Fuori orario e nei picchi, nessuno rispondeva.",
+    "Prima: messaggio registrato, Zapier, lead su Salesforce.",
+    "Funzionava, ma al minimo sindacale."
+   ],
+   "highlight": "Il telefono squillava e nessuno rispondeva",
+   "tags": [
+    "Autotorino",
+    "Zapier",
+    "Salesforce"
+   ]
+  },
+  {
+   "title": "L'agente vocale",
+   "lines": [
+    "Ora c'è un agente su ElevenAgents.",
+    "Risponde alle chiamate, a qualsiasi ora.",
+    "Capisce cosa serve e qualifica la richiesta.",
+    "Crea il lead, senza trascrivere nulla."
+   ],
+   "highlight": "Crea il lead senza trascrivere nulla",
+   "tags": [
+    "ElevenAgents",
+    "Lead",
+    "H24"
+   ]
+  },
+  {
+   "title": "I numeri dichiarati",
+   "lines": [
+    "Chiamate gestite in automatico: più che raddoppiate.",
+    "Circa il 70% delle richieste è post-vendita.",
+    "Soprattutto appuntamenti in officina.",
+    "Dati di ElevenLabs, che è anche il fornitore."
+   ],
+   "highlight": "Dati del fornitore, non verifica indipendente",
+   "tags": [
+    "+2x chiamate",
+    "70% post-vendita",
+    "ElevenLabs"
+   ]
+  }
+ ],
+ "pain": {
+  "kicker": "SE HAI UN'ATTIVITÀ DI 10-20 PERSONE",
+  "title": "Quanto ti costa non rispondere",
+  "points": [
+   {
+    "figure": "1 su 2-3",
+    "text": "chiamate a una piccola impresa senza risposta (USA)"
+   },
+   {
+    "figure": "82%",
+    "text": "chiama un concorrente se nessuno risponde"
+   },
+   {
+    "figure": "10/mese",
+    "text": "contatti veri che vanno altrove"
+   }
+  ],
+  "solution": "Un agente vocale o risposta automatica su misura",
+  "gain": "+3-5 richieste",
+  "gain_text": "al mese, recuperando il 30-50% dei contatti",
+  "note": "Stime indicative: solo un'analisi del tuo caso toglie ogni dubbio."
+ },
+ "cta": {
+  "title": "Quante chiamate stai perdendo?",
+  "text": "Scrivi CHIAMATE nei commenti: ti faccio gratis una mini-analisi e ti rispondo in privato.",
+  "keyword": "CHIAMATE"
+ },
+ "direction": "vintage 1950s-60s businessman or office worker in a surreal situation",
+ "subject_job": {
+  "job_id": "bc46eedf-4e2f-456b-8900-df4c01918702",
+  "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3DOc5jLidAoXBBZq382X62VFg2o/hf_20261117_053950_bc46eedf-4e2f-456b-8900-df4c01918702.png",
+  "model": "gpt_image_2_6",
+  "prompt": "a vintage 1950s businessman in a grey suit sitting at a desk, calmly reading a newspaper while a dozen black rotary telephones ring around him, with their coiled cords floating upward like tangled spaghetti, editorial collage style, single cut-out subject, framed with empty space at the top. Black and white editorial photograph, isolated subject cut out on a fully transparent background, studio lighting, high contrast, fine film grain, sharp details, vintage magazine collage aesthetic. No text, no letters, no numbers, no logos, no watermark, no background, no frame."
+ }
+}
