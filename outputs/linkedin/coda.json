@@ -10,5 +10,20 @@
   "publish_at": "2026-11-17T10:30+00:00",
   "status": "programmato",
   "created": "2026-11-17T05:54:42+00:00"
+ },
+ {
+  "id": "06b519fa",
+  "item_id": "2026-11-17-06",
+  "title": "Autotorino risponde alle chiamate delle concessionarie con ElevenAgents",
+  "text": "Lo sapevi che Autotorino riceve 100.000 chiamate al mese e non riesce a rispondere a tutte..\n\nInvece TU quante ne perdi, senza accorgertene? 📞\n\nParto da un caso vero, raccontato da ElevenLabs: Autotorino, gruppo italiano di concessionarie.\n\nIl problema era semplice. Fuori orario o nei momenti di picco, il telefono squillava e nessuno rispondeva.\n\nPrima avevano un messaggio registrato, collegato a Zapier, trascrizione e lead su Salesforce.\nFunzionava, ma ragazzi al minimo sindacale...\n\nOra hanno un agente vocale su ElevenAgents. Ecco cosa fa:\n\n→ Risponde alle chiamate, a qualsiasi ora (una volta era follia)\n→ Capisce cosa serve a chi chiama (qualifica la richiesta)\n→ Crea il lead, senza che qualcuno debba trascrivere nulla\n\nI numeri dichiarati da loro:\n\n✅ Il volume di chiamate gestite in automatico è più che raddoppiato\n✅ Circa il 70% delle richieste riguarda il post-vendita, soprattutto appuntamenti in officina\n✅ Con la nuova versione della voce, a parità di prompt, suona più naturale\n\nUna cosa che mi ha colpito: prima nessuno sapeva cosa chiedessero davvero i clienti. Ora che ogni chiamata viene registrata e analizzata, lo vedono.\n\nMorale della favola: l'agente risponde e raccoglie. Chi decide cosa fare di quel cliente resta l'operatore. Human in the loop, sempre.\n\nAdesso basta parlare di Autotorino. Parliamo di te.\n\nSe hai uno studio, un'agenzia o un'attività con 10-20 persone, e il telefono squilla mentre sei in riunione, in cantiere o in pausa pranzo ecco a cosa vai incontro:\n\n→ Secondo diverse indagini di fornitori americani, circa 1 chiamata su 2-3 a una piccola impresa non trova risposta. Per l'Italia non esiste un dato ufficiale: controlla il tuo registro chiamate, 10 minuti bastano\n→ In un sondaggio USA (CallRail), l'82% dei clienti, se nessuno risponde, chiama un concorrente\n→ Se anche solo 5 chiamate a settimana sono richieste vere e ne perdi la metà, sono circa 10 contatti al mese che vanno altrove ( e quindi amico mio il tuo fatturato ne risente )\n\nCon un sistema su misura (agente vocale o risposta automatica che raccoglie nome, motivo e orario preferito) puoi arrivare a recuperare una parte di quei contatti: stima prudente, dal 30 al 50%, cioè 3-5 richieste in più al mese.\n\nVuoi capire quante chiamate stai perdendo davvero? 👇\n\nScrivi \"CHIAMATE\" nei commenti e ti faccio gratis una mini-analisi: su come gestisci oggi il telefono e dove si perdono i contatti. Ti rispondo in privato, amico mio niente fuffa solo analisi oggettiva.\n\n#AgentiAI #IntelligenzaArtificiale #ElevenLabs #AgentiVocali #Automazione #PMI",
+  "image": null,
+  "carousel": true,
+  "document_title": "100.000 — chiamate al mese, nessuno risponde",
+  "publish_at": "2026-11-17T12:45+00:00",
+  "status": "pubblicato",
+  "created": "2026-11-17T12:45:03+00:00",
+  "post_urn": "urn:li:ugcPost:7528438052252401664",
+  "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7528438052252401664/",
+  "published_at": "2026-11-17T12:45:03+00:00"
  }
 ]
