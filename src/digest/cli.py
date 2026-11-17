@@ -195,7 +195,7 @@ def _preferences(args) -> int:
 def _publish_due(args) -> int:
     from digest.coda import publish_due
 
-    touched = publish_due()
+    touched = publish_due(grace_seconds=args.margine)
     if not touched:
         print("Nessun post da pubblicare adesso.")
     for e in touched:
@@ -240,7 +240,9 @@ def main() -> None:
     p.add_argument("--reuse", action="store_true", help="usa i post già scaricati (niente Apify)")
     p.add_argument("--model", default="sonnet", help="modello Claude (default: sonnet)")
     sub.add_parser("preferences", help="riassume i tuoi voti 👍/👎 in config/preferenze.md")
-    sub.add_parser("publish-due", help="pubblica su LinkedIn i post programmati già scaduti")
+    p = sub.add_parser("publish-due", help="pubblica su LinkedIn i post programmati già scaduti")
+    p.add_argument("--margine", type=int, default=0,
+                   help="secondi di attesa oltre l'orario (il cloud lascia la precedenza al PC)")
     sub.add_parser("linkedin-check", help="verifica il collegamento LinkedIn senza pubblicare")
     p = sub.add_parser("serve", help="app locale con report, archivio e generatori")
     p.add_argument("--port", type=int, help="porta (default: DIGEST_PORT o 8787)")

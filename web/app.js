@@ -597,12 +597,13 @@ async function loadLinkedIn() {
 
   const q = await api("/api/coda");
   const upcoming = q.filter((e) => e.status === "programmato");
-  const recent = q.filter((e) => e.status !== "programmato" && e.status !== "annullato").slice(0, 3);
+  const recent = q.filter((e) => e.status !== "programmato" && e.status !== "annullato").slice(-3).reverse();   // i più recenti
   $("#coda").innerHTML = [
     ...upcoming.map((e) => `<div class="q"><div>${esc(e.title.slice(0, 60))}</div>
       <div class="q-when">📅 ${fmtWhen(e.publish_at)} · <button class="link" data-cancel="${e.id}">Annulla</button></div></div>`),
     ...recent.map((e) => `<div class="q"><div>${esc(e.title.slice(0, 60))}</div><div class="q-when">${e.status === "pubblicato"
       ? `✅ ${fmtWhen(e.published_at || e.publish_at)} · <a href="${esc(e.url)}" target="_blank" rel="noopener">apri</a>`
+      : e.status === "scaduto" ? `⏰ non uscito (era per ${fmtWhen(e.publish_at)}): riprogrammalo`
       : `❌ errore: ${esc((e.error || "").slice(0, 80))}`}</div></div>`),
   ].join("") || '<span class="muted">Nessun post programmato.</span>';
 }

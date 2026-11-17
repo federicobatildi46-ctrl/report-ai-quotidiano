@@ -1,11 +1,21 @@
 # Pubblica su LinkedIn i post programmati dall'app (outputs/linkedin/coda.json).
-# Gira ogni 30 minuti dalle 06:05 alle 21:35 UTC (≈ 7–23 in Italia): un post programmato esce al
-# massimo ~30-40 minuti dopo l'orario scelto. Se la coda è vuota finisce in pochi secondi.
+#
+# Perché non basta l'orologio di GitHub: su questo repo lo "schedule" parte con ore di ritardo e
+# salta la maggior parte dei giri (12-17/11/2026: 14 giri in 5 giorni invece di 160; il post del
+# 17/11 alle 11:30 non è mai uscito). Quindi chi pubblica è, in ordine:
+#  1. l'app sul PC, all'orario esatto (se il PC è acceso);
+#  2. questo workflow, svegliato da una routine Claude ogni 30 minuti (scripts/sveglia-pubblica.sh
+#     fa un push su un ramo claude/... solo se c'è un post in uscita entro 45 minuti). Il workflow
+#     aspetta l'orario + 2 minuti (precedenza al PC), riscarica la coda e pubblica se serve;
+#  3. lo schedule di GitHub, come ultima riserva (un post in ritardo di oltre 3 ore non esce più).
 # Avvio manuale con "verifica" = controlla solo il collegamento, non pubblica nulla.
 
 name: Pubblica post programmati
 
 on:
+  push:                # la sveglia della routine Claude: parte subito
+    branches: ["claude/**"]
+    paths: ["sveglia-pubblica/**"]
   schedule:
     - cron: "5,35 6-21 * * *"
   workflow_dispatch:
@@ -26,11 +36,14 @@ concurrency:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 60
     env:
       SOLO_VERIFICA: ${{ inputs.verifica == true }}
+      MARGINE: "120"   # secondi dopo l'orario: se il PC è acceso, pubblica lui
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main          # si lavora sempre su main, anche se la sveglia arriva da un ramo claude/...
 
       - name: Guardiano del report quotidiano
         # Se dopo le 08:00 UTC (09:00 italiane d'inverno) il report di oggi non c'è e nessun
@@ -40,18 +53,45 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           today=$(date -u +%Y-%m-%d)
-          git fetch -q origin "${GITHUB_REF_NAME}"
-          if [ "$(date -u +%H)" -lt 8 ] || git cat-file -e "origin/${GITHUB_REF_NAME}:reports/$today.json" 2>/dev/null; then
+          git fetch -q origin main
+          if [ "$(date -u +%H)" -lt 8 ] || git cat-file -e "origin/main:reports/$today.json" 2>/dev/null; then
             echo "Report di oggi presente (o è ancora presto): niente da fare."; exit 0
           fi
           active=$(gh run list --workflow daily.yml --created ">=$today" --json status -q '[.[] | select(.status != "completed")] | length')
           relaunched=$(gh run list --workflow daily.yml --event workflow_dispatch --created ">=$today" --json databaseId -q 'length')
           if [ "$active" = "0" ] && [ "$relaunched" -lt 2 ]; then
-            gh workflow run daily.yml --ref "${GITHUB_REF_NAME}"
+            gh workflow run daily.yml --ref main
             echo "Report di oggi mancante: rilanciato."
           else
             echo "Report in corso o già rilanciato 2 volte oggi: non rilancio."
           fi
+
+      - name: Aspetta l'orario del prossimo post (massimo 50 minuti)
+        if: env.SOLO_VERIFICA != 'true'
+        run: |
+          echo "Avviato da: ${GITHUB_EVENT_NAME} alle $(date -u +%H:%M:%S) UTC"
+          wait=$(python3 - <<'EOF'
+          import json, os
+          from datetime import datetime, timedelta, timezone
+          p = "outputs/linkedin/coda.json"
+          now = datetime.now(timezone.utc)
+          margine = int(os.environ["MARGINE"])
+          times = []
+          if os.path.exists(p):
+              for e in json.load(open(p, encoding="utf-8")):
+                  if e["status"] == "programmato":
+                      t = datetime.fromisoformat(e["publish_at"]) + timedelta(seconds=margine)
+                      if t <= now + timedelta(minutes=50):
+                          times.append(t)
+          print(max(0, int((min(times) - now).total_seconds())) if times else 0)
+          EOF
+          )
+          if [ "$wait" -gt 0 ]; then
+            echo "Prossimo post tra $wait secondi: aspetto."
+            sleep "$wait"
+          fi
+          # nel frattempo il PC (o un altro giro) può aver già pubblicato o annullato: riscarica
+          git pull -q --ff-only origin main
 
       - name: Ci sono post da pubblicare?
         id: due
@@ -59,11 +99,11 @@ jobs:
           if [ "$SOLO_VERIFICA" = "true" ]; then echo "count=0" >> "$GITHUB_OUTPUT"; exit 0; fi
           python3 - <<'EOF' >> "$GITHUB_OUTPUT"
           import json, os
-          from datetime import datetime, timezone
+          from datetime import datetime, timedelta, timezone
           p = "outputs/linkedin/coda.json"
           due = 0
           if os.path.exists(p):
-              now = datetime.now(timezone.utc)
+              now = datetime.now(timezone.utc) - timedelta(seconds=int(os.environ["MARGINE"]))
               due = sum(1 for e in json.load(open(p, encoding="utf-8"))
                         if e["status"] == "programmato" and datetime.fromisoformat(e["publish_at"]) <= now)
           print(f"count={due}")
@@ -88,7 +128,7 @@ jobs:
           LINKEDIN_PERSON_URN: ${{ secrets.LINKEDIN_PERSON_URN }}
         run: |
           uv sync --frozen
-          uv run digest publish-due
+          uv run digest publish-due --margine "$MARGINE"
 
       - name: Salva lo stato della coda
         if: always() && env.SOLO_VERIFICA != 'true' && steps.due.outputs.count != '0'
@@ -101,3 +141,7 @@ jobs:
             git pull --rebase
             git push
           fi
+
+      - name: Rimuove il ramo usato come sveglia
+        if: always() && github.event_name == 'push'
+        run: git push origin --delete "${GITHUB_REF_NAME}" || true

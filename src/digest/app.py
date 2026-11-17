@@ -57,9 +57,32 @@ def _keep_in_sync():
         time.sleep(CHECK_EVERY)
 
 
+def _publish_loop():
+    """Ogni 30 secondi: se un post programmato è arrivato all'orario, il PC lo pubblica subito.
+    Prima scarica la coda da GitHub (il cloud potrebbe averlo già fatto), dopo la ricarica.
+    A PC spento ci pensa il cloud (publish.yml), 2 minuti dopo l'orario."""
+    import time
+    while True:
+        time.sleep(30)
+        try:
+            if not coda.due_entries() or not li.load_token():
+                continue
+            gitsync.pull()
+            if not coda.due_entries():
+                continue
+            touched = coda.publish_due()
+            if touched:
+                rel = str(coda.CODA_PATH.relative_to(ROOT))
+                names = ", ".join(f"{e['status']}: {e['title'][:40]}" for e in touched)
+                gitsync.commit_and_push([rel], f"LinkedIn dal PC: {names}")
+        except Exception as e:   # mai fermare il controllo
+            sync_state["publish_error"] = str(e)[-300:]
+
+
 @asynccontextmanager
 async def lifespan(_app):
     threading.Thread(target=_keep_in_sync, daemon=True).start()
+    threading.Thread(target=_publish_loop, daemon=True).start()
     yield
 
 

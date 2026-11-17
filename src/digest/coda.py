@@ -2,16 +2,22 @@
 
 Ogni voce conserva il TESTO ESATTO confermato da Federico al momento della programmazione:
 viene pubblicato quello, anche se nel frattempo il file del post cambia.
-Stati: programmato → pubblicato | errore | annullato.
+Stati: programmato → pubblicato | errore | annullato | scaduto.
+
+Chi pubblica (in quest'ordine): l'app sul PC all'orario esatto; se il PC è spento, il cloud
+(.github/workflows/publish.yml, svegliato da una routine Claude ogni 30 minuti) 2 minuti dopo.
+Un post rimasto indietro di oltre MAX_LATE_HOURS non esce più ("scaduto"): meglio un avviso che
+un post pubblicato a sorpresa ore dopo (o un doppione di uno pubblicato a mano).
 """
 
 import json
 import uuid
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timedelta
 
 from digest import OUTPUTS_DIR
 
 CODA_PATH = OUTPUTS_DIR / "linkedin" / "coda.json"
+MAX_LATE_HOURS = 3
 
 
 def load() -> list[dict]:
@@ -52,15 +58,34 @@ def cancel(entry_id: str) -> dict:
     raise KeyError(entry_id)
 
 
-def publish_due() -> list[dict]:
-    """Pubblica le voci programmate già scadute. Ritorna le voci toccate."""
+def due_entries(grace_seconds: int = 0, entries: list[dict] | None = None) -> list[dict]:
+    """Voci programmate il cui orario (+ margine) è passato."""
+    now = datetime.now(UTC)
+    return [e for e in (entries if entries is not None else load()) if e["status"] == "programmato"
+            and datetime.fromisoformat(e["publish_at"]) + timedelta(seconds=grace_seconds) <= now]
+
+
+def next_due(within_minutes: int) -> datetime | None:
+    """Orario del primo post programmato entro i prossimi `within_minutes` (anche se già passato)."""
+    limit = datetime.now(UTC) + timedelta(minutes=within_minutes)
+    times = [datetime.fromisoformat(e["publish_at"]) for e in load() if e["status"] == "programmato"]
+    times = [t for t in times if t <= limit]
+    return min(times) if times else None
+
+
+def publish_due(grace_seconds: int = 0) -> list[dict]:
+    """Pubblica le voci programmate già scadute. Ritorna le voci toccate.
+    `grace_seconds`: il cloud aspetta un paio di minuti in più, così se il PC è acceso pubblica
+    lui e il cloud trova il post già fatto (niente doppioni)."""
     from digest.linkedin_pub import carousel_pdf, image_path, publish
 
     entries = load()
     now = datetime.now(UTC)
     touched = []
-    for e in entries:
-        if e["status"] != "programmato" or datetime.fromisoformat(e["publish_at"]) > now:
+    for e in due_entries(grace_seconds, entries):
+        if now - datetime.fromisoformat(e["publish_at"]) > timedelta(hours=MAX_LATE_HOURS):
+            e.update(status="scaduto", error=f"non pubblicato: oltre {MAX_LATE_HOURS} ore di ritardo")
+            touched.append(e)
             continue
         try:
             e.update(publish(e["text"], image_path(e.get("image")), alt_text=e.get("title", ""),
