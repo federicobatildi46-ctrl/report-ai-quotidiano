@@ -1,0 +1,91 @@
+{
+ "cover": {
+  "kicker": "CODICE SCRITTO DALL'AI",
+  "title_big": "CHI CONTROLLA",
+  "title_rest": "il codice dell'AI?",
+  "script_accent": "ti fidi?",
+  "search_bar": "Chi rilegge il codice dell'AI?",
+  "subject_en": "a pair of human hands in close-up holding a large brass magnifying glass over a tiny glowing circuit-board house, a single red thread of light visible inside the lens, editorial collage style, single cut-out subject, framed with empty space at the top"
+ },
+ "slides": [
+  {
+   "title": "Il problema",
+   "lines": [
+    "Claude Code scrive codice in pochi minuti.",
+    "Chi lo rilegge riga per riga prima del cliente?",
+    "Spesso nessuno. E lì nascono i guai.",
+    "Un agente generico su modifiche grandi rilegge solo una parte dei file."
+   ],
+   "highlight": "Spesso nessuno. E lì nascono i guai.",
+   "tags": [
+    "Claude Code",
+    "Revisione",
+    "Qualità"
+   ]
+  },
+  {
+   "title": "Open Code Review",
+   "lines": [
+    "Gratuito, licenza Apache-2.0, nato in Alibaba.",
+    "Oltre 53.000 stelle sulla pagina GitHub.",
+    "Usato da decine di migliaia di sviluppatori interni.",
+    "Controlli fissi, agente AI e modello a scelta."
+   ],
+   "highlight": "Controlli fissi + agente AI + modello a scelta",
+   "tags": [
+    "Alibaba",
+    "Apache-2.0",
+    "GitHub"
+   ]
+  },
+  {
+   "title": "Pro e limiti",
+   "lines": [
+    "Dichiarano: stesso modello, precisione più alta.",
+    "Circa 1/9 dei token consumati.",
+    "Trova meno problemi in totale: meno falsi allarmi.",
+    "Io non l'ho ancora provato. Lo testo io."
+   ],
+   "highlight": "Propone l'AI, firmo io.",
+   "tags": [
+    "1/9 token",
+    "Falsi allarmi",
+    "Human in the loop"
+   ]
+  }
+ ],
+ "pain": {
+  "kicker": "SE HAI UN'ATTIVITÀ O UN E-COMMERCE",
+  "title": "Quanto ti costa aspettare",
+  "points": [
+   {
+    "figure": "2-4 h/mese",
+    "text": "Spese a rincorrere piccoli bug o blocchi"
+   },
+   {
+    "figure": "1 su 5",
+    "text": "Errori scoperti solo dal cliente infuriato"
+   },
+   {
+    "figure": "centinaia di €",
+    "text": "Interventi d'urgenza che si potevano prevenire"
+   }
+  ],
+  "solution": "Con un sistema di controllo automatizzato sui processi",
+  "gain": "meno errori",
+  "gain_text": "Meno errori che arrivano al cliente",
+  "note": "Stime indicative: solo un'analisi del tuo caso toglie ogni dubbio."
+ },
+ "cta": {
+  "title": "Hai una rete di sicurezza?",
+  "text": "Scrivi ANALISI nei commenti: vediamo insieme se il tuo sistema ha una rete di sicurezza o viaggia alla cieca.",
+  "keyword": "ANALISI"
+ },
+ "direction": "human hands in close-up doing a symbolic gesture with an object (chess piece, key, puzzle, lever, magnifying glass)",
+ "subject_job": {
+  "job_id": "97d9fd91-d6a6-4334-b830-b72c30b3fa16",
+  "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3DOc5jLidAoXBBZq382X62VFg2o/hf_20261118_071732_97d9fd91-d6a6-4334-b830-b72c30b3fa16.png",
+  "model": "gpt_image_2_6",
+  "prompt": "a pair of human hands in close-up holding a large brass magnifying glass over a tiny glowing circuit-board house, a single red thread of light visible inside the lens, editorial collage style, single cut-out subject, framed with empty space at the top. Black and white editorial photograph, isolated subject cut out on a fully transparent background, studio lighting, high contrast, fine film grain, sharp details, vintage magazine collage aesthetic. No text, no letters, no numbers, no logos, no watermark, no background, no frame."
+ }
+}
