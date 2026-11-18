@@ -1,5 +1,28 @@
 # Report AI quotidiano
 
+> **In English.** A personal daily AI briefing that runs for free on GitHub Actions, even with my
+> PC off. Every morning it:
+>
+> 1. **collects** the last day's updates from YouTube channels, blogs, release notes and GitHub,
+>    remembering what it has already seen;
+> 2. lets **Claude Code in headless mode** (`claude -p`) select what matters, merge sources that
+>    cover the same story, write the summaries and assign a **fact-check badge**, while the code
+>    tests every link and fixes inconsistent badges;
+> 3. **delivers** the report by Gmail and in a local web app.
+>
+> From any item, one click turns it into a **lesson**, a **LinkedIn post in my own voice** (style
+> guide derived from my past posts), a **YouTube Shorts script** or carousel images. Posts can be
+> scheduled and published to LinkedIn automatically, and the news filter **learns from my 👍/👎
+> votes**.
+>
+> GitHub's cron started this repo's jobs 5-8 hours late, so the workflow is woken by several
+> independent clocks (a Claude cloud routine, the local app, evening crons); the first one to
+> arrive builds the report and the others exit in seconds.
+>
+> Stack: Python, uv, Claude Code, GitHub Actions, Apify, yt-dlp, ffmpeg. The rest of this README
+> is in Italian.
+
+
 Un report personale che ogni mattina raccoglie, filtra, verifica e riassume le notizie AI che
 contano per me — Claude, Higgsfield, ElevenLabs, i creator che seguo e le novità GitHub per la mia
 futura agenzia — me lo manda su Gmail e me lo fa leggere in un'app locale, da cui posso
@@ -7,7 +30,7 @@ trasformare ogni notizia in una lezione, un post LinkedIn o uno script Shorts.
 
 - Il report si genera **nel cloud con GitHub Actions** (gratis, anche col PC spento).
 - I contenuti (lezioni, post, Shorts) si generano **sul PC** dall'app locale.
-- Tutto vive in questo repo privato: cambiando PC basta clonarlo.
+- Tutto vive in questo repo: cambiando PC basta clonarlo.
 
 Il piano completo è in [PIANO_OPERATIVO.md](PIANO_OPERATIVO.md).
 
