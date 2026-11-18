@@ -1,0 +1,658 @@
+{
+ "title": "Report automatico notizie e aggiornamenti AI",
+ "date": "2026-11-18",
+ "generated_at": "2026-11-18T04:35:38.606982+00:00",
+ "reading_minutes": 8,
+ "in_breve": [
+  "Anthropic lancia in beta il linked billing sulla Claude Platform: i clienti pagano l'uso dell'API tramite la propria organizzazione, senza condividere chiavi API; Higgsfield è partner di lancio.",
+  "Claude Code 2.1.327 e due articoli di engineering Anthropic (chaos loop per Claude Docs, verifica con test E2E) offrono spunti pratici per lavorare con agenti.",
+  "Tra i repo in tendenza per chi crea siti con agenti: stitch-skills di Google, modern-web-guidance di Chrome e il design system astryx di Meta."
+ ],
+ "picks": {
+  "linkedin": {
+   "item_id": "2026-11-18-08",
+   "score": 7,
+   "hook": "Il telefono squilla mentre sei con un cliente e nessuno risponde. Quante prenotazioni perdi ogni settimana senza accorgertene?",
+   "why": "Numeri concreti su agenti vocali (90% chiamate gestite, lead qualificati 3,3 volte) da fonte ufficiale: parla a chi perde tempo e clienti al telefono.",
+   "target": "titolari di piccole attività con 10-20 persone che gestiscono telefonate e prenotazioni a mano",
+   "pain": "Telefonate e richieste ripetitive occupano il personale e, se nessuno risponde, i clienti vanno altrove.",
+   "angle": "Dal problema delle chiamate perse o gestite a mano alla notizia: ElevenLabs porta casi in cui un assistente vocale gestisce il 90% delle chiamate di una hotline e qualifica più lead. Un sistema su misura può alleggerire il telefono, senza promettere gli stessi risultati.",
+   "caveat": "",
+   "alternatives": [
+    {
+     "item_id": "2026-11-18-06",
+     "reason": "Caso reale con numeri, ma pattern tecnico: va tradotto per i clienti.",
+     "title": "Claude Docs: come un 'chaos loop' con Claude ha retto il lancio"
+    },
+    {
+     "item_id": "2026-11-18-01",
+     "reason": "Spesa AI sotto controllo del cliente, ma più tecnica per questa nicchia.",
+     "title": "Claude Platform, linked billing in beta: i clienti pagano senza condividere la chiave API"
+    }
+   ],
+   "title": "ElevenLabs: assistente vocale per retail e prenotazioni, dal quesito alla transazione",
+   "badge": "ufficiale",
+   "section": "elevenlabs"
+  },
+  "short": {
+   "item_id": "2026-11-18-12",
+   "score": 7,
+   "hook": "Meta ha regalato a tutti 150 componenti per costruire interfacce con l'AI",
+   "why": "Gratis, 30.248 stelle e sandbox online provabile subito senza installare nulla; wow visivo e link nei commenti. Attenzione: è in beta.",
+   "title": "meta/astryx: design system open source di Meta pensato per gli agenti AI",
+   "badge": "dal_repo",
+   "section": "virali"
+  }
+ },
+ "sections": [
+  {
+   "id": "claude",
+   "title": "Universo Claude",
+   "items": [
+    {
+     "id": "2026-11-18-01",
+     "subsection": "ecosistema",
+     "subsection_label": "Ecosistema a 360° — modelli, API, SDK, azienda",
+     "title": "Claude Platform, linked billing in beta: i clienti pagano senza condividere la chiave API",
+     "summary": "Anthropic introduce in beta il linked billing: le piattaforme terze possono far pagare ai clienti l'uso di Claude collegando la loro organizzazione, senza scambiarsi chiavi API. Anthropic fattura direttamente al cliente, che approva il link e fissa un tetto di spesa. Higgsfield è partner di lancio.",
+     "key_points": [
+      "Ogni richiesta usa billing_policy per scegliere chi paga: piattaforma o cliente.",
+      "Il link lo approva un utente Console con ruolo Owner, Admin o Billing.",
+      "Limite di spesa mensile per piattaforma; scollegamento in qualsiasi momento dalla Console.",
+      "Su Higgsfield: piani Team, Scale ed Enterprise; immagini e video restano a crediti Higgsfield."
+     ],
+     "why": "Se costruirai agenti o automazioni per clienti, potrai far pagare a loro l'uso di Claude senza gestire le loro chiavi API; e usi già Higgsfield.",
+     "badge": "ufficiale",
+     "badge_note": "Annuncio sul sito Claude, release notes della Platform e blog Higgsfield concordano.",
+     "importance": 1,
+     "primary_url": "https://claude.com/resources/articles/linked-billing-on-claude-platform",
+     "sources": [
+      {
+       "name": "Claude.com",
+       "title": "Linked billing on the Claude Platform",
+       "url": "https://claude.com/resources/articles/linked-billing-on-claude-platform",
+       "official": true,
+       "kind": "article",
+       "item_id": "3574711074a4",
+       "meta": {},
+       "link": "ok"
+      },
+      {
+       "name": "Release notes Claude Platform",
+       "title": "Claude Platform — release notes — November 17, 2026",
+       "url": "https://platform.claude.com/docs/en/release-notes/overview#november-17-2026",
+       "official": true,
+       "kind": "changelog",
+       "item_id": "994db3029814",
+       "meta": {},
+       "link": "ok"
+      },
+      {
+       "name": "Blog Higgsfield",
+       "title": "Higgsfield Joins Anthropic as a Launch Partner for Linked Billing",
+       "url": "https://higgsfield.ai/blog/higgsfield-anthropic-linked-billing",
+       "official": true,
+       "kind": "article",
+       "item_id": "4c6a681957dc",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-18-04",
+     "subsection": "code",
+     "subsection_label": "Claude Code",
+     "title": "Claude Code v2.1.327: /status più utile, mcp add-json da stdin e molti fix",
+     "summary": "Nuova release di Claude Code con diagnostica più ricca e vari fix su sessioni, permessi e comandi. Tra le novità, i token MCP possono restare fuori dalla riga di comando.",
+     "key_points": [
+      "`claude mcp add-json <name> -` legge il JSON da stdin, non disponibile dentro una sessione.",
+      "/status elenca file di agent, skill e comandi rotti, errori di keybinding e sandbox non disponibile.",
+      "Fix: `claude mcp add/remove` con scope project non cancella più altre chiavi di .mcp.json.",
+      "Aggiunto /tui classic per il renderer non fullscreen."
+     ],
+     "why": "Usi Claude Code ogni giorno: /status aiuta a trovare skill rotte e il fix su .mcp.json evita di perdere configurazioni.",
+     "badge": "ufficiale",
+     "badge_note": "Note di rilascio ufficiali del repository anthropics su GitHub.",
+     "importance": 2,
+     "primary_url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.327",
+     "sources": [
+      {
+       "name": "Claude Code (release)",
+       "title": "v2.1.327",
+       "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.327",
+       "official": true,
+       "kind": "release",
+       "item_id": "35effb9d49af",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-18-05",
+     "subsection": "chat",
+     "subsection_label": "Chat (app claude.ai)",
+     "title": "Claude Desktop: ora puoi scegliere il canale di rilascio",
+     "summary": "Claude Desktop permette di scegliere il canale di aggiornamento. Stable resta quello predefinito; Latest riceve una nuova versione circa una volta al giorno.",
+     "key_points": [],
+     "why": "Se vuoi le novità di Claude Desktop subito, passa a Latest; per un uso stabile coi clienti resta su Stable.",
+     "badge": "ufficiale",
+     "badge_note": "Release notes ufficiali dell'app Claude del 17 novembre 2026.",
+     "importance": 2,
+     "primary_url": "https://support.claude.com/en/articles/12138966-release-notes#h_e2e22537c4",
+     "sources": [
+      {
+       "name": "Release notes app Claude",
+       "title": "Claude app — release notes — November 17, 2026",
+       "url": "https://support.claude.com/en/articles/12138966-release-notes#h_e2e22537c4",
+       "official": true,
+       "kind": "changelog",
+       "item_id": "f10f4afb78fa",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-18-06",
+     "subsection": "ecosistema",
+     "subsection_label": "Ecosistema a 360° — modelli, API, SDK, azienda",
+     "title": "Claude Docs: come un 'chaos loop' con Claude ha retto il lancio",
+     "summary": "Anthropic racconta come ha preparato il lancio di Claude Docs: per due settimane una sessione Claude Code ha stressato lo staging e corretto i guasti. Dopo il lancio, 4,6 milioni di doc in sei giorni e solo 60 errori server su 2 miliardi di richieste.",
+     "key_points": [
+      "Una sessione Claude Code coordinava sub-agenti: in media circa 11 insieme, 30 al picco.",
+      "Lo staging simulava oltre un milione di doc sintetici al giorno.",
+      "Il servizio girava su circa 50 pod a memoria ottimizzata, senza rollback.",
+      "Telemetria accurata ad ogni iterazione: senza, Claude non poteva chiudere il ciclo."
+     ],
+     "why": "Il pattern ciclo + sub-agenti + telemetria è un'idea da imparare e da usare per testare automazioni o agenti prima di consegnarli a un cliente.",
+     "badge": "ufficiale",
+     "badge_note": "Post di engineering sul blog ufficiale; i numeri sono dichiarati dall'autore.",
+     "importance": 2,
+     "primary_url": "https://claude.dev/blog/chaos-loop-claude-docs-launch/",
+     "sources": [
+      {
+       "name": "Blog Claude",
+       "title": "Using a \"chaos loop\" to harden the Claude Docs launch: 60 server errors across billions of requests / claude.dev Blog",
+       "url": "https://claude.dev/blog/chaos-loop-claude-docs-launch/",
+       "official": true,
+       "kind": "article",
+       "item_id": "39cc97e261d1",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-18-07",
+     "subsection": "code",
+     "subsection_label": "Claude Code",
+     "title": "Come il team di Claude Code pensa alla verifica: test E2E, property e differential",
+     "summary": "Addy Osmani spiega come gli agenti verificano il proprio lavoro con prove concrete. Nel team Claude Code circa il 90% del codice è scritto e rivisto da Claude, e i cicli di verifica permettono di delegare più lavoro in parallelo.",
+     "key_points": [
+      "Se devi sceglierne uno, punta sui test end-to-end: sono difficili da ingannare.",
+      "Test instabili insegnano all'agente a rilanciarli invece di correggere il codice.",
+      "Un grader separato con rubrica ha migliorato il successo fino a 10 punti nei test interni.",
+      "Se un agente sbaglia ripetutamente, aggiungi un hook o una regola in CLAUDE.md."
+     ],
+     "why": "Applicalo ai tuoi progetti e a quelli dei clienti: test e regole in CLAUDE.md ti permettono di far lavorare più agenti senza controllare tutto a mano.",
+     "badge": "ufficiale",
+     "badge_note": "Articolo sul blog ufficiale claude.dev, rilanciato su Hacker News (275 punti).",
+     "importance": 2,
+     "primary_url": "https://claude.dev/blog/how-the-claude-code-team-thinks-about-verification/",
+     "sources": [
+      {
+       "name": "claude.dev (via Hacker News)",
+       "title": "How the Claude Code team thinks about verification",
+       "url": "https://claude.dev/blog/how-the-claude-code-team-thinks-about-verification/",
+       "official": true,
+       "kind": "article",
+       "item_id": "4daa1747153b",
+       "meta": {
+        "points": 275,
+        "comments": "https://news.ycombinator.com/item?id=50529612"
+       },
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "higgsfield",
+   "title": "Higgsfield",
+   "items": [
+    {
+     "id": "2026-11-18-02",
+     "subsection": "",
+     "subsection_label": "",
+     "title": "Higgsfield Short Drama Studio: guida per creare una serie drammatica con l'AI",
+     "summary": "Higgsfield pubblica la guida a Short Drama Studio, che trasforma una sceneggiatura in una serie a episodi. Il flusso ha tre fasi: Script, Cast & World, Episodes. C'è anche un agente che applica modifiche e aiuta a creare gli episodi.",
+     "key_points": [
+      "Qualità video dal web: bozza 480p, 720p e 1080p.",
+      "Pianificazione episodi e generazione video sono azioni separate: rivedi i clip prima.",
+      "Un episodio scaricabile include solo i clip già generati.",
+      "Disponibile anche via Higgsfield MCP con /short-drama, un episodio alla volta."
+     ],
+     "why": "Puoi provarlo per creare contenuti video seriali per te o per un cliente, partendo da uno script con personaggi e luoghi coerenti.",
+     "badge": "ufficiale",
+     "badge_note": "Guida pubblicata sul blog ufficiale di Higgsfield; funzioni descritte dall'azienda, non provate.",
+     "importance": 1,
+     "primary_url": "https://higgsfield.ai/blog/how-to-make-ai-short-drama-series",
+     "sources": [
+      {
+       "name": "Blog Higgsfield",
+       "title": "How to Make an AI Short Drama Series (Full Guide)",
+       "url": "https://higgsfield.ai/blog/how-to-make-ai-short-drama-series",
+       "official": true,
+       "kind": "article",
+       "item_id": "4e8a71f6fef1",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "elevenlabs",
+   "title": "ElevenLabs",
+   "items": [
+    {
+     "id": "2026-11-18-08",
+     "subsection": "",
+     "subsection_label": "",
+     "title": "ElevenLabs: assistente vocale per retail e prenotazioni, dal quesito alla transazione",
+     "summary": "ElevenLabs riassume un webinar su agenti vocali costruiti con ElevenAgents che cercano, rispondono e completano prenotazioni o ordini in una sola conversazione. Porta casi clienti e dati interni su voce contro chat.",
+     "key_points": [
+      "Rohlik: la sua assistente Maia gestisce il 90% delle chiamate alla hotline.",
+      "Immobiliare.it: qualificazione dei lead 3,3 volte più alta con l'assistente.",
+      "Oltre due minuti di conversazione la voce riesce il 29% in più della chat.",
+      "Esito deciso dalla configurazione: modello, voce e tempo dedicato."
+     ],
+     "why": "Dà numeri da usare quando proponi agenti vocali a negozi, hotel o ristoranti, e spunti per contenuti sul tema.",
+     "badge": "ufficiale",
+     "badge_note": "Blog ufficiale ElevenLabs; dati e casi sono dichiarati dall'azienda, non verificati in modo indipendente.",
+     "importance": 2,
+     "primary_url": "https://elevenlabs.io/blog/retail-ai-assistant-webinar-recap",
+     "sources": [
+      {
+       "name": "Blog ElevenLabs",
+       "title": "The AI retail assistant: from customer question to completed transaction",
+       "url": "https://elevenlabs.io/blog/retail-ai-assistant-webinar-recap",
+       "official": true,
+       "kind": "article",
+       "item_id": "9729e350f38f",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "creators",
+   "title": "Dai creator che seguo",
+   "items": [
+    {
+     "id": "2026-11-18-09",
+     "subsection": "Coco",
+     "subsection_label": "Coco",
+     "title": "Coco: 3 tool gratis per dare a Claude Code siti dal design curato",
+     "summary": "Secondo Coco, senza gli strumenti giusti Claude Code produce il solito sito AI tutto uguale. Consiglia tre tool gratuiti: GSAP, Lenis e React Bits. Si tratta di un solo creator, quindi è un'indicazione da verificare.",
+     "key_points": [
+      "GSAP: libreria di animazione usata dai professionisti.",
+      "Lenis: scroll morbido che dà un tocco premium.",
+      "React Bits: animazioni e componenti pronti da adattare al brand.",
+      "Secondo Coco, incolli i tre link in Claude Code e lui li installa e usa."
+     ],
+     "why": "Puoi provarli per rendere più curati i siti dei clienti e farne un video sul tema 'siti AI che non sembrano AI'.",
+     "badge": "da_verificare",
+     "badge_note": "Una sola fonte non ufficiale (Coco, YouTube Short); i tool sono reali ma il risultato non è provato.",
+     "importance": 2,
+     "primary_url": "https://www.youtube.com/shorts/n37ufTL5bOY",
+     "sources": [
+      {
+       "name": "YouTube · Coco",
+       "title": "3 tool gratis da dare a Claude Code per fare dei design web INCREDIBILI",
+       "url": "https://www.youtube.com/shorts/n37ufTL5bOY",
+       "official": false,
+       "kind": "short",
+       "item_id": "d8a5e459cc3d",
+       "meta": {
+        "creator": "Coco",
+        "duration": null
+       },
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-18-13",
+     "subsection": "Riccardo Belli Contarini",
+     "subsection_label": "Riccardo Belli Contarini",
+     "title": "Teardown: skill gratis per Claude Code che crea un simulatore 3D da smontare",
+     "summary": "Secondo Riccardo Belli Contarini, Teardown è una skill gratuita per Claude Code: chiedi come funziona una macchina e genera una pagina 3D da smontare pezzo per pezzo.",
+     "key_points": [],
+     "why": "Idea per un contenuto visivo o una demo, ma il risultato non è provato.",
+     "badge": "da_verificare",
+     "badge_note": "Una sola fonte non ufficiale (Short di Riccardo Belli Contarini).",
+     "importance": 3,
+     "primary_url": "https://www.youtube.com/shorts/FVnvnqTE_jc",
+     "sources": [
+      {
+       "name": "YouTube · Riccardo Belli Contarini",
+       "title": "Teardown: Claude Code ti costruisce un simulatore 3D da smontare #Shorts",
+       "url": "https://www.youtube.com/shorts/FVnvnqTE_jc",
+       "official": false,
+       "kind": "short",
+       "item_id": "71970f5b7ef6",
+       "meta": {
+        "creator": "Riccardo Belli Contarini",
+        "duration": null
+       },
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "github",
+   "title": "GitHub: repo e skill per la mia agenzia",
+   "items": [
+    {
+     "id": "2026-11-18-10",
+     "subsection": "design_web",
+     "subsection_label": "Design per siti e social",
+     "title": "craft: skill di design per agenti, con brief e tutti gli stati della schermata",
+     "summary": "Repo di skill per agenti AI: /craft-setup scrive il brief di design, /craft progetta schermate complete con ogni stato e le rivede. Funziona con Paper, pen.dev, Figma o HTML, in Claude Code, Codex, Cursor e altri.",
+     "key_points": [
+      "Installazione in Claude Code: /plugin marketplace add diego3g/craft, poi /plugin install craft@craft.",
+      "Per altri agenti: npx skills add diego3g/craft.",
+      "Si ferma a chiedere conferma nei punti chiave e annota le decisioni.",
+      "Verificato su GitHub: 193 stelle, creato il 2026-11-15."
+     ],
+     "why": "Un flusso di design più ordinato da provare sui siti dei clienti, con brief iniziale e controllo degli stati.",
+     "badge": "dal_repo",
+     "badge_note": "Stelle e data verificate su GitHub; le funzioni sono dichiarate dall'autore, repo molto recente e non provato.",
+     "importance": 2,
+     "primary_url": "https://github.com/diego3g/craft",
+     "sources": [
+      {
+       "name": "GitHub",
+       "title": "diego3g/craft",
+       "url": "https://github.com/diego3g/craft",
+       "official": false,
+       "kind": "repo",
+       "item_id": "0ab68cec6b2e",
+       "meta": {
+        "stars": 193,
+        "stars_verified": true,
+        "license": "NOASSERTION"
+       },
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-18-14",
+     "subsection": "video",
+     "subsection_label": "Video editing e caroselli",
+     "title": "motlab: video come codice, scene in canvas generate da agenti",
+     "summary": "Repo che genera video da scene scritte come codice: un agente le costruisce dai tuoi riferimenti, le rivedi in un viewer con note sui frame e le esporti in MP4 fino a 4K. Non usa modelli AI di immagini o video.",
+     "key_points": [
+      "Installazione: npm install -g @motlab/cli && npx @motlab/cli setup.",
+      "Servono Node 24+, Chrome o Chromium e ffmpeg.",
+      "Export a 720p, 1080p, 1440p o 4K, con musica e voce.",
+      "Verificato su GitHub: 171 stelle, MIT, creato il 2026-11-16."
+     ],
+     "why": "Un'alternativa da testare per video promozionali ripetibili per i clienti, con note su frame e versioni.",
+     "badge": "dal_repo",
+     "badge_note": "Stelle e licenza verificate su GitHub; funzioni e velocità dichiarate dall'autore, repo recente e non provato.",
+     "importance": 3,
+     "primary_url": "https://github.com/staryone/motlab",
+     "sources": [
+      {
+       "name": "GitHub",
+       "title": "staryone/motlab",
+       "url": "https://github.com/staryone/motlab",
+       "official": false,
+       "kind": "repo",
+       "item_id": "3ea25f3c220c",
+       "meta": {
+        "stars": 171,
+        "stars_verified": true,
+        "license": "MIT"
+       },
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-18-15",
+     "subsection": "curatori",
+     "subsection_label": "Dai curatori (Hacker News, Simon Willison)",
+     "title": "Simon Willison: sandbox esterne per agenti di codice",
+     "summary": "Willison, con Prime Radiant, presenta il pattern della sandbox esterna: il codice dell'agente gira in una sandbox dedicata, mentre l'agente resta fuori. Sono pubblicate tre implementazioni di server.",
+     "key_points": [
+      "Tre server: v86 con Alpine in WebAssembly, Apple Containers e Quicksand di Microsoft.",
+      "Stessa API su localhost; configurabile con Pi, Claude Code o Codex.",
+      "Proxy opzionale con allow-list di host e sostituzione delle credenziali."
+     ],
+     "why": "Utile se farai agenti per clienti: limita i danni di errori o prompt injection e permette di provare modelli locali con più sicurezza.",
+     "badge": "da_verificare",
+     "badge_note": "Una sola fonte non ufficiale (blog di Simon Willison); implementazioni non provate.",
+     "importance": 3,
+     "primary_url": "https://simonwillison.net/2026/Nov/17/external-sandboxes-for-coding-agents/",
+     "sources": [
+      {
+       "name": "Simon Willison",
+       "title": "External sandboxes for coding agents",
+       "url": "https://simonwillison.net/2026/Nov/17/external-sandboxes-for-coding-agents/",
+       "official": false,
+       "kind": "article",
+       "item_id": "acdaad578a36",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "virali",
+   "title": "Da provare: repo, skill e tool virali (idee per gli Shorts)",
+   "items": [
+    {
+     "id": "2026-11-18-03",
+     "subsection": "skill",
+     "subsection_label": "Skill e plugin per Claude",
+     "title": "stitch-skills: Claude Code crea schermate e siti con Google Stitch",
+     "summary": "Skill e plugin gratuiti che permettono a Claude Code e ad altri agenti di creare e modificare schermate e siti con Google Stitch, descrivendo a parole cosa vuoi.",
+     "key_points": [
+      "Cosa fa: genera e modifica schermate e siti con Stitch, es. '3 varianti della home in dark mode'.",
+      "Come si prova: configura il server MCP di Stitch, poi in Claude Code: npx plugins add google-labs-code/stitch-skills --scope project --target claude-code.",
+      "Costo: gratis (Apache-2.0), ma serve Stitch.",
+      "Verificato su GitHub: 10.166 stelle, aggiornato il 2026-08-17."
+     ],
+     "why": "Piacerà a chi vuole siti belli senza scrivere codice, e lo usi per proporre bozze di design rapide a un cliente.",
+     "badge": "ufficiale",
+     "badge_note": "Stelle e licenza verificate su GitHub; le funzioni sono dichiarate dagli autori, non ancora provate.",
+     "importance": 1,
+     "short_hook": "Descrivi la tua home a voce e Claude la disegna. Gratis.",
+     "primary_url": "https://github.com/google-labs-code/stitch-skills",
+     "sources": [
+      {
+       "name": "github.com (via Ricerca web)",
+       "title": "google-labs-code/stitch-skills",
+       "url": "https://github.com/google-labs-code/stitch-skills",
+       "official": true,
+       "kind": "repo",
+       "item_id": "828729b7e7ea",
+       "meta": {
+        "stars": 10166,
+        "stars_verified": true,
+        "license": "Apache-2.0"
+       },
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-18-11",
+     "subsection": "skill",
+     "subsection_label": "Skill e plugin per Claude",
+     "title": "modern-web-guidance: skill di Chrome per siti più veloci e accessibili",
+     "summary": "Skill di Google Chrome che insegnano agli agenti di codice le pratiche web moderne, per ottenere siti generati più veloci e accessibili.",
+     "key_points": [
+      "Cosa fa: guida gli agenti verso pratiche web moderne.",
+      "Come si prova: da terminale npx modern-web-guidance@latest install, poi la procedura guidata.",
+      "Costo: gratis (Apache-2.0).",
+      "Verificato su GitHub: 8.509 stelle; la ricerca web segnala +7.015 stelle in settimana."
+     ],
+     "why": "Utile per migliorare velocità e accessibilità dei siti e della SEO tecnica dei clienti, e per un contenuto sul tema.",
+     "badge": "ufficiale",
+     "badge_note": "Repo del dominio ufficiale GoogleChrome; stelle e licenza verificate su GitHub, funzioni non provate.",
+     "importance": 2,
+     "short_hook": "Google insegna a Claude a fare siti più veloci. Gratis.",
+     "primary_url": "https://github.com/GoogleChrome/modern-web-guidance-src",
+     "sources": [
+      {
+       "name": "github.com (via Ricerca web)",
+       "title": "GoogleChrome/modern-web-guidance-src",
+       "url": "https://github.com/GoogleChrome/modern-web-guidance-src",
+       "official": true,
+       "kind": "repo",
+       "item_id": "3cb99331b74e",
+       "meta": {
+        "stars": 8509,
+        "stars_verified": true,
+        "license": "Apache-2.0"
+       },
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-18-12",
+     "subsection": "repo",
+     "subsection_label": "Repo GitHub",
+     "title": "meta/astryx: design system open source di Meta pensato per gli agenti AI",
+     "summary": "Design system open source di Meta con oltre 150 componenti React pronti, pensato per essere usato dagli agenti AI per costruire interfacce coerenti. È in beta.",
+     "key_points": [
+      "Cosa fa: componenti React pronti per interfacce coerenti.",
+      "Come si prova: Sandbox online astryx.atmeta.com/sandbox/ oppure Storybook; per usarlo npm install @astryxdesign/core @astryxdesign/theme-neutral @stylexjs/stylex.",
+      "Costo: gratis (licenza MIT).",
+      "Verificato su GitHub: 30.248 stelle; in beta."
+     ],
+     "why": "Puoi provarlo nella sandbox senza installare nulla per capire se serve a costruire interfacce coerenti per i clienti.",
+     "badge": "dal_repo",
+     "badge_note": "Stelle e licenza verificate su GitHub; descrizione dalla ricerca web, non provato.",
+     "importance": 2,
+     "short_hook": "Meta regala 150 componenti pensati per l'AI. Gratis.",
+     "primary_url": "https://github.com/meta/astryx",
+     "sources": [
+      {
+       "name": "Ricerca web",
+       "title": "meta/astryx",
+       "url": "https://github.com/meta/astryx",
+       "official": false,
+       "kind": "repo",
+       "item_id": "a7f12d63ee0b",
+       "meta": {
+        "stars": 30248,
+        "stars_verified": true,
+        "license": "MIT"
+       },
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-18-16",
+     "subsection": "repo",
+     "subsection_label": "Repo GitHub",
+     "title": "alibaba/open-code-review: revisione del codice con controlli deterministici e agente AI",
+     "summary": "Strumento di revisione del codice che unisce controlli deterministici e un agente AI per trovare problemi nel codice generato.",
+     "key_points": [
+      "Come si prova: apri il README e segui la sezione di installazione; i passi non sono stati letti nel dettaglio.",
+      "Costo: gratis (Apache-2.0).",
+      "Verificato su GitHub: 53.864 stelle, creato il 2026-05-18."
+     ],
+     "why": "Può servire come controllo di qualità sul codice generato da Claude Code nei progetti per i clienti.",
+     "badge": "dal_repo",
+     "badge_note": "Stelle e licenza verificate su GitHub; funzioni da ricerca web, non provate.",
+     "importance": 3,
+     "short_hook": "Un revisore AI per il codice che l'AI scrive. Gratis.",
+     "primary_url": "https://github.com/alibaba/open-code-review",
+     "sources": [
+      {
+       "name": "Ricerca web",
+       "title": "alibaba/open-code-review",
+       "url": "https://github.com/alibaba/open-code-review",
+       "official": false,
+       "kind": "repo",
+       "item_id": "769164b4a13a",
+       "meta": {
+        "stars": 53864,
+        "stars_verified": true,
+        "license": "Apache-2.0"
+       },
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "stats": {
+  "collected": 38,
+  "stories": 16,
+  "discarded": 20,
+  "dropped_broken_links": [],
+  "source_errors": [],
+  "window_hours": 27,
+  "model": "sonnet",
+  "checks": {
+   "links_tested": 18,
+   "links_ok": 18,
+   "links_unverifiable": 0,
+   "repos_verified": 6,
+   "badges": {
+    "ufficiale": 9,
+    "da_verificare": 3,
+    "dal_repo": 4
+   },
+   "write_attempts": 1
+  },
+  "claude": {
+   "selezione": {
+    "secs": 8.0,
+    "turns": 2,
+    "input_tokens": 15043,
+    "cache_read_tokens": 703,
+    "output_tokens": 1143,
+    "equivalent_api_usd": 0.0716683
+   },
+   "scrittura": {
+    "secs": 41.1,
+    "turns": 2,
+    "input_tokens": 22454,
+    "cache_read_tokens": 804,
+    "output_tokens": 6189,
+    "equivalent_api_usd": 0.15178239999999998,
+    "attempts": 1
+   },
+   "scelte": {
+    "secs": 20.8,
+    "turns": 6,
+    "input_tokens": 16973,
+    "cache_read_tokens": 57565,
+    "output_tokens": 3391,
+    "equivalent_api_usd": 0.10753850000000001
+   }
+  }
+ }
+}
