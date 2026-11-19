@@ -1,0 +1,450 @@
+{
+ "title": "Report automatico notizie e aggiornamenti AI",
+ "date": "2026-11-19",
+ "generated_at": "2026-11-19T04:17:35.169030+00:00",
+ "reading_minutes": 5,
+ "in_breve": [
+  "Anthropic ha fissato il prezzo della IPO a 83 dollari per azione: le azioni debuttano oggi al Nasdaq con il simbolo ANT.",
+  "Claude Code v2.1.328 introduce l'auto mode su Bedrock, Google Cloud e Foundry e corregge diversi blocchi e bug.",
+  "ElevenLabs lancia ElevenAgents for Healthcare con Scribe v3 Live Medical, trascrizione medica in tempo reale per agenti vocali."
+ ],
+ "picks": {
+  "linkedin": {
+   "item_id": "2026-11-19-03",
+   "score": 6,
+   "hook": "Quanto ci mette il tuo studio a richiamare un cliente? Un'azienda è passata da quasi due ore a 3,5 minuti con un agente vocale.",
+   "why": "Fonte ufficiale e risultato misurabile sul tempo di contatto con i clienti. Parla di chiamate in ingresso, problema reale per piccole attività, anche se il caso è sanitario.",
+   "target": "titolari di piccole attività con 10-20 persone che perdono clienti per chiamate in ingresso gestite a mano",
+   "pain": "Le chiamate dei clienti restano senza risposta o vengono richiamate troppo tardi, e il cliente va dal concorrente.",
+   "angle": "Partire dal cliente che aspetta ore una risposta. ElevenLabs mostra un caso in cui il tempo mediano di contatto scende a 3,5 minuti con un agente vocale. Un sistema su misura può gestire le chiamate ripetitive e passare le altre a una persona.",
+   "caveat": "",
+   "alternatives": [
+    {
+     "item_id": "2026-11-19-09",
+     "reason": "Lead generation per piccole aziende, ma progetto non ancora provato.",
+     "title": "Sellbird: piattaforma open source per prospezione e email commerciali"
+    },
+    {
+     "item_id": "2026-11-19-06",
+     "reason": "Fonte solida per le automazioni, ma n8n è già molto noto e più tecnico.",
+     "title": "n8n: piattaforma di automazione con agenti AI, self-hosted o cloud"
+    }
+   ],
+   "title": "ElevenAgents for Healthcare: agenti vocali con trascrizione medica live",
+   "badge": "ufficiale",
+   "section": "elevenlabs"
+  },
+  "short": {
+   "item_id": "2026-11-19-09",
+   "score": 8,
+   "hook": "Questo repo trova clienti e scrive le email al posto tuo.",
+   "why": "Gratis, si avvia con una frase su Claude, risultato chiaro in 3 secondi e invita a commentare per il link. Non invia nulla senza approvazione.",
+   "title": "Sellbird: piattaforma open source per prospezione e email commerciali",
+   "badge": "dal_repo",
+   "section": "virali"
+  }
+ },
+ "sections": [
+  {
+   "id": "claude",
+   "title": "Universo Claude",
+   "items": [
+    {
+     "id": "2026-11-19-01",
+     "subsection": "code",
+     "subsection_label": "Claude Code",
+     "title": "Claude Code v2.1.328: auto mode su cloud di terzi e molte correzioni",
+     "summary": "La release estende l'auto mode a Opus 4.6 e Sonnet 4.6 su Amazon Bedrock, Google Cloud, Microsoft Foundry e Claude apps gateway. Le sessioni interattive senza modalità di permessi partono direttamente in auto mode. Arrivano anche nuovi controlli sugli hook e molte correzioni di bug.",
+     "key_points": [
+      "Hook mcp_tool: \"onFailure\": \"block\" blocca l'azione se la chiamata dell'hook fallisce.",
+      "Nuova variabile CLAUDE_CODE_DISABLE_DEFERRED_TOOL_RESUME per claude -p con --resume e --continue.",
+      "Corretto il blocco dei comandi Bash in zsh davanti a parole che iniziano con \"=\".",
+      "Corretto il bug che cancellava altre attività pianificate del progetto al salvataggio."
+     ],
+     "why": "Usi Claude Code ogni giorno: i fix su zsh, attività pianificate e claude -p ti toccano direttamente, e l'auto mode su cloud terzi può servire a clienti aziendali.",
+     "badge": "ufficiale",
+     "badge_note": "Note di release ufficiali nel repo GitHub di Anthropic.",
+     "importance": 1,
+     "primary_url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.328",
+     "sources": [
+      {
+       "name": "Claude Code (release)",
+       "title": "v2.1.328",
+       "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.328",
+       "official": true,
+       "kind": "release",
+       "item_id": "3684bd2bd84f",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-19-02",
+     "subsection": "ecosistema",
+     "subsection_label": "Ecosistema a 360° — modelli, API, SDK, azienda",
+     "title": "Anthropic fissa il prezzo della IPO a 83 dollari per azione",
+     "summary": "Anthropic ha fissato il prezzo della sua offerta pubblica iniziale di azioni di Classe A a 83,00 dollari. Le azioni dovrebbero iniziare a essere scambiate sul Nasdaq il 19 novembre 2026 con il simbolo \"ANT\".",
+     "key_points": [
+      "Offerti 980 milioni di azioni, di cui 956.351.354 vendute da Anthropic.",
+      "Le restanti 23.648.646 sono vendute da azionisti; Anthropic non incassa nulla da queste.",
+      "Chiusura prevista il 20 novembre 2026; opzione per altri 147 milioni di azioni.",
+      "Banche coinvolte per il prospetto: Goldman Sachs e Morgan Stanley."
+     ],
+     "why": "Anthropic è il fornitore di strumenti su cui costruirai l'agenzia: la quotazione è un segnale sulla sua stabilità e può essere un tema per i tuoi contenuti.",
+     "badge": "ufficiale",
+     "badge_note": "Comunicato sul sito Anthropic.",
+     "importance": 1,
+     "primary_url": "https://www.anthropic.com/news/anthropic-prices-initial-public-offering",
+     "sources": [
+      {
+       "name": "Anthropic",
+       "title": "Anthropic prices initial public offering",
+       "url": "https://www.anthropic.com/news/anthropic-prices-initial-public-offering",
+       "official": true,
+       "kind": "article",
+       "item_id": "909b75797cd1",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-19-08",
+     "subsection": "ecosistema",
+     "subsection_label": "Ecosistema a 360° — modelli, API, SDK, azienda",
+     "title": "Claude Agent SDK v0.2.185",
+     "summary": "È uscita la versione 0.2.185 di Claude Agent SDK, disponibile su PyPI.",
+     "key_points": [],
+     "why": "Se costruisci agenti con l'SDK, controlla l'aggiornamento.",
+     "badge": "ufficiale",
+     "badge_note": "Release nel repo GitHub di Anthropic.",
+     "importance": 3,
+     "primary_url": "https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.185",
+     "sources": [
+      {
+       "name": "Claude Agent SDK",
+       "title": "v0.2.185",
+       "url": "https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.185",
+       "official": true,
+       "kind": "release",
+       "item_id": "5e6131bec1fc",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "higgsfield",
+   "title": "Higgsfield",
+   "items": []
+  },
+  {
+   "id": "elevenlabs",
+   "title": "ElevenLabs",
+   "items": [
+    {
+     "id": "2026-11-19-03",
+     "subsection": "",
+     "subsection_label": "",
+     "title": "ElevenAgents for Healthcare: agenti vocali con trascrizione medica live",
+     "summary": "ElevenLabs lancia ElevenAgents for Healthcare per aziende sanitarie. Include Scribe v3 Live Medical, la sua prima trascrizione medica in tempo reale per agenti, pensata per termini clinici e nomi di farmaci. I team controllano cosa l'agente dice e quando passa la chiamata a una persona.",
+     "key_points": [
+      "Si possono dare all'agente fino a 10.000 termini propri (piani, terapie, dispositivi).",
+      "Segue il cambio di lingua nella stessa chiamata, ad esempio da inglese a spagnolo.",
+      "Scribe v3 Live Medical: 11% di errori contro 11,54% del modello generale, nei test interni.",
+      "Caso Cadence: tempo mediano di contatto da quasi due ore a 3,5 minuti."
+     ],
+     "why": "Mostra casi d'uso reali di agenti vocali, utili come esempi per proporre agenti vocali a clienti con molte chiamate in ingresso.",
+     "badge": "ufficiale",
+     "badge_note": "Annuncio sul blog ElevenLabs; i benchmark sono test interni dell'azienda.",
+     "importance": 2,
+     "primary_url": "https://elevenlabs.io/blog/elevenagents-for-healthcare",
+     "sources": [
+      {
+       "name": "Blog ElevenLabs",
+       "title": "ElevenAgents for Healthcare: agents patients and medical teams trust in clinical settings",
+       "url": "https://elevenlabs.io/blog/elevenagents-for-healthcare",
+       "official": true,
+       "kind": "article",
+       "item_id": "f3cfa8572ac8",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "creators",
+   "title": "Dai creator che seguo",
+   "items": [
+    {
+     "id": "2026-11-19-04",
+     "subsection": "Riccardo Belli Contarini",
+     "subsection_label": "Riccardo Belli Contarini",
+     "title": "Floorplan: plugin gratuito che mappa la tua app per Claude Code e Codex",
+     "summary": "Secondo Riccardo Belli Contarini, Floorplan è un plugin gratuito per Claude Code e Codex. Legge il codice dell'app e disegna nel browser una mappa interattiva a cui si possono fare domande.",
+     "key_points": [
+      "Funziona con Claude Code e Codex.",
+      "Descritto come gratuito dal creator.",
+      "La guida è nella descrizione del video."
+     ],
+     "why": "Può aiutarti a capire in fretta il codice di un progetto cliente e a farne un contenuto dimostrativo.",
+     "badge": "da_verificare",
+     "badge_note": "Una sola fonte non ufficiale: uno Short del creator; funzioni non verificate.",
+     "importance": 2,
+     "primary_url": "https://www.youtube.com/shorts/NW9htnsXB_w",
+     "sources": [
+      {
+       "name": "YouTube · Riccardo Belli Contarini",
+       "title": "Floorplan: la mappa della tua app con Claude Code e Codex #Shorts",
+       "url": "https://www.youtube.com/shorts/NW9htnsXB_w",
+       "official": false,
+       "kind": "short",
+       "item_id": "6c5bb1429bdb",
+       "meta": {
+        "creator": "Riccardo Belli Contarini",
+        "duration": null
+       },
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "github",
+   "title": "GitHub: repo e skill per la mia agenzia",
+   "items": [
+    {
+     "id": "2026-11-19-06",
+     "subsection": "automazioni",
+     "subsection_label": "Automazioni e routine cloud",
+     "title": "n8n: piattaforma di automazione con agenti AI, self-hosted o cloud",
+     "summary": "n8n è una piattaforma fair-code che unisce canvas visuale e codice per costruire workflow e agenti AI. Si installa in self-hosting o si usa nel cloud. Oggi è in trend su GitHub con 325 stelle in giornata.",
+     "key_points": [
+      "211.176 stelle su GitHub, verificate adesso.",
+      "Licenza Sustainable Use, non open source puro (fair-code).",
+      "Collega OpenAI, Anthropic, Google o modelli open-source.",
+      "Avvio rapido con Docker; editor su localhost:5678."
+     ],
+     "why": "È uno strumento adatto per le automazioni che offrirai ai clienti dell'agenzia, con modelli intercambiabili e hosting a scelta.",
+     "badge": "ufficiale",
+     "badge_note": "Dati dal README del repo ufficiale n8n-io; stelle verificate su GitHub.",
+     "importance": 2,
+     "primary_url": "https://github.com/n8n-io/n8n",
+     "sources": [
+      {
+       "name": "github.com (via GitHub Trending)",
+       "title": "n8n-io/n8n",
+       "url": "https://github.com/n8n-io/n8n",
+       "official": true,
+       "kind": "repo",
+       "item_id": "fbb2b1d81c37",
+       "meta": {
+        "stars": 211176,
+        "stars_verified": true,
+        "license": "NOASSERTION"
+       },
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-19-07",
+     "subsection": "agenti",
+     "subsection_label": "Agenti AI e agenti vocali",
+     "title": "CLI-Anything: rendere i software utilizzabili dagli agenti tramite CLI",
+     "summary": "CLI-Anything, del gruppo HKUDS, vuole rendere \"agent-native\" qualsiasi software generando interfacce a riga di comando. Include CLI-Hub, dove si installano CLI create dalla community.",
+     "key_points": [
+      "59.902 stelle, licenza Apache-2.0, verificate su GitHub.",
+      "CLI-Hub: `pip install cli-anything-hub`, poi `cli-hub install <nome>`.",
+      "Il README indica 18 app dimostrative e 2.461 test superati.",
+      "Ultimo aggiornamento del repo: 22 settembre 2026."
+     ],
+     "why": "Ti dà un modo per far usare a Claude Code programmi che non hanno API, utile per automazioni su misura per i clienti.",
+     "badge": "dal_repo",
+     "badge_note": "Stelle e licenza verificate su GitHub; le funzioni sono dichiarate dagli autori, non provate.",
+     "importance": 2,
+     "primary_url": "https://github.com/HKUDS/CLI-Anything",
+     "sources": [
+      {
+       "name": "GitHub Trending",
+       "title": "HKUDS/CLI-Anything",
+       "url": "https://github.com/HKUDS/CLI-Anything",
+       "official": false,
+       "kind": "repo",
+       "item_id": "400cd7896a5f",
+       "meta": {
+        "stars": 59902,
+        "stars_verified": true,
+        "license": "Apache-2.0"
+       },
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-19-10",
+     "subsection": "curatori",
+     "subsection_label": "Dai curatori (Hacker News, Simon Willison)",
+     "title": "Studio: i modelli Claude più recenti sembrano addestrati su sequenze di proteine",
+     "summary": "Uno studio con 167 famiglie di proteine poco note sostiene che gli ultimi modelli Claude prevedono l'amminoacido successivo molto meglio di altri modelli. Mescolando la sequenza, la capacità sparisce.",
+     "key_points": [
+      "Fable 5.2: 54% di accuratezza su proteine reali, 9% su quelle mescolate.",
+      "Test su 668 proteine batteriche e archee.",
+      "GPT, Gemini e sette modelli open-weight restano vicini a zero.",
+      "Fable 5.2 batte tutti i modelli proteici aperti testati."
+     ],
+     "why": "È una curiosità per contenuti sul funzionamento dei modelli, ma non ha un'applicazione diretta per l'agenzia.",
+     "badge": "da_verificare",
+     "badge_note": "Una sola fonte non ufficiale, su Hacker News (167 punti); i risultati sono dichiarati dagli autori.",
+     "importance": 3,
+     "primary_url": "http://xinmingtu.cn/blog/2026/claude-opus-5-5-protein-sequences/",
+     "sources": [
+      {
+       "name": "Hacker News",
+       "title": "Claude was trained on protein sequences at scale",
+       "url": "http://xinmingtu.cn/blog/2026/claude-opus-5-5-protein-sequences/",
+       "official": false,
+       "kind": "article",
+       "item_id": "46ca9237d019",
+       "meta": {
+        "points": 167,
+        "comments": "https://news.ycombinator.com/item?id=50541619"
+       },
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "virali",
+   "title": "Da provare: repo, skill e tool virali (idee per gli Shorts)",
+   "items": [
+    {
+     "id": "2026-11-19-05",
+     "subsection": "connettori",
+     "subsection_label": "Connettori e MCP",
+     "title": "REA: server MCP per fare reverse engineering di app e siti",
+     "summary": "REA è un server MCP che permette agli agenti AI di fare reverse engineering di app, siti, app Electron e APK Android, in locale. Per i file binari servono strumenti come Ghidra, Hopper o IDA.",
+     "key_points": [
+      "Cosa fa: analizza app, siti, app Electron e APK Android.",
+      "Come si prova: con Node.js, esegui `npx rea-agents setup` e riavvia l'agente.",
+      "Da terminale: `npx -y rea-agents@latest analyze-javascript-application /percorso/app --json`.",
+      "Costo: gratis (MIT); i tool commerciali per i binari restano a parte."
+     ],
+     "why": "Piacerà a chi ama gli strumenti per agenti: puoi mostrarlo in uno Short e usarlo per analizzare un sito o un'app prima di un progetto.",
+     "badge": "dal_repo",
+     "badge_note": "Stelle (468.544), data e licenza MIT verificate su GitHub; le funzioni sono dichiarate dagli autori e non provate.",
+     "importance": 2,
+     "short_hook": "Questo server fa il reverse engineering di app e siti. Gratis.",
+     "primary_url": "https://github.com/morluto/rea",
+     "sources": [
+      {
+       "name": "Ricerca web",
+       "title": "REA (morluto/rea)",
+       "url": "https://github.com/morluto/rea",
+       "official": false,
+       "kind": "repo",
+       "item_id": "710f7fe65ffc",
+       "meta": {
+        "stars": 468544,
+        "stars_verified": true,
+        "license": "MIT"
+       },
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-19-09",
+     "subsection": "repo",
+     "subsection_label": "Repo GitHub",
+     "title": "Sellbird: piattaforma open source per prospezione e email commerciali",
+     "summary": "Sellbird trova aziende adatte, individua il decisore, scrive email personalizzate e gestisce le risposte. Non invia nulla senza la tua approvazione.",
+     "key_points": [
+      "Cosa fa: ricerca aziende, decisori, email personalizzate e risposte.",
+      "Come si prova: clona il repo, lancia `claude` e scrivi \"set up Sellbird for me\".",
+      "Alternativa: `pip install -e .`, credenziali in .env, poi `sellbird train <tuo-sito>`.",
+      "Costo: gratis (AGPL-3.0); usa l'abbonamento Claude o ChatGPT e una casella email."
+     ],
+     "why": "Può diventare un servizio di lead generation per i clienti dell'agenzia e un buon tema per uno Short.",
+     "badge": "dal_repo",
+     "badge_note": "Stelle (6.533), data e licenza AGPL-3.0 verificate su GitHub; le funzioni sono dichiarate dagli autori.",
+     "importance": 3,
+     "short_hook": "Questa repo trova clienti e scrive le email per te. Gratis.",
+     "primary_url": "https://github.com/ethanplusai/sellbird",
+     "sources": [
+      {
+       "name": "Ricerca web",
+       "title": "Sellbird",
+       "url": "https://github.com/ethanplusai/sellbird",
+       "official": false,
+       "kind": "repo",
+       "item_id": "6c26c5d650a4",
+       "meta": {
+        "stars": 6533,
+        "stars_verified": true,
+        "license": "AGPL-3.0"
+       },
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "stats": {
+  "collected": 33,
+  "stories": 10,
+  "discarded": 23,
+  "dropped_broken_links": [],
+  "source_errors": [],
+  "window_hours": 26,
+  "model": "sonnet",
+  "checks": {
+   "links_tested": 10,
+   "links_ok": 10,
+   "links_unverifiable": 0,
+   "repos_verified": 4,
+   "badges": {
+    "ufficiale": 5,
+    "da_verificare": 2,
+    "dal_repo": 3
+   },
+   "write_attempts": 1
+  },
+  "claude": {
+   "selezione": {
+    "secs": 5.8,
+    "turns": 2,
+    "input_tokens": 14690,
+    "cache_read_tokens": 0,
+    "output_tokens": 766,
+    "equivalent_api_usd": 0.066416
+   },
+   "scrittura": {
+    "secs": 26.3,
+    "turns": 2,
+    "input_tokens": 17428,
+    "cache_read_tokens": 0,
+    "output_tokens": 3964,
+    "equivalent_api_usd": 0.109348,
+    "attempts": 1
+   },
+   "scelte": {
+    "secs": 12.5,
+    "turns": 2,
+    "input_tokens": 10995,
+    "cache_read_tokens": 0,
+    "output_tokens": 1325,
+    "equivalent_api_usd": 0.057226
+   }
+  }
+ }
+}
