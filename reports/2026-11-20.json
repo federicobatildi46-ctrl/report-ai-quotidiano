@@ -1,0 +1,512 @@
+{
+ "title": "Report automatico notizie e aggiornamenti AI",
+ "date": "2026-11-20",
+ "generated_at": "2026-11-20T04:03:58.524049+00:00",
+ "reading_minutes": 5,
+ "in_breve": [
+  "Claude Code v2.1.329 abilita Code Mode con OpenTelemetry attivo; un creator lo presenta come risparmio token fino a 10x, dato non verificato.",
+  "ElevenLabs: Candid Health con ElevenAgents ha gestito 12.860 chiamate, risolto il 59% e risparmiato oltre 850 ore al mese.",
+  "Anthropic dichiara che Claude ha risolto due problemi aperti di fisica dei buchi neri; Higgsfield passa da DCR a CIMD dal 1 gennaio 2027."
+ ],
+ "picks": {
+  "linkedin": {
+   "item_id": "2026-11-20-03",
+   "score": 7,
+   "hook": "Un'azienda ha fatto telefonare un agente AI alle assicurazioni al posto delle persone: oltre 850 ore risparmiate al mese. Quante ne perdi tu al telefono?",
+   "why": "Caso reale con numeri misurabili e fonte ufficiale, su lavoro ripetitivo al telefono: un titolare si riconosce e lo inoltra al socio.",
+   "target": "titolari di studi e piccole attività con 10-20 persone che perdono ore al telefono",
+   "pain": "Dipendenti e professionisti passano ore in telefonate ripetitive con clienti, fornitori o enti, togliendo tempo al lavoro che porta ricavi.",
+   "angle": "Parti dalle ore perse in telefonate ripetitive. Candid Health ha gestito 12.860 chiamate con ElevenAgents, risolvendo il 59% dei casi nel pilota. Un sistema su misura può alleggerire attività simili.",
+   "caveat": "",
+   "alternatives": [
+    {
+     "item_id": "2026-11-20-02",
+     "reason": "Flusso concreto per ristoratori: video ads da una foto, ma nicchia più ristretta.",
+     "title": "Higgsfield: guida per video ads di ristoranti con l'AI"
+    },
+    {
+     "item_id": "2026-11-20-06",
+     "reason": "Utile per dimensionare un agente vocale, ma più tecnico e meno condivisibile.",
+     "title": "ElevenAgents: quante chiamate simultanee regge un agente vocale"
+    }
+   ],
+   "title": "Candid Health automatizza le chiamate ai payer con ElevenAgents",
+   "badge": "ufficiale",
+   "section": "elevenlabs"
+  },
+  "short": {
+   "item_id": "2026-11-20-07",
+   "score": 7,
+   "hook": "Questo tool gratis trasforma un video lungo in tanti short, in automatico.",
+   "why": "Risultato visibile subito, open source MIT e gratis da provare: spinge a commentare per il link. Non ancora provato dal progetto, da testare prima.",
+   "title": "AutoClip: tool open source che taglia video lunghi in short",
+   "badge": "dal_repo",
+   "section": "github"
+  }
+ },
+ "sections": [
+  {
+   "id": "claude",
+   "title": "Universo Claude",
+   "items": [
+    {
+     "id": "2026-11-20-01",
+     "subsection": "code",
+     "subsection_label": "Claude Code",
+     "title": "Claude Code v2.1.329: Code Mode con OpenTelemetry e molte correzioni",
+     "summary": "Claude Code v2.1.329 permette di attivare Code Mode anche con eventi e metriche OpenTelemetry attivi, e corregge molti bug su /teleport, /code-review e login. Un creator presenta Code Mode come modo per risparmiare fino a 10x token.",
+     "key_points": [
+      "Code Mode: Claude scrive un piccolo programma JavaScript che esegue più azioni insieme.",
+      "Si abilita con una variabile d'ambiente nel file settings.json.",
+      "Test del creator: leggere le note di una company brain costa circa 600.000 token in modalità normale.",
+      "Conviene con tanti file e tante azioni, meno negli altri casi (secondo il creator)."
+     ],
+     "why": "Se usi Claude Code ogni giorno, Code Mode può ridurre i consumi di token nei flussi con molti file, utile anche per automazioni per clienti.",
+     "badge": "ufficiale",
+     "badge_note": "Release note ufficiali su GitHub Anthropic; il risparmio di 10x e i 600.000 token arrivano dal video di Giovanni Beggiato e non sono verificati.",
+     "importance": 1,
+     "primary_url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.329",
+     "sources": [
+      {
+       "name": "Claude Code (release)",
+       "title": "v2.1.329",
+       "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.329",
+       "official": true,
+       "kind": "release",
+       "item_id": "3f797f5af894",
+       "meta": {},
+       "link": "ok"
+      },
+      {
+       "name": "YouTube · Giovanni Beggiato",
+       "title": "La NUOVA Funzione Di Claude Per Risparmiare 10X Token!!",
+       "url": "https://www.youtube.com/watch?v=-xjyd4ke1U4",
+       "official": false,
+       "kind": "video",
+       "item_id": "5ddade182496",
+       "meta": {
+        "creator": "Giovanni Beggiato",
+        "duration": null
+       },
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-20-04",
+     "subsection": "ecosistema",
+     "subsection_label": "Ecosistema a 360° — modelli, API, SDK, azienda",
+     "title": "Anthropic: Claude ha risolto due problemi aperti di fisica dei buchi neri",
+     "summary": "Anthropic dichiara che Claude ha risolto due problemi aperti di fisica teorica legati ai buchi neri e alla gravità quantistica. Uno è un calcolo impostato oltre 20 anni fa e mai completato.",
+     "key_points": [
+      "Il primo riguarda una transizione di fase legata alla formazione dei buchi neri.",
+      "Il secondo trova il limite esatto della versione più semplice di una tecnica di test.",
+      "Disponibili due preprint, linkati nel post.",
+      "Il post ha 428 punti su Hacker News."
+     ],
+     "why": "Ottimo materiale per un contenuto su cosa sa fare oggi l'AI oltre il testo, da raccontare a un pubblico non tecnico.",
+     "badge": "ufficiale",
+     "badge_note": "Annuncio sul sito Anthropic; i risultati sono dichiarati dall'azienda, la verifica dei preprint spetta alla comunità scientifica.",
+     "importance": 2,
+     "primary_url": "https://www.anthropic.com/research/claude-black-hole-physics",
+     "sources": [
+      {
+       "name": "anthropic.com (via Hacker News)",
+       "title": "Claude solves two open problems in the physics of black holes",
+       "url": "https://www.anthropic.com/research/claude-black-hole-physics",
+       "official": true,
+       "kind": "article",
+       "item_id": "9b50e27977c2",
+       "meta": {
+        "points": 428,
+        "comments": "https://news.ycombinator.com/item?id=50563148"
+       },
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-20-10",
+     "subsection": "ecosistema",
+     "subsection_label": "Ecosistema a 360° — modelli, API, SDK, azienda",
+     "title": "Claude Agent SDK v0.2.186 disponibile su PyPI",
+     "summary": "È uscita la versione 0.2.186 di Claude Agent SDK, installabile da PyPI. La fonte non riporta note di rilascio.",
+     "key_points": [],
+     "why": "Se usi l'SDK per agenti o automazioni, aggiorna e controlla le novità prima di usarlo in produzione.",
+     "badge": "ufficiale",
+     "badge_note": "Release sul repository ufficiale Anthropic.",
+     "importance": 3,
+     "primary_url": "https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.186",
+     "sources": [
+      {
+       "name": "Claude Agent SDK",
+       "title": "v0.2.186",
+       "url": "https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.186",
+       "official": true,
+       "kind": "release",
+       "item_id": "84d9c5c204a3",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "higgsfield",
+   "title": "Higgsfield",
+   "items": [
+    {
+     "id": "2026-11-20-02",
+     "subsection": "",
+     "subsection_label": "",
+     "title": "Higgsfield: guida per video ads di ristoranti con l'AI",
+     "summary": "Higgsfield pubblica una guida in sette passi per creare video ads per ristoranti partendo dalla foto del piatto reale. L'AI aggiunge movimento, mentre testo, offerta e call to action li scrivi tu.",
+     "key_points": [
+      "Parti da una foto del piatto vero e controlla che l'AI non lo cambi.",
+      "Genera almeno due versioni di ogni clip e scarta quelle dove il cibo è cambiato.",
+      "Esporta in 9:16 per Reels, TikTok e Shorts.",
+      "Meta consiglia di lasciare libero da testo il 35% inferiore delle Reels ads."
+     ],
+     "why": "È un flusso pronto da riusare per un cliente ristoratore: ads verticali da una sola foto, con regole chiare di controllo.",
+     "badge": "ufficiale",
+     "badge_note": "Guida pubblicata sul blog ufficiale Higgsfield; i formati non sono stati testati tra loro, lo dice la fonte stessa.",
+     "importance": 1,
+     "primary_url": "https://higgsfield.ai/blog/how-to-make-restaurant-video-ads-with-ai",
+     "sources": [
+      {
+       "name": "Blog Higgsfield",
+       "title": "How to Make Restaurant Video Ads with AI (Full Guide)",
+       "url": "https://higgsfield.ai/blog/how-to-make-restaurant-video-ads-with-ai",
+       "official": true,
+       "kind": "article",
+       "item_id": "ed81f4cbc90c",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-20-05",
+     "subsection": "",
+     "subsection_label": "",
+     "title": "Higgsfield MCP passa a CIMD: DCR spento dal 1 gennaio 2027",
+     "summary": "Higgsfield MCP sostituisce la Dynamic Client Registration (DCR) con i Client ID Metadata Documents (CIMD) per identificare i client. Chi sviluppa client MCP con DCR deve migrare entro il 31 dicembre 2026.",
+     "key_points": [
+      "Fino al 31 dicembre 2026 entrambi i metodi funzionano; CIMD è raccomandato.",
+      "Dal 1 gennaio 2027 i client_id emessi con DCR smettono di funzionare.",
+      "Con CIMD il client_id è un URL HTTPS con un documento di metadati.",
+      "Chi usa client altrui non deve configurare nulla, solo aggiornarli."
+     ],
+     "why": "Se colleghi Higgsfield via MCP nei tuoi automatismi, controlla che il client sia aggiornato prima della scadenza.",
+     "badge": "ufficiale",
+     "badge_note": "Annuncio sul blog ufficiale Higgsfield.",
+     "importance": 2,
+     "primary_url": "https://higgsfield.ai/blog/higgsfield-mcp-moves-to-cimd",
+     "sources": [
+      {
+       "name": "Blog Higgsfield",
+       "title": "Higgsfield MCP Moves to CIMD: What Developers Need to Know",
+       "url": "https://higgsfield.ai/blog/higgsfield-mcp-moves-to-cimd",
+       "official": true,
+       "kind": "article",
+       "item_id": "588de093ac00",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "elevenlabs",
+   "title": "ElevenLabs",
+   "items": [
+    {
+     "id": "2026-11-20-03",
+     "subsection": "",
+     "subsection_label": "",
+     "title": "Candid Health automatizza le chiamate ai payer con ElevenAgents",
+     "summary": "Candid Health usa ElevenAgents per chiamare le assicurazioni e indagare sui rifiuti dei rimborsi. Nel pilota ha gestito 12.860 chiamate e l'agente ha risolto il 59% dei casi.",
+     "key_points": [
+      "Oltre 850 ore di lavoro risparmiate al mese.",
+      "Durata media della chiamata: 8 minuti e 46 secondi.",
+      "Gli agenti sono costruiti e testati da team non ingegneri.",
+      "Integrazione completata dagli ingegneri in 48 ore."
+     ],
+     "why": "È un caso concreto di agente vocale con numeri reali, da citare quando proponi agenti vocali a clienti con molte telefonate ripetitive.",
+     "badge": "ufficiale",
+     "badge_note": "Case study sul blog ufficiale ElevenLabs; i risultati sono dichiarati da ElevenLabs e Candid, non verificati da terzi.",
+     "importance": 1,
+     "primary_url": "https://elevenlabs.io/blog/candid-health",
+     "sources": [
+      {
+       "name": "Blog ElevenLabs",
+       "title": "How Candid Health automates payer calls with ElevenAgents",
+       "url": "https://elevenlabs.io/blog/candid-health",
+       "official": true,
+       "kind": "article",
+       "item_id": "b94a8ee76ae3",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-20-06",
+     "subsection": "",
+     "subsection_label": "",
+     "title": "ElevenAgents: quante chiamate simultanee regge un agente vocale",
+     "summary": "ElevenLabs spiega che la capacità di un agente vocale dipende da concorrenza del piano, linee telefoniche e velocità di LLM e CRM. La concorrenza parte da 4 chiamate sul piano Free e arriva a 40 su Business.",
+     "key_points": [
+      "Oltre 40 chiamate con il piano Enterprise.",
+      "Il burst pricing permette fino a 3 volte il limite per picchi temporanei.",
+      "Le linee SIP dell'operatore fissano il limite fisico del traffico.",
+      "Servono consenso e conformità normativa in ogni mercato."
+     ],
+     "why": "Ti aiuta a dimensionare piano e costi quando proponi un agente vocale a un cliente con picchi di chiamate.",
+     "badge": "ufficiale",
+     "badge_note": "Articolo sul blog ufficiale ElevenLabs; ha taglio promozionale.",
+     "importance": 2,
+     "primary_url": "https://elevenlabs.io/blog/how-many-calls-can-an-ai-voice-agent-handle",
+     "sources": [
+      {
+       "name": "Blog ElevenLabs",
+       "title": "How many calls can an AI voice agent handle at scale?",
+       "url": "https://elevenlabs.io/blog/how-many-calls-can-an-ai-voice-agent-handle",
+       "official": true,
+       "kind": "article",
+       "item_id": "acdbbdc59718",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "creators",
+   "title": "Dai creator che seguo",
+   "items": [
+    {
+     "id": "2026-11-20-11",
+     "subsection": "Riccardo Belli Contarini",
+     "subsection_label": "Riccardo Belli Contarini",
+     "title": "Riccardo Belli Contarini: 79 skill gratis per fare videogiochi con Claude Code",
+     "summary": "Un Short del creator presenta il plugin awesome-gamedev-agent-skills: 79 skill per Claude Code su dodici motori, tra cui Godot, Unity, Unreal e Roblox.",
+     "key_points": [],
+     "why": "Curiosità per un contenuto sul game development con Claude Code.",
+     "badge": "da_verificare",
+     "badge_note": "Una sola fonte non ufficiale, il creator stesso.",
+     "importance": 3,
+     "primary_url": "https://www.youtube.com/shorts/0GvxKTuzdxQ",
+     "sources": [
+      {
+       "name": "YouTube · Riccardo Belli Contarini",
+       "title": "Claude Code fa videogiochi con 79 skill gratis #Shorts",
+       "url": "https://www.youtube.com/shorts/0GvxKTuzdxQ",
+       "official": false,
+       "kind": "short",
+       "item_id": "bd41702e9550",
+       "meta": {
+        "creator": "Riccardo Belli Contarini",
+        "duration": null
+       },
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "github",
+   "title": "GitHub: repo e skill per la mia agenzia",
+   "items": [
+    {
+     "id": "2026-11-20-07",
+     "subsection": "video",
+     "subsection_label": "Video editing e caroselli",
+     "title": "AutoClip: tool open source che taglia video lunghi in short",
+     "summary": "AutoClip è un'app desktop open source che trasforma podcast, interviste e corsi in video brevi con sottotitoli, copertina e testo per la pubblicazione. Funziona per TikTok, Reels e YouTube Shorts.",
+     "key_points": [
+      "Stelle, data di creazione e licenza MIT verificate su GitHub.",
+      "Il software è gratis, i modelli cloud si pagano a consumo.",
+      "Dichiara anche CLI e MCP, funzioni non ancora provate."
+     ],
+     "why": "Può velocizzare il riuso di video lunghi in clip per i social di un cliente o per i tuoi contenuti.",
+     "badge": "dal_repo",
+     "badge_note": "Stelle (11.427) e licenza MIT verificate su GitHub; le funzioni sono dichiarate dagli autori, non provate.",
+     "importance": 2,
+     "primary_url": "https://github.com/zhouxiaoka/autoclip",
+     "sources": [
+      {
+       "name": "GitHub Trending",
+       "title": "zhouxiaoka/autoclip",
+       "url": "https://github.com/zhouxiaoka/autoclip",
+       "official": false,
+       "kind": "repo",
+       "item_id": "b1c879a94d93",
+       "meta": {
+        "stars": 11427,
+        "stars_verified": true,
+        "license": "MIT"
+       },
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-20-08",
+     "subsection": "design_web",
+     "subsection_label": "Design per siti e social",
+     "title": "diagram-design: skill per diagrammi editoriali in HTML e SVG",
+     "summary": "diagram-design è una skill per agenti, tra cui Claude Code, che crea diagrammi come singolo file HTML con SVG, nei colori del tuo brand. Si installa con un comando.",
+     "key_points": [
+      "Installazione: npx skills add cathrynlavery/diagram-design.",
+      "Il README parla di 45 o 51 tipi di diagramma: i dati divergono.",
+      "Può importare da draw.io, Mermaid, Excalidraw o PlantUML.",
+      "Su GitHub: 68.754 stelle, licenza MIT."
+     ],
+     "why": "Utile per produrre diagrammi su misura per clienti e per i tuoi caroselli, senza il look generico di Mermaid.",
+     "badge": "dal_repo",
+     "badge_note": "Stelle e licenza verificate su GitHub; le funzioni sono dichiarate dall'autrice, non provate.",
+     "importance": 2,
+     "primary_url": "https://github.com/cathrynlavery/diagram-design",
+     "sources": [
+      {
+       "name": "GitHub Trending",
+       "title": "cathrynlavery/diagram-design",
+       "url": "https://github.com/cathrynlavery/diagram-design",
+       "official": false,
+       "kind": "repo",
+       "item_id": "41ea088f2df6",
+       "meta": {
+        "stars": 68754,
+        "stars_verified": true,
+        "license": "MIT"
+       },
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-20-09",
+     "subsection": "agenti",
+     "subsection_label": "Agenti AI e agenti vocali",
+     "title": "Firecrawl: ricerca, scraping e dati per agenti AI con una sola API",
+     "summary": "Firecrawl offre un'API unica per cercare, fare scraping e accedere a oltre 550 fonti dati per agenti AI. Esiste in versione locale, cloud e self-hosted.",
+     "key_points": [
+      "Firecrawl Local si installa con cargo install firecrawl-local.",
+      "Può funzionare come server MCP per il tuo agente.",
+      "Licenza AGPL-3.0, 204.392 stelle verificate su GitHub."
+     ],
+     "why": "Può servire come base per agenti che leggono siti dei clienti, utile per SEO e automazioni; attenzione alla licenza AGPL.",
+     "badge": "dal_repo",
+     "badge_note": "Stelle e licenza verificate su GitHub; le funzioni sono dichiarate dagli autori, non provate.",
+     "importance": 2,
+     "primary_url": "https://github.com/firecrawl/firecrawl",
+     "sources": [
+      {
+       "name": "GitHub Trending",
+       "title": "firecrawl/firecrawl",
+       "url": "https://github.com/firecrawl/firecrawl",
+       "official": false,
+       "kind": "repo",
+       "item_id": "9c1a78a9030d",
+       "meta": {
+        "stars": 204392,
+        "stars_verified": true,
+        "license": "AGPL-3.0"
+       },
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "virali",
+   "title": "Da provare: repo, skill e tool virali (idee per gli Shorts)",
+   "items": [
+    {
+     "id": "2026-11-20-12",
+     "subsection": "app",
+     "subsection_label": "App e tool AI",
+     "title": "Nuko: motion design direttamente nel browser",
+     "summary": "Nuko è un nuovo strumento su Product Hunt per fare motion design nel browser. La fonte dà pochi dettagli.",
+     "key_points": [
+      "Cosa fa: motion design nel browser.",
+      "Come si prova: dalla pagina Product Hunt.",
+      "Costo: non indicato dalla fonte."
+     ],
+     "why": "Da guardare se vuoi creare animazioni per i social dei clienti senza software pesanti.",
+     "badge": "da_verificare",
+     "badge_note": "Una sola fonte non ufficiale, Product Hunt, con una descrizione di una riga.",
+     "importance": 3,
+     "short_hook": "Motion design nel browser, senza installare nulla.",
+     "primary_url": "https://www.producthunt.com/products/nuko",
+     "sources": [
+      {
+       "name": "Product Hunt",
+       "title": "Nuko",
+       "url": "https://www.producthunt.com/products/nuko",
+       "official": false,
+       "kind": "article",
+       "item_id": "f2048fe7557d",
+       "meta": {},
+       "link": "non_verificabile"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "stats": {
+  "collected": 35,
+  "stories": 12,
+  "discarded": 22,
+  "dropped_broken_links": [],
+  "source_errors": [],
+  "window_hours": 26,
+  "model": "sonnet",
+  "checks": {
+   "links_tested": 13,
+   "links_ok": 12,
+   "links_unverifiable": 1,
+   "repos_verified": 3,
+   "badges": {
+    "ufficiale": 7,
+    "da_verificare": 2,
+    "dal_repo": 3
+   },
+   "write_attempts": 1
+  },
+  "claude": {
+   "selezione": {
+    "secs": 6.2,
+    "turns": 2,
+    "input_tokens": 15425,
+    "cache_read_tokens": 0,
+    "output_tokens": 915,
+    "equivalent_api_usd": 0.07084599999999999
+   },
+   "scrittura": {
+    "secs": 28.3,
+    "turns": 2,
+    "input_tokens": 22714,
+    "cache_read_tokens": 0,
+    "output_tokens": 4220,
+    "equivalent_api_usd": 0.133052,
+    "attempts": 1
+   },
+   "scelte": {
+    "secs": 9.6,
+    "turns": 3,
+    "input_tokens": 12094,
+    "cache_read_tokens": 11091,
+    "output_tokens": 1309,
+    "equivalent_api_usd": 0.0625671
+   }
+  }
+ }
+}
