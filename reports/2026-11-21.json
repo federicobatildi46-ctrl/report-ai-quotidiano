@@ -1,0 +1,558 @@
+{
+ "title": "Report automatico notizie e aggiornamenti AI",
+ "date": "2026-11-21",
+ "generated_at": "2026-11-21T04:04:07.484419+00:00",
+ "reading_minutes": 6,
+ "in_breve": [
+  "Computer use di Claude arriva in beta per i piani Team ed Enterprise, con rilascio graduale alle organizzazioni.",
+  "Claude Code 2.1.330 aggiunge il login per le organizzazioni Enterprise, grafici automatici (easel) e molte correzioni di stabilità.",
+  "Anthropic chiude l'IPO: 1,127 miliardi di azioni a 83 dollari, circa 93,5 miliardi di proventi lordi, quotata al Nasdaq con simbolo ANT."
+ ],
+ "picks": {
+  "linkedin": {
+   "item_id": "2026-11-21-05",
+   "score": 8,
+   "hook": "Un paziente su quattro non si presenta alla visita e lo studio perde l'ora e l'incasso. Una telefonata di conferma lo evita, e non serve una segretaria.",
+   "why": "Fonte ufficiale, problema concreto (no-show) con numeri misurabili, replicabile da studi e cliniche con un agente vocale su misura.",
+   "target": "titolari di studi medici e professionali che perdono appuntamenti e fanno richiami a mano",
+   "pain": "Gli appuntamenti saltati fanno perdere ore e incassi, e i richiami telefonici portano via tempo a chi lavora in segreteria.",
+   "angle": "Partire dal costo delle visite saltate: in una revisione di 105 studi il no-show medio è del 23%. ElevenLabs mostra un agente vocale che richiama, conferma o sposta l'appuntamento, con Ovianta a -83% di chiamate manuali. Un sistema su misura può fare lo stesso per uno studio.",
+   "caveat": "",
+   "alternatives": [
+    {
+     "item_id": "2026-11-21-11",
+     "reason": "Dato sull'AI nelle PMI italiane condivisibile, ma fonte singola e esempi personali del creator.",
+     "title": "Belli Contarini: l'Italia è ultima in Europa per l'AI nelle PMI"
+    },
+    {
+     "item_id": "2026-11-21-04",
+     "reason": "Caso reale di agente vocale con 1.036 interviste, meno legato ai problemi quotidiani di uno studio.",
+     "title": "Fundación Televisa: oltre 1.000 interviste a imprenditori con un agente vocale"
+    }
+   ],
+   "title": "ElevenAgents: un agente vocale che richiama i pazienti per confermare gli appuntamenti",
+   "badge": "ufficiale",
+   "section": "elevenlabs"
+  },
+  "short": {
+   "item_id": "2026-11-21-08",
+   "score": 8,
+   "hook": "Questa app gratis trasforma un video lungo in decine di Shorts",
+   "why": "Gratis, open source, utile subito: da un podcast o un video lungo ottieni clip con sottotitoli. Risultato visibile e invito a commentare per il link.",
+   "title": "AutoClip: app gratuita che trasforma video lunghi in clip per Shorts e Reels",
+   "badge": "dal_repo",
+   "section": "virali"
+  }
+ },
+ "sections": [
+  {
+   "id": "claude",
+   "title": "Universo Claude",
+   "items": [
+    {
+     "id": "2026-11-21-01",
+     "subsection": "cowork",
+     "subsection_label": "Cowork",
+     "title": "Computer use in beta per i piani Team ed Enterprise di Claude",
+     "summary": "Claude può vedere lo schermo dell'utente e lavorare nelle app desktop che gli permetti. Funziona nella nuova esperienza di Claude Desktop, e da web e mobile dove l'accesso al computer è attivo. La beta arriva su Team ed Enterprise, con rilascio graduale.",
+     "key_points": [
+      "Disponibile in beta su Team ed Enterprise",
+      "Rilascio graduale alle organizzazioni",
+      "Funziona in Claude Desktop, web e mobile se Computer access è attivo",
+      "Lavora solo nelle app desktop che l'utente consente"
+     ],
+     "why": "Ti permette di capire cosa può automatizzare Claude sul desktop di un cliente con piano aziendale, e di farne un contenuto dimostrativo.",
+     "badge": "ufficiale",
+     "badge_note": "Release notes ufficiali dell'app Claude (claude.com) del 20 novembre 2026.",
+     "importance": 1,
+     "primary_url": "https://support.claude.com/en/articles/12138966-release-notes#h_c2590a46af",
+     "sources": [
+      {
+       "name": "Release notes app Claude",
+       "title": "Claude app — release notes — November 20, 2026",
+       "url": "https://support.claude.com/en/articles/12138966-release-notes#h_c2590a46af",
+       "official": true,
+       "kind": "changelog",
+       "item_id": "3f054cb31cd8",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-21-02",
+     "subsection": "code",
+     "subsection_label": "Claude Code",
+     "title": "Claude Code v2.1.330: login Enterprise, grafici automatici e molti fix",
+     "summary": "La nuova versione di Claude Code permette l'accesso alle organizzazioni gestite dall'Enterprise Admin Console, che applicano le proprie impostazioni dopo `claude auth login`. Aggiunge easel, un modulo che disegna grafici su richiesta, e corregge numerosi blocchi e bug.",
+     "key_points": [
+      "Easel: grafici su richiesta, anche sui risultati delle metriche MCP",
+      "Easel su Pro, Max e dove disponibile Team ed Enterprise, su macOS e Linux",
+      "Grafici automatici disattivabili in `/config`",
+      "Corretti blocchi dopo la compattazione e con WebFetch"
+     ],
+     "why": "Se usi Claude Code ogni giorno, i fix su sessioni, MCP e worktree ti fanno perdere meno tempo, e il login Enterprise conta se lavori con clienti strutturati.",
+     "badge": "ufficiale",
+     "badge_note": "Release ufficiale nel repository github.com/anthropics di Claude Code.",
+     "importance": 1,
+     "primary_url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.330",
+     "sources": [
+      {
+       "name": "Claude Code (release)",
+       "title": "v2.1.330",
+       "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.330",
+       "official": true,
+       "kind": "release",
+       "item_id": "17cd029e5013",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-21-09",
+     "subsection": "ecosistema",
+     "subsection_label": "Ecosistema a 360° — modelli, API, SDK, azienda",
+     "title": "Anthropic chiude l'IPO: 93,5 miliardi di dollari di proventi lordi",
+     "summary": "Anthropic ha chiuso l'offerta pubblica iniziale di 1,127 miliardi di azioni Class A a 83 dollari, inclusa l'opzione degli underwriter. Le azioni sono quotate al Nasdaq dal 19 novembre 2026 con il simbolo ANT.",
+     "key_points": [
+      "Proventi lordi dell'IPO circa 93,5 miliardi; circa 91,6 miliardi ad Anthropic",
+      "Collocamento privato da circa 26 miliardi a AMD, Broadcom, Google, Micron, Microsoft, NVIDIA, TSMC",
+      "Totale con collocamento circa 119,5 miliardi, prima delle commissioni"
+     ],
+     "why": "Contesto sul fornitore su cui basi il tuo lavoro quotidiano con Claude Code, utile da conoscere parlando con i clienti.",
+     "badge": "ufficiale",
+     "badge_note": "Comunicato sul sito ufficiale di Anthropic.",
+     "importance": 3,
+     "primary_url": "https://www.anthropic.com/news/ipo-close",
+     "sources": [
+      {
+       "name": "Anthropic",
+       "title": "Anthropic announces closing of initial public offering, including full exercise of underwriters’ option to purchase additional shares, and closing of concurrent private placement",
+       "url": "https://www.anthropic.com/news/ipo-close",
+       "official": true,
+       "kind": "article",
+       "item_id": "9afed0143cc7",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "higgsfield",
+   "title": "Higgsfield",
+   "items": []
+  },
+  {
+   "id": "elevenlabs",
+   "title": "ElevenLabs",
+   "items": [
+    {
+     "id": "2026-11-21-03",
+     "subsection": "",
+     "subsection_label": "",
+     "title": "ElevenLabs Ads Engine: varianti e localizzazione dei video ads",
+     "summary": "Ads Engine di ElevenCreative può ora rinnovare un video ad con un nuovo hook o una nuova colonna sonora, e localizzarlo con doppiaggio e sottotitoli tradotti. Si collega agli account ads di Google, Meta, LinkedIn e ora TikTok, senza rifare le riprese.",
+     "key_points": [
+      "Nuovi hook con replica vocale digitale dell'oratore e lip-sync",
+      "Nuove musiche generate con ElevenLabs Music API, per uso commerciale",
+      "Doppiaggio con Dubbing v2 e sottotitoli ri-renderizzati nella nuova lingua",
+      "Per iniziare bisogna contattare il team ElevenLabs"
+     ],
+     "why": "È un'idea concreta per il servizio ads dell'agenzia: rinnovare e localizzare video di clienti senza nuove riprese.",
+     "badge": "ufficiale",
+     "badge_note": "Annuncio sul blog ufficiale di ElevenLabs; funzioni dichiarate dall'azienda, non provate.",
+     "importance": 2,
+     "primary_url": "https://elevenlabs.io/blog/video-variants-localization-ads-engine",
+     "sources": [
+      {
+       "name": "Blog ElevenLabs",
+       "title": "Introducing video ad variants and localization in Ads Engine",
+       "url": "https://elevenlabs.io/blog/video-variants-localization-ads-engine",
+       "official": true,
+       "kind": "article",
+       "item_id": "6668009dbad5",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-21-04",
+     "subsection": "",
+     "subsection_label": "",
+     "title": "Fundación Televisa: oltre 1.000 interviste a imprenditori con un agente vocale",
+     "summary": "Fundación Televisa ha usato ElevenAgents per intervistare gli imprenditori candidati al programma POSiBLE 2026. L'agente vocale ha condotto 1.036 interviste in circa quattro settimane, e il team ha poi scelto 70 progetti per la fase finale.",
+     "key_points": [
+      "Interviste dal 29 giugno al 24 luglio, durata media 5 minuti",
+      "Agente incorporato nella piattaforma web di POSiBLE, disponibile a qualsiasi ora",
+      "Integrato con i sistemi di chat esistenti tramite API",
+      "Il feedback arrivava subito dopo la chiamata"
+     ],
+     "why": "È un caso reale da citare ai clienti per mostrare come un agente vocale gestisce colloqui e selezioni su larga scala.",
+     "badge": "ufficiale",
+     "badge_note": "Caso raccontato sul blog ufficiale di ElevenLabs; i risultati sono quelli riportati dall'azienda.",
+     "importance": 2,
+     "primary_url": "https://elevenlabs.io/blog/fundacion-televisa-posible",
+     "sources": [
+      {
+       "name": "Blog ElevenLabs",
+       "title": "How Fundación Televisa interviewed more than 1,000 entrepreneurs with voice AI",
+       "url": "https://elevenlabs.io/blog/fundacion-televisa-posible",
+       "official": true,
+       "kind": "article",
+       "item_id": "e8758b64c9e8",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-21-05",
+     "subsection": "",
+     "subsection_label": "",
+     "title": "ElevenAgents: un agente vocale che richiama i pazienti per confermare gli appuntamenti",
+     "summary": "ElevenLabs mostra come costruire con Architect un agente vocale in uscita che chiama i pazienti, verifica la data di nascita e conferma, sposta o annulla la visita nella cartella clinica. Può girare in batch notturno o in tempo reale.",
+     "key_points": [
+      "Tasso medio di no-show 23% in una revisione di 105 studi",
+      "Everlywell: +10% nel completamento degli screening rispetto all'IVR",
+      "Ovianta: 68% di coinvolgimento e -83% di chiamate manuali",
+      "Campaign Manager gestisce orari, richiami e segreteria"
+     ],
+     "why": "Ti dà uno schema replicabile per un agente vocale per studi e cliniche, un servizio che puoi proporre.",
+     "badge": "ufficiale",
+     "badge_note": "Post sul blog ufficiale di ElevenLabs; i risultati dei clienti sono dichiarati dall'azienda.",
+     "importance": 2,
+     "primary_url": "https://elevenlabs.io/blog/build-an-outbound-reminder-agent-with-architect",
+     "sources": [
+      {
+       "name": "Blog ElevenLabs",
+       "title": "ElevenAgents for Healthcare: Build an outbound appointment reminder agent with Architect",
+       "url": "https://elevenlabs.io/blog/build-an-outbound-reminder-agent-with-architect",
+       "official": true,
+       "kind": "article",
+       "item_id": "52c6915bc7b5",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "creators",
+   "title": "Dai creator che seguo",
+   "items": [
+    {
+     "id": "2026-11-21-06",
+     "subsection": "Riccardo Belli Contarini",
+     "subsection_label": "Riccardo Belli Contarini",
+     "title": "Reanimate: skill gratuita di Claude Code che copia le animazioni dei siti",
+     "summary": "Secondo Riccardo Belli Contarini, Reanimate è una skill gratuita per Claude Code. Filma un'animazione da un sito o da un video, la ricostruisce nel codice e corregge la copia finché è identica all'originale. Fonte singola, non verificata.",
+     "key_points": [],
+     "why": "Può velocizzare la realizzazione di siti con animazioni per i clienti, e fa da spunto per un video.",
+     "badge": "da_verificare",
+     "badge_note": "Una sola fonte non ufficiale: uno Short del creator, funzioni non provate.",
+     "importance": 2,
+     "primary_url": "https://www.youtube.com/shorts/Bg4ojFJh9qE",
+     "sources": [
+      {
+       "name": "YouTube · Riccardo Belli Contarini",
+       "title": "Reanimate: Claude Code copia qualsiasi animazione da un sito #Shorts",
+       "url": "https://www.youtube.com/shorts/Bg4ojFJh9qE",
+       "official": false,
+       "kind": "short",
+       "item_id": "d60bba62baa0",
+       "meta": {
+        "creator": "Riccardo Belli Contarini",
+        "duration": null
+       },
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-21-10",
+     "subsection": "Riccardo Belli Contarini",
+     "subsection_label": "Riccardo Belli Contarini",
+     "title": "Claude Code + Meshy: hero di siti con modelli 3D",
+     "summary": "Secondo Riccardo Belli Contarini, si carica una foto su Meshy, che la trasforma in modello 3D e la colora. Poi si passa il file a Claude Code, che costruisce la hero del sito con il modello ruotabile col mouse. Il video è promozionale (codice sconto).",
+     "key_points": [],
+     "why": "Idea per siti più d'impatto per i clienti, ma la fonte è un contenuto sponsorizzato.",
+     "badge": "da_verificare",
+     "badge_note": "Una sola fonte non ufficiale, con link promozionale e codice sconto.",
+     "importance": 3,
+     "primary_url": "https://www.youtube.com/shorts/JhsDs5U4HwE",
+     "sources": [
+      {
+       "name": "YouTube · Riccardo Belli Contarini",
+       "title": "Claude Code + Meshy: siti con modelli 3D veri #Shorts",
+       "url": "https://www.youtube.com/shorts/JhsDs5U4HwE",
+       "official": false,
+       "kind": "short",
+       "item_id": "2e46c662d596",
+       "meta": {
+        "creator": "Riccardo Belli Contarini",
+        "duration": null
+       },
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-21-11",
+     "subsection": "Riccardo Belli Contarini",
+     "subsection_label": "Riccardo Belli Contarini",
+     "title": "Belli Contarini: l'Italia è ultima in Europa per l'AI nelle PMI",
+     "summary": "Riccardo Belli Contarini cita un dato dell'European Economic and Social Committee: in Italia il 5% delle PMI usa l'AI in modo esteso, in Danimarca il 30%. Sostiene che la domanda giusta sia come fare dieci volte di più con le persone che già si hanno.",
+     "key_points": [
+      "Esempio del creator: fatture da 6 ore al giorno a un minuto",
+      "Analisi di 24 mesi di vendite (4 milioni di righe) per decidere i prezzi"
+     ],
+     "why": "Argomento utile per un post LinkedIn e per presentare il valore dell'agenzia, ricordando che gli esempi sono suoi.",
+     "badge": "da_verificare",
+     "badge_note": "Un solo post LinkedIn del creator; il dato è attribuito al Comitato, ma non verificato qui.",
+     "importance": 3,
+     "primary_url": "https://www.linkedin.com/posts/riccardobellicontarini_litalia-%C3%A8-ultima-in-europa-per-lai-nelle-activity-7529495734434533376-RhHu",
+     "sources": [
+      {
+       "name": "LinkedIn · Riccardo Belli Contarini",
+       "title": "Riccardo Belli Contarini: L'Italia è ultima in Europa per l'AI nelle PMI. 5%. La Danimarca è al 30%. Il da…",
+       "url": "https://www.linkedin.com/posts/riccardobellicontarini_litalia-%C3%A8-ultima-in-europa-per-lai-nelle-activity-7529495734434533376-RhHu",
+       "official": false,
+       "kind": "post",
+       "item_id": "c6c9c684ef43",
+       "meta": {
+        "creator": "Riccardo Belli Contarini"
+       },
+       "link": "non_verificabile"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "github",
+   "title": "GitHub: repo e skill per la mia agenzia",
+   "items": [
+    {
+     "id": "2026-11-21-13",
+     "subsection": "video",
+     "subsection_label": "Video editing e caroselli",
+     "title": "MEP: protocollo aperto per far montare video a qualsiasi assistente AI",
+     "summary": "MEP (Motion Edit Protocol) è un protocollo aperto basato su file: il software di montaggio espone il progetto come cartella, l'assistente legge e scrive richieste, il software le valida ed esegue e scrive una ricevuta.",
+     "key_points": [
+      "Nessun plugin né riavvio: basta che l'assistente legga e scriva file",
+      "Ogni richiesta ha una versione e una ricevuta, annullabile",
+      "Licenza Apache-2.0; 47 stelle, creato il 19/11/2026"
+     ],
+     "why": "Idea da seguire per automatizzare il montaggio video dei clienti con agenti, anche se è un progetto molto nuovo.",
+     "badge": "dal_repo",
+     "badge_note": "Stelle e licenza verificate su GitHub; le funzioni sono dichiarate dagli autori, non provate.",
+     "importance": 3,
+     "primary_url": "https://github.com/adunext/mep",
+     "sources": [
+      {
+       "name": "GitHub",
+       "title": "adunext/mep",
+       "url": "https://github.com/adunext/mep",
+       "official": false,
+       "kind": "repo",
+       "item_id": "3dfa6852a729",
+       "meta": {
+        "stars": 47,
+        "stars_verified": true,
+        "license": "Apache-2.0"
+       },
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-21-14",
+     "subsection": "claude",
+     "subsection_label": "Skill e tool per Claude",
+     "title": "sprite-stacking: skill per sprite pixel art pseudo-3D ruotabili",
+     "summary": "Skill per agenti (Claude Code, Codex, Cursor e altri) che trasforma quattro viste in pixel art in sprite pseudo-3D ruotabili. Si installa con `npx skills add danielwh2/sprite-stacking`.",
+     "key_points": [
+      "Parte da viste dall'alto, di lato, davanti e dietro",
+      "Genera un visualizzatore HTML con turntable e scene",
+      "144 stelle, licenza MIT, creata il 20/11/2026"
+     ],
+     "why": "Curiosità utile per imparare come si costruiscono le skill, meno per i servizi dell'agenzia.",
+     "badge": "dal_repo",
+     "badge_note": "Stelle e licenza verificate su GitHub; le funzioni sono dichiarate dall'autore, non provate.",
+     "importance": 3,
+     "primary_url": "https://github.com/danielwh2/sprite-stacking",
+     "sources": [
+      {
+       "name": "GitHub",
+       "title": "danielwh2/sprite-stacking",
+       "url": "https://github.com/danielwh2/sprite-stacking",
+       "official": false,
+       "kind": "repo",
+       "item_id": "b7c554929cdd",
+       "meta": {
+        "stars": 144,
+        "stars_verified": true,
+        "license": "MIT"
+       },
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "virali",
+   "title": "Da provare: repo, skill e tool virali (idee per gli Shorts)",
+   "items": [
+    {
+     "id": "2026-11-21-07",
+     "subsection": "skill",
+     "subsection_label": "Skill e plugin per Claude",
+     "title": "diagram-design: skill per diagrammi HTML/SVG nei colori del tuo brand",
+     "summary": "Skill per agenti AI che disegna diagrammi (flussi, architetture, Gantt, Sankey) come un singolo file HTML/SVG nei colori del brand. Importa da Mermaid, draw.io ed Excalidraw. È in tendenza su GitHub oggi.",
+     "key_points": [
+      "Cosa fa: diagrammi in un unico file HTML/SVG, con import da Mermaid, draw.io, Excalidraw",
+      "Come si prova: in Claude Code `/plugin marketplace add cathrynlavery/diagram-design`, poi `/plugin install diagram-design@diagram-design`",
+      "Altri agenti: `npx skills add cathrynlavery/diagram-design`",
+      "Costo: gratis, licenza MIT"
+     ],
+     "why": "Utile per consegnare ai clienti schemi di processo e automazioni nei loro colori, e per uno Short veloce.",
+     "badge": "dal_repo",
+     "badge_note": "Stelle (69.357) e licenza MIT verificate su GitHub; le funzioni sono dichiarate dall'autore, non provate.",
+     "importance": 2,
+     "short_hook": "Questa skill disegna diagrammi perfetti nei colori del tuo brand. Gratis.",
+     "primary_url": "https://github.com/cathrynlavery/diagram-design",
+     "sources": [
+      {
+       "name": "Ricerca web",
+       "title": "diagram-design",
+       "url": "https://github.com/cathrynlavery/diagram-design",
+       "official": false,
+       "kind": "repo",
+       "item_id": "a85ad9dc3cf9",
+       "meta": {
+        "stars": 69357,
+        "stars_verified": true,
+        "license": "MIT"
+       },
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-21-08",
+     "subsection": "repo",
+     "subsection_label": "Repo GitHub",
+     "title": "AutoClip: app gratuita che trasforma video lunghi in clip per Shorts e Reels",
+     "summary": "App desktop open source che taglia video lunghi (podcast, interviste, corsi) in clip brevi con sottotitoli, copertine e testi per i post, pronti per Shorts, Reels e TikTok.",
+     "key_points": [
+      "Cosa fa: clip con sottotitoli, copertine e testi dei post",
+      "Come si prova: scarica l'installer da Releases (.dmg Mac Apple Silicon, -setup.exe Windows) e apri il progetto di esempio",
+      "Costo: gratis (MIT); nessuna chiave API per l'esempio",
+      "Analisi in locale con Ollama/Whisper gratis; cloud con costi minimi"
+     ],
+     "why": "Ti serve per riciclare video lunghi di clienti in contenuti brevi per social e YouTube.",
+     "badge": "dal_repo",
+     "badge_note": "Stelle (12.283) e licenza MIT verificate su GitHub; le funzioni sono dichiarate dagli autori, non provate.",
+     "importance": 2,
+     "short_hook": "Questa app taglia un video lungo in clip pronte per i social. Gratis.",
+     "primary_url": "https://github.com/zhouxiaoka/autoclip",
+     "sources": [
+      {
+       "name": "Ricerca web",
+       "title": "AutoClip",
+       "url": "https://github.com/zhouxiaoka/autoclip",
+       "official": false,
+       "kind": "repo",
+       "item_id": "d941cdc9a6e3",
+       "meta": {
+        "stars": 12283,
+        "stars_verified": true,
+        "license": "MIT"
+       },
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-21-12",
+     "subsection": "app",
+     "subsection_label": "App e tool AI",
+     "title": "Mailpipe: bozze di risposta in Apple Mail con la tua CLI di agenti AI locale",
+     "summary": "Mailpipe, su Product Hunt, prepara bozze di risposta in Apple Mail usando l'agente AI da riga di comando in locale.",
+     "key_points": [],
+     "why": "Spunto per automazioni email dei clienti, ma le informazioni disponibili sono minime.",
+     "badge": "da_verificare",
+     "badge_note": "Solo una scheda Product Hunt con una riga di descrizione.",
+     "importance": 3,
+     "primary_url": "https://www.producthunt.com/products/mailpipe-2",
+     "sources": [
+      {
+       "name": "Product Hunt",
+       "title": "Mailpipe",
+       "url": "https://www.producthunt.com/products/mailpipe-2",
+       "official": false,
+       "kind": "article",
+       "item_id": "65b23c4363d6",
+       "meta": {},
+       "link": "non_verificabile"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "stats": {
+  "collected": 32,
+  "stories": 14,
+  "discarded": 18,
+  "dropped_broken_links": [],
+  "source_errors": [],
+  "window_hours": 26,
+  "model": "sonnet",
+  "checks": {
+   "links_tested": 14,
+   "links_ok": 12,
+   "links_unverifiable": 2,
+   "repos_verified": 4,
+   "badges": {
+    "ufficiale": 6,
+    "da_verificare": 4,
+    "dal_repo": 4
+   },
+   "write_attempts": 1
+  },
+  "claude": {
+   "selezione": {
+    "secs": 7.4,
+    "turns": 2,
+    "input_tokens": 14803,
+    "cache_read_tokens": 0,
+    "output_tokens": 1097,
+    "equivalent_api_usd": 0.070178
+   },
+   "scrittura": {
+    "secs": 33.0,
+    "turns": 2,
+    "input_tokens": 20886,
+    "cache_read_tokens": 0,
+    "output_tokens": 5184,
+    "equivalent_api_usd": 0.13538,
+    "attempts": 1
+   },
+   "scelte": {
+    "secs": 6.2,
+    "turns": 2,
+    "input_tokens": 12019,
+    "cache_read_tokens": 0,
+    "output_tokens": 676,
+    "equivalent_api_usd": 0.054832
+   }
+  }
+ }
+}
