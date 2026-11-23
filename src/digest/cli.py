@@ -3,6 +3,7 @@
 import argparse
 import asyncio
 import sys
+from pathlib import Path
 
 import httpx
 from dotenv import load_dotenv
@@ -231,6 +232,9 @@ def main() -> None:
     p.add_argument("--model", help="modello Claude (default: report.model di topics.yaml)")
     p = sub.add_parser("render", help="rigenera l'HTML di un report")
     p.add_argument("--report", help="file JSON del report (default: l'ultimo in reports/)")
+    p = sub.add_parser("alert", help="email di avviso: il report di oggi non è partito")
+    p.add_argument("--log", type=Path, help="file di log da cui prendere il motivo")
+    p.add_argument("--url", default="", help="link all'esecuzione su GitHub")
     p = sub.add_parser("send", help="invia il report via Gmail")
     p.add_argument("--report", help="file JSON del report (default: l'ultimo in reports/)")
     p.add_argument("--to", help="destinatario (default: REPORT_TO o GMAIL_ADDRESS)")
@@ -257,6 +261,12 @@ def main() -> None:
         sys.exit(_build(args))
     if args.cmd == "render":
         sys.exit(_render(args))
+    if args.cmd == "alert":
+        from digest.send import send_alert
+        lines = args.log.read_text(encoding="utf-8", errors="replace").splitlines() if args.log and args.log.exists() else []
+        keep = [l for l in lines if any(k in l for k in ("NON", "Errore", "errore", "Error", "limit", "Scrittura", "Raccolta"))]
+        print(f"Avviso inviato a {send_alert(chr(10).join((keep or lines)[-8:]), args.url)}")
+        sys.exit(0)
     if args.cmd == "send":
         sys.exit(_send(args))
     if args.cmd == "daily":

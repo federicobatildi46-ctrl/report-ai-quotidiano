@@ -10,6 +10,7 @@
 
 import asyncio
 import json
+import re
 from datetime import UTC, datetime
 from pathlib import Path
 
@@ -273,21 +274,39 @@ def write(stories: list[dict], by_id: dict, topics: dict, date: str, model: str,
     return run_claude(prompt, write_schema(len(stories)), system=SYSTEM, model=model)
 
 
+# Un campo è "segnaposto" solo se È un segnaposto (es. "placeholder", "TODO", "lorem ipsum…"),
+# non se contiene quelle lettere: il 22-23/11/2026 "metodo" (che contiene "todo") bloccava tutto.
+PLACEHOLDER_RE = re.compile(r"\W*(placeholder|todo|tbd|n/?a|\.\.\.)\W*", re.IGNORECASE)
+
+
+def is_placeholder(text: str) -> bool:
+    """Vero solo se l'intero campo è un segnaposto ("placeholder", "TODO", "lorem ipsum…")."""
+    t = (text or "").strip()
+    return len(t) < 4 or bool(PLACEHOLDER_RE.fullmatch(t)) or t.lower().startswith("lorem ipsum")
+
+
 def written_problems(written: dict, n_stories: int) -> list[str]:
-    """Controllo di qualità sulla scrittura: testi veri per (quasi) tutte le storie selezionate."""
+    """Controllo di qualità sulla scrittura: testi veri per (quasi) tutte le storie selezionate.
+    Una singola storia scritta male non blocca il report: viene esclusa (vedi `good`)."""
     problems = []
-    good = [w for w in written.get("stories", [])
-            if 1 <= w.get("story", 0) <= n_stories and len(w.get("title", "")) >= 12
-            and len(w.get("summary", "")) >= 40 and len(w.get("why", "")) >= 15]
-    covered = len({w["story"] for w in good})
+    covered = len({w["story"] for w in good_stories(written, n_stories)})
     if covered < max(1, round(n_stories * 0.8)):
-        problems.append(f"scritte {covered} storie su {n_stories}")
-    text = " ".join([*written.get("in_breve", []), *(w.get("title", "") + w.get("summary", "") for w in good)])
-    if any(x in text.lower() for x in ("placeholder", "lorem ipsum", "todo")):
-        problems.append("testo segnaposto nella risposta")
-    if n_stories and not [x for x in written.get("in_breve", []) if len(x) >= 20]:
-        problems.append("'In breve' mancante")
+        problems.append(f"scritte bene {covered} storie su {n_stories}")
+    if n_stories and not good_breve(written):
+        problems.append("'In breve' mancante o segnaposto")
     return problems
+
+
+def good_stories(written: dict, n_stories: int) -> list[dict]:
+    return [w for w in written.get("stories", [])
+            if 1 <= w.get("story", 0) <= n_stories
+            and len(w.get("title", "")) >= 12 and len(w.get("summary", "")) >= 40
+            and len(w.get("why", "")) >= 15
+            and not any(is_placeholder(w.get(k, "")) for k in ("title", "summary", "why"))]
+
+
+def good_breve(written: dict) -> list[str]:
+    return [x for x in written.get("in_breve", []) if len(x) >= 20 and not is_placeholder(x)]
 
 
 def write_checked(stories, by_id, topics, date, model, facts) -> tuple[dict, dict]:
@@ -394,7 +413,8 @@ def build(input_path: Path | None = None, model: str | None = None) -> tuple[Pat
                          for s in srcs]
     links = asyncio.run(check_links([s["url"] for st in stories for s in st["sources"]]))
 
-    texts = {w["story"]: w for w in written["stories"]}
+    # solo i testi scritti bene: una storia con un segnaposto viene lasciata fuori, non blocca tutto
+    texts = {w["story"]: w for w in good_stories(written, len(stories))}
     sections = {s["id"]: {"id": s["id"], "title": s["title"], "items": []} for s in topics["sections"]}
     sub_labels = {k: v for s in topics["sections"] for k, v in (s.get("subsections") or {}).items()}
     dropped_links = []
@@ -440,7 +460,7 @@ def build(input_path: Path | None = None, model: str | None = None) -> tuple[Pat
         "date": date,
         "generated_at": datetime.now(UTC).isoformat(),
         "reading_minutes": max(1, round(words / 200)),
-        "in_breve": written["in_breve"][:3],
+        "in_breve": good_breve(written)[:3],
         "picks": picks,
         "sections": list(sections.values()),
         "stats": {

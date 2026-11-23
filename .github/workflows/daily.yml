@@ -115,7 +115,9 @@ jobs:
             uv run digest collect --dry-run --hours 30
             uv run digest build
           else
-            uv run digest daily ${{ inputs.no_send && '--no-send' || '' }}
+            mkdir -p data/tmp
+            set -o pipefail
+            uv run digest daily ${{ inputs.no_send && '--no-send' || '' }} 2>&1 | tee data/tmp/daily.log
           fi
 
       - name: Report di prova (scaricabile da questa pagina)
@@ -134,6 +136,24 @@ jobs:
           path: data/raw/
           retention-days: 7
           if-no-files-found: ignore
+
+      - name: Avvisa via email se il report non è partito (massimo una volta al giorno)
+        # Dalle 06:00 UTC (07:00 italiane d'inverno): prima ci sono ancora tentativi automatici.
+        if: failure() && steps.today.outputs.skip == 'false' && inputs.prova != true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          REPORT_TO: ${{ secrets.REPORT_TO }}
+        run: |
+          if [ "$(date -u +%H)" -lt 6 ]; then echo "Presto: ci sono altri tentativi in arrivo."; exit 0; fi
+          today=$(date -u +%Y-%m-%d)
+          # già avvisato oggi? (un'esecuzione fallita precedente, dopo le 06:00 UTC, ha già scritto)
+          earlier=$(gh run list --workflow daily.yml --created ">=$today" --status failure --json databaseId,createdAt \
+            -q "[.[] | select(.databaseId != ${GITHUB_RUN_ID} and (.createdAt[11:13] | tonumber) >= 6)] | length")
+          if [ "$earlier" != "0" ]; then echo "Avviso già inviato oggi."; exit 0; fi
+          uv run digest alert --log data/tmp/daily.log \
+            --url "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
 
       - name: Salva report e memoria nel repo
         if: steps.today.outputs.skip == 'false' && inputs.prova != true
