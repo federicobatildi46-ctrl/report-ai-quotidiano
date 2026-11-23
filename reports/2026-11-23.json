@@ -1,0 +1,434 @@
+{
+ "title": "Report automatico notizie e aggiornamenti AI",
+ "date": "2026-11-23",
+ "generated_at": "2026-11-23T10:08:25.646650+00:00",
+ "reading_minutes": 5,
+ "in_breve": [
+  "Incidente Anthropic: errori elevati su più modelli Claude, causa identificata e fix in corso.",
+  "Claude Code: 4 nuove regole per lavorare con molte sessioni in parallelo, da /doctor prompt audit a settings.json.",
+  "OpenMotion, studio video open source con 15.555 stelle, ricostruisce video di riferimento come motion graphics modificabili."
+ ],
+ "picks": {
+  "linkedin": {
+   "item_id": "2026-11-23-06",
+   "score": 6,
+   "hook": "Coinbase avrebbe dimezzato la spesa AI cambiando modello. E tu quanto paghi ogni mese per strumenti AI che usi a metà?",
+   "why": "Parla di costi AI, tema caldo per titolari che diffidano dell'hype. Il dato però è riportato da un creator e non verificato.",
+   "target": "titolari di piccole attività e professionisti che pagano abbonamenti AI senza sapere se rendono",
+   "pain": "Pagare strumenti e modelli AI costosi senza sapere se servano davvero, con costi che crescono ogni mese.",
+   "angle": "Parti dal costo degli strumenti AI che un'attività paga senza misurarne il ritorno. Poi cita il caso riportato di aziende che valutano modelli più economici. Chiudi: un sistema su misura sceglie il modello giusto per ogni compito.",
+   "caveat": "Tutti i dati (Coinbase che dimezza la spesa, quote OpenRouter, prezzi, download Qwen) vengono solo da Nick Saraev e non sono verificati. Controllali su fonti primarie o presentali come «secondo un creator». Non promettere risparmi equivalenti.",
+   "alternatives": [
+    {
+     "item_id": "2026-11-23-08",
+     "reason": "Abbassare i costi degli agenti con modelli più economici, ma troppo tecnica per la nicchia.",
+     "title": "skill-distill: trasforma una sessione Claude Code in una skill per modelli open"
+    },
+    {
+     "item_id": "2026-11-23-07",
+     "reason": "Agenti con approvazioni e audit rassicurano, ma è un progetto non ancora provato.",
+     "title": "PiBot: team di agenti AI open source e local-first per il desktop"
+    }
+   ],
+   "title": "Nick Saraev: aziende USA passano ai modelli AI cinesi per costi e controllo",
+   "badge": "da_verificare",
+   "section": "creators"
+  },
+  "short": {
+   "item_id": "2026-11-23-05",
+   "score": 8,
+   "hook": "Copia qualsiasi video di tendenza e rifallo con i tuoi colori. Gratis.",
+   "why": "Effetto wow visivo, gratuito, open source e provabile subito con un comando. Perfetto per far commentare e ricevere il link.",
+   "title": "OpenMotion: studio video open source che ricostruisce video come motion graphics",
+   "badge": "dal_repo",
+   "section": "virali"
+  }
+ },
+ "sections": [
+  {
+   "id": "claude",
+   "title": "Universo Claude",
+   "items": [
+    {
+     "id": "2026-11-23-01",
+     "subsection": "ecosistema",
+     "subsection_label": "Ecosistema a 360° — modelli, API, SDK, azienda",
+     "title": "Claude: errori elevati su più modelli, causa identificata",
+     "summary": "Anthropic segnala errori elevati sulle richieste a diversi modelli Claude, tra cui Mythos 5.2, Fable 5.2, Opus 5.5, Sonnet 5.5 e Haiku 5.5. Alle 09:56 UTC la causa è stata identificata e il fix è in corso. Se i tuoi flussi falliscono oggi, probabilmente non dipende da te.",
+     "key_points": [
+      "Indagine aperta alle 09:49 UTC del 23 novembre",
+      "Causa identificata alle 09:56 UTC, fix in lavorazione",
+      "Coinvolti anche «altri modelli Claude» oltre a quelli elencati",
+      "Nessun orario di risoluzione indicato"
+     ],
+     "why": "Se usi Claude Code o automazioni per un cliente, sai che eventuali errori oggi sono lato Anthropic e puoi rimandare o riprovare.",
+     "badge": "ufficiale",
+     "badge_note": "Pagina di stato ufficiale di Claude; aggiornamento ancora in corso.",
+     "importance": 1,
+     "primary_url": "https://status.claude.com/incidents/yzs0s90d8fm8",
+     "sources": [
+      {
+       "name": "Status Claude",
+       "title": "Elevated errors for multiple models",
+       "url": "https://status.claude.com/incidents/yzs0s90d8fm8",
+       "official": true,
+       "kind": "incident",
+       "item_id": "07aea4618094",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-23-02",
+     "subsection": "code",
+     "subsection_label": "Claude Code",
+     "title": "Claude Code: 4 nuove regole per lavorare con sessioni in parallelo",
+     "summary": "Giovanni Beggiato riassume il metodo di un membro del team di Claude Code per passare da una o due sessioni a un sistema agentico con decine di sessioni in parallelo. Il video spiega cosa togliere dal Claude.md e come ridurre le approvazioni.",
+     "key_points": [
+      "Il comando /doctor prompt audit ripulisce il Claude.md in base al modello",
+      "Auto mode e settings.json riducono le richieste di approvazione",
+      "Solo le regole nei settings, non il Claude.md, bloccano davvero azioni pericolose",
+      "I Projects coordinano più sessioni: una principale delega e controlla"
+     ],
+     "why": "Ti aiuta a rendere più autonomo il tuo uso quotidiano di Claude Code e a impostare flussi paralleli per i clienti dell'agenzia.",
+     "badge": "da_verificare",
+     "badge_note": "Una sola fonte non ufficiale (il creator Giovanni Beggiato, che riporta il metodo di un membro del team): nessuna conferma Anthropic nelle fonti.",
+     "importance": 2,
+     "primary_url": "https://www.youtube.com/watch?v=zWPvnt8MDjk",
+     "sources": [
+      {
+       "name": "YouTube · Giovanni Beggiato",
+       "title": "Anthropic Ha Appena Svelato le Nuove Regole di Claude Code",
+       "url": "https://www.youtube.com/watch?v=zWPvnt8MDjk",
+       "official": false,
+       "kind": "video",
+       "item_id": "18e5bf687411",
+       "meta": {
+        "creator": "Giovanni Beggiato",
+        "duration": null
+       },
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "higgsfield",
+   "title": "Higgsfield",
+   "items": [
+    {
+     "id": "2026-11-23-03",
+     "subsection": "",
+     "subsection_label": "",
+     "title": "Seedance 2.5 in 4K su Higgsfield: spot per canzoni personalizzate",
+     "summary": "Coco prova un servizio B2C di canzoni personalizzate per feste, venduto con pubblicità su Facebook. Il video mostra un sito creato in 35 minuti e uno spot di 30 secondi con Seedance 2.5 in 4K su Higgsfield. Video sponsorizzato da Higgsfield.",
+     "key_points": [
+      "Si parte da bozze a 480p per non bruciare crediti",
+      "Il video confronta la stessa clip in 4K e in 480p",
+      "Il 4K di Seedance 2.5 non è disponibile negli Stati Uniti",
+      "Higgsfield si usa da desktop; non ha un'app ufficiale per telefono"
+     ],
+     "why": "Ti dà un flusso concreto (bozze a bassa risoluzione, poi 4K) per realizzare spot video per clienti e per contenuti tuoi, usando Higgsfield che già conosci.",
+     "badge": "da_verificare",
+     "badge_note": "Una sola fonte non ufficiale, tra l'altro sponsorizzata da Higgsfield (#adv): le affermazioni sono del creator.",
+     "importance": 2,
+     "primary_url": "https://www.youtube.com/watch?v=HglavISOLlw",
+     "sources": [
+      {
+       "name": "YouTube · Coco",
+       "title": "Ho creato uno spot in 4K con Seedance 2.5 per vendere canzoni alle mamme di Facebook",
+       "url": "https://www.youtube.com/watch?v=HglavISOLlw",
+       "official": false,
+       "kind": "video",
+       "item_id": "1de8156a719b",
+       "meta": {
+        "creator": "Coco",
+        "duration": null
+       },
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "elevenlabs",
+   "title": "ElevenLabs",
+   "items": []
+  },
+  {
+   "id": "creators",
+   "title": "Dai creator che seguo",
+   "items": [
+    {
+     "id": "2026-11-23-04",
+     "subsection": "Riccardo Belli Contarini",
+     "subsection_label": "Riccardo Belli Contarini",
+     "title": "Riccardo Belli Contarini: Find Skills e 5 siti per Claude Code",
+     "summary": "Due Shorts di Riccardo Belli Contarini su Claude Code. Find Skills cerca su skills.sh le skill adatte al lavoro descritto, mostra cosa fanno e chi le mantiene, e installa quella scelta in Claude Code o Codex. L'altro elenca cinque risorse gratuite per dare ai siti un aspetto più curato.",
+     "key_points": [
+      "Find Skills funziona con Claude Code e Codex",
+      "Cinque risorse: Motion, Anime.js, Bklit UI, Kokonut UI, Unslop",
+      "Secondo il creator sono siti e skill gratuiti"
+     ],
+     "why": "Find Skills ti fa scoprire skill già pronte, e le cinque risorse possono alzare la qualità dei siti web che farai per i clienti.",
+     "badge": "da_verificare",
+     "badge_note": "Fonte unica non ufficiale: i due Shorts sono dello stesso creator e contano come una sola fonte.",
+     "importance": 2,
+     "primary_url": "https://www.youtube.com/shorts/21iscA7mf0w",
+     "sources": [
+      {
+       "name": "YouTube · Riccardo Belli Contarini",
+       "title": "Find Skills: la skill di Claude Code che trova tutte le altre #Shorts",
+       "url": "https://www.youtube.com/shorts/21iscA7mf0w",
+       "official": false,
+       "kind": "short",
+       "item_id": "a8362832a71a",
+       "meta": {
+        "creator": "Riccardo Belli Contarini",
+        "duration": null
+       },
+       "link": "ok"
+      },
+      {
+       "name": "YouTube · Riccardo Belli Contarini",
+       "title": "5 siti per Claude Code: Motion, Anime.js, Bklit UI, Kokonut UI, Unslop #Shorts",
+       "url": "https://www.youtube.com/shorts/Przl0OjXG48",
+       "official": false,
+       "kind": "short",
+       "item_id": "d3dfbb5ece1c",
+       "meta": {
+        "creator": "Riccardo Belli Contarini",
+        "duration": null
+       },
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-23-06",
+     "subsection": "Nick Saraev",
+     "subsection_label": "Nick Saraev",
+     "title": "Nick Saraev: aziende USA passano ai modelli AI cinesi per costi e controllo",
+     "summary": "Secondo Nick Saraev, Coinbase, Airbnb, DoorDash, Cursor ed Ecosia usano modelli cinesi, e Coinbase avrebbe dimezzato la spesa AI. Cita OpenRouter, dove i modelli americani sarebbero passati da circa il 70% a circa il 30% del traffico. Sono dati riportati da lui, non verificati.",
+     "key_points": [
+      "Tre motivi indicati: prezzo, qualità «abbastanza buona», controllo",
+      "Prezzo citato: Claude 2-10 dollari per milione di token input, Kimi K3.1 Pro 2",
+      "Con i pesi aperti su hardware proprio i dati non escono",
+      "Qwen: oltre 2 miliardi di download su Hugging Face quest'anno"
+     ],
+     "why": "Ti dà argomenti sul rapporto costi/qualità dei modelli da proporre agli imprenditori per agenti e automazioni, da verificare prima di usarli.",
+     "badge": "da_verificare",
+     "badge_note": "Una sola fonte non ufficiale (post LinkedIn di Nick Saraev): numeri e opinioni sono suoi.",
+     "importance": 3,
+     "primary_url": "https://www.linkedin.com/posts/nick-saraev_coinbase-runs-on-chinese-ai-now-they-cut-activity-7530276439196094464-ZRyJ",
+     "sources": [
+      {
+       "name": "LinkedIn · Nick Saraev",
+       "title": "Nick Saraev: Coinbase runs on Chinese AI now. They cut their AI bill by about half doing it. …",
+       "url": "https://www.linkedin.com/posts/nick-saraev_coinbase-runs-on-chinese-ai-now-they-cut-activity-7530276439196094464-ZRyJ",
+       "official": false,
+       "kind": "post",
+       "item_id": "f353a393eb37",
+       "meta": {
+        "creator": "Nick Saraev"
+       },
+       "link": "non_verificabile"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "github",
+   "title": "GitHub: repo e skill per la mia agenzia",
+   "items": [
+    {
+     "id": "2026-11-23-07",
+     "subsection": "agenti",
+     "subsection_label": "Agenti AI e agenti vocali",
+     "title": "PiBot: team di agenti AI open source e local-first per il desktop",
+     "summary": "PiBot è un'app desktop open source in cui un team di Bot con nome lavora sul tuo computer: chat singole o di gruppo, comandi, modifica di file, browser e uso del computer, con approvazione per ogni passo rischioso.",
+     "key_points": [
+      "Gira su macOS, Windows, Linux, con app Android",
+      "Comandi eseguiti in sandbox; log di audit di approvazioni e comandi",
+      "Supporta MCP, routine pianificate e modelli locali via Ollama",
+      "Costruito sul kernel agente pi; licenza Apache-2.0"
+     ],
+     "why": "È un esempio concreto di agenti multipli con approvazioni e routine, utile da studiare per i servizi di agenti AI e automazioni dell'agenzia.",
+     "badge": "dal_repo",
+     "badge_note": "Stelle (460), creazione e licenza verificate su GitHub; le funzioni sono dichiarate dal README e non provate.",
+     "importance": 3,
+     "primary_url": "https://github.com/w01fb0ss/PiBot",
+     "sources": [
+      {
+       "name": "GitHub",
+       "title": "w01fb0ss/PiBot",
+       "url": "https://github.com/w01fb0ss/PiBot",
+       "official": false,
+       "kind": "repo",
+       "item_id": "df0819bfe055",
+       "meta": {
+        "stars": 460,
+        "stars_verified": true,
+        "license": "Apache-2.0"
+       },
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-23-08",
+     "subsection": "claude",
+     "subsection_label": "Skill e tool per Claude",
+     "title": "skill-distill: trasforma una sessione Claude Code in una skill per modelli open",
+     "summary": "skill-distill è una skill per Claude Code o Codex che, a fine sessione riuscita, scrive una skill per un modello open-weight (lo «studente»). Poi la testa e la corregge finché lo studente non riproduce il risultato.",
+     "key_points": [
+      "Tre prove per ogni versione della skill",
+      "La skill è completa solo se la accetti tu",
+      "Richiede tmux, git e Python 3.10+",
+      "Licenza MIT; si installa con un link simbolico in ~/.claude/skills"
+     ],
+     "why": "Può servirti per replicare con modelli più economici i flussi che funzionano in Claude Code, utile per abbassare i costi degli agenti dei clienti.",
+     "badge": "dal_repo",
+     "badge_note": "Stelle (475), creazione e licenza MIT verificate su GitHub; il funzionamento è dichiarato dagli autori e non provato.",
+     "importance": 3,
+     "primary_url": "https://github.com/sybil-solutions/skill-distill",
+     "sources": [
+      {
+       "name": "GitHub",
+       "title": "sybil-solutions/skill-distill",
+       "url": "https://github.com/sybil-solutions/skill-distill",
+       "official": false,
+       "kind": "repo",
+       "item_id": "407d9f3c58a7",
+       "meta": {
+        "stars": 475,
+        "stars_verified": true,
+        "license": "MIT"
+       },
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "virali",
+   "title": "Da provare: repo, skill e tool virali (idee per gli Shorts)",
+   "items": [
+    {
+     "id": "2026-11-23-05",
+     "subsection": "repo",
+     "subsection_label": "Repo GitHub",
+     "title": "OpenMotion: studio video open source che ricostruisce video come motion graphics",
+     "summary": "OpenMotion è uno studio video open source: carichi un video di riferimento o un link social e il tuo agente AI lo ricostruisce come motion graphics modificabili con i tuoi colori e testi, poi esporti in MP4.",
+     "key_points": [
+      "Cosa fa: ricostruisce un video di riferimento come motion graphics modificabili",
+      "Come si prova: `npx skills add nexu-io/openmotion --skill openmotion`, poi chiedi all'agente di installare lo Studio",
+      "Da sorgente: `npm ci`, `npm run build:studio`, `npm start`; servono Chrome e FFmpeg",
+      "Costo: gratis, licenza Apache-2.0"
+     ],
+     "why": "Piacerà a chi crea contenuti: rifai in pochi passi un video di tendenza con i colori e i testi di un cliente, ottimo per Reel e Shorts.",
+     "badge": "dal_repo",
+     "badge_note": "Stelle (15.555), data di creazione e licenza Apache-2.0 verificate su GitHub; le funzioni sono dichiarate dagli autori e non ancora provate.",
+     "importance": 2,
+     "short_hook": "Questa repo trasforma qualsiasi video in motion graphics. Gratis.",
+     "primary_url": "https://github.com/nexu-io/openmotion",
+     "sources": [
+      {
+       "name": "Ricerca web",
+       "title": "OpenMotion",
+       "url": "https://github.com/nexu-io/openmotion",
+       "official": false,
+       "kind": "repo",
+       "item_id": "2af6f41fdb88",
+       "meta": {
+        "stars": 15555,
+        "stars_verified": true,
+        "license": "Apache-2.0"
+       },
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-23-09",
+     "subsection": "app",
+     "subsection_label": "App e tool AI",
+     "title": "Mobile Agent Testers: agenti AI open source per testare app su telefono",
+     "summary": "Su Product Hunt compare Mobile Agent Testers, descritto come agenti AI gratuiti e open source che fanno il beta-test della tua app su telefoni. Le fonti non danno altri dettagli.",
+     "key_points": [],
+     "why": "Potrebbe servire a testare le app dei clienti, ma serve prima capire come funziona.",
+     "badge": "da_verificare",
+     "badge_note": "Una sola fonte non ufficiale (Product Hunt), con una descrizione di una riga.",
+     "importance": 3,
+     "short_hook": "Questi agenti AI testano la tua app sul telefono. Gratis.",
+     "primary_url": "https://www.producthunt.com/products/mobile-agent-testers",
+     "sources": [
+      {
+       "name": "Product Hunt",
+       "title": "Mobile Agent Testers",
+       "url": "https://www.producthunt.com/products/mobile-agent-testers",
+       "official": false,
+       "kind": "article",
+       "item_id": "ed04a5338fd2",
+       "meta": {},
+       "link": "non_verificabile"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "stats": {
+  "collected": 37,
+  "stories": 9,
+  "discarded": 27,
+  "dropped_broken_links": [],
+  "source_errors": [],
+  "window_hours": 57,
+  "model": "sonnet",
+  "checks": {
+   "links_tested": 10,
+   "links_ok": 8,
+   "links_unverifiable": 2,
+   "repos_verified": 3,
+   "badges": {
+    "ufficiale": 1,
+    "da_verificare": 5,
+    "dal_repo": 3
+   },
+   "write_attempts": 1
+  },
+  "claude": {
+   "selezione": {
+    "secs": 5.6,
+    "turns": 2,
+    "input_tokens": 14386,
+    "cache_read_tokens": 703,
+    "output_tokens": 698,
+    "equivalent_api_usd": 0.06459029999999999
+   },
+   "scrittura": {
+    "secs": 24.7,
+    "turns": 2,
+    "input_tokens": 14871,
+    "cache_read_tokens": 804,
+    "output_tokens": 3710,
+    "equivalent_api_usd": 0.09666040000000001,
+    "attempts": 1
+   },
+   "scelte": {
+    "secs": 6.6,
+    "turns": 2,
+    "input_tokens": 10754,
+    "cache_read_tokens": 0,
+    "output_tokens": 727,
+    "equivalent_api_usd": 0.050282
+   }
+  }
+ }
+}
