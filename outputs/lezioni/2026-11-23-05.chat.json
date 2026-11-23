@@ -1,0 +1,12 @@
+[
+ {
+  "role": "user",
+  "text": "Perfetto adesso guidami step by step all'installazioen usl mio claude code",
+  "at": "2026-11-23T10:26:33+00:00"
+ },
+ {
+  "role": "assistant",
+  "text": "**Via consigliata per te: la Via A (Skill nel tuo Claude Code).** Sono pochi passi. I comandi vengono dalla lezione (README ufficiale).\n\n**Prima di iniziare (controlli rapidi, PowerShell)**\n1. Verifica Node.js e npm: `node -v` e `npm -v`. Se mancano, installa Node.js da nodejs.org. La lezione riporta versioni discordanti (26.11.1 nel testo, 22.18+ nel badge): se hai una versione recente, di solito va bene, ma non è garantito.\n2. Crea una cartella vuota dedicata, ad esempio `C:\\Users\\hp\\Desktop\\openmotion-prove`. È un mio consiglio, così non sporchi il progetto del report.\n\n**Installazione**\n1. Apri PowerShell in quella cartella e lancia:\n   ```\n   npx skills add nexu-io/openmotion --skill openmotion\n   ```\n   Se chiede quale agente usare, scegli Claude Code. Questo passaggio copia solo le istruzioni (la Skill).\n2. Avvia Claude Code nella stessa cartella: `claude`\n3. Scrivi esattamente questo prompt, preso dalla lezione:\n   *\"Use OpenMotion to install and connect the local Studio and MCP, then help me make a video.\"*\n4. Lascia lavorare l'agente. Installerà lo Studio e collegherà l'MCP. Se ti chiede permessi, leggili prima di approvare. Se ti chiede di riavviare Claude Code, fallo e ripeti il prompt.\n5. A setup finito si apre la libreria di template locale con tre anteprime. Scegli un'anteprima, premi **Recreate template** e invia il tuo brief.\n\n**Primo test**\nUsa un video di riferimento tuo o un link social, con colori e testi del tuo brand. Poi correggi i tempi nello Studio, aprendo l'indirizzo `studioUrl` o `previewUrl` stampato all'avvio.\n\n**Attenzioni**\n- Le chiavi API dei modelli esterni (immagini, video, musica, voce) sono tue (BYOK). La lezione non dice quanto costino. Controlla i costi prima di fare molte prove.\n- Se l'MCP non si collega o lo Studio non parte, incolla qui l'errore. Non posso indovinare la causa dalle fonti che ho.\n- Non so dirti i tempi esatti: l'installazione dovrebbe essere questione di minuti, ma dipende dalla tua rete e dall'agente.\n\nQuando hai finito il passo 4, dimmi cosa vedi e andiamo avanti con il primo video.",
+  "at": "2026-11-23T10:26:33+00:00"
+ }
+]
