@@ -49,6 +49,11 @@ Progetto: report AI quotidiano locale (vedi PIANO_OPERATIVO.md per obiettivi, ar
 ## Qualità e scelte del giorno
 - `build.write_checked`: valida la scrittura e riprova (max 3), poi `BuildError` → `daily` esce
   con errore senza salvare la memoria. Mai inviare report vuoti o a metà.
+- I controlli bloccanti vanno provati sui report veri passati PRIMA del rilascio: il 22-23/11/2026
+  un controllo "segnaposto" che cercava "todo" dentro "metodo" ha bloccato due giorni di report.
+  Segnaposto = l'intero campo (`is_placeholder`); una storia difettosa si scarta, non blocca.
+- Se `daily` fallisce dopo le 06 UTC, il workflow manda un'email di avviso (`digest alert`,
+  una al giorno).
 - `build.fix_badge` è deterministico: ufficiale / dal_repo / confermata (≥2 `publisher()` diversi)
   / da_verificare. `repo_facts()` legge stelle e licenza dall'API GitHub prima della scrittura.
 - `picks.py` + `prompts/picks.md` → `report["picks"]` (linkedin, short); nicchie in
