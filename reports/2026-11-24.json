@@ -1,0 +1,425 @@
+{
+ "title": "Report automatico notizie e aggiornamenti AI",
+ "date": "2026-11-24",
+ "generated_at": "2026-11-24T04:52:34.364334+00:00",
+ "reading_minutes": 5,
+ "in_breve": [
+  "Anthropic lancia Claude Ship in beta: rivede le PR, le sistema e decide cosa è pronto al merge in base alle policy del team.",
+  "Claude Opus 4.5 sarà ritirato dall'API il 22 gennaio 2027: Anthropic consiglia di migrare a Opus 5.5.",
+  "HyperFrames di HeyGen, editor video open source con plugin per Claude Code, ha 89.058 stelle su GitHub ed è gratis."
+ ],
+ "picks": {
+  "linkedin": {
+   "item_id": "2026-11-24-06",
+   "score": 6,
+   "hook": "Quante ore perdi a ricopiare a mano i dati dei documenti scansionati? Un modello gratuito di Baidu promette di leggerli al posto tuo.",
+   "why": "Parla di lavoro ripetitivo sui documenti scansionati, costo dichiarato zero, si prova subito da una demo. Unica notizia di oggi vicina ai problemi di studi e liberi professionisti.",
+   "target": "titolari di studi e liberi professionisti che ricopiano a mano dati da documenti scansionati",
+   "pain": "Ore perse a ricopiare a mano testo e tabelle da PDF scansionati.",
+   "angle": "Dal tempo perso a ricopiare documenti scansionati, a un modello gratuito che li legge tutti insieme restituendo testo con tabelle in ordine, fino a un sistema su misura che porta quei dati nei tuoi processi.",
+   "caveat": "Fonte unica (Riccardo Belli Contarini): provare la demo su Hugging Face con documenti reali e verificare precisione, tabelle, lingua italiana e gratuità prima di pubblicare. Non promettere risultati non testati.",
+   "alternatives": [
+    {
+     "item_id": "2026-11-24-03",
+     "reason": "Utile per clienti beauty e ads, ma nicchia più stretta.",
+     "title": "Higgsfield: guida per creare video ads di bellezza con l'AI"
+    },
+    {
+     "item_id": "2026-11-24-01",
+     "reason": "Revisione automatica del lavoro, ma troppo tecnica per questo pubblico.",
+     "title": "Claude Ship: revisione, correzioni e approvazione delle PR con Claude"
+    }
+   ],
+   "title": "Unlimited OCR di Baidu: da PDF scansionato a testo, gratis",
+   "badge": "da_verificare",
+   "section": "creators"
+  },
+  "short": {
+   "item_id": "2026-11-24-04",
+   "score": 8,
+   "hook": "Descrivi un video a Claude e ti esce un MP4. Gratis.",
+   "why": "Effetto wow immediato, gratis e open source, si prova subito con Studio o Claude Code. Il link e i comandi spingono i commenti.",
+   "title": "HyperFrames di HeyGen: editor video open source che si usa con Claude Code",
+   "badge": "dal_repo",
+   "section": "virali"
+  }
+ },
+ "sections": [
+  {
+   "id": "claude",
+   "title": "Universo Claude",
+   "items": [
+    {
+     "id": "2026-11-24-01",
+     "subsection": "code",
+     "subsection_label": "Claude Code",
+     "title": "Claude Ship: revisione, correzioni e approvazione delle PR con Claude",
+     "summary": "Anthropic lancia in beta Claude Ship, che unisce Code Review con due nuovi agenti, PR Steward e Claude Approvals. Rivede le pull request, ripara CI e conflitti e decide cosa è pronto al merge secondo le policy scritte dal team. Da Claude Code si prova con /ship.",
+     "key_points": [
+      "PR Steward corregge CI fallite e conflitti, ma non approva né fa merge.",
+      "La policy di Claude Approvals è un file nel repo, simile a CODEOWNERS.",
+      "Consigliata la modalità solo osservazione prima di imporla con la branch protection.",
+      "Crediti da almeno 10.000 $ per organizzazioni Enterprise idonee, da richiedere entro il 15 gennaio 2027."
+     ],
+     "why": "Puoi provare /ship nel tuo flusso con Claude Code e proporre ai clienti dell'agenzia una revisione automatica del codice con regole chiare.",
+     "badge": "ufficiale",
+     "badge_note": "Annuncio sul sito ufficiale Claude.com; i dati sui risultati sono quelli dichiarati da Anthropic sul proprio team.",
+     "importance": 1,
+     "primary_url": "https://claude.com/resources/articles/introducing-claude-ship",
+     "sources": [
+      {
+       "name": "Claude.com",
+       "title": "Introducing Claude Ship",
+       "url": "https://claude.com/resources/articles/introducing-claude-ship",
+       "official": true,
+       "kind": "article",
+       "item_id": "e277391e1ad3",
+       "meta": {},
+       "link": "ok"
+      },
+      {
+       "name": "Claude.com",
+       "title": "Claude Ship | Automate pull requests review and fixes",
+       "url": "https://claude.com/product/claude-ship",
+       "official": true,
+       "kind": "article",
+       "item_id": "84cb877c47f7",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-24-02",
+     "subsection": "ecosistema",
+     "subsection_label": "Ecosistema a 360° — modelli, API, SDK, azienda",
+     "title": "Claude Platform: Opus 4.5 verso il ritiro e novità su Enterprise Frontier Safeguards",
+     "summary": "Le release notes del 23 novembre annunciano la deprecazione di Claude Opus 4.5, che sarà ritirato dall'API il 22 gennaio 2027. Debutta in beta anche Enterprise Frontier Safeguards, una modalità a zero retention dei dati per i modelli più potenti.",
+     "key_points": [
+      "Anthropic consiglia di migrare a Claude Opus 5.5.",
+      "Con EFS le copie cifrate dei dati vanno in un bucket del tuo cloud.",
+      "Disponibile in beta su Claude Platform, Platform on AWS e Models on Google Cloud.",
+      "Due nuovi eventi webhook: external_storage.failed ed external_storage.recovered."
+     ],
+     "why": "Se usi o userai claude-opus-4-5 in agenti o automazioni per clienti, devi aggiornare il modello prima del 22 gennaio 2027.",
+     "badge": "ufficiale",
+     "badge_note": "Release notes ufficiali di Claude Platform.",
+     "importance": 1,
+     "primary_url": "https://platform.claude.com/docs/en/release-notes/overview#november-23-2026",
+     "sources": [
+      {
+       "name": "Release notes Claude Platform",
+       "title": "Claude Platform — release notes — November 23, 2026",
+       "url": "https://platform.claude.com/docs/en/release-notes/overview#november-23-2026",
+       "official": true,
+       "kind": "changelog",
+       "item_id": "084580fd5c7b",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-24-05",
+     "subsection": "code",
+     "subsection_label": "Claude Code",
+     "title": "Claude Code v2.1.331: Code Mode su cloud, claude doctor e molte correzioni",
+     "summary": "La nuova versione estende il supporto a Code Mode nelle sessioni terminale su Bedrock, Google Cloud, Foundry e Claude Platform on AWS. Aggiunge controlli di connettività a claude doctor e corregge molti bug.",
+     "key_points": [
+      "claude doctor mostra se l'API è raggiungibile, con stato HTTP o errore.",
+      "Nuova variabile CLAUDE_CODE_DISABLE_RESPONSE_COMPRESSION per proxy che tagliano le risposte compresse.",
+      "I manifest dei plugin supportano optionalDependencies.",
+      "Corretti blocchi delle chiamate MCP fino a 30 minuti e perdite nel riassunto di /compact."
+     ],
+     "why": "Aggiornare Claude Code ti aiuta a diagnosticare problemi di rete con claude doctor e a lavorare meglio con i plugin.",
+     "badge": "ufficiale",
+     "badge_note": "Note di rilascio sul repository ufficiale anthropics.",
+     "importance": 2,
+     "primary_url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.331",
+     "sources": [
+      {
+       "name": "Claude Code (release)",
+       "title": "v2.1.331",
+       "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.331",
+       "official": true,
+       "kind": "release",
+       "item_id": "d411c17889d4",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-24-08",
+     "subsection": "code",
+     "subsection_label": "Claude Code",
+     "title": "Guida Anthropic per la sicurezza degli agenti di coding in azienda",
+     "summary": "Anthropic pubblica una guida per mettere in sicurezza gli agenti di coding, con sei domande da fare ai fornitori e quattro rischi agentici da mitigare. Spiega come usare i livelli di difesa di Claude Code e gestirli centralmente.",
+     "key_points": [
+      "Salesforce dichiara +79% di PR unite per sviluppatore e -5% di incidenti.",
+      "Controlli chiave: sandbox, controlli esterni al modello e policy centralizzate.",
+      "Pensata per organizzazioni con piani Claude Team ed Enterprise."
+     ],
+     "why": "Ti dà un linguaggio e una checklist per parlare di sicurezza agli imprenditori quando proponi agenti AI.",
+     "badge": "ufficiale",
+     "badge_note": "Guida pubblicata da Claude.com; i dati di Salesforce sono riportati da Anthropic.",
+     "importance": 3,
+     "primary_url": "https://claude.com/resources/articles/enterprise-guide-to-securing-coding-agents",
+     "sources": [
+      {
+       "name": "Claude.com",
+       "title": "The enterprise guide to securing coding agents",
+       "url": "https://claude.com/resources/articles/enterprise-guide-to-securing-coding-agents",
+       "official": true,
+       "kind": "article",
+       "item_id": "89fabf4c9972",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "higgsfield",
+   "title": "Higgsfield",
+   "items": [
+    {
+     "id": "2026-11-24-03",
+     "subsection": "",
+     "subsection_label": "",
+     "title": "Higgsfield: guida per creare video ads di bellezza con l'AI",
+     "summary": "La guida del blog Higgsfield mostra come creare video ads beauty in Marketing Studio: si salvano prodotto e avatar, si sceglie uno stile tra UGC, Motion e TikTok e si genera. Prima di pubblicare vanno controllati colore, texture ed etichetta del prodotto.",
+     "key_points": [
+      "Durate: UGC 15-30 s, Motion 5-15 s, TikTok 4-15 s.",
+      "Formato consigliato 9:16 per TikTok, Reels e Shorts.",
+      "Per i Reels lascia liberi 14% in alto, 35% in basso e 6% per lato.",
+      "TikTok e YouTube richiedono di dichiarare i contenuti AI realistici."
+     ],
+     "why": "È un flusso replicabile per gli ads a pagamento di un cliente beauty e un'ottima base per un contenuto sul tema.",
+     "badge": "ufficiale",
+     "badge_note": "Guida pubblicata sul blog ufficiale Higgsfield; è una guida del produttore, non una prova indipendente.",
+     "importance": 1,
+     "primary_url": "https://higgsfield.ai/blog/how-to-make-beauty-video-ads-with-ai",
+     "sources": [
+      {
+       "name": "Blog Higgsfield",
+       "title": "How to Make Beauty Video Ads with AI (Full Guide)",
+       "url": "https://higgsfield.ai/blog/how-to-make-beauty-video-ads-with-ai",
+       "official": true,
+       "kind": "article",
+       "item_id": "8412042d1ec0",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-24-09",
+     "subsection": "",
+     "subsection_label": "",
+     "title": "Higgsfield Short Drama: da uno script a una serie verticale",
+     "summary": "Il creator Coco prova Higgsfield Short Drama, prima con un copione suo e poi con Claude collegato via MCP, che scrive e genera quattro episodi. Il video è sponsorizzato da Higgsfield.",
+     "key_points": [
+      "Higgsfield MCP per Claude disponibile su higgsfield.ai/mcp.",
+      "Bozza a 480p per risparmiare.",
+      "Offerta Black Friday: sconti fino al 65% sugli abbonamenti.",
+      "Si usa da desktop; la skill per Claude è ancora in arrivo."
+     ],
+     "why": "Mostra come collegare Claude a un tool video via MCP, utile per contenuti e servizi video.",
+     "badge": "da_verificare",
+     "badge_note": "Una sola fonte non ufficiale e sponsorizzata (#adv).",
+     "importance": 3,
+     "primary_url": "https://www.youtube.com/watch?v=lVLaoF4acx4",
+     "sources": [
+      {
+       "name": "YouTube · Coco",
+       "title": "Higgsfield Short Drama - come trasformare un breve script in una serie TV verticale",
+       "url": "https://www.youtube.com/watch?v=lVLaoF4acx4",
+       "official": false,
+       "kind": "video",
+       "item_id": "0ddd3a8dc1f1",
+       "meta": {
+        "creator": "Coco",
+        "duration": null
+       },
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "elevenlabs",
+   "title": "ElevenLabs",
+   "items": []
+  },
+  {
+   "id": "creators",
+   "title": "Dai creator che seguo",
+   "items": [
+    {
+     "id": "2026-11-24-06",
+     "subsection": "Riccardo Belli Contarini",
+     "subsection_label": "Riccardo Belli Contarini",
+     "title": "Unlimited OCR di Baidu: da PDF scansionato a testo, gratis",
+     "summary": "Secondo Riccardo Belli Contarini, Unlimited OCR è un modello gratuito di Baidu che legge insieme tutte le pagine di un documento scansionato. Restituisce testo pulito con le tabelle al loro posto. Fonte unica, da verificare.",
+     "key_points": [
+      "Si prova dalla demo su Hugging Face.",
+      "In alternativa si installa sul proprio computer.",
+      "Costo dichiarato: gratis."
+     ],
+     "why": "Può servirti per estrarre dati da documenti dei clienti per automazioni o agenti, e per fare un contenuto sul tema.",
+     "badge": "da_verificare",
+     "badge_note": "Una sola fonte non ufficiale (uno Short del creator); nessuna conferma da Baidu nelle fonti.",
+     "importance": 2,
+     "primary_url": "https://www.youtube.com/shorts/f32FKeyPrrE",
+     "sources": [
+      {
+       "name": "YouTube · Riccardo Belli Contarini",
+       "title": "Unlimited OCR: Baidu trasforma qualsiasi PDF in testo, gratis #Shorts",
+       "url": "https://www.youtube.com/shorts/f32FKeyPrrE",
+       "official": false,
+       "kind": "short",
+       "item_id": "2c1324119ad1",
+       "meta": {
+        "creator": "Riccardo Belli Contarini",
+        "duration": null
+       },
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "github",
+   "title": "GitHub: repo e skill per la mia agenzia",
+   "items": []
+  },
+  {
+   "id": "virali",
+   "title": "Da provare: repo, skill e tool virali (idee per gli Shorts)",
+   "items": [
+    {
+     "id": "2026-11-24-04",
+     "subsection": "repo",
+     "subsection_label": "Repo GitHub",
+     "title": "HyperFrames di HeyGen: editor video open source che si usa con Claude Code",
+     "summary": "Descrivi il video e HyperFrames lo scrive come HTML e lo renderizza in MP4. Ha anche un'app Studio gratuita e funziona con Claude Code.",
+     "key_points": [
+      "Cosa fa: trasforma una descrizione in video MP4 passando da HTML.",
+      "Come si prova: scarica l'app Studio dalla pagina del repo, oppure in Claude Code: claude plugin marketplace add heygen-com/hyperframes, poi claude plugin install hyperframes@hyperframes.",
+      "Costo: gratis, licenza Apache-2.0, piano gratuito per Studio.",
+      "La data di uscita non è verificata: potrebbe non essere nuovo."
+     ],
+     "why": "Piacerà a chi vuole fare video senza montaggio manuale, e lo usi per produrre video per i clienti dell'agenzia direttamente da Claude Code.",
+     "badge": "dal_repo",
+     "badge_note": "Stelle (89.058), date e licenza Apache-2.0 verificate su GitHub; le funzioni sono dichiarate dagli autori, non ancora provate.",
+     "importance": 1,
+     "short_hook": "Descrivi un video a Claude e lui lo monta. Gratis.",
+     "primary_url": "https://github.com/heygen-com/hyperframes",
+     "sources": [
+      {
+       "name": "Ricerca web",
+       "title": "HyperFrames (HeyGen)",
+       "url": "https://github.com/heygen-com/hyperframes",
+       "official": false,
+       "kind": "repo",
+       "item_id": "b64bbf8d64f1",
+       "meta": {
+        "stars": 89058,
+        "stars_verified": true,
+        "license": "Apache-2.0"
+       },
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-24-07",
+     "subsection": "repo",
+     "subsection_label": "Repo GitHub",
+     "title": "linger: agente AI personale open source che gira sul tuo PC",
+     "summary": "linger è un agente AI personale open source che funziona interamente in locale, senza mandare dati nel cloud. È in forte crescita su GitHub.",
+     "key_points": [
+      "Cosa fa: agente personale che gira sul tuo PC, senza cloud.",
+      "Come si prova: apri il repo e segui il README; i passi non sono verificati.",
+      "Costo: gratis, open source.",
+      "Creato il 10/11/2026: ha 4.225 stelle."
+     ],
+     "why": "Piace a chi tiene alla privacy ed è un'idea per clienti che non vogliono i dati nel cloud.",
+     "badge": "dal_repo",
+     "badge_note": "Stelle e date verificate su GitHub; le funzioni e l'installazione sono dichiarate, non provate, e la licenza non è indicata.",
+     "importance": 2,
+     "short_hook": "Un agente AI che gira tutto sul tuo PC. Zero cloud.",
+     "primary_url": "https://github.com/simplexai-labs/linger",
+     "sources": [
+      {
+       "name": "Ricerca web",
+       "title": "linger",
+       "url": "https://github.com/simplexai-labs/linger",
+       "official": false,
+       "kind": "repo",
+       "item_id": "eb91946ecbe1",
+       "meta": {
+        "stars": 4225,
+        "stars_verified": true,
+        "license": "NOASSERTION"
+       },
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "stats": {
+  "collected": 25,
+  "stories": 9,
+  "discarded": 15,
+  "dropped_broken_links": [],
+  "source_errors": [],
+  "window_hours": 26,
+  "model": "sonnet",
+  "checks": {
+   "links_tested": 10,
+   "links_ok": 10,
+   "links_unverifiable": 0,
+   "repos_verified": 2,
+   "badges": {
+    "ufficiale": 5,
+    "da_verificare": 2,
+    "dal_repo": 2
+   },
+   "write_attempts": 1
+  },
+  "claude": {
+   "selezione": {
+    "secs": 5.6,
+    "turns": 2,
+    "input_tokens": 14319,
+    "cache_read_tokens": 0,
+    "output_tokens": 709,
+    "equivalent_api_usd": 0.064362
+   },
+   "scrittura": {
+    "secs": 23.9,
+    "turns": 2,
+    "input_tokens": 15890,
+    "cache_read_tokens": 0,
+    "output_tokens": 3686,
+    "equivalent_api_usd": 0.100416,
+    "attempts": 1
+   },
+   "scelte": {
+    "secs": 10.4,
+    "turns": 2,
+    "input_tokens": 10883,
+    "cache_read_tokens": 0,
+    "output_tokens": 1341,
+    "equivalent_api_usd": 0.056938
+   }
+  }
+ }
+}
