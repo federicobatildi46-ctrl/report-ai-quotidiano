@@ -260,6 +260,15 @@ dialog::backdrop { background: rgba(10,12,16,.45); }
 .pub-when { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 12px; }
 .pub-when input { font: inherit; padding: 6px 9px; border-radius: 9px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); }
 .pub-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 14px; }
+/* Ottimizza con i dati */
+.opt-body { max-height: 62vh; overflow-y: auto; padding-right: 6px; font-size: 14.5px; line-height: 1.5; }
+.opt-body h4 { margin: 16px 0 6px; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--blue); }
+.opt-score { display: flex; gap: 14px; align-items: center; padding: 12px; border-radius: 12px; background: var(--soft); }
+.opt-num { font-size: 34px; font-weight: 800; line-height: 1; white-space: nowrap; }
+.opt-num small { font-size: 14px; color: var(--muted); font-weight: 600; }
+.opt-mods { padding-left: 20px; display: grid; gap: 10px; margin: 0; }
+.opt-text { white-space: pre-wrap; font: inherit; background: var(--bg); border: 1px solid var(--line);
+  border-radius: 10px; padding: 12px; margin: 0; }
 .car-form { display: flex; flex-direction: column; gap: 10px; max-height: 62vh; overflow-y: auto; padding-right: 6px; }
 .car-form fieldset { border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; display: grid; gap: 6px; }
 .car-form legend { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--blue); }

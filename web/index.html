@@ -44,6 +44,7 @@
     <button id="drawer-copy">Copia</button>
     <button id="drawer-regen" class="secondary">🔄 Rigenera</button>
     <button id="drawer-edit" hidden>✏️ Modifica testo</button>
+    <button id="drawer-optimize" hidden title="Rilegge la bozza con i dati dei tuoi post e dei competitor">📊 Ottimizza con i dati</button>
     <button id="drawer-chat" hidden>💬 Chiedi alla lezione</button>
     <button id="drawer-publish" hidden>🚀 Pubblica / Programma</button>
     <span id="drawer-info" class="muted small"></span>
@@ -113,6 +114,22 @@
     <div class="pub-actions">
       <button value="cancel" class="secondary">Annulla</button>
       <button type="button" id="post-dlg-save" class="danger">💾 Salva</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="opt-dialog">
+  <form method="dialog" class="pub">
+    <div class="pub-head">
+      <div><div class="eyebrow">Ottimizza con i dati · Analista Social</div><div id="opt-title" class="drawer-title"></div></div>
+      <button value="cancel" class="icon" aria-label="Chiudi">✕</button>
+    </div>
+    <div id="opt-body" class="opt-body"></div>
+    <div id="opt-msg" class="small muted"></div>
+    <div class="pub-actions">
+      <button type="button" id="opt-redo" class="secondary">🔄 Rifai</button>
+      <button type="button" id="opt-copy" class="secondary">Copia versione</button>
+      <button type="button" id="opt-apply" class="danger">✅ Usa questa versione</button>
     </div>
   </form>
 </dialog>

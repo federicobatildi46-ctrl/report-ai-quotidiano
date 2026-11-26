@@ -15,6 +15,7 @@ import yaml
 
 from digest import CONFIG_DIR, OUTPUTS_DIR, PROMPTS_DIR, REPORTS_DIR
 from digest.claude import run_claude
+from digest.playbook import playbook_block
 from digest.collectors.github import github_token
 from digest.collectors.youtube import _transcript
 from digest.web import extract_article, make_client
@@ -172,6 +173,7 @@ def generate(date: str, item_id: str, kind: str) -> Path:
                    FORMAT=SHORT_FORMATS["strumento" if item["section"] == "virali" else "notizia"],
                    AUDIENCE=((topics.get("audience") or {}).get("linkedin") or "").strip(),
                    ANGLE=_angle(item.get("linkedin_pick")),
+                   PLAYBOOK=playbook_block(),
                    SOURCES=src_block)
     # il post fa una piccola ricerca online per ancorare pain point e stime a dati reali
     tools = ["WebSearch", "WebFetch"] if kind == "post" else None

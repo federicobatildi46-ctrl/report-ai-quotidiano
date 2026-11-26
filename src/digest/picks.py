@@ -7,6 +7,7 @@ Non blocca mai il report: se qualcosa va storto, semplicemente non ci sono scelt
 
 from digest import PROMPTS_DIR
 from digest.claude import run_claude
+from digest.playbook import playbook_block
 
 BADGE_TEXT = {"ufficiale": "UFFICIALE", "confermata": "CONFERMATA (più fonti)",
               "da_verificare": "DA VERIFICARE (una sola fonte non ufficiale)",
@@ -60,6 +61,7 @@ def choose_picks(sections: list[dict], topics: dict, model: str) -> tuple[dict, 
               .replace("{{AUDIENCE_LINKEDIN}}", (audience.get("linkedin") or "").strip())
               .replace("{{AUDIENCE_SHORTS}}", (audience.get("shorts") or "").strip())
               .replace("{{MIN_SCORE}}", str(MIN_SCORE))
+              .replace("{{PLAYBOOK}}", playbook_block())
               .replace("{{ITEMS}}", "\n".join(lines)))
     try:
         out, stats = run_claude(prompt, SCHEMA, system=SYSTEM, model=model, timeout=600)

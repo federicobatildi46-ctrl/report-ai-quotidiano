@@ -1,0 +1,34 @@
+{
+ "punteggio": 5,
+ "giudizio": "Il punto più forte è la chiusura per il tuo pubblico: limite onesto, costo del non fare niente e CTA con parola chiave e bozza gratis. Il più debole è l'apertura da scoperta di uno strumento, senza una tesi, e manca un prima/dopo vissuto da te: se hai un episodio vero su un Reel montato a mano, aggiungilo prima di pubblicare.",
+ "variante_esperimento": "B",
+ "modifiche": [
+  {
+   "cosa": "Hook riscritto come presa di posizione: prima la tesi (partire dall'editor vuoto è il modo sbagliato), poi lo strumento che vuoi testare.",
+   "perche": "La bozza apre con la scoperta dello strumento. L'esperimento è a 0/3 post per variante, quindi a parità si usa la B (contrarian).",
+   "evidenza": "Hook contrarian: indice mediano 1,27 su 10 post dei competitor, hook 'notizia' 0,96 su 17. Esempio: Andrea Belli Contarini, indice 3,36."
+  },
+  {
+   "cosa": "Prima e dopo messi a confronto prima della parte tecnica, con il dopo dichiarato in prima persona come cosa da verificare. Parte tecnica e ripetizioni accorciate per stare sotto i 3000 caratteri.",
+   "perche": "Il lettore vede subito il guadagno di tempo che cerca, senza che tu dichiari risultati che non hai ancora ottenuto.",
+   "evidenza": "Fare: 'prima persona con un prima/dopo concreto prima della parte tecnica'. Tuoi post con storia personale: indice 3,2, 2,4, 1,2."
+  },
+  {
+   "cosa": "Aggiunto un passo da fare domani: cronometrare il prossimo Reel, dall'idea alla pubblicazione.",
+   "perche": "La bozza dà il comando di installazione, poco utile a un titolare non tecnico. Misurare le ore è alla sua portata e prepara la richiesta in DM.",
+   "evidenza": "Fare: chiudi con cosa deve fare domani il titolare di una PMI. Il post competitor con indice più alto (7,77) finisce con un consiglio pratico."
+  },
+  {
+   "cosa": "Da pubblicare con un carosello o un'immagine (per esempio: prima, 3 passi, costo del non fare niente, CTA). Evita di allegare il solo video demo.",
+   "perche": "La bozza parla di video e la tentazione è allegarne uno, che nei tuoi dati è il formato più debole.",
+   "evidenza": "Competitor: video indice mediano 0,62 su 19 post, immagine 1,02 su 58. I tuoi video del 20 e 23 novembre: 99 e 81 impression."
+  }
+ ],
+ "versione_ottimizzata": "Aprire l'editor e rifare da zero un video che funziona è il modo sbagliato di partire, amico. 🎬\n\nLa base può prepararla un agente AI: ho trovato uno strumento gratuito per farlo e voglio testarlo.\n\nOggi per un Reel di solito succede questo:\n\n• Vedi un video che funziona\n• Ti dici \"ne faccio uno simile\"\n• Rifai font, colori e tempi a mano\n• Ci passi mezza giornata\n\nIl risultato? Un video. Uno.\n\nIl dopo che voglio verificare: l'agente ricostruisce la base, io rifinisco e approvo.\n\nLo strumento è OpenMotion, uno studio video open source. 🤓 Carichi un video di riferimento (o incolli il link di un video social) e il tuo agente lo ricostruisce come motion graphics modificabili, con i TUOI colori e testi.\n\n1️⃣ Dai all'agente il riferimento\n2️⃣ L'agente smonta le scene e ricostruisce inquadrature e transizioni\n3️⃣ Tu sistemi i tempi nello Studio e scarichi l'MP4\n\nGli sviluppatori dichiarano che si usa con il proprio agente (c'è anche Claude Code, che uso ogni giorno) e con le proprie chiavi. Programma a costo zero, licenza Apache-2.0.\n\nPer provarlo:\nnpx skills add nexu-io/openmotion --skill openmotion\n\nPoi chiedi all'agente di installare lo Studio (da sorgente servono Chrome e FFmpeg).\n\n⚠️ Chiariamolo subito: non l'ho ancora provato.\n\nÈ nei miei test di questa settimana. Verificherò per prima cosa quanto è fedele la ricostruzione e quanta rifinitura serve a mano. Propone l'AI, firmo io.\n\nAdesso parliamo di te. 👇\n\nSe hai uno studio o un'attività con 10-20 persone e un social che \"dovremmo curare di più\"…\nSe lavori da solo e monti i video di sera, dopo aver chiuso tutto il resto…\n\nEcco cosa costa non fare niente:\n\n→ Circa 2 ore per il primo Reel tra idea, riprese, montaggio e pubblicazione (stima da una guida italiana), e scendono solo con la pratica\n→ Un montatore esterno: dai 20-25 € a video sulle piattaforme freelance fino a 100 € e oltre con revisioni ed effetti\n→ 4 Reel al mese = 8 ore tue, oppure qualche centinaio di euro in montaggio\n\n✅ Con un sistema su misura basato su questo tipo di strumento, la stima prudente è 30-50% di tempo di montaggio in meno, cioè circa 3-4 ore al mese restituite.\n\nSono stime indicative: solo un'analisi professionale del tuo caso toglie ogni dubbio.\n\nCosa fare domani? Cronometra il prossimo Reel, dall'idea alla pubblicazione. Con quel numero in mano valuti qualsiasi strumento o preventivo.\n\n👇 Scrivi \"VIDEO\" nei commenti 👇 e ti preparo gratis, in privato, una bozza di come rifarei un video di tendenza con i colori e i testi della tua attività.\n\n#IntelligenzaArtificiale #AgentiAI #ClaudeCode #OpenMotion #VideoMarketing #PersonalBranding",
+ "hook_alternativi": [
+  "Per me chi rifà a mano ogni Reel di tendenza sta spendendo ore nel posto sbagliato. 🎬\nLe ore migliori vanno nella scelta del messaggio, e voglio testare se il montaggio di base può farlo un agente AI.",
+  "Mezza giornata per copiare lo stile di un video è troppa, amico. 🎬\nQuel lavoro sporco va dato a un agente AI, e questa settimana metto alla prova uno strumento gratuito che promette di farlo."
+ ],
+ "creato": "2026-11-26T01:27:14+00:00",
+ "playbook_del": "2026-11-26"
+}

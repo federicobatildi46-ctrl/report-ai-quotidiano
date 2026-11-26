@@ -18,7 +18,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from digest import REPORTS_DIR, ROOT
-from digest import carousel, chat, coda, feedback, gitsync, images
+from digest import carousel, chat, coda, feedback, gitsync, images, playbook
 from digest import generate as gen
 from digest import linkedin_pub as li
 
@@ -503,6 +503,69 @@ def cancel_post(entry_id: str):
         raise HTTPException(400, str(e))
     ok, _ = gitsync.commit_and_push([CODA_FILE], f"LinkedIn: annullato «{entry['title'][:50]}»")
     return {**entry, "git": "salvato su GitHub" if ok else "non salvato su GitHub"}
+
+
+# ---------- Ottimizza con i dati (playbook dell'Analista Social) ----------
+
+
+def _optimized_path(item_id: str):
+    return gen.output_path("post", item_id).with_suffix(".ottimizzato.json")
+
+
+def _run_optimize(job_id: str, item_id: str):
+    job = jobs[job_id]
+    try:
+        md = gen.read_output(gen.output_path("post", item_id))["markdown"]
+        m = re.search(r"##\s*Post\s*\n(.*?)(?=\n##\s|\Z)", md, re.S)
+        topics = gen._topics()
+        voice = gen.VOICE_PATH.read_text(encoding="utf-8") if gen.VOICE_PATH.exists() else gen.NO_VOICE
+        out, _ = playbook.optimize((m.group(1) if m else md), voice,
+                                   ((topics.get("audience") or {}).get("linkedin") or "").strip(),
+                                   (topics.get("generators") or {}).get("model", "sonnet"))
+        path = _optimized_path(item_id)
+        playbook.save(path, out)
+        ok, detail = gitsync.commit_and_push([str(path.relative_to(ROOT))], f"Post ottimizzato con i dati: {item_id}")
+        job.update(status="fatto", result=out, git="salvato su GitHub" if ok else f"non salvato su GitHub: {detail[-200:]}")
+    except Exception as e:
+        job.update(status="errore", error=f"{type(e).__name__}: {e}"[:500])
+
+
+@app.get("/api/optimize/{item_id}")
+def get_optimized(item_id: str):
+    if not ITEM_RE.match(item_id):
+        raise HTTPException(400, "richiesta non valida")
+    path = _optimized_path(item_id)
+    return {"result": json.loads(path.read_text(encoding="utf-8")) if path.exists() else None,
+            "playbook": playbook.playbook_date()}
+
+
+@app.post("/api/optimize/{item_id}")
+def start_optimize(item_id: str):
+    if not ITEM_RE.match(item_id) or not gen.output_path("post", item_id).exists():
+        raise HTTPException(400, "prima genera il post")
+    for jid, j in jobs.items():
+        if j.get("status") == "in corso" and (j.get("item_id"), j.get("kind")) == (item_id, "ottimizza"):
+            return {"job_id": jid, "status": "in corso"}
+    job_id = uuid.uuid4().hex[:10]
+    jobs[job_id] = {"status": "in corso", "item_id": item_id, "kind": "ottimizza",
+                    "started": datetime.now(UTC).isoformat(timespec="seconds")}
+    executor.submit(_run_optimize, job_id, item_id)
+    return {"job_id": job_id, "status": "in corso"}
+
+
+@app.post("/api/optimize/{item_id}/apply")
+def apply_optimized(item_id: str):
+    """Sostituisce il testo del post con la versione ottimizzata (il file .ottimizzato.json resta)."""
+    path = _optimized_path(item_id)
+    if not ITEM_RE.match(item_id) or not path.exists():
+        raise HTTPException(400, "nessuna versione ottimizzata")
+    data = json.loads(path.read_text(encoding="utf-8"))
+    post = gen.save_post_text(item_id, data["versione_ottimizzata"])
+    data["applicata"] = datetime.now(UTC).isoformat(timespec="seconds")
+    playbook.save(path, data)
+    ok, _ = gitsync.commit_and_push([str(post.relative_to(ROOT)), str(path.relative_to(ROOT))],
+                                    f"Post: applicata la versione ottimizzata {item_id}")
+    return {"ok": True, "git": "salvato su GitHub" if ok else "non salvato su GitHub"}
 
 
 @app.get("/api/outputs/{kind}/{item_id}")

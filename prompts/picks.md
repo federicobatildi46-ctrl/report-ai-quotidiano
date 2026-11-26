@@ -39,6 +39,14 @@ Campi di `linkedin`:
 - `caveat`: vedi sopra.
 - `alternatives`: fino a 2 altre notizie valide, con `reason` di max 15 parole.
 
+## Cosa dicono i miei dati (Analista Social, per `linkedin`)
+{{PLAYBOOK}}
+
+Usa il playbook per scegliere tra notizie di interesse simile: a parità di punteggio vince quella
+che si aggancia a un pilastro e permette l'hook e la chiusura che il playbook indica. Scrivi
+`hook` e `angle` seguendo le sue regole "Fare" (e la variante dell'esperimento in corso, se c'è).
+Il playbook non cambia la severità del voto.
+
 ## Il pubblico degli Shorts (per `short`)
 {{AUDIENCE_SHORTS}}
 

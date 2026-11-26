@@ -336,6 +336,7 @@ async function openOutput(kind, item, gitNote) {
   $("#drawer-carousel").hidden = !isPost;
   $("#drawer-publish").hidden = !isPost;
   $("#drawer-edit").hidden = !isPost;
+  $("#drawer-optimize").hidden = !isPost;
   if (isPost) renderCarousel(await api(`/api/carousel/${item}`));
   const isLesson = kind === "lezione";
   $("#lesson-chat").hidden = !isLesson;
@@ -560,6 +561,70 @@ function postText(md) {
   const m = md.match(/##\s*Post\s*\n([\s\S]*?)(?=\n##\s|$)/);
   return (m ? m[1] : md).trim();
 }
+
+// ---------- Ottimizza con i dati (playbook dell'Analista Social) ----------
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+function renderOptimized(r, playbookDate) {
+  if (!r) {
+    $("#opt-body").innerHTML = `<p class="muted">Nessuna analisi ancora. Premi “Rifai” per far rileggere la bozza all'analista
+      ${playbookDate ? `(playbook del ${esc(playbookDate)})` : "(playbook non trovato: ottimizzerà solo chiarezza e voce)"}.</p>`;
+    $("#opt-apply").disabled = $("#opt-copy").disabled = true;
+    return;
+  }
+  const mods = (r.modifiche || []).map((m) => `<li><b>${esc(m.cosa)}</b><br><span>${esc(m.perche)}</span>
+      <div class="small muted">📊 ${esc(m.evidenza)}</div></li>`).join("");
+  const hooks = (r.hook_alternativi || []).map((h) => `<li>${esc(h)}</li>`).join("");
+  $("#opt-body").innerHTML = `
+    <div class="opt-score"><span class="opt-num">${esc(r.punteggio)}<small>/10</small></span>
+      <span>${esc(r.giudizio)}${r.variante_esperimento && r.variante_esperimento !== "nessuna"
+        ? `<br><span class="small">🧪 Esperimento: variante ${esc(r.variante_esperimento)}</span>` : ""}</span></div>
+    <h4>Cosa cambio e perché</h4><ol class="opt-mods">${mods || "<li>Nessuna modifica necessaria.</li>"}</ol>
+    <h4>Versione ottimizzata</h4><pre class="opt-text">${esc(r.versione_ottimizzata)}</pre>
+    ${hooks ? `<h4>Hook alternativi</h4><ul>${hooks}</ul>` : ""}
+    <div class="small muted">Playbook del ${esc(r.playbook_del || "?")} · ${r.applicata ? "versione già applicata" : "non ancora applicata"}</div>`;
+  $("#opt-apply").disabled = $("#opt-copy").disabled = false;
+}
+
+async function runOptimize() {
+  const d = state.drawer; if (!d) return;
+  $("#opt-redo").disabled = $("#opt-apply").disabled = true;
+  $("#opt-msg").textContent = "⏳ L'analista sta rileggendo la bozza con i tuoi dati (circa 1 minuto)…";
+  try {
+    const { job_id } = await api(`/api/optimize/${d.item}`, { method: "POST" });
+    let job;
+    do { await new Promise((r) => setTimeout(r, 3000)); job = await api(`/api/jobs/${job_id}`); } while (job.status === "in corso");
+    if (job.status === "errore") throw new Error(job.error);
+    renderOptimized(job.result);
+    $("#opt-msg").textContent = job.git || "";
+  } catch (e) {
+    $("#opt-msg").textContent = `Non riuscito: ${e.message}`;
+  } finally {
+    $("#opt-redo").disabled = false;
+  }
+}
+
+$("#drawer-optimize").onclick = async () => {
+  const d = state.drawer; if (!d) return;
+  $("#opt-title").textContent = $("#drawer-title").textContent;
+  $("#opt-msg").textContent = "";
+  const saved = await api(`/api/optimize/${d.item}`);
+  renderOptimized(saved.result, saved.playbook);
+  $("#opt-dialog").showModal();
+  if (!saved.result) runOptimize();
+};
+$("#opt-redo").onclick = runOptimize;
+$("#opt-copy").onclick = async () => {
+  await navigator.clipboard.writeText($(".opt-text")?.textContent || "");
+  toast("Versione ottimizzata copiata");
+};
+$("#opt-apply").onclick = async () => {
+  const d = state.drawer; if (!d) return;
+  if (!confirm("Sostituire il testo del post con la versione ottimizzata?")) return;
+  const res = await api(`/api/optimize/${d.item}/apply`, { method: "POST" });
+  $("#opt-dialog").close();
+  await openOutput("post", d.item, `versione ottimizzata applicata · ${res.git}`);
+};
 
 // ---------- eventi ----------
 document.addEventListener("click", (e) => {

@@ -12,6 +12,9 @@ Scrivi un post LinkedIn in italiano sul tema qui sotto, per il mio profilo perso
 ## La mia voce
 {{VOICE}}
 
+## Cosa dicono i miei dati (Analista Social)
+{{PLAYBOOK}}
+
 ## La notizia (dal report del {{DATE}})
 **{{TITLE}}**
 {{SUMMARY}}
@@ -22,6 +25,9 @@ Perché mi interessa: {{WHY}}
 - **La guida "La mia voce" qui sopra comanda**: struttura, lunghezza, hook, ritmo, emoji,
   elenchi, lessico, chiusura e hashtag come descritti lì. Ripassa la sua checklist finale.
 - Hook nelle prime 2 righe (è ciò che si vede prima di "...altro").
+- **Il playbook dei dati decide il "cosa"** (pilastro, tipo di hook, chiusura, CTA, formato);
+  la guida della voce decide il "come" (tono, ritmo, lessico). Se c'è un esperimento in corso,
+  scrivi il post nella variante indicata e riportala nelle Note ("Esperimento: variante B").
 - Racconta la notizia dal mio punto di vista: cosa significa per chi lavora con l'AI o per un
   imprenditore. Non inventare esperienze che non ho fatto: se non l'ho provato, dillo
   ("lo sto provando", "la prima cosa che testerò è…").
@@ -29,7 +35,8 @@ Perché mi interessa: {{WHY}}
 - CTA con parola chiave: se prometti qualcosa ("ti mando la guida"), deve essere realistico e
   va segnalato nelle Note come "offerta da confermare".
 - Vietate le frasi da AI generica: "nel panorama in continua evoluzione", "rivoluzionario",
-  "non è solo X, è Y", "immergiamoci", "in un mondo in cui".
+  "non è solo X, è Y", "immergiamoci", "in un mondo in cui". Vietato anche il contrasto
+  "non è X, è Y" in qualsiasi forma ("Il problema non è X. È Y."): afferma Y direttamente.
 - Solo fatti presenti nelle fonti. Le opinioni dei creator vanno attribuite.
 - Scrivi per chi legge LinkedIn, non per me: niente parole "di lavoro" nostre come README,
   report, fonti, item, changelog, repo (senza spiegarla). Al posto di "il README dice" scrivi
