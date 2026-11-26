@@ -1,0 +1,34 @@
+{
+ "punteggio": 7,
+ "giudizio": "Il punto più forte è l'apertura con una presa di posizione, seguita da una chiusura pratica per il titolare e da una CTA con parola chiave. Il più debole è la mancanza di un tuo pezzo in prima persona e di un prima/dopo netto prima della parte su Nod; per il formato, accompagna il post con un'immagine o un carosello.",
+ "variante_esperimento": "B",
+ "modifiche": [
+  {
+   "cosa": "Hook reso più secco: la domanda sull'assunzione in apertura e subito la tua tesi. Resta di tipo contrarian (variante B).",
+   "perche": "La bozza prende già posizione. La domanda iniziale fa riconoscere il problema al titolare prima di leggere la tua risposta.",
+   "evidenza": "Hook contrarian: indice mediano 1,27 su 10 post dei competitor, contro 0,96 su 17 per l'hook 'notizia'. Esperimento in corso: 0/3 A e 0/3 B, a parità si scrive B."
+  },
+  {
+   "cosa": "Aggiunto un prima/dopo prima di presentare Nod, con il dato delle 4,5 ore già presente nella bozza. Il 'dopo' è indicato come obiettivo, perché non hai ancora provato lo strumento.",
+   "perche": "Il titolare vede subito tempo e passaggi in gioco, prima di arrivare agli aspetti tecnici.",
+   "evidenza": "Fare: prima/dopo concreto (ore perse, euro, passaggi) prima della parte tecnica. 'Perdevo ore a volte giorni per scrivere un solo post' ha indice 2,4."
+  },
+  {
+   "cosa": "Aggiunta un'intenzione in prima persona: provarlo su un sollecito, controllando la bozza prima dell'invio. Confermala prima di pubblicare e toglila se non intendi farlo.",
+   "perche": "Porta un pezzo di te dentro un post nato da una notizia, senza inventare esperienze o risultati.",
+   "evidenza": "Le storie personali hanno indice mediano 2,17 su 8 post dei competitor, contro circa 1 per notizie e strumenti. Indicazione: un pezzo di storia personale in ogni post nato da una notizia."
+  },
+  {
+   "cosa": "Compattati i requisiti tecnici e alcuni passaggi, lasciando invariate le cifre del blocco sui costi, la scheda e la CTA.",
+   "perche": "Fa spazio alle aggiunte restando entro i 3000 caratteri e porta prima il lettore ai conti e a cosa fare domani.",
+   "evidenza": "Fare: chiudere con cosa deve fare domani il titolare (il post competitor con indice 7,77 finisce così). Sulla lunghezza i dati non mostrano differenze utili (1,04, 0,91, 1,0)."
+  }
+ ],
+ "versione_ottimizzata": "Assumere qualcuno per rincorrere le fatture? Per me è l'ultima mossa da fare.\nPrima guarda cosa può prepararti un agente AI, lasciando a te l'ultima parola. 🤓\n\nLa scena la conosci, amico: apri la mail per controllare chi ha pagato, scrivi il sollecito, cerchi gli appunti per la chiamata delle 11… e sono le 11.\n\nPrima: pagamenti e fatture si mangiano circa 4,5 ore a settimana (media di un'indagine 2026 su micro e PMI italiane).\nIl dopo a cui puntare: trovi la bozza pronta, la controlli e dai l'ok.\n\nIl team di n8n ha pubblicato Nod, un agente personale open source (codice aperto) che gira sul tuo computer.\n\nLa sua pagina GitHub promette tre cose molto terra terra:\n\n→ Soldi: insegue una fattura finché non viene pagata.\n→ Chiamate: prepara un brief di una pagina da messaggi, calendario e ultime notizie sul cliente.\n→ Sprechi: disdice le prove gratuite prima che diventino un addebito.\n\nLavora con Gmail, Calendar, Slack, Notion e sul web.\n\nLa parte che mi interessa di più?\n\nChiede il permesso: invia la bozza solo dopo il tuo sì. ✅\n\nHuman in the loop, sempre.\n\n⚠️ Nota di trasparenza: non l'ho ancora provato. Voglio testarlo partendo da un sollecito, con la bozza controllata da me. Gli sviluppatori lo presentano come anteprima di ricerca, che può sbagliare.\n\nPrima di scaricarlo:\n\n• App gratuita, ma serve ChatGPT Plus o Pro, oppure una chiave API a pagamento.\n• Gira su macOS 14 o successivi; su Windows 11 è in anteprima.\n• Le attività programmate partono solo a computer acceso.\n• File e memoria restano da te, ma al modello AI arriva ciò che serve per ogni compito.\n\nPerché conta per te? 👇\n\n🛠️ Se hai uno studio o un'agenzia con 10-20 persone, o fai tutto da solo:\n\n→ circa 4,5 ore a settimana in amministrazione di pagamenti e fatture (media di un'indagine 2026 su micro e PMI italiane)\n→ 2-4 ore a settimana a preparare le chiamate, saltando tra mail, agenda e appunti\n→ 180-1.200 € l'anno in abbonamenti dimenticati\n→ Con un sistema su misura che prepara solleciti e brief e segnala le scadenze, stimo 3-5 ore a settimana restituite e buona parte di quei soldi recuperabile.\n\nSono stime indicative: per sapere quanto vale nel tuo caso serve guardare i tuoi numeri con un'analisi professionale.\n\nCosa fare domani mattina?\n\nScegli UNA attività, per esempio il primo sollecito. Scrivi chi la fa, quanto tempo porta via e chi deve dare l'ok prima dell'invio.\n\nSe non riesci a spiegarla in cinque righe a un neoassunto, l'agente farà confusione quanto lui… solo molto più in fretta. 🤣\n\nMorale della favola: l'AI prepara, tu firmi.\n\nVuoi capire da dove partire? Commenta \"FATTURE\" e ti mando gratis in privato una scheda di una pagina per scegliere la prima attività da delegare. 👇\n\n#AgentiAI #Automazione #PMI #LiberiProfessionisti #n8n #IntelligenzaArtificiale",
+ "hook_alternativi": [
+  "Per rincorrere le fatture, assumere è l'ultima cosa che farei.\nPrima proverei a far preparare i solleciti a un agente AI, con il tuo ok prima dell'invio. 🤓",
+  "Secondo me il primo collaboratore a cui affidare i solleciti può essere un agente AI.\nLui prepara la bozza, tu decidi se parte. 🤓"
+ ],
+ "creato": "2026-11-26T21:53:40+00:00",
+ "playbook_del": "2026-11-26"
+}
