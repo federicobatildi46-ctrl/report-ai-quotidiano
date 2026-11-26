@@ -1,0 +1,29 @@
+{
+ "punteggio": 6,
+ "giudizio": "Il punto più forte è l'angolo PMI: scena riconoscibile, costo in ore, limite onesto e CTA con parola chiave verso i DM. Il più debole è l'apertura, una scena senza una tua tesi, seguita da poca prima persona e da nessuna azione precisa da fare domani (per il formato, pubblicalo con un'immagine o un carosello).",
+ "variante_esperimento": "B",
+ "modifiche": [
+  {
+   "cosa": "Hook in variante B (contrarian): la tua tesi va nella prima riga, poi arriva la scena del collaboratore in ferie.",
+   "perche": "Il lettore capisce subito da che parte stai. L'esperimento è a 0/3 post per entrambe le varianti, quindi a parità si usa la B.",
+   "evidenza": "Competitor: hook contrarian con indice mediano 1,27 su 10 post, hook notizia 0,96 su 17. Esperimento in corso: A = notizia, B = contrarian."
+  },
+  {
+   "cosa": "La tua intenzione di test passa in prima persona subito dopo la scena, prima della parte tecnica.",
+   "perche": "Porta te dentro la notizia usando solo ciò che hai dichiarato: devi ancora provare le skill dai server.",
+   "evidenza": "Tuoi post con storia personale: indice 3,2, 2,4, 1,2. Competitor: storie personali, indice mediano 2,17 su 8 post."
+  },
+  {
+   "cosa": "Aggiunto un passo da fare domani per il titolare: scegliere la domanda interna più frequente e scrivere la risposta passo per passo.",
+   "perche": "Trasforma la morale in un'azione che si può fare anche senza competenze tecniche e prepara la CTA \"SKILL\".",
+   "evidenza": "Il post competitor con indice più alto (7,77, Andrea Belli Contarini su Salesforce) chiude con una domanda precisa da fare al fornitore."
+  }
+ ],
+ "versione_ottimizzata": "Prima di cercare un'AI più potente, scrivi come si lavora da te.\nParti da ciò che oggi sa solo il tuo collaboratore più esperto 🙃\n\nPerché quando va in ferie, con lui partono 100 \"come si fa questa cosa?\"\n\nCon Claude Code 2.1.332 arriva un pezzo interessante: le skill dai server MCP (in beta).\n\nIo devo ancora provarle, e partirò da una procedura semplice: scritta una volta e richiamata dal menu.\n\nTradotto, amico: una skill è un foglio di istruzioni che l'AI segue per fare un lavoro a modo tuo. MCP è la \"presa\" che collega Claude a strumenti e servizi esterni.\n\nDa ora quelle istruzioni possono arrivare direttamente dal server collegato. Le trovi nel menu \"/\" con il nome del server davanti.\n\nUn po' come Neo in Matrix che scarica il kung fu. Con molte meno acrobazie.\n\nLa seconda novità riguarda il controllo:\n\n→ Comandi — una skill locale può contenere comandi che partono sul tuo computer mentre si carica.\n→ Filtro — un nuovo \"hook\" (una regola automatica) può rifiutarli prima che vengano eseguiti.\n→ Regia — le regole del filtro le decidi tu, e qualcuno le deve configurare bene.\n\nTutto automatico? No.\n\n⚠️ Le skill dai server sono in beta. E se la procedura è scritta male, l'AI la segue male con grande disciplina 🤣\n\nPerché conta per te? 👇\n\nSe hai uno studio o un'agenzia con 12 persone, forse conosci la scena:\n\n• 2-3 ore a settimana a persona a cercare file, istruzioni e ultime versioni\n• 3-4 ore a settimana del titolare a rispondere sempre alle stesse domande interne\n• circa 4 ore a settimana tra pagamenti e fatture, spesso con passaggi da ricostruire ogni volta\n\nCon un sistema su misura, dove le procedure stanno in un posto solo e l'AI le richiama, puoi puntare a recuperare il 30-40% del tempo di ricerca: circa 7-14 ore a settimana su tutto il team ⚙️\n\nSono stime indicative: per sapere quanto vale nel tuo caso serve un'analisi fatta sul tuo lavoro.\n\nCosa fare domani? Chiedi al team qual è la domanda interna che torna più spesso. Poi scrivi la risposta passo per passo, come se la spiegassi a un neoassunto.\n\nMorale della favola: prima metti ordine in come lavori, poi lo fai eseguire all'AI.\n\nLei propone, tu approvi. Human in the loop, sempre 🤓\n\nCommenta \"SKILL\" e ti mando in privato, gratis, uno schema di una pagina per scrivere la tua prima procedura in modo che un'AI possa seguirla 👇\n\n#ClaudeCode #AgentiAI #Automazione #IntelligenzaArtificiale #PersonalBranding",
+ "hook_alternativi": [
+  "La prima automazione del tuo studio si scrive su un foglio di istruzioni.\nFallo prima che il tuo collaboratore più esperto vada in ferie 🙃",
+  "Per me un'azienda è pronta per l'AI quando le sue procedure sono scritte.\nSe vivono nella testa del collaboratore più esperto, parti da lì 🙃"
+ ],
+ "creato": "2026-11-26T01:56:53+00:00",
+ "playbook_del": "2026-11-26"
+}
