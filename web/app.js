@@ -563,7 +563,7 @@ function postText(md) {
 }
 
 // ---------- Ottimizza con i dati (playbook dell'Analista Social) ----------
-const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+// (usa esc() già definita in cima al file)
 
 function renderOptimized(r, playbookDate) {
   if (!r) {
