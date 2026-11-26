@@ -212,7 +212,7 @@ function renderFoot(r, empty) {
   if (s.source_errors?.length) lines.push(`Fonti non raggiungibili: ${esc(s.source_errors.map((e) => e.source).join(", "))}.`);
   if (s.dropped_broken_links?.length) lines.push(`Notizie scartate per link non funzionante: ${s.dropped_broken_links.length}.`);
   lines.push(`<b>Badge.</b> ✅ fonte ufficiale · 🔁 confermata da più fonti indipendenti · ⚠️ una sola fonte non ufficiale · 📦 descrizione del progetto, non ancora provato · ❌ smentita da una fonte ufficiale.`);
-  lines.push(`<small>Vuoi cambiare qualcosa? Usa ✨ <b>Modifica il report</b> in basso a destra.</small>`);
+  lines.push(`<small>Vuoi cambiare qualcosa? Usa ✨ Modifica il report in basso a destra.</small>`);
   lines.push(`Generato con Claude (${esc(s.model || "")}) alle ${new Date(r.generated_at).toLocaleTimeString("it-IT", { hour: "2-digit", minute: "2-digit" })}.`);
   return `<footer class="report-foot">${lines.map((l) => `<div>${l}</div>`).join("")}</footer>`;
 }
