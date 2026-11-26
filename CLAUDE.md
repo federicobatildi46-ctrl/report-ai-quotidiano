@@ -58,8 +58,13 @@ Progetto: report AI quotidiano locale (vedi PIANO_OPERATIVO.md per obiettivi, ar
   / da_verificare. `repo_facts()` legge stelle e licenza dall'API GitHub prima della scrittura.
 - `picks.py` + `prompts/picks.md` → `report["picks"]` (linkedin, short); nicchie in
   `topics.yaml` → `audience`. Non deve mai bloccare il report (try/except).
-- Design di email (`render.py`) e app (`web/`): stessi colori dei caroselli; font locali da
-  `/fonts` (assets/fonts). `index()` aggiunge `?v=mtime` a CSS e JS: niente cache vecchia.
+- Design di email (`render.py`) e app (`web/`): stile editoriale "brochure" scelto da Federico
+  (27/11/2026): nero, carta, un solo accento arancione `#ff5416`, retino a puntini, titoli Bebas
+  Neue, numeri grandi 01/02/03, angoli vivi, niente ombre morbide, pillole o emoji nei pulsanti.
+  Il retino lo genera `src/digest/graphics.py` (web/img/*.png, `uv run python -m digest.graphics`);
+  la testata dell'email è un'immagine (`masthead`) allegata in linea (cid:testata, cid:retino),
+  incorporata (data:) nel file reports/*.html. I caroselli restano blu (stile separato).
+  `index()` aggiunge `?v=mtime` a CSS e JS: niente cache vecchia.
 
 ## App locale (Fasi 5-6)
 - `src/digest/app.py` (FastAPI, solo 127.0.0.1:8787) + `web/` (HTML/CSS/JS, marked + DOMPurify da CDN).

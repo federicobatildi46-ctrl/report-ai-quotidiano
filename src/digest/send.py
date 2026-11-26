@@ -15,7 +15,7 @@ from pathlib import Path
 
 from digest import REPORTS_DIR
 from digest.build import to_markdown, write_html
-from digest.render import MESI
+from digest.render import MESI, email_images, to_html
 
 # Porta 587 + STARTTLS: sulla 465 Avast (Mail Shield) intercetta la connessione con un certificato
 # "Untrusted Root" che giustamente viene rifiutato; la 587 passa con verifica completa.
@@ -36,7 +36,9 @@ def latest_report() -> Path:
 
 def build_message(report_path: Path, sender: str, to: str) -> EmailMessage:
     report = json.loads(report_path.read_text(encoding="utf-8"))
-    html = write_html(report_path).read_text(encoding="utf-8")   # sempre con l'ultimo layout
+    write_html(report_path)                    # il file .html nel repo, sempre con l'ultimo layout
+    html = to_html(report)                     # l'email: immagini allegate in linea (cid:)
+    images = email_images(report)
 
     d = date.fromisoformat(report["date"])
     msg = EmailMessage()
@@ -45,6 +47,9 @@ def build_message(report_path: Path, sender: str, to: str) -> EmailMessage:
     msg["To"] = to
     msg.set_content(to_markdown(report))          # versione testo, per client senza HTML
     msg.add_alternative(html, subtype="html")
+    html_part = msg.get_payload()[-1]
+    for cid, data in images.items():         # testata e retino, mostrati dentro l'email
+        html_part.add_related(data, "image", "png", cid=f"<{cid}>", filename=f"{cid}.png")
     if len(html.encode("utf-8")) > GMAIL_CLIP_BYTES:
         print(f"Attenzione: HTML di {len(html) // 1024} KB, Gmail potrebbe troncarlo.")
     return msg

@@ -1,12 +1,12 @@
 // App locale del Report AI: archivio, report e generatori (lezione, post, short).
 marked.setOptions({ breaks: true });   // un "a capo" nel testo = a capo nella pagina (post LinkedIn)
 const KINDS = {
-  lezione: { icon: "🎓", gen: "Genera lezione", open: "Apri lezione", label: "Lezione" },
-  post: { icon: "💼", gen: "Post LinkedIn", open: "Apri post", label: "Post LinkedIn" },
-  short: { icon: "🎬", gen: "Script Short", open: "Apri short", label: "Script Shorts" },
+  lezione: { icon: "", gen: "Genera lezione", open: "Apri lezione", label: "Lezione" },
+  post: { icon: "", gen: "Post LinkedIn", open: "Apri post", label: "Post LinkedIn" },
+  short: { icon: "", gen: "Script Short", open: "Apri short", label: "Script Shorts" },
 };
-const BADGES = { ufficiale: "✅ Ufficiale", confermata: "🔁 Confermata", da_verificare: "⚠️ Da verificare",
-  smentita: "❌ Smentita", dal_repo: "📦 Dal progetto" };
+const BADGES = { ufficiale: "Ufficiale", confermata: "Confermata", da_verificare: "Da verificare",
+  smentita: "Smentita", dal_repo: "Dal progetto" };
 const BADGE_PLURAL = { ufficiale: "ufficiali", confermata: "confermate", da_verificare: "da verificare",
   smentita: "smentite", dal_repo: "dal progetto" };
 const GIORNI = ["domenica", "lunedì", "martedì", "mercoledì", "giovedì", "venerdì", "sabato"];
@@ -117,17 +117,23 @@ async function showReport(date, item = null) {
     ...full.map((sec) => `<button data-scroll="sec-${sec.id}" style="--sec:var(--${sec.id})"><span class="dot"></span>${esc(sec.title.split(":")[0])}<span class="n">${sec.items.length}</span></button>`),
   ].join("");
 
+  const two = (n) => String(n).padStart(2, "0");
   $("#report").innerHTML = `
     <header class="mast">
-      <div class="eyebrow">Report AI · ${y}</div>
+      <div class="eyebrow"><span>Report AI · ${y}</span></div>
       <h1>${wd} ${d} ${MESI[m - 1]}</h1>
-      <div class="stats"><b>${s.stories} notizie</b> · circa ${r.reading_minutes} minuti · ${s.collected} elementi raccolti, ${s.discarded} scartati come rumore</div>
+      <div class="mast-stats">
+        <div class="mast-stat"><b>${two(s.stories)}</b><span>Notizie</span></div>
+        <div class="mast-stat"><b>${r.reading_minutes}′</b><span>Di lettura</span></div>
+        <div class="mast-stat"><b>${s.collected}</b><span>Elementi letti</span></div>
+        <div class="mast-stat"><b>${s.discarded}</b><span>Scartati come rumore</span></div>
+      </div>
     </header>
     <nav class="secnav" aria-label="Sezioni del report"><div class="chips">${nav}</div>
       <input id="filter" type="search" placeholder="Cerca nel report…  ( / )" aria-label="Cerca nel report"></nav>
     ${r.in_breve.length ? `<div class="breve" id="breve"><div class="eyebrow">In breve</div><ol>${r.in_breve.map((x) => `<li><span>${esc(x)}</span></li>`).join("")}</ol></div>` : ""}
     ${hasPicks ? renderPicks(picks, r.outputs) : ""}
-    ${full.map((sec) => renderSection(sec, r.outputs, pickLabels)).join("")}
+    ${full.map((sec, i) => renderSection(sec, r.outputs, pickLabels, i + 1)).join("")}
     <p class="no-results" id="no-results" hidden>Nessuna notizia contiene questo testo.</p>
     ${renderFoot(r, empty)}`;
   setupNav();
@@ -148,25 +154,26 @@ function renderPicks(picks, outputs) {
     ].filter(Boolean).map(([t, v]) => `<div><dt>${t}</dt> <dd>${esc(v)}</dd></div>`).join("");
     const alts = (pk.alternatives || []).map((a) => `<a href="#${state.date}/${a.item_id}" title="${esc(a.reason)}">${esc(a.title)}</a>`).join(" · ");
     return `<article class="pick ${isPost ? "" : "short"}">
-      <div class="eyebrow">${isPost ? "💼 Post LinkedIn del giorno" : "🎬 Short del giorno"}
-        <span class="score">adatta ${pk.score}/10</span><span class="badge b-${pk.badge}">${BADGES[pk.badge] || pk.badge}</span></div>
+      <div class="pick-top">
+        <div class="eyebrow">${isPost ? "Post LinkedIn del giorno" : "Short del giorno"}<span class="badge b-${pk.badge}">${BADGES[pk.badge] || pk.badge}</span></div>
+        <div class="score" title="Quanto è adatta al pubblico">${pk.score}<small>/10</small></div></div>
       <h3><a href="#${state.date}/${pk.item_id}">${esc(pk.title)}</a></h3>
       <blockquote>«${esc(pk.hook)}»</blockquote>
       <dl>${rows}</dl>
       ${pk.caveat ? `<div class="caveat"><b>Prima di pubblicare.</b> ${esc(pk.caveat)}</div>` : ""}
       ${alts ? `<div class="alts">In alternativa: ${alts}</div>` : ""}
       <div class="actions">
-        <button class="primary ${done ? "done" : ""}" data-item="${pk.item_id}" data-kind="${kind}">${KINDS[kind].icon} ${done ? KINDS[kind].open : (isPost ? "Genera il post" : "Genera lo script")}</button>
+        <button class="primary ${done ? "done" : ""}" data-item="${pk.item_id}" data-kind="${kind}">${done ? KINDS[kind].open : (isPost ? "Genera il post" : "Genera lo script")}</button>
         <button data-goto="${pk.item_id}">Vai alla notizia</button>
       </div></article>`;
   };
-  const none = !picks.linkedin ? `<div class="pick-none"><b>💼 Oggi nessun post LinkedIn.</b> Nessuna notizia è abbastanza forte per la tua nicchia: meglio saltare un giorno che forzare.</div>` : "";
+  const none = !picks.linkedin ? `<div class="pick-none"><b>Oggi nessun post LinkedIn.</b> Nessuna notizia è abbastanza forte per la tua nicchia: meglio saltare un giorno che forzare.</div>` : "";
   return `<section class="picks" id="picks"><div class="picks-head"><h2>Da pubblicare oggi</h2>
     <span class="muted small">scelte tra le notizie di oggi per la tua nicchia: controllale tu prima di pubblicare</span></div>
     <div class="picks-grid">${none}${block("linkedin")}${block("short")}</div></section>`;
 }
 
-function renderSection(sec, outputs, pickLabels) {
+function renderSection(sec, outputs, pickLabels, n = 1) {
   const groups = new Map();
   sec.items.forEach((it) => { const k = it.subsection || ""; if (!groups.has(k)) groups.set(k, []); groups.get(k).push(it); });
   let body = "";
@@ -175,8 +182,12 @@ function renderSection(sec, outputs, pickLabels) {
     if (label && groups.size > 1) body += `<div class="eyebrow sub">${esc(label)}</div>`;
     body += items.map((it) => renderItem(it, outputs[it.id] || [], pickLabels[it.id] || [])).join("");
   }
+  const [main, rest] = sec.title.split(/:\s*/);
   return `<section class="sec" id="sec-${sec.id}" style="--sec:var(--${sec.id})">
-    <h2>${esc(sec.title)} <small>· ${sec.items.length}</small></h2>${body}</section>`;
+    <div class="sec-head"><div class="sec-num">${String(n).padStart(2, "0")}</div>
+      <h2>${rest ? `<small>${esc(rest)}</small>` : ""}${esc(main)}</h2>
+      <div class="sec-count" title="Notizie in questa sezione">${String(sec.items.length).padStart(2, "0")}</div></div>
+    <div class="sec-band" aria-hidden="true"></div>${body}</section>`;
 }
 
 function renderItem(it, done, labels = []) {
@@ -185,15 +196,15 @@ function renderItem(it, done, labels = []) {
     (s.meta?.stars_verified ? ` <span class="star" title="Stelle lette ora da GitHub">★ ${num(s.meta.stars)}</span>` : "")).join(" · ");
   const buttons = Object.entries(KINDS).map(([k, v]) => {
     const has = done.includes(k);
-    return `<button data-item="${it.id}" data-kind="${k}" class="${has ? "done" : ""}">${v.icon} ${has ? v.open : v.gen}</button>`;
+    return `<button data-item="${it.id}" data-kind="${k}" class="${has ? "done" : ""}">${has ? v.open : v.gen}</button>`;
   }).join("");
   return `<article class="item" id="n-${it.id}">
-    ${labels.map((l) => `<div class="ribbon">★ ${esc(l)}</div>`).join("")}
+    ${labels.map((l) => `<div class="ribbon">${esc(l)}</div>`).join("")}
     <h3><a href="${esc(it.primary_url)}" target="_blank" rel="noopener">${esc(it.title)}</a></h3>
     <div class="badge-row"><span class="badge b-${it.badge}">${BADGES[it.badge] || it.badge}</span><span class="note">${esc(it.badge_note)}</span></div>
     <p class="summary">${esc(it.summary)}</p>${points}
-    <div class="why"><b>Perché ti serve.</b> ${esc(it.why)}</div>
-    ${it.short_hook ? `<div class="why hook"><b>🎬 Idea Short.</b> «${esc(it.short_hook)}»</div>` : ""}
+    <div class="why"><b>Perché ti serve</b> ${esc(it.why)}</div>
+    ${it.short_hook ? `<div class="why hook"><b>Idea Short</b> «${esc(it.short_hook)}»</div>` : ""}
     <div class="sources">Fonti: ${sources}</div>
     <div class="actions">${buttons}${renderVote(it.id)}</div></article>`;
 }
@@ -206,12 +217,12 @@ function renderFoot(r, empty) {
     if (c.repos_verified) bits.push(`${c.repos_verified} repo verificate su GitHub (stelle ★, date, licenza)`);
     const badges = Object.entries(c.badges || {}).map(([b, n]) => `${n} ${BADGE_PLURAL[b] || b}`).join(", ");
     if (badges) bits.push(`fact check: ${badges}`);
-    lines.push(`<b>Controlli di questo report.</b> ${esc(bits.join(" · "))}.`);
+    lines.push(`<b>Controlli</b> ${esc(bits.join(" · "))}.`);
   }
   if (empty.length) lines.push(`Nessuna novità rilevante in: ${esc(empty.join(", "))}.`);
   if (s.source_errors?.length) lines.push(`Fonti non raggiungibili: ${esc(s.source_errors.map((e) => e.source).join(", "))}.`);
   if (s.dropped_broken_links?.length) lines.push(`Notizie scartate per link non funzionante: ${s.dropped_broken_links.length}.`);
-  lines.push(`<b>Badge.</b> ✅ fonte ufficiale · 🔁 confermata da più fonti indipendenti · ⚠️ una sola fonte non ufficiale · 📦 descrizione del progetto, non ancora provato · ❌ smentita da una fonte ufficiale.`);
+  lines.push(`<b>Badge</b> Ufficiale = fonte dell'azienda · Confermata = più fonti indipendenti · Da verificare = una sola fonte non ufficiale · Dal progetto = descrizione del progetto, non ancora provato · Smentita = smentita da una fonte ufficiale.`);
   lines.push(`<small>Vuoi cambiare qualcosa? Usa ✨ Modifica il report in basso a destra.</small>`);
   lines.push(`Generato con Claude (${esc(s.model || "")}) alle ${new Date(r.generated_at).toLocaleTimeString("it-IT", { hour: "2-digit", minute: "2-digit" })}.`);
   return `<footer class="report-foot">${lines.map((l) => `<div>${l}</div>`).join("")}</footer>`;
@@ -312,7 +323,7 @@ async function onAction(btn, force = false) {
     // la stessa notizia può avere il pulsante in due punti (scheda e "Da pubblicare oggi")
     document.querySelectorAll(`.actions button[data-item="${item}"][data-kind="${kind}"]`).forEach((b) => {
       b.classList.add("done");
-      b.textContent = `${KINDS[kind].icon} ${KINDS[kind].open}`;
+      b.textContent = KINDS[kind].open;
     });
     const outs = (state.report.outputs[item] ||= []);
     if (!outs.includes(kind)) outs.push(kind);
