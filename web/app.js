@@ -212,6 +212,7 @@ function renderFoot(r, empty) {
   if (s.source_errors?.length) lines.push(`Fonti non raggiungibili: ${esc(s.source_errors.map((e) => e.source).join(", "))}.`);
   if (s.dropped_broken_links?.length) lines.push(`Notizie scartate per link non funzionante: ${s.dropped_broken_links.length}.`);
   lines.push(`<b>Badge.</b> ✅ fonte ufficiale · 🔁 confermata da più fonti indipendenti · ⚠️ una sola fonte non ufficiale · 📦 descrizione del progetto, non ancora provato · ❌ smentita da una fonte ufficiale.`);
+  lines.push(`<small>Vuoi cambiare qualcosa? Usa ✨ Modifica il report in basso a destra.</small>`);
   lines.push(`Generato con Claude (${esc(s.model || "")}) alle ${new Date(r.generated_at).toLocaleTimeString("it-IT", { hour: "2-digit", minute: "2-digit" })}.`);
   return `<footer class="report-foot">${lines.map((l) => `<div>${l}</div>`).join("")}</footer>`;
 }
@@ -520,7 +521,7 @@ function renderEditor(messages, pendingText = null) {
         ${m.files?.length ? `<div class="editor-files">📝 ${m.files.map((f) => esc(f)).join(" · ")}${m.git ? ` · ${esc(m.git)}` : ""}${m.undone ? " · ↩️ annullata" : ""}</div>` : ""}</div>`).join("")
     + (pendingText ? `<div class="msg user">${esc(pendingText)}</div>` : "");
   log.scrollTop = log.scrollHeight;
-  $("#editor-suggest").innerHTML = messages.length ? "" : EDITOR_SUGGESTIONS.map((s) => `<button class="chip" data-editor-suggest="${esc(s)}">${esc(s)}</button>`).join("");
+  $("#editor-suggest").innerHTML = messages.length || pendingText ? "" : EDITOR_SUGGESTIONS.map((s) => `<button class="chip" data-editor-suggest="${esc(s)}">${esc(s)}</button>`).join("");
   $("#editor-undo").hidden = !messages.some((m) => m.commit && !m.undone);
 }
 

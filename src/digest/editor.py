@@ -14,6 +14,7 @@ Limiti voluti: niente .env o token, niente commit/push fatti da Claude, niente p
 email o report lanciati da qui.
 """
 
+import hashlib
 import json
 import os
 import py_compile
@@ -101,21 +102,42 @@ def _git(*args: str, timeout: int = 60) -> tuple[bool, str]:
 
 
 def _status() -> dict[str, str]:
-    """path → codice di stato git (solo file tracciabili; data/tmp è ignorata)."""
-    _, out = _git("status", "--porcelain", "--untracked-files=all")
-    files = {}
-    for line in out.splitlines():
-        if len(line) > 3:
-            path = line[3:].strip().strip('"')
-            if " -> " in path:
-                path = path.split(" -> ", 1)[1]
-            files[path] = line[:2]
+    """path → codice di stato git (solo file tracciabili; data/tmp è ignorata).
+    Formato -z: niente virgolette né spazi tagliati (con .strip() si perdeva la prima lettera)."""
+    r = subprocess.run(["git", "status", "--porcelain=v1", "-z", "--untracked-files=all"], cwd=ROOT,
+                       capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=60)
+    files, parts, i = {}, r.stdout.split("\0"), 0
+    while i < len(parts):
+        entry = parts[i]
+        i += 1
+        if len(entry) < 4:
+            continue
+        code, path = entry[:2], entry[3:]
+        if code[0] in "RC":   # rinomina/copia: il percorso di origine è nel campo successivo
+            i += 1
+        files[path] = code
     return files
 
 
-def _changed_since(before: dict[str, str]) -> list[str]:
+def _fingerprint(paths) -> dict[str, str]:
+    """Contenuto dei file già modificati prima della richiesta: per capire se Claude li ha toccati."""
+    out = {}
+    for p in paths:
+        try:
+            out[p] = hashlib.sha1((ROOT / p).read_bytes()).hexdigest()
+        except OSError:
+            out[p] = ""
+    return out
+
+
+def _changed_since(before: dict[str, str], prints: dict[str, str] | None = None) -> list[str]:
     after = _status()
-    return sorted(p for p, code in after.items() if before.get(p) != code)
+    changed = {p for p, code in after.items() if before.get(p) != code}
+    # file già modificati prima: contano solo se Claude ne ha cambiato il contenuto
+    for p, fp in (prints or {}).items():
+        if p in after and _fingerprint([p])[p] != fp:
+            changed.add(p)
+    return sorted(changed)
 
 
 def _revert_files(paths: list[str], before: dict[str, str]) -> None:
@@ -258,19 +280,20 @@ def run(request: str, job: dict) -> None:
         steps.append("Scarico l'ultima versione da GitHub")
         gitsync.pull()
         before = _status()
+        prints = _fingerprint(before)
         _add(state, "user", request)
         save_state(state)
         model = _model()
 
         answer, state["session_id"] = _run_claude(request, state.get("session_id"), model, steps)
-        changed = _changed_since(before)
+        changed = _changed_since(before, prints)
         errors = check_files(changed) if changed else []
         if errors:
             steps.append("Un controllo non è passato: chiedo a Claude di correggere")
             fix = ("I controlli automatici dell'app hanno trovato questi errori nei file che hai cambiato. "
                    "Correggili senza cambiare altro, poi rispondi in 1-2 righe:\n" + "\n".join(errors))
             answer2, state["session_id"] = _run_claude(fix, state["session_id"], model, steps)
-            changed = _changed_since(before)
+            changed = _changed_since(before, prints)
             errors = check_files(changed) if changed else []
             if not errors:
                 answer = f"{answer}\n\n{answer2}"
