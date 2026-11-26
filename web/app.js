@@ -342,6 +342,9 @@ async function openOutput(kind, item, gitNote) {
   $("#lesson-chat").hidden = !isLesson;
   $("#drawer-chat").hidden = !isLesson;
   if (isLesson) await loadChat(item);
+  $("#copy-chat").hidden = !isPost;
+  $("#drawer-copychat").hidden = !isPost;
+  if (isPost) await loadCopyChat(item);
   setDrawer(true);
   document.querySelector(".drawer-scroll").scrollTop = 0;
 }
@@ -408,6 +411,220 @@ $("#chat-clear").onclick = async () => {
   state.chat = (await api(`/api/chat/${state.drawer.item}`, { method: "DELETE" })).messages;
   renderChat(state.chat);
   $("#chat-status").textContent = "";
+};
+
+// ---------- chat "Potenzia il copy" nel pannello del post ----------
+const COPY_SUGGESTIONS = ["Rendi l'hook più accattivante", "Usa più leve di neuromarketing",
+  "Accorcia: più scorrevole", "CTA più forte", "Dammi 3 hook alternativi", "Tono più diretto da imprenditore"];
+
+function renderCopyChat(messages, pending = null) {
+  const log = $("#copy-log");
+  log.innerHTML = messages.map((m, i) => {
+    if (m.role === "user") return `<div class="msg user">${esc(m.text)}</div>`;
+    const changes = (m.changes || []).length ? `<ul class="copy-changes">${m.changes.map((c) => `<li>${esc(c)}</li>`).join("")}</ul>` : "";
+    const version = m.post ? `<div class="copy-version ${m.applied ? "applied" : ""}">
+        <div class="copy-version-head"><span class="eyebrow">Nuova versione · ${m.chars} caratteri${m.too_long ? " — troppo lunga per LinkedIn" : ""}</span>
+          ${m.applied ? `<span class="badge b-ufficiale">✓ In uso</span>` : ""}</div>
+        <div class="copy-version-text">${esc(m.post)}</div>
+        <div class="copy-version-actions">
+          ${m.applied ? "" : `<button class="primary" data-copy-apply="${i}">✅ Usa questa versione</button>`}
+          <button data-copy-clip="${i}">Copia</button>
+        </div></div>` : "";
+    return `<div class="msg assistant">${DOMPurify.sanitize(marked.parse(m.text))}${changes}</div>${version}`;
+  }).join("") + (pending ? `<div class="msg user">${esc(pending)}</div><div class="msg assistant thinking">Sto riscrivendo… (20-60 secondi)</div>` : "");
+  log.scrollTop = log.scrollHeight;
+  $("#copy-suggest").innerHTML = COPY_SUGGESTIONS.map((s) => `<button class="chip" data-copy-suggest="${esc(s)}">${esc(s)}</button>`).join("");
+  $("#copy-clear").hidden = !messages.length;
+}
+
+async function loadCopyChat(item) {
+  const { messages } = await api(`/api/copy/${item}`);
+  state.copy = messages;
+  renderCopyChat(messages);
+  $("#copy-panel").hidden = !messages.length;
+  $("#copy-status").textContent = "";
+}
+
+function openCopyChat() {
+  $("#copy-panel").hidden = false;
+  $("#copy-chat").scrollIntoView({ behavior: "smooth", block: "start" });
+  setTimeout(() => $("#copy-text").focus(), 300);
+}
+
+async function sendCopy(text) {
+  const q = (text ?? $("#copy-text").value).trim();
+  if (!q || $("#copy-send").disabled) return;
+  $("#copy-text").value = "";
+  $("#copy-send").disabled = true;
+  renderCopyChat(state.copy, q);
+  try {
+    const res = await api(`/api/copy/${state.drawer.item}`, { method: "POST",
+      headers: { "Content-Type": "application/json" }, body: JSON.stringify({ message: q }) });
+    state.copy = res.messages;
+    renderCopyChat(state.copy);
+    $("#copy-status").textContent = `Risposta in ${Math.round(res.secs || 0)} s`;
+  } catch (e) {
+    renderCopyChat(state.copy);
+    $("#copy-text").value = q;
+    $("#copy-status").textContent = `Non riuscito: ${e.message}`;
+  } finally {
+    $("#copy-send").disabled = false;
+  }
+}
+
+$("#copy-toggle").onclick = () => { $("#copy-panel").hidden ? openCopyChat() : ($("#copy-panel").hidden = true); };
+$("#drawer-copychat").onclick = openCopyChat;
+$("#copy-send").onclick = () => sendCopy();
+$("#copy-text").addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendCopy(); }
+});
+$("#copy-chat").addEventListener("click", async (e) => {
+  const sug = e.target.closest("[data-copy-suggest]");
+  if (sug) return sendCopy(sug.dataset.copySuggest);
+  const clip = e.target.closest("[data-copy-clip]");
+  if (clip) { await navigator.clipboard.writeText(state.copy[+clip.dataset.copyClip].post); return toast("Versione copiata"); }
+  const ap = e.target.closest("[data-copy-apply]");
+  if (!ap) return;
+  if (!confirm("Mettere questa versione al posto del testo del post?\nÈ quella che verrà pubblicata (il carosello resta com'è).")) return;
+  ap.disabled = true;
+  try {
+    const res = await api(`/api/copy/${state.drawer.item}/apply`, { method: "POST",
+      headers: { "Content-Type": "application/json" }, body: JSON.stringify({ index: +ap.dataset.copyApply }) });
+    state.copy = res.messages;
+    const out = await api(`/api/outputs/post/${state.drawer.item}`);
+    state.drawer.markdown = out.markdown;
+    $("#drawer-body").innerHTML = DOMPurify.sanitize(marked.parse(out.markdown));
+    renderCopyChat(state.copy);
+    toast("✅ Post aggiornato: è questa la versione che pubblicherai");
+  } catch (err) { ap.disabled = false; $("#copy-status").textContent = `Non applicato: ${err.message}`; }
+});
+$("#copy-clear").onclick = async () => {
+  if (!confirm("Svuotare la chat del copy di questo post? Il testo del post non cambia.")) return;
+  state.copy = (await api(`/api/copy/${state.drawer.item}`, { method: "DELETE" })).messages;
+  renderCopyChat(state.copy);
+};
+
+// ---------- chat "Modifica il report": Claude Code cambia l'app e la salva su GitHub ----------
+const EDITOR_SUGGESTIONS = ["Aggiungi un pulsante per copiare il link della notizia",
+  "Rendi più grandi i titoli delle notizie", "Nella barra in alto aggiungi un contatore dei post da pubblicare"];
+
+function renderEditor(messages, pendingText = null) {
+  const log = $("#editor-log");
+  const intro = messages.length || pendingText ? "" : `<div class="editor-empty">
+      <b>Parla con Claude come in una sessione.</b> Chiedi di aggiungere una sezione, cambiare un pulsante,
+      un colore, un testo o un'opzione del report. Lui modifica il progetto, controlla che l'app funzioni ancora,
+      salva tutto su GitHub e ricarica la pagina. Se il risultato non ti piace: «Annulla l'ultima modifica».</div>`;
+  log.innerHTML = intro + messages.map((m) => m.role === "user"
+    ? `<div class="msg user">${esc(m.text)}</div>`
+    : `<div class="msg assistant ${m.error ? "err-msg" : ""}">${DOMPurify.sanitize(marked.parse(m.text))}
+        ${m.files?.length ? `<div class="editor-files">📝 ${m.files.map((f) => esc(f)).join(" · ")}${m.git ? ` · ${esc(m.git)}` : ""}${m.undone ? " · ↩️ annullata" : ""}</div>` : ""}</div>`).join("")
+    + (pendingText ? `<div class="msg user">${esc(pendingText)}</div>` : "");
+  log.scrollTop = log.scrollHeight;
+  $("#editor-suggest").innerHTML = messages.length ? "" : EDITOR_SUGGESTIONS.map((s) => `<button class="chip" data-editor-suggest="${esc(s)}">${esc(s)}</button>`).join("");
+  $("#editor-undo").hidden = !messages.some((m) => m.commit && !m.undone);
+}
+
+function editorBusy(on) {
+  $("#editor-send").disabled = on;
+  $("#editor-text").disabled = on;
+  $("#editor-send").textContent = on ? "⏳ Lavoro…" : "Invia";
+}
+
+function renderProgress(steps, startedAt) {
+  const p = $("#editor-progress");
+  const secs = Math.round((Date.now() - startedAt) / 1000);
+  p.hidden = false;
+  p.innerHTML = `<div class="eyebrow">Claude sta lavorando · ${secs} s</div>` +
+    (steps.length ? `<ol>${steps.slice(-6).map((s, i, a) => `<li class="${i === a.length - 1 ? "now" : ""}">${esc(s)}</li>`).join("")}</ol>` : `<div class="small muted">Sto leggendo il progetto…</div>`);
+}
+
+async function waitForApp() {
+  // l'app si sta riavviando con il codice nuovo: aspetta che risponda, poi ricarica
+  for (let i = 0; i < 40; i++) {
+    await new Promise((r) => setTimeout(r, 3000));
+    try { await fetch("/api/sync", { cache: "no-store" }); location.reload(); return; } catch { /* ancora spenta */ }
+  }
+  toast("L'app non è ripartita: usa avvia-app.bat");
+}
+
+async function followEdit(jobId, pendingText) {
+  editorBusy(true);
+  const started = Date.now();
+  let res;
+  try {
+    while (true) {
+      res = await api(`/api/jobs/${jobId}`);
+      if (res.status !== "in corso") break;
+      renderProgress(res.steps || [], started);
+      await new Promise((r) => setTimeout(r, 2000));
+    }
+  } catch (e) {
+    $("#editor-progress").hidden = true; editorBusy(false);
+    return toast(`Collegamento perso: ${e.message}`);
+  }
+  $("#editor-progress").hidden = true;
+  state.editor = res.messages || state.editor;
+  renderEditor(state.editor);
+  editorBusy(false);
+  if (res.status === "errore") return toast("Modifica non completata");
+  if (res.restart) {
+    $("#editor-progress").hidden = false;
+    $("#editor-progress").innerHTML = `<div class="eyebrow">Riavvio l'app con il codice nuovo…</div><div class="small muted">20-40 secondi, poi la pagina si ricarica da sola.</div>`;
+    setTimeout(waitForApp, 8000);
+  } else if (res.restart_manual) {
+    toast("Modifica salvata: riavvia l'app per vederla (avvia-app.bat)");
+  } else if (res.changed?.length) {
+    toast("✅ Modifica fatta: ricarico la pagina");
+    setTimeout(() => location.reload(), 1800);
+  }
+}
+
+async function sendEdit(text) {
+  const q = (text ?? $("#editor-text").value).trim();
+  if (!q || $("#editor-send").disabled) return;
+  $("#editor-text").value = "";
+  renderEditor(state.editor, q);
+  try {
+    const { job_id } = await api("/api/modifica", { method: "POST",
+      headers: { "Content-Type": "application/json" }, body: JSON.stringify({ message: q }) });
+    await followEdit(job_id, q);
+  } catch (e) {
+    $("#editor-text").value = q;
+    renderEditor(state.editor);
+    toast(`Non inviato: ${e.message}`);
+  }
+}
+
+async function openEditor() {
+  $("#editor").hidden = false;
+  $("#editor-fab").hidden = true;
+  const s = await api("/api/modifica");
+  state.editor = s.messages;
+  renderEditor(state.editor);
+  if (s.job_id) followEdit(s.job_id);   // una modifica partita prima di ricaricare la pagina
+  setTimeout(() => $("#editor-text").focus(), 200);
+}
+
+$("#editor-fab").onclick = openEditor;
+$("#editor-close").onclick = () => { $("#editor").hidden = true; $("#editor-fab").hidden = false; };
+$("#editor-send").onclick = () => sendEdit();
+$("#editor-text").addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendEdit(); }
+});
+$("#editor-suggest").addEventListener("click", (e) => { const s = e.target.closest("[data-editor-suggest]"); if (s) { $("#editor-text").value = s.dataset.editorSuggest; $("#editor-text").focus(); } });
+$("#editor-undo").onclick = async () => {
+  if (!confirm("Annullare l'ultima modifica fatta da questa chat?\nIl progetto torna com'era prima (anche su GitHub).")) return;
+  try {
+    const res = await api("/api/modifica/annulla", { method: "POST" });
+    state.editor = res.messages; renderEditor(state.editor);
+    if (res.restart) { toast("Annullata: riavvio l'app…"); setTimeout(waitForApp, 4000); }
+    else { toast("↩️ Annullata: ricarico la pagina"); setTimeout(() => location.reload(), 1500); }
+  } catch (e) { toast(`Non annullata: ${e.message}`); }
+};
+$("#editor-reset").onclick = async () => {
+  if (!confirm("Iniziare una nuova conversazione? Le modifiche già fatte restano.")) return;
+  state.editor = (await api("/api/modifica", { method: "DELETE" })).messages;
+  renderEditor(state.editor);
 };
 
 // ---------- carosello ----------

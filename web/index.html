@@ -46,6 +46,7 @@
     <button id="drawer-edit" hidden>✏️ Modifica testo</button>
     <button id="drawer-optimize" hidden title="Rilegge la bozza con i dati dei tuoi post e dei competitor">📊 Ottimizza con i dati</button>
     <button id="drawer-chat" hidden>💬 Chiedi alla lezione</button>
+    <button id="drawer-copychat" hidden title="Chiedi a Claude di riscrivere hook, tono, CTA…">✍️ Potenzia il copy</button>
     <button id="drawer-publish" hidden>🚀 Pubblica / Programma</button>
     <span id="drawer-info" class="muted small"></span>
   </div>
@@ -62,6 +63,18 @@
       </div>
       <div id="car-strip" class="car-strip"></div>
       <div id="car-info" class="muted small"></div>
+    </section>
+    <section id="copy-chat" class="chat copy" hidden>
+      <button id="copy-toggle" class="chat-toggle">✍️ Potenzia il copy con Claude <span class="muted small">— hook, neuromarketing, tono, CTA: chiedi e lui riscrive il post</span></button>
+      <div id="copy-panel" hidden>
+        <div id="copy-log" class="chat-log"></div>
+        <div id="copy-suggest" class="chat-suggest"></div>
+        <div class="chat-input">
+          <textarea id="copy-text" rows="2" placeholder="Es. rendi l'hook più accattivante con un dato concreto… (Invio per inviare)"></textarea>
+          <button id="copy-send" class="danger">Invia</button>
+        </div>
+        <div class="chat-foot"><span id="copy-status" class="small muted"></span><button id="copy-clear" class="link">Svuota chat</button></div>
+      </div>
     </section>
     <article id="drawer-body" class="prose"></article>
     <section id="lesson-chat" class="chat" hidden>
@@ -149,6 +162,27 @@
   </form>
 </dialog>
 
+<button id="editor-fab" class="editor-fab" title="Chiedi a Claude di cambiare il report o l'app">✨ Modifica il report</button>
+<aside id="editor" class="editor" hidden aria-label="Modifica il report con Claude">
+  <header class="editor-head">
+    <div>
+      <div class="eyebrow">Modifica il report con Claude</div>
+      <div class="editor-sub small muted">Scrivi cosa vuoi cambiare: Claude modifica l'app, la controlla e la salva su GitHub.</div>
+    </div>
+    <button id="editor-close" class="icon" aria-label="Chiudi">✕</button>
+  </header>
+  <div id="editor-log" class="editor-log"></div>
+  <div id="editor-progress" class="editor-progress" hidden></div>
+  <div id="editor-suggest" class="chat-suggest editor-suggest"></div>
+  <div class="editor-input">
+    <textarea id="editor-text" rows="3" placeholder="Es. aggiungi un pulsante per copiare il link della notizia… (Invio per inviare, Maiusc+Invio per andare a capo)"></textarea>
+    <button id="editor-send" class="primary">Invia</button>
+  </div>
+  <div class="editor-foot">
+    <button id="editor-undo" class="link" hidden>↩️ Annulla l'ultima modifica</button>
+    <button id="editor-reset" class="link">Nuova conversazione</button>
+  </div>
+</aside>
 <div id="toast" role="status" aria-live="polite"></div>
 <script src="/static/app.js"></script>
 </body>

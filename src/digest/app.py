@@ -18,7 +18,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from digest import REPORTS_DIR, ROOT
-from digest import carousel, chat, coda, feedback, gitsync, images, playbook
+from digest import carousel, chat, coda, copychat, editor, feedback, gitsync, images, playbook
 from digest import generate as gen
 from digest import linkedin_pub as li
 
@@ -384,6 +384,107 @@ def delete_chat(item_id: str):
     if tracked:
         _push_async([path], f"Chat lezione svuotata: {item_id}")
     return {"messages": []}
+
+
+# ---------- chat "Potenzia il copy" nel pannello del post ----------
+
+@app.get("/api/copy/{item_id}")
+def get_copy_chat(item_id: str):
+    if not ITEM_RE.match(item_id):
+        raise HTTPException(400, "richiesta non valida")
+    return {"messages": copychat.load(item_id)}
+
+
+@app.post("/api/copy/{item_id}")
+def post_copy_chat(item_id: str, body: ChatQuestion):
+    """Una richiesta sul copy: Claude risponde e, se serve, propone il post riscritto (20-60 s)."""
+    if not ITEM_RE.match(item_id):
+        raise HTTPException(400, "richiesta non valida")
+    try:
+        result = copychat.ask(item_id, body.message)
+    except (FileNotFoundError, ValueError) as e:
+        raise HTTPException(400, str(e))
+    _push_async([str(copychat.chat_path(item_id).relative_to(ROOT))], f"Chat copy: {item_id}")
+    return result
+
+
+class ApplyCopy(BaseModel):
+    index: int
+
+
+@app.post("/api/copy/{item_id}/apply")
+def apply_copy(item_id: str, body: ApplyCopy):
+    """Mette la versione scelta al posto del testo del post (quello che verrà pubblicato)."""
+    if not ITEM_RE.match(item_id):
+        raise HTTPException(400, "richiesta non valida")
+    try:
+        messages, post = copychat.apply(item_id, body.index)
+    except (FileNotFoundError, ValueError) as e:
+        raise HTTPException(400, str(e))
+    _push_async([str(post.relative_to(ROOT)), str(copychat.chat_path(item_id).relative_to(ROOT))],
+                f"Post: applicata la versione dalla chat del copy {item_id}")
+    return {"messages": messages}
+
+
+@app.delete("/api/copy/{item_id}")
+def delete_copy_chat(item_id: str):
+    if not ITEM_RE.match(item_id):
+        raise HTTPException(400, "richiesta non valida")
+    path = copychat.chat_path(item_id)
+    tracked = path.exists()
+    copychat.clear(item_id)
+    if tracked:
+        _push_async([str(path.relative_to(ROOT))], f"Chat copy svuotata: {item_id}")
+    return {"messages": []}
+
+
+# ---------- chat "Modifica il report": Claude Code modifica il progetto ----------
+
+class EditRequest(BaseModel):
+    message: str
+
+
+@app.get("/api/modifica")
+def get_editor():
+    state = editor.load_state()
+    running = next((jid for jid, j in jobs.items() if j.get("kind") == "modifica" and j["status"] == "in corso"), None)
+    return {"messages": state["messages"], "job_id": running, "guardian": editor.guardian_running()}
+
+
+@app.post("/api/modifica")
+def start_edit(body: EditRequest):
+    if not body.message.strip():
+        raise HTTPException(400, "scrivi cosa vuoi cambiare")
+    if any(j.get("kind") == "modifica" and j["status"] == "in corso" for j in jobs.values()):
+        raise HTTPException(409, "c'è già una modifica in corso: aspetta che finisca")
+    job_id = uuid.uuid4().hex[:10]
+    jobs[job_id] = {"status": "in corso", "kind": "modifica", "steps": [],
+                    "started": datetime.now(UTC).isoformat(timespec="seconds")}
+    # thread a parte: una modifica può durare minuti e non deve occupare i generatori
+    threading.Thread(target=_run_edit, args=(job_id, body.message), daemon=True).start()
+    return {"job_id": job_id, "status": "in corso"}
+
+
+def _run_edit(job_id: str, message: str):
+    editor.run(message, jobs[job_id])
+    if jobs[job_id].get("restart"):
+        editor.restart_app_soon(8)   # il tempo perché la pagina legga l'esito, poi riavvio
+
+
+@app.post("/api/modifica/annulla")
+def undo_edit():
+    try:
+        result = editor.undo_last()
+    except (ValueError, RuntimeError) as e:
+        raise HTTPException(400, str(e))
+    if result.get("restart"):
+        editor.restart_app_soon(4)
+    return result
+
+
+@app.delete("/api/modifica")
+def reset_editor():
+    return editor.reset()
 
 
 # ---------- LinkedIn (Fase 8) ----------

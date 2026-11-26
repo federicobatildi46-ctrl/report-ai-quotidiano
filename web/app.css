@@ -301,3 +301,42 @@ dialog::backdrop { background: rgba(10,12,16,.45); }
   .vote { margin-left: 0; }
 }
 @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
+
+/* ---------- chat "Potenzia il copy" ---------- */
+.chat.copy { margin: 16px 24px 0; }
+.copy-changes { margin: 8px 0 0; padding-left: 18px; font-size: 13.5px; color: var(--muted); }
+.copy-version { align-self: stretch; border: 1px solid var(--line); border-left: 3px solid var(--blue); border-radius: 12px;
+  background: var(--card); padding: 10px 12px; }
+.copy-version.applied { border-left-color: var(--ok); }
+.copy-version-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 6px; }
+.copy-version-text { white-space: pre-wrap; font-size: 14px; line-height: 1.55; max-height: 300px; overflow-y: auto; }
+.copy-version-actions { display: flex; gap: 8px; margin-top: 10px; }
+
+/* ---------- chat "Modifica il report" ---------- */
+.editor-fab { position: fixed; right: 22px; bottom: 22px; z-index: 8; border-radius: 999px; padding: 11px 18px; font-weight: 700;
+  background: var(--btn); color: var(--btn-ink); border-color: var(--btn); box-shadow: 0 10px 30px rgba(0,0,0,.22); }
+.editor-fab:hover { filter: brightness(1.15); border-color: var(--btn); }
+.editor-fab[hidden] { display: none; }
+.editor { position: fixed; right: 18px; bottom: 18px; z-index: 20; width: min(460px, calc(100vw - 36px)); height: min(640px, calc(100vh - 36px));
+  background: var(--card); border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 24px 70px rgba(0,0,0,.3);
+  display: flex; flex-direction: column; overflow: hidden; animation: slide-in .18s ease-out; }
+.editor[hidden] { display: none; }
+.editor-head { display: flex; justify-content: space-between; gap: 10px; padding: 16px 16px 10px; border-bottom: 1px solid var(--line); }
+.editor-head .eyebrow { color: var(--blue); }
+.editor-sub { margin-top: 4px; line-height: 1.45; }
+.editor-log { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding: 14px 16px; }
+.editor-empty { font-size: 14px; line-height: 1.55; color: var(--muted); background: var(--soft); border-radius: 12px; padding: 12px 14px; }
+.editor-empty b { color: var(--ink); }
+.editor-files { margin-top: 8px; font-size: 12px; color: var(--muted); word-break: break-all; }
+.msg.err-msg { background: var(--warn-bg); color: var(--warn); }
+.editor-progress { margin: 0 16px 8px; padding: 10px 12px; border-radius: 12px; background: var(--blue-soft); font-size: 13.5px; }
+.editor-progress .eyebrow { color: var(--blue); margin-bottom: 6px; }
+.editor-progress ol { margin: 0; padding-left: 20px; line-height: 1.6; color: var(--muted); }
+.editor-progress li.now { color: var(--ink); font-weight: 600; }
+.editor-suggest { padding: 0 16px; }
+.editor-input { display: flex; gap: 8px; align-items: flex-end; padding: 8px 16px; }
+.editor-input textarea { flex: 1; font: inherit; font-size: 14.5px; padding: 9px 11px; border-radius: 10px; border: 1px solid var(--line);
+  background: var(--bg); color: var(--ink); resize: none; }
+.editor-foot { display: flex; justify-content: space-between; padding: 0 16px 12px; }
+@media (max-width: 860px) { .editor-fab { right: 14px; bottom: 14px; } .chat.copy { margin: 14px 16px 0; } }
+
