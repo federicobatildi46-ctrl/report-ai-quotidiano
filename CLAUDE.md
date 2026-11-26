@@ -130,6 +130,17 @@ Progetto: report AI quotidiano locale (vedi PIANO_OPERATIVO.md per obiettivi, ar
   una shell di Claude: i processi figli muoiono con la sessione. `scripts/avvio-automatico.ps1`
   (collegamento in Esecuzione automatica: lo lancia Federico).
 
+## Chat nell'app: "Modifica il report" e "Potenzia il copy"
+- `src/digest/editor.py`: `claude -p` agentico nella cartella del progetto (stream-json, --resume,
+  acceptEdits, ALLOWED/DISALLOWED_TOOLS), `check_files` (py_compile, node --check, YAML/JSON,
+  import di digest.app/build/cli/render), 1 tentativo di correzione poi revert, commit+push,
+  riavvio via `os._exit` se cambia `src/*.py` (solo se il guardiano è acceso). Stato locale in
+  `data/tmp/modifica-report.json`. API: GET/POST/DELETE `/api/modifica`, POST `/api/modifica/annulla`.
+- `git status` va letto con `-z` (con `.strip()` si perdeva la prima lettera del percorso).
+- Non modificare file a mano mentre una modifica dalla chat è in corso: finiscono nel suo commit.
+- `src/digest/copychat.py` + `prompts/copy_chat.md`: chat per post, schema {reply, post, changes};
+  `apply` usa `generate.save_post_text`. API `/api/copy/{item_id}` (+ `/apply`).
+
 ## Aggiungere una fonte
 Nuovo tipo → funzione `async def collect_x(ctx: Ctx) -> list[Item]` in `src/digest/collectors/`,
 registrata in `collectors/__init__.py`. Usa sempre `ctx.is_new(key)` prima di arricchire

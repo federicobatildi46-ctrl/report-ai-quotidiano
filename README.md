@@ -225,6 +225,12 @@ powershell -ExecutionPolicy Bypass -File scripts\avvio-automatico.ps1
   lezione, le fonti e i tuoi obiettivi, ricorda gli ultimi scambi e distingue i fatti dai suoi
   suggerimenti. Risposta in 10-30 secondi; la conversazione è salvata con la lezione
   (`outputs/lezioni/<notizia>.chat.json`, anche su GitHub). "Svuota chat" per ricominciare.
+- **✍️ Potenzia il copy** (post): una chat dentro il post. Chiedi "hook più accattivante",
+  "più neuromarketing", "accorcia", "3 hook alternativi"… Claude risponde spiegando la leva usata
+  (curiosity gap, avversione alla perdita, specificità…) e, quando serve, propone il post completo
+  riscritto nella tua voce, senza inventare fatti. "✅ Usa questa versione" lo mette al posto del testo
+  del post (è quello che verrà pubblicato). Conversazione salvata in
+  `outputs/linkedin/<notizia>.copy-chat.json`.
 - **✏️ Modifica testo** (post): correggi il testo del post e salvi; resta quello per la pubblicazione.
 
 Consiglio: crea un collegamento a `scripts\avvia-app.bat` sul desktop o sulla barra delle
@@ -267,6 +273,23 @@ subito: pensata per gli Shorts di reach, dove il pubblico non è tecnico. Fonti:
   tutti. (Reddit è stato tolto: blocca le richieste dai server del cloud.)
 
 Ogni notizia ha "Cosa fa / Come si prova / Costo" e un **🎬 Idea Short**: la prima frase pronta.
+
+## ✨ Modifica il report (chat con Claude Code dentro l'app)
+
+Il pulsante in basso a destra apre una chat: scrivi cosa vuoi cambiare nell'app o nel report
+("aggiungi una sezione…", "cambia quel pulsante…", "aggiungi l'opzione…") ed è come parlare con
+Claude in una sessione, senza aprire altro. Claude:
+1. scarica l'ultima versione da GitHub e modifica i file del progetto (vedi i passi in diretta);
+2. l'app controlla che non si sia rotto niente (codice Python e JavaScript, configurazioni, avvio
+   dell'app e del report del mattino); se qualcosa non va, Claude prova a correggere una volta,
+   altrimenti la modifica viene annullata e tutto resta com'era;
+3. salva su GitHub e ricarica la pagina (se è cambiato il codice Python l'app si riavvia da sola).
+
+La conversazione continua ("più grande", "no, mettilo sopra"). **↩️ Annulla l'ultima modifica**
+la toglie anche da GitHub. "Nuova conversazione" riparte da zero (le modifiche restano).
+Limiti voluti: non tocca `.env` e token, non pubblica, non invia email, non lancia il report.
+Per le richieste rischiose o ambigue fa prima una domanda. Modello: `topics.yaml` →
+`editor.model` (se manca usa quello dei generatori).
 
 ## Insegnare al filtro cosa ti serve (👍/👎)
 
