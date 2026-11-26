@@ -12,5 +12,22 @@
   "chars": 0,
   "too_long": false,
   "at": "2026-11-26T23:30:57+00:00"
+ },
+ {
+  "role": "user",
+  "text": "Usa il numero 2 come hook, il resto lascialo uguale",
+  "at": "2026-11-26T23:31:30+00:00"
+ },
+ {
+  "role": "assistant",
+  "text": "Ho messo l'hook numero 2 al posto delle prime due righe, il resto è identico. Il numero preciso aiuta a fermare lo scroll e la presa di posizione resta subito dopo, quindi sei sempre nella variante B del test. Il dato delle 4,5 ore torna più sotto, dove si capisce che è la media di un'indagine 2026 su micro e PMI italiane.",
+  "post": "4,5 ore a settimana tra pagamenti e fatture, in media. Per me assumere non è la prima risposta.\nPrima fai preparare il lavoro a un agente AI, e l'ultima parola resta tua.\n\nLa scena la conosci, amico: apri la mail per controllare chi ha pagato, scrivi il sollecito, cerchi gli appunti per la chiamata delle 11… e sono le 11.\n\nIl team di n8n ha pubblicato Nod, un agente personale open source (codice aperto) che gira sul tuo computer.\n\nLa pagina del progetto su GitHub promette tre cose molto terra terra:\n\n→ Soldi: insegue una fattura finché non viene pagata.\n→ Chiamate: prepara un brief di una pagina da messaggi, calendario e ultime notizie sul cliente.\n→ Sprechi: disdice le prove gratuite prima che diventino un addebito.\n\nLavora con Gmail, Calendar, Slack, Notion e sul web.\n\nLa parte che mi interessa di più?\n\nChiede il permesso. Scrive la bozza e la invia solo dopo il tuo sì. ✅\n\nHuman in the loop, sempre.\n\n⚠️ Nota di trasparenza: non l'ho ancora provato. E gli stessi sviluppatori lo presentano come anteprima di ricerca, che può sbagliare.\n\nAltre cose da sapere prima di scaricarlo:\n\n• L'app è gratuita, ma serve ChatGPT Plus o Pro, oppure una chiave API a pagamento.\n• Gira su macOS 14 o successivi. Su Windows 11 è in anteprima.\n• Le attività programmate partono solo a computer acceso.\n• File e memoria restano da te, ma al modello AI arriva ciò che serve per ogni compito.\n\nPerché conta per te? 👇\n\n🛠️ Se hai uno studio o un'agenzia con 10-20 persone, o fai tutto da solo:\n\n→ circa 4,5 ore a settimana in amministrazione di pagamenti e fatture (media di un'indagine 2026 su micro e PMI italiane)\n→ 2-4 ore a settimana a preparare le chiamate, saltando tra mail, agenda e appunti\n→ 180-1.200 € l'anno in abbonamenti dimenticati\n→ Con un sistema su misura che prepara solleciti e brief e segnala le scadenze, stimo 3-5 ore a settimana restituite e buona parte di quei soldi recuperabile.\n\nSono stime indicative: per sapere quanto vale nel tuo caso serve guardare i tuoi numeri con un'analisi professionale.\n\nCosa fare domani mattina?\n\nScegli UNA attività, per esempio il primo sollecito. Scrivi chi la fa, quanto tempo porta via e chi deve dare l'ok prima dell'invio.\n\nSe non riesci a spiegarla in cinque righe a un neoassunto, l'agente farà confusione quanto lui… solo molto più in fretta. 🤣\n\nMorale della favola: l'AI prepara, tu firmi.\n\nVuoi capire da dove partire? Commenta \"FATTURE\" e ti mando gratis in privato una scheda di una pagina per scegliere la prima attività da delegare. 👇\n\n#AgentiAI #Automazione #PMI #LiberiProfessionisti #n8n #IntelligenzaArtificiale",
+  "changes": [
+   "Hook: sostituito con la versione 2, che apre con il numero (4,5 ore a settimana) e poi la presa di posizione",
+   "Resto del post invariato"
+  ],
+  "chars": 2581,
+  "too_long": false,
+  "at": "2026-11-26T23:31:30+00:00"
  }
 ]
