@@ -146,3 +146,10 @@ Su questo PC Avast ispeziona l'HTTPS: Python usa `truststore` (iniettato in
 `src/digest/__init__.py`), `uv` usa `system-certs = true` in pyproject.toml.
 Per l'email: Avast Mail Shield intercetta smtp.gmail.com:465 con un root "Untrusted" → si usa la
 porta 587 + STARTTLS (verifica completa). Non disattivare mai la verifica dei certificati.
+
+## Analista Social (playbook dei dati)
+- `config/playbook_dati.md` lo scrive il progetto accanto `../Analista-social` (routine settimanale): non
+  modificarlo a mano. `src/digest/playbook.py` → `{{PLAYBOOK}}` in prompts/picks.md e prompts/linkedin_post.md.
+- Pulsante "📊 Ottimizza con i dati" (drawer del post): `POST /api/optimize/{item_id}` (job, `claude -p`),
+  risultato in `outputs/linkedin/<id>.ottimizzato.json`; `/apply` sostituisce la sezione "## Post".
+- Se il playbook manca tutto funziona come prima (`NO_PLAYBOOK`). Mai bloccare report o post per colpa sua.
