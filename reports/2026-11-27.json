@@ -1,0 +1,330 @@
+{
+ "title": "Report automatico notizie e aggiornamenti AI",
+ "date": "2026-11-27",
+ "generated_at": "2026-11-27T04:22:21.254141+00:00",
+ "reading_minutes": 3,
+ "in_breve": [
+  "Higgsfield pubblica la guida ufficiale ai prompt di MAGI-2: sei parti in ordine, 2,5 crediti al secondo, clip da 4 a 30 secondi.",
+  "Doodle, assistente AI sul bordo dello schermo di Windows, è 7° su Product Hunt: piano gratuito con 800 crediti al mese.",
+  "Su GitHub due repo da provare: Caldrin Search per SEO e visibilità nelle risposte AI (self-host) e uno script anti data broker con 437 stelle."
+ ],
+ "picks": {
+  "short": {
+   "item_id": "2026-11-27-02",
+   "score": 7,
+   "hook": "Un omino sul bordo dello schermo risponde a tutto, e lo scarichi gratis.",
+   "why": "Effetto wow visivo, gratis con 800 crediti al mese, si prova subito su Windows 11. Fact check da verificare, ma facile da mostrare.",
+   "title": "Doodle: assistente AI sul bordo dello schermo di Windows",
+   "badge": "da_verificare",
+   "section": "virali"
+  }
+ },
+ "sections": [
+  {
+   "id": "claude",
+   "title": "Universo Claude",
+   "items": []
+  },
+  {
+   "id": "higgsfield",
+   "title": "Higgsfield",
+   "items": [
+    {
+     "id": "2026-11-27-01",
+     "subsection": "",
+     "subsection_label": "",
+     "title": "MAGI-2 su Higgsfield: la guida ufficiale ai prompt in sei parti",
+     "summary": "Higgsfield spiega come scrivere prompt per MAGI-2, il modello audio-video di Sand.ai uscito il 24 novembre 2026. Il prompt va scritto come una nota di regia: soggetto, scena, azione, luce, camera, suono. Per le clip oltre 15 secondi serve una shot list con tempi.",
+     "key_points": [
+      "Costo: 2,5 crediti al secondo; clip da 4-6 secondi = 10-15 crediti.",
+      "Sempre 1080p a 25fps, senza modalità bozza; durata da 4 a 30 secondi.",
+      "Riferimenti: fino a 10 immagini, 5 video e 5 audio, richiamati con @.",
+      "Se non descrivi il suono, lo sceglie il modello; scrivi \"no music\" per evitare la musica."
+     ],
+     "why": "Ti dà una formula pronta per fare video con audio e lip-sync per i clienti dell'agenzia, o per un contenuto tutorial sul tuo canale.",
+     "badge": "ufficiale",
+     "badge_note": "Guida pubblicata sul blog ufficiale Higgsfield; la disponibilità esclusiva su Higgsfield è dichiarata dalla stessa fonte.",
+     "importance": 2,
+     "primary_url": "https://higgsfield.ai/blog/magi-2-prompt-guide-10-prompts-and-settings-that-work",
+     "sources": [
+      {
+       "name": "Blog Higgsfield",
+       "title": "MAGI-2 Prompt Guide: 10 Prompts and Settings That Work (2026)",
+       "url": "https://higgsfield.ai/blog/magi-2-prompt-guide-10-prompts-and-settings-that-work",
+       "official": true,
+       "kind": "article",
+       "item_id": "6b66850abdb4",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "elevenlabs",
+   "title": "ElevenLabs",
+   "items": []
+  },
+  {
+   "id": "creators",
+   "title": "Dai creator che seguo",
+   "items": []
+  },
+  {
+   "id": "github",
+   "title": "GitHub: repo e skill per la mia agenzia",
+   "items": [
+    {
+     "id": "2026-11-27-05",
+     "subsection": "siti_seo",
+     "subsection_label": "Siti web e SEO",
+     "title": "Caldrin Search: piattaforma SEO e visibilità AI open source su Cloudflare",
+     "summary": "Caldrin Search è una piattaforma SEO e di monitoraggio della visibilità nelle risposte AI, con server MCP. Si installa sul proprio account Cloudflare con le proprie chiavi dei provider.",
+     "key_points": [
+      "Include ricerca keyword, rank tracking, audit del sito, backlink e Content Studio.",
+      "Monitora le risposte AI con prove delle fonti; esiste anche una versione ospitata.",
+      "Licenza AGPL-3.0; 89 stelle su GitHub.",
+      "Non include wallet, login clienti gestiti né white-label."
+     ],
+     "why": "Può diventare la base per offrire ai clienti report SEO e di visibilità AI, e per imparare a usare un server MCP.",
+     "badge": "dal_repo",
+     "badge_note": "Stelle e licenza verificate su GitHub; le funzioni sono dichiarate dagli autori, non provate.",
+     "importance": 3,
+     "primary_url": "https://github.com/ankurmans/caldrin-search-oss",
+     "sources": [
+      {
+       "name": "GitHub",
+       "title": "ankurmans/caldrin-search-oss",
+       "url": "https://github.com/ankurmans/caldrin-search-oss",
+       "official": false,
+       "kind": "repo",
+       "item_id": "069dbec0c91b",
+       "meta": {
+        "stars": 89,
+        "stars_verified": true,
+        "license": "AGPL-3.0"
+       },
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-27-06",
+     "subsection": "video",
+     "subsection_label": "Video editing e caroselli",
+     "title": "OrenCut: 33 animazioni Remotion modificabili, con Agent Skill",
+     "summary": "OrenCut offre 33 componenti di animazione video senza audio, basati su Remotion, con anteprima nel browser ed esportazione MP4. Include una Agent Skill per usarli da Codex.",
+     "key_points": [
+      "Studio nel browser: scegli il componente per numero, cambia il titolo, esporta MP4.",
+      "Categorie: grafici e contatori, capitoli, liste, miniature e altro.",
+      "Licenza MIT; 42 stelle su GitHub; README in cinese.",
+      "Si può scaricare un singolo componente in ZIP."
+     ],
+     "why": "Ti può servire per creare rapidamente animazioni di titoli e numeri nei video social dei clienti, anche guidate da un agente.",
+     "badge": "dal_repo",
+     "badge_note": "Stelle e licenza verificate su GitHub; le funzioni sono dichiarate dall'autore, non provate.",
+     "importance": 3,
+     "primary_url": "https://github.com/OrenFang/orencut",
+     "sources": [
+      {
+       "name": "GitHub",
+       "title": "OrenFang/orencut",
+       "url": "https://github.com/OrenFang/orencut",
+       "official": false,
+       "kind": "repo",
+       "item_id": "fc95da780973",
+       "meta": {
+        "stars": 42,
+        "stars_verified": true,
+        "license": "MIT"
+       },
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "virali",
+   "title": "Da provare: repo, skill e tool virali (idee per gli Shorts)",
+   "items": [
+    {
+     "id": "2026-11-27-02",
+     "subsection": "app",
+     "subsection_label": "App e tool AI",
+     "title": "Doodle: assistente AI sul bordo dello schermo di Windows",
+     "summary": "Doodle è un omino-assistente AI che vive sul bordo dello schermo di Windows. Con Ctrl+Shift+Space gli fai una domanda e guarda lo schermo solo se glielo chiedi. Può creare plugin su richiesta, dopo il tuo consenso.",
+     "key_points": [
+      "Cosa fa: risponde a domande, vede lo schermo solo su richiesta, crea plugin con consenso.",
+      "Come si prova: dal sito premi \"Download free\" e installa su Windows 11.",
+      "Costo: gratis con 800 crediti AI al mese (circa 36 risposte); Pro £12 al mese.",
+      "Con Doodle Cloud non serve configurare nulla."
+     ],
+     "why": "È un formato facile da mostrare in uno Short per un pubblico non tecnico, e un esempio di assistente desktop da proporre a professionisti.",
+     "badge": "da_verificare",
+     "badge_note": "Fonte unica non ufficiale (ricerca web); il 7° posto su Product Hunt con 107 voti è dato dalla ricerca web, non verificato.",
+     "importance": 2,
+     "short_hook": "Un omino AI vive sul tuo schermo e ti risponde con una scorciatoia.",
+     "primary_url": "https://www.getdoodle.app/",
+     "sources": [
+      {
+       "name": "Ricerca web",
+       "title": "Doodle",
+       "url": "https://www.getdoodle.app/",
+       "official": false,
+       "kind": "tool",
+       "item_id": "1349cecd320f",
+       "meta": {},
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-27-03",
+     "subsection": "app",
+     "subsection_label": "App e tool AI",
+     "title": "Superframes: un AI Director per montare l'intero video da un brief",
+     "summary": "Superframes, apparso su Product Hunt, promette di far montare un intero video a un AI Director partendo da un brief. Le fonti non danno altri dettagli.",
+     "key_points": [],
+     "why": "Se funziona, è un'idea da testare per i video dei clienti, ma serve prima capire cosa fa davvero.",
+     "badge": "da_verificare",
+     "badge_note": "Solo la scheda Product Hunt, fonte non ufficiale; nessun dettaglio su prezzi o funzioni.",
+     "importance": 3,
+     "short_hook": "Dai un brief a un regista AI e ti monta il video.",
+     "primary_url": "https://www.producthunt.com/products/superframes-ai-video-editor",
+     "sources": [
+      {
+       "name": "Product Hunt",
+       "title": "Superframes",
+       "url": "https://www.producthunt.com/products/superframes-ai-video-editor",
+       "official": false,
+       "kind": "article",
+       "item_id": "cad196686954",
+       "meta": {},
+       "link": "non_verificabile"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-27-04",
+     "subsection": "repo",
+     "subsection_label": "Repo GitHub",
+     "title": "Fuck_data_brokers.py: script Python per chiedere ai data broker di cancellare i tuoi dati",
+     "summary": "Un singolo file Python senza dipendenze che genera lettere legali di cancellazione e opt-out per oltre 600 data broker registrati. Le invia dalla tua casella email o le prepara da inviare. Su GitHub ha già 437 stelle.",
+     "key_points": [
+      "Cosa fa: scrive le lettere con la legge del tuo paese, legge le risposte e fa i solleciti.",
+      "Come si prova: scarica il file e lancia Python 3.8+ da terminale, serve un'email.",
+      "Costo: gratis, licenza MIT; esiste anche il servizio a pagamento Agent Garrett.",
+      "Non richiede account né AI."
+     ],
+     "why": "Spunto per un contenuto su privacy e dati personali, o per un servizio di pulizia dei dati offerto a professionisti.",
+     "badge": "da_verificare",
+     "badge_note": "Stelle (437) e licenza MIT verificate su GitHub; le funzioni sono dichiarate dall'autore, non provate.",
+     "importance": 3,
+     "short_hook": "Questo script costringe 600 aziende a cancellare i tuoi dati.",
+     "primary_url": "https://github.com/gary23w/f-ck_data_brokers",
+     "sources": [
+      {
+       "name": "Show HN",
+       "title": "Show HN: Fuck_data_brokers.py",
+       "url": "https://github.com/gary23w/f-ck_data_brokers",
+       "official": false,
+       "kind": "article",
+       "item_id": "8b102ff0523a",
+       "meta": {
+        "points": 225,
+        "comments": "https://news.ycombinator.com/item?id=50658191",
+        "stars": 437,
+        "stars_verified": true,
+        "license": "MIT"
+       },
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "stats": {
+  "collected": 23,
+  "stories": 6,
+  "discarded": 16,
+  "dropped_broken_links": [],
+  "source_errors": [
+   {
+    "source": "yt-giovannibeggiato",
+    "section": "creators",
+    "new": 0,
+    "baseline": false,
+    "error": "HTTPStatusError: Server error '503 Service Unavailable' for url 'https://www.youtube.com/feeds/videos.xml?channel_id=UCQbrJm-05Er6plcuNoVhuOw'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/503",
+    "secs": 0.5
+   },
+   {
+    "source": "yt-coco-satoru",
+    "section": "creators",
+    "new": 0,
+    "baseline": false,
+    "error": "HTTPStatusError: Server error '503 Service Unavailable' for url 'https://www.youtube.com/feeds/videos.xml?channel_id=UCcT3YpOH8BaU_LaFbmipGWg'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/503",
+    "secs": 0.5
+   },
+   {
+    "source": "yt-riccardobellicontarini",
+    "section": "creators",
+    "new": 0,
+    "baseline": false,
+    "error": "HTTPStatusError: Server error '503 Service Unavailable' for url 'https://www.youtube.com/feeds/videos.xml?channel_id=UC1e1Xt2nsUy9lqP_R7ES5yA'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/503",
+    "secs": 0.5
+   },
+   {
+    "source": "yt-nicksaraev",
+    "section": "creators",
+    "new": 0,
+    "baseline": false,
+    "error": "HTTPStatusError: Server error '503 Service Unavailable' for url 'https://www.youtube.com/feeds/videos.xml?channel_id=UCbo-KbSjJDG6JWQ_MTZ_rNA'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/503",
+    "secs": 0.6
+   }
+  ],
+  "window_hours": 27,
+  "model": "sonnet",
+  "checks": {
+   "links_tested": 6,
+   "links_ok": 5,
+   "links_unverifiable": 1,
+   "repos_verified": 3,
+   "badges": {
+    "ufficiale": 1,
+    "dal_repo": 2,
+    "da_verificare": 3
+   },
+   "write_attempts": 1
+  },
+  "claude": {
+   "selezione": {
+    "secs": 4.0,
+    "turns": 2,
+    "input_tokens": 14611,
+    "cache_read_tokens": 0,
+    "output_tokens": 478,
+    "equivalent_api_usd": 0.06322
+   },
+   "scrittura": {
+    "secs": 17.9,
+    "turns": 2,
+    "input_tokens": 16258,
+    "cache_read_tokens": 0,
+    "output_tokens": 2556,
+    "equivalent_api_usd": 0.090588,
+    "attempts": 1
+   },
+   "scelte": {
+    "secs": 14.4,
+    "turns": 4,
+    "input_tokens": 15657,
+    "cache_read_tokens": 28030,
+    "output_tokens": 2207,
+    "equivalent_api_usd": 0.087489
+   }
+  }
+ }
+}
