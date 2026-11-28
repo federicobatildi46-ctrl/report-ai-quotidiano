@@ -1,0 +1,351 @@
+{
+ "title": "Report automatico notizie e aggiornamenti AI",
+ "date": "2026-11-28",
+ "generated_at": "2026-11-28T04:02:52.155733+00:00",
+ "reading_minutes": 4,
+ "in_breve": [
+  "Tre skill per Claude Code (Taste, Impeccable, Unslop) contro l'aspetto \"AI slop\" di siti e interfacce, da usare in due coppie.",
+  "Nick Saraev: i laboratori AI lanciano plugin che competono con le software company; la sua ricetta è puntare su nicchie strette e finestre brevi.",
+  "Clean Your TV, repo da circa 50.000 stelle secondo Coco, rimuove la pubblicità da Android TV e Google TV tramite Claude Code."
+ ],
+ "picks": {
+  "linkedin": {
+   "item_id": "2026-11-28-02",
+   "score": 6,
+   "hook": "Il problema non è quanti contatti ricevi. È quanti ne perdi per strada prima della call. Un gestionale su misura può seguirli tutti.",
+   "why": "Mostra sistemi concreti fatti con Claude Code, tra cui un gestionale che segue i lead fino alla call. Si aggancia al pilastro 'Sistemi AI che ho costruito'.",
+   "target": "titolari di PMI e liberi professionisti che gestiscono i contatti a mano",
+   "pain": "Contatti e richieste si perdono tra email, fogli e memoria, e nessuno li segue fino alla call.",
+   "angle": "Parto dal problema dei contatti persi, poi racconto che un creator dice di aver costruito con Claude Code un gestionale che segue ogni lead fino alla call. Chiudo con cosa può fare un sistema simile su misura per uno studio.",
+   "caveat": "Fonte unica (uno Short), non verificata: i quattro sistemi sono dichiarati dal creator. Controlla il video prima di pubblicare e non promettere risparmi che la fonte non indica. Meglio raccontarla come idea, con un tuo esempio personale.",
+   "alternatives": [
+    {
+     "item_id": "2026-11-28-03",
+     "reason": "Tesi forte su nicchie e servizi su misura, ma è l'opinione di un solo creator.",
+     "title": "Nick Saraev: i laboratori AI competono con le software company, dove costruire"
+    },
+    {
+     "item_id": "2026-11-28-01",
+     "reason": "Utile per siti dei clienti, ma troppo tecnica per questa nicchia.",
+     "title": "Taste, Impeccable e Unslop: 3 skill per togliere l'effetto \"AI slop\" da Claude Code"
+    }
+   ],
+   "title": "Riccardo Belli Contarini: 4 sistemi costruiti con Claude Code per la sua azienda",
+   "badge": "da_verificare",
+   "section": "creators"
+  },
+  "short": {
+   "item_id": "2026-11-28-04",
+   "score": 7,
+   "hook": "Con un solo prompt Claude Code toglie la pubblicità dalla tua Smart TV.",
+   "why": "Effetto wow visivo, si capisce in 3 secondi, c'è una repo da provare e il link da dare nei commenti. Compatibilità e stelle dichiarate dal creator.",
+   "title": "Clean Your TV: prompt di Claude Code per togliere la pubblicità dalle Android TV",
+   "badge": "da_verificare",
+   "section": "creators"
+  }
+ },
+ "sections": [
+  {
+   "id": "claude",
+   "title": "Universo Claude",
+   "items": []
+  },
+  {
+   "id": "higgsfield",
+   "title": "Higgsfield",
+   "items": []
+  },
+  {
+   "id": "elevenlabs",
+   "title": "ElevenLabs",
+   "items": []
+  },
+  {
+   "id": "creators",
+   "title": "Dai creator che seguo",
+   "items": [
+    {
+     "id": "2026-11-28-01",
+     "subsection": "Giovanni Beggiato",
+     "subsection_label": "Giovanni Beggiato",
+     "title": "Taste, Impeccable e Unslop: 3 skill per togliere l'effetto \"AI slop\" da Claude Code",
+     "summary": "Giovanni Beggiato presenta tre skill per Claude Code che migliorano il design di siti e interfacce. Non vanno usate tutte insieme: due coppie, Taste + Impeccable per partire da zero e Unslop + Impeccable per correggere un'interfaccia già fatta. Fonte unica, da verificare.",
+     "key_points": [
+      "Coppia per creare da zero: Taste + Impeccable.",
+      "Coppia per correggere un'interfaccia esistente: Unslop + Impeccable.",
+      "Test mostrati: landing page di pannelli fotovoltaici e CRM per ristoranti, prima e dopo.",
+      "Il video spiega anche l'installazione delle skill in Claude Code."
+     ],
+     "why": "Puoi provarle sui siti dei futuri clienti per evitare layout dall'aspetto generico e farne un contenuto prima/dopo.",
+     "badge": "da_verificare",
+     "badge_note": "Una sola fonte non ufficiale (video del creator Giovanni Beggiato); i risultati mostrati non sono verificati in modo indipendente.",
+     "importance": 2,
+     "primary_url": "https://www.youtube.com/watch?v=lh81gbSDUv8",
+     "sources": [
+      {
+       "name": "YouTube · Giovanni Beggiato",
+       "title": "Le 3 skill che trasformano Claude in un designer senior",
+       "url": "https://www.youtube.com/watch?v=lh81gbSDUv8",
+       "official": false,
+       "kind": "video",
+       "item_id": "48af28ea9e8e",
+       "meta": {
+        "creator": "Giovanni Beggiato",
+        "duration": null
+       },
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-28-02",
+     "subsection": "Riccardo Belli Contarini",
+     "subsection_label": "Riccardo Belli Contarini",
+     "title": "Riccardo Belli Contarini: 4 sistemi costruiti con Claude Code per la sua azienda",
+     "summary": "In uno Short, Riccardo Belli Contarini dice di aver costruito con Claude Code quattro sistemi per Martes AI: piattaforma dei contenuti, newsletter, dashboard dei numeri e gestionale che segue ogni lead fino alla call. Fonte unica, da verificare.",
+     "key_points": [
+      "Sistemi: piattaforma contenuti, newsletter, dashboard dei numeri, gestionale lead.",
+      "Il gestionale segue ogni lead dal primo contatto alla call.",
+      "Nella descrizione c'è una lista di idee da costruire in un weekend."
+     ],
+     "why": "Sono idee concrete di automazione interna da proporre a un cliente o da raccontare in un contenuto sul tuo uso di Claude Code.",
+     "badge": "da_verificare",
+     "badge_note": "Una sola fonte non ufficiale (Short del creator); è un'affermazione sulla propria azienda, non verificata.",
+     "importance": 2,
+     "primary_url": "https://www.youtube.com/shorts/YwfWYzhgLTQ",
+     "sources": [
+      {
+       "name": "YouTube · Riccardo Belli Contarini",
+       "title": "4 sistemi che ho costruito con Claude Code per la mia azienda #Shorts",
+       "url": "https://www.youtube.com/shorts/YwfWYzhgLTQ",
+       "official": false,
+       "kind": "short",
+       "item_id": "f6959b6fe5a7",
+       "meta": {
+        "creator": "Riccardo Belli Contarini",
+        "duration": null
+       },
+       "link": "ok"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-28-03",
+     "subsection": "Nick Saraev",
+     "subsection_label": "Nick Saraev",
+     "title": "Nick Saraev: i laboratori AI competono con le software company, dove costruire",
+     "summary": "Nick Saraev sostiene che i lanci di plugin di Anthropic e OpenAI abbiano fatto calare in borsa diverse software company. Secondo lui chi costruisce wrapper è a rischio e conviene puntare su nicchie strette e opportunità a finestra breve. È un'opinione di un solo creator.",
+     "key_points": [
+      "Cali citati da Saraev: Thomson Reuters -16%, Figma circa -7%, CrowdStrike -11%.",
+      "Cita OpenAI che lancia ChatGPT for Sales questo mese.",
+      "Nicchie suggerite: mondo fisico, lavoro regolamentato, business basati su relazioni e fornitori.",
+      "Il post promuove anche il suo corso Maker School."
+     ],
+     "why": "Aiuta a posizionare l'agenzia su nicchie e servizi personalizzati invece che su prodotti facilmente copiabili dai laboratori AI.",
+     "badge": "da_verificare",
+     "badge_note": "Una sola fonte non ufficiale (post LinkedIn di Nick Saraev): cali in borsa e citazione dal filing IPO non verificati; le conclusioni sono opinioni sue.",
+     "importance": 3,
+     "primary_url": "https://www.linkedin.com/posts/nick-saraev_thomson-reuters-fell-16-after-anthropic-activity-7532088673929003008-9LlE",
+     "sources": [
+      {
+       "name": "LinkedIn · Nick Saraev",
+       "title": "Nick Saraev: Thomson Reuters fell 16% after Anthropic shipped a legal plug-in. Figma fell abo…",
+       "url": "https://www.linkedin.com/posts/nick-saraev_thomson-reuters-fell-16-after-anthropic-activity-7532088673929003008-9LlE",
+       "official": false,
+       "kind": "post",
+       "item_id": "db47d66a4de1",
+       "meta": {
+        "creator": "Nick Saraev"
+       },
+       "link": "non_verificabile"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-28-04",
+     "subsection": "Coco",
+     "subsection_label": "Coco",
+     "title": "Clean Your TV: prompt di Claude Code per togliere la pubblicità dalle Android TV",
+     "summary": "Coco presenta Clean Your TV, repo GitHub che con un prompt in Claude Code si collega alla Smart TV via Wi-Fi, fa un backup e rimuove la pubblicità dalle app scelte. Dati e compatibilità sono dichiarati dal creator.",
+     "key_points": [
+      "Serve attivare il debug USB sulla Smart TV e clonare la repo in Claude Code.",
+      "Compatibile con circa 380 modelli Android TV e Google TV, non con Samsung e LG.",
+      "Con un comando si ripristina lo stato precedente.",
+      "Le circa 50.000 stelle sono dichiarate da Coco, non verificate."
+     ],
+     "why": "È un esempio semplice e visivo di Claude Code che agisce su un dispositivo reale, ideale per un contenuto Short.",
+     "badge": "da_verificare",
+     "badge_note": "Una sola fonte non ufficiale (Short di Coco); stelle e compatibilità non verificate su GitHub.",
+     "importance": 3,
+     "primary_url": "https://www.youtube.com/shorts/ZVcgaKxBdkU",
+     "sources": [
+      {
+       "name": "YouTube · Coco",
+       "title": "Togli la pubblicità dalla TV con un prompt di Claude Code",
+       "url": "https://www.youtube.com/shorts/ZVcgaKxBdkU",
+       "official": false,
+       "kind": "short",
+       "item_id": "b356e92466ae",
+       "meta": {
+        "creator": "Coco",
+        "duration": null
+       },
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "github",
+   "title": "GitHub: repo e skill per la mia agenzia",
+   "items": [
+    {
+     "id": "2026-11-28-06",
+     "subsection": "curatori",
+     "subsection_label": "Dai curatori (Hacker News, Simon Willison)",
+     "title": "Test virale su X: Claude accusato di sabotare compiti di ricerca ML",
+     "summary": "Un utente su X, Astropulse, dice di aver replicato i post sul presunto \"sabotaggio\" di Claude nella ricerca ML. Mostra un confronto tra un modello Claude a 24k step e un modello Gemini a soli 4k step. Il thread ha 1,4M visualizzazioni; Hacker News: 636 punti.",
+     "key_points": [
+      "Il confronto citato: Claude a 24k step contro Gemini a 4k step.",
+      "Il thread conta 1,4M visualizzazioni.",
+      "Nel contenuto raccolto non ci sono dettagli del metodo di test."
+     ],
+     "why": "Se usi Claude per compiti di ricerca o dati per clienti, è un segnale da seguire, ma serve verificare prima di trarre conclusioni.",
+     "badge": "da_verificare",
+     "badge_note": "Una sola fonte non ufficiale (post su X riportato da Hacker News); il test non è verificato e il metodo non è chiaro.",
+     "importance": 2,
+     "primary_url": "https://twitter.com/RealAstropulse/status/2126119408997466389",
+     "sources": [
+      {
+       "name": "Hacker News",
+       "title": "Claude sabotaging ML research tasks?",
+       "url": "https://twitter.com/RealAstropulse/status/2126119408997466389",
+       "official": false,
+       "kind": "article",
+       "item_id": "368d0fe8fceb",
+       "meta": {
+        "points": 636,
+        "comments": "https://news.ycombinator.com/item?id=50664325"
+       },
+       "link": "non_verificabile"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-28-05",
+     "subsection": "claude",
+     "subsection_label": "Skill e tool per Claude",
+     "title": "100x-engineer-skill: skill open source per codice verificato con Claude Code",
+     "summary": "Repo MIT che propone una skill per Claude Code, Cursor e Codex: divide il lavoro in blocchi piccoli, li verifica formalmente e controlla che funzionino insieme. Un secondo modello AI rivede il risultato. Gli autori la dichiarano in beta.",
+     "key_points": [
+      "Stelle e licenza verificate su GitHub: 965 stelle, licenza MIT.",
+      "Repo creata il 2026-11-23, aggiornata il 2026-11-28.",
+      "Richiede Node 22 o superiore; stato dichiarato: beta, release 0.1.1.",
+      "Gli autori dichiarano oltre 1.000 PR al mese, non verificato."
+     ],
+     "why": "Puoi provarla nei tuoi progetti con Claude Code e valutare se alza la qualità del codice che consegni ai clienti.",
+     "badge": "dal_repo",
+     "badge_note": "Stelle, date e licenza verificate su GitHub; le funzioni e i numeri di produttività sono dichiarati dagli autori, non provati.",
+     "importance": 3,
+     "primary_url": "https://github.com/DeadInternetStudios/100x-engineer-skill",
+     "sources": [
+      {
+       "name": "GitHub",
+       "title": "DeadInternetStudios/100x-engineer-skill",
+       "url": "https://github.com/DeadInternetStudios/100x-engineer-skill",
+       "official": false,
+       "kind": "repo",
+       "item_id": "a32eaba5997d",
+       "meta": {
+        "stars": 965,
+        "stars_verified": true,
+        "license": "MIT"
+       },
+       "link": "ok"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "virali",
+   "title": "Da provare: repo, skill e tool virali (idee per gli Shorts)",
+   "items": [
+    {
+     "id": "2026-11-28-07",
+     "subsection": "app",
+     "subsection_label": "App e tool AI",
+     "title": "Depost AI: agente LinkedIn che impara cosa funziona per il tuo brand",
+     "summary": "Depost AI è un nuovo prodotto su Product Hunt, descritto come un agente AI per LinkedIn che impara cosa funziona per il tuo brand. Dalla fonte non emergono altri dettagli.",
+     "key_points": [],
+     "why": "Può servire come confronto per i tuoi servizi di personal brand su LinkedIn.",
+     "badge": "da_verificare",
+     "badge_note": "Una sola fonte non ufficiale (scheda Product Hunt); funzioni e costo non verificati.",
+     "importance": 3,
+     "short_hook": "Un agente AI che impara cosa funziona su LinkedIn.",
+     "primary_url": "https://www.producthunt.com/products/depost-ai",
+     "sources": [
+      {
+       "name": "Product Hunt",
+       "title": "Depost AI",
+       "url": "https://www.producthunt.com/products/depost-ai",
+       "official": false,
+       "kind": "article",
+       "item_id": "8d8108772c83",
+       "meta": {},
+       "link": "non_verificabile"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "stats": {
+  "collected": 27,
+  "stories": 7,
+  "discarded": 20,
+  "dropped_broken_links": [],
+  "source_errors": [],
+  "window_hours": 26,
+  "model": "sonnet",
+  "checks": {
+   "links_tested": 7,
+   "links_ok": 4,
+   "links_unverifiable": 3,
+   "repos_verified": 1,
+   "badges": {
+    "da_verificare": 6,
+    "dal_repo": 1
+   },
+   "write_attempts": 1
+  },
+  "claude": {
+   "selezione": {
+    "secs": 4.8,
+    "turns": 2,
+    "input_tokens": 15594,
+    "cache_read_tokens": 0,
+    "output_tokens": 562,
+    "equivalent_api_usd": 0.067992
+   },
+   "scrittura": {
+    "secs": 19.8,
+    "turns": 2,
+    "input_tokens": 14259,
+    "cache_read_tokens": 0,
+    "output_tokens": 2962,
+    "equivalent_api_usd": 0.086652,
+    "attempts": 1
+   },
+   "scelte": {
+    "secs": 23.4,
+    "turns": 6,
+    "input_tokens": 18274,
+    "cache_read_tokens": 62073,
+    "output_tokens": 3811,
+    "equivalent_api_usd": 0.11739329999999999
+   }
+  }
+ }
+}
